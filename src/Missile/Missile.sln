@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.8
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.Server", "Missile.Server\Missile.Server.csproj", "{870ABC54-E7A8-4349-9DE3-E3F0B07CBF3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.Server.Tests", "Missile.Server.Tests\Missile.Server.Tests.csproj", "{77C5D564-0288-40BA-8CD0-8519D3C6DABA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{870ABC54-E7A8-4349-9DE3-E3F0B07CBF3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{870ABC54-E7A8-4349-9DE3-E3F0B07CBF3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{870ABC54-E7A8-4349-9DE3-E3F0B07CBF3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{870ABC54-E7A8-4349-9DE3-E3F0B07CBF3B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77C5D564-0288-40BA-8CD0-8519D3C6DABA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77C5D564-0288-40BA-8CD0-8519D3C6DABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77C5D564-0288-40BA-8CD0-8519D3C6DABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77C5D564-0288-40BA-8CD0-8519D3C6DABA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9080661D-69DC-4062-B02C-A8F87F033A25}
+	EndGlobalSection
+EndGlobal
