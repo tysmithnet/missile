@@ -23,37 +23,35 @@ namespace Missile.Client
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {
-
+    {   
         private IKeyboardMouseEvents globalEvents;
         private IKeyboardMouseEvents appEvents;
+
         public MainWindow()
         {
             InitializeComponent();
-            CenterWindowOnScreen();
-            IntPtr handle = new WindowInteropHelper(this).Handle;
+            Center();                                              
 
             globalEvents = Hook.GlobalEvents();
             appEvents = Hook.AppEvents();
             globalEvents.KeyDown += (sender, args) =>
             {
-                Console.WriteLine(args.KeyValue);
+                Console.WriteLine("global" + args.KeyValue);
             };
 
             appEvents.KeyDown += (sender, args) =>
             {
-                Console.WriteLine(args.KeyValue);
+                Console.WriteLine("app" + args.KeyValue);
             };
         }
 
-        private void CenterWindowOnScreen()
+        public void Center()
         {
-            double screenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;
-            double screenHeight = System.Windows.SystemParameters.PrimaryScreenHeight;
-            double windowWidth = this.Width;
-            double windowHeight = this.Height;
-            this.Left = (screenWidth / 2) - (windowWidth / 2);
-            this.Top = (screenHeight / 2) - (windowHeight / 2);
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double screenHeight = SystemParameters.PrimaryScreenHeight;
+
+            Left = (screenWidth / 2) - (Width / 2);
+            Top = (screenHeight / 2) - (Height / 2);
         }
     }    
 }
