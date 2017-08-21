@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.Server", "Missile.Server\Missile.Server.csproj", "{870ABC54-E7A8-4349-9DE3-E3F0B07CBF3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Missile.Server", "Missile.Server\Missile.Server.csproj", "{870ABC54-E7A8-4349-9DE3-E3F0B07CBF3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.Server.Tests", "Missile.Server.Tests\Missile.Server.Tests.csproj", "{77C5D564-0288-40BA-8CD0-8519D3C6DABA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Missile.Server.Tests", "Missile.Server.Tests\Missile.Server.Tests.csproj", "{77C5D564-0288-40BA-8CD0-8519D3C6DABA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.GooglePlugin", "Missile.GooglePlugin\Missile.GooglePlugin.csproj", "{8444C005-6588-4313-9782-7B257BEEA110}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Missile.GooglePlugin", "Missile.GooglePlugin\Missile.GooglePlugin.csproj", "{8444C005-6588-4313-9782-7B257BEEA110}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.Core", "Missile.Core\Missile.Core.csproj", "{60F3C822-C8E7-493C-B4DE-1397922996B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Missile.Core", "Missile.Core\Missile.Core.csproj", "{60F3C822-C8E7-493C-B4DE-1397922996B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.GooglePlugin.Tests", "Missile.GooglePlugin.Tests\Missile.GooglePlugin.Tests.csproj", "{C5651DF9-1FDB-446E-86CB-ED58E16FD3C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Missile.GooglePlugin.Tests", "Missile.GooglePlugin.Tests\Missile.GooglePlugin.Tests.csproj", "{C5651DF9-1FDB-446E-86CB-ED58E16FD3C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.Client", "Missile.Client\Missile.Client.csproj", "{84CB4D00-9EC0-40CF-9231-E689433184DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{C5651DF9-1FDB-446E-86CB-ED58E16FD3C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5651DF9-1FDB-446E-86CB-ED58E16FD3C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5651DF9-1FDB-446E-86CB-ED58E16FD3C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84CB4D00-9EC0-40CF-9231-E689433184DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84CB4D00-9EC0-40CF-9231-E689433184DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84CB4D00-9EC0-40CF-9231-E689433184DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84CB4D00-9EC0-40CF-9231-E689433184DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
