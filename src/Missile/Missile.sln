@@ -15,6 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Missile.GooglePlugin.Tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.Client", "Missile.Client\Missile.Client.csproj", "{84CB4D00-9EC0-40CF-9231-E689433184DB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{F4467DEE-C5FE-4928-BCA6-1FC584DBB179}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{D2A9821B-BC3E-4361-898F-3F0EC3E4283F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +52,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{870ABC54-E7A8-4349-9DE3-E3F0B07CBF3B} = {F4467DEE-C5FE-4928-BCA6-1FC584DBB179}
+		{77C5D564-0288-40BA-8CD0-8519D3C6DABA} = {F4467DEE-C5FE-4928-BCA6-1FC584DBB179}
+		{8444C005-6588-4313-9782-7B257BEEA110} = {F4467DEE-C5FE-4928-BCA6-1FC584DBB179}
+		{C5651DF9-1FDB-446E-86CB-ED58E16FD3C2} = {F4467DEE-C5FE-4928-BCA6-1FC584DBB179}
+		{84CB4D00-9EC0-40CF-9231-E689433184DB} = {D2A9821B-BC3E-4361-898F-3F0EC3E4283F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9080661D-69DC-4062-B02C-A8F87F033A25}

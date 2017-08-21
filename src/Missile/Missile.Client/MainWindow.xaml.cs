@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Gma.System.MouseKeyHook;
+using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace Missile.Client
 {
@@ -73,6 +74,11 @@ namespace Missile.Client
 
             Left = (screenWidth / 2) - (Width / 2);
             Top = (screenHeight / 2) - (Height / 2);
+        }
+
+        private void CommandTextBox_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            
         }
     }    
 }
