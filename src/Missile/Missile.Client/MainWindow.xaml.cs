@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media;
@@ -49,12 +50,19 @@ namespace Missile.Client
             appEvents = Hook.AppEvents();
             globalEvents.KeyDown += (sender, args) =>
             {
-                Console.WriteLine("global" + args.KeyValue);
+                if (args.Alt && args.KeyCode == Keys.Space)
+                {
+                    WindowState = WindowState.Normal;
+                    Activate();
+                    Topmost = true;
+                    args.Handled = true;                
+                }                       
             };
 
             appEvents.KeyDown += (sender, args) =>
             {
-                Console.WriteLine("app" + args.KeyValue);
+                if(args.KeyCode == Keys.Escape)
+                    WindowState = WindowState.Minimized;
             };
         }
 
