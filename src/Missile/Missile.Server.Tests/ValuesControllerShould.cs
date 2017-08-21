@@ -10,7 +10,7 @@ namespace Missile.Server.Tests
         public void Return_Value_On_Get()
         {
             ValuesController valuesController = new ValuesController();
-            string value = valuesController.Get(1);
+            object value = valuesController.Get(1);
             Assert.Equal("value", value);
         }
     }

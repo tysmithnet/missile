@@ -18,9 +18,9 @@ namespace Missile.Server.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public object Get(int id)
         {
-            return "value";
+            return new {Name = "hello", Value = "world"};
         }
 
         // POST api/values
