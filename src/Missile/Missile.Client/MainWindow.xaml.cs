@@ -30,8 +30,21 @@ namespace Missile.Client
         public MainWindow()
         {
             InitializeComponent();
-            Center();                                              
+            SetupKeyListeners();
+            Center();
 
+            Result[] results = new[]
+            {
+                new Result() {Title = "one", Description = "The first"},
+                new Result() {Title = "two", Description = "The second"},
+                new Result() {Title = "three", Description = "The third"},
+            };
+
+            Results.ItemsSource = results;
+        }
+
+        private void SetupKeyListeners()
+        {
             globalEvents = Hook.GlobalEvents();
             appEvents = Hook.AppEvents();
             globalEvents.KeyDown += (sender, args) =>
