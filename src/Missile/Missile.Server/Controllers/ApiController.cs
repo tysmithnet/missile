@@ -6,10 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Missile.Server.Controllers
 {
-    [Route("api/[controller]")]
-    public class ValuesController : Controller
+    [Route("api/")]
+    public class ApiController : Controller
     {
-        // GET api/values
+        // GET api/
         [HttpGet]
         public IEnumerable<string> Get()
         {
@@ -17,10 +17,14 @@ namespace Missile.Server.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public object Get(int id)
+        [HttpGet("{provider}/{query}")]
+        public object Get(string provider, string query)
         {
-            return new {Name = "hello", Value = "world"};
+            return new
+            {
+                Provider = provider,
+                Query = query
+            };
         }
 
         // POST api/values
