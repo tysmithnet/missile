@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;   
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Missile.Core;
 
@@ -8,11 +9,11 @@ namespace Missile.Server.Controllers
     [Route("api/")]
     public class ApiController : Controller
     {
-        public IPlugin Plugin { get; set; }
+        public List<IPlugin> Plugins { get; set; }
 
-        public ApiController(IPlugin plugin)
+        public ApiController(IEnumerable<IPlugin> plugins)
         {
-            Plugin = plugin;
+            Plugins = plugins.ToList();
         }
 
         // GET api/
@@ -26,7 +27,7 @@ namespace Missile.Server.Controllers
         [HttpGet("{provider}/{query}")]
         public object Get(string provider, string query)
         {
-            return Plugin.GetType();
+            return Plugins.Select(x => x.GetType());
         }
 
         // POST api/values
