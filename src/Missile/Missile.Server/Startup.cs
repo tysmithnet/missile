@@ -37,43 +37,39 @@ namespace Missile.Server
             {
                 c.SwaggerDoc("v1", new Info { Title = "Missile API", Version = "v1" });
             });
+                                             
+            IContainer built = BuildContainer(services);
+            
+            return new AutofacServiceProvider(built);
+        }
 
-
-            // Create the container builder.
+        private IContainer BuildContainer(IServiceCollection services)
+        {
             var builder = new ContainerBuilder();
 
-            // Register dependencies, populate the services from
-            // the collection, and build the container. If you want
-            // to dispose of the container at the end of the app,
-            // be sure to keep a reference to it as a property or field.
-            //
-            // Note that Populate is basically a foreach to add things
-            // into Autofac that are in the collection. If you register
-            // things in Autofac BEFORE Populate then the stuff in the
-            // ServiceCollection can override those things; if you register
-            // AFTER Populate those registrations can override things
-            // in the ServiceCollection. Mix and match as needed.
             builder.Populate(services);
 
             var pluginFiles = GetPluginFiles();
             pluginFiles.ForEach(x => Assembly.LoadFile(x));
-            
+
             builder
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
                 .Where(t => t.IsAssignableTo<IPlugin>())
-                .As<IPlugin>();     
-
-            var built = builder.Build();            
-
-            // Create the IServiceProvider based on the container.
-            return new AutofacServiceProvider(built);
+                .As<IPlugin>();
+            builder
+                .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+                .Where(t => t.IsAssignableTo<IProvider>())
+                .As<IProvider>();
+            
+            return builder.Build();
         }
 
         private List<string> GetPluginFiles()
         {
             return new List<string>()
             {
-                 @"C:\Users\master\Documents\computing\projects\missile\src\Missile\Missile.GooglePlugin\bin\Debug\netcoreapp2.0\Missile.GooglePlugin.dll"
+                 @"C:\Users\master\Documents\computing\projects\missile\src\Missile\Missile.GooglePlugin\bin\Debug\netcoreapp2.0\Missile.GooglePlugin.dll",
+                 @"C:\Users\master\Documents\computing\projects\missile\src\Missile\Missile.EverythingPlugin\bin\Debug\netcoreapp2.0\Missile.EverythingPlugin.dll"
             };
         }
 
