@@ -36,7 +36,7 @@ namespace Missile.Server.Controllers
 
         // POST api/values
         [HttpPost("{provider}/{command}")]
-        public object Post(string provider, string command, [FromBody]string value)
+        public object Post(string provider, string command, [FromBody]Dictionary<string, string> value)
         {
             return new
             {
@@ -48,7 +48,7 @@ namespace Missile.Server.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(Guid id, [FromBody]string value)
         {
         }
 
