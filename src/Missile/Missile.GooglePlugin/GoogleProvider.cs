@@ -9,6 +9,7 @@ namespace Missile.GooglePlugin
 {
     public class GoogleProvider : IProvider
     {
+        public string ProivderName { get; } = "google";
         public string Title { get; } = "Google";
         public string Description { get; } = "Search google for results";
 
@@ -21,6 +22,8 @@ namespace Missile.GooglePlugin
             string url = $"https://www.googleapis.com/customsearch/v1?key={apiKey}&cx={cseId}&q={query}";
             string google = await httpClient.GetStringAsync(url);
             return google;
-        }                                                                
+        }
+
+        
     }
 }
