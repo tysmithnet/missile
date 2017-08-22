@@ -35,9 +35,15 @@ namespace Missile.Server.Controllers
         }
 
         // POST api/values
-        [HttpPost]
-        public void Post([FromBody]string value)
+        [HttpPost("{provider}/{command}")]
+        public object Post(string provider, string command, [FromBody]string value)
         {
+            return new
+            {
+                Provider = provider,
+                Command = command,
+                Value = value
+            };
         }
 
         // PUT api/values/5
