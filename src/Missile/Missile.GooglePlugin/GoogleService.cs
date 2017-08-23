@@ -14,7 +14,17 @@ namespace Missile.GooglePlugin
         public string Title { get; } = "Google";
         public string Description { get; } = "Search google for results";
 
-        public async Task<object> GetAsync(string query)
+        public Task<object> DeleteAsync(string json)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<object> GetAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<object> GetAsync(string json)
         {
             string apiKey = Environment.GetEnvironmentVariable("GOOGLE_SEARCH_API_KEY");
             string cseId = Environment.GetEnvironmentVariable("GOOGLE_SEARCH_CSE_KEY");
@@ -22,8 +32,23 @@ namespace Missile.GooglePlugin
             HttpClient httpClient = new HttpClient();
             //string url = $"https://www.googleapis.com/customsearch/v1?key={apiKey}&cx={cseId}&q={query}";
             //string google = await httpClient.GetStringAsync(url);
-            string google = File.ReadAllText("sample.json");
+            string google = File.ReadAllText(@"C:\Users\master\Documents\computing\projects\missile\src\Missile\Missile.GooglePlugin\sample.json");
             return google;
-        }  
+        }
+
+        public Task<object> PatchAsync(string json)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<object> PostAsync(string json)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<object> PutAsync(string json)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

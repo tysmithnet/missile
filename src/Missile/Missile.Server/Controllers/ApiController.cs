@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Missile.Core;
 
@@ -15,46 +16,41 @@ namespace Missile.Server.Controllers
         {
             Services = services.ToList();
         }
-
-        // GET api/
+                           
         [HttpGet]
         public IEnumerable<string> Get()
         {
             return Services.Select(x => x.ServiceName);
         }
 
-        // GET api/values/5
-        [HttpGet("{provider}/{query}")]
-        public object Get(string provider, string query)
+        [HttpGet("/help/{service}")]
+        public string Get(string service)
+        {
+            return "help is on the way";
+        }
+                           
+        [HttpGet("{service}/{query}")]
+        public async Task<object> Get(string service, string query)
+        {
+            return await Services.Single(x => x.ServiceName == service).GetAsync(query);
+        }
+                           
+        [HttpPost("{service}")]
+        public object Post(string service, [FromBody]object value)
         {
             return new
             {
-                Provider = provider,
-                Query = query
+                Service = service
             };
         }
-
-        // POST api/values
-        [HttpPost("{provider}/{command}")]
-        public object Post(string provider, string command, [FromBody]Dictionary<string, string> value)
-        {
-            return new
-            {
-                Provider = provider,
-                Command = command,
-                Value = value
-            };
-        }
-
-        // PUT api/values/5
+                           
         [HttpPut("{id}")]
-        public void Put(Guid id, [FromBody]string value)
+        public void Put(Guid id, [FromBody]object value)
         {
         }
-
-        // DELETE api/values/5
+                              
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(object value)
         {
         }
     }
