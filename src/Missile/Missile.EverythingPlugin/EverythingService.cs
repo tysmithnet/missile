@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -102,11 +103,21 @@ namespace Missile.EverythingPlugin
 
         public Task<object> GetAsync(string query)
         {
+            const int bufferSize = 1024;
+            StringBuilder stringBuilder = new StringBuilder(bufferSize);            
             Everything_SetSearchW("silly");
             Everything_SetMax(10);
             Everything_QueryW(true);
-            int numResults = Everything_GetNumResults();
-            return Task.FromResult<object>(numResults);
+            int numResults = Everything_GetNumResults();       
+            List<string> results = new List<string>();
+            for (int i = 0; i < numResults; i++)
+            {
+                //byte[] buffer = new byte[bufferSize];
+                Everything_GetResultFullPathNameW(i, stringBuilder, bufferSize);
+                results.Add(stringBuilder.ToString());
+                stringBuilder.Clear();
+            }
+            return Task.FromResult<object>(results);
         }
 
         public Task<object> PatchAsync(string json)
