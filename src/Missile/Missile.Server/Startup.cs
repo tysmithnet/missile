@@ -58,8 +58,8 @@ namespace Missile.Server
                 .As<IPlugin>();
             builder
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                .Where(t => t.IsAssignableTo<IProvider>())
-                .As<IProvider>();
+                .Where(t => t.IsAssignableTo<IService>())
+                .As<IService>();
             
             return builder.Build();
         }

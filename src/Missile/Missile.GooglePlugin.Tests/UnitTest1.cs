@@ -9,8 +9,8 @@ namespace Missile.GooglePlugin.Tests
         [Fact]
         public async Task Test1()
         {
-            GoogleProvider googleProvider = new GoogleProvider();
-            string s = await googleProvider.SearchAsync("long cat");
+            GoogleService googleProvider = new GoogleService();
+            object s = await googleProvider.GetAsync("long cat");
             Assert.NotNull(s);
         }
     }

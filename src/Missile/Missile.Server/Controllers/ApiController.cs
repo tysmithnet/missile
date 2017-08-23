@@ -9,18 +9,18 @@ namespace Missile.Server.Controllers
     [Route("api/")]
     public class ApiController : Controller
     {
-        public List<IProvider> Providers { get; set; }
+        public List<IService> Services { get; set; }
 
-        public ApiController(IEnumerable<IProvider> providers)
+        public ApiController(IEnumerable<IService> services)
         {
-            Providers = providers.ToList();
+            Services = services.ToList();
         }
 
         // GET api/
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return Providers.Select(x => x.ProivderName);
+            return Services.Select(x => x.ServiceName);
         }
 
         // GET api/values/5
