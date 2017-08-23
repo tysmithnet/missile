@@ -82,6 +82,8 @@ namespace Missile.EverythingPlugin
         private static extern IntPtr LoadLibrary(string name);
 
         public string ServiceName { get; } = "everything";
+        public string Title { get; } = "Everything provider";
+        public string Description { get; } = "Searches for files using the Everything application";
 
         public async Task SetupAsync()
         {
@@ -97,15 +99,12 @@ namespace Missile.EverythingPlugin
         {
             throw new NotImplementedException();
         }
-
-        public string Title { get; } = "Everything provider";
-        public string Description { get; } = "Searches for files using the Everything application";
-
+              
         public Task<object> GetAsync(string query)
         {
             const int bufferSize = 1024;
-            StringBuilder stringBuilder = new StringBuilder(bufferSize);            
-            Everything_SetSearchW("silly");
+            StringBuilder stringBuilder = new StringBuilder(bufferSize);
+            Everything_SetSearchW(query);
             Everything_SetMax(10);
             Everything_QueryW(true);
             int numResults = Everything_GetNumResults();       
