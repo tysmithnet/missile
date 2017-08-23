@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Missile.Core
 {
@@ -6,5 +7,7 @@ namespace Missile.Core
     {
         string Title { get; }
         string Description { get; }
+
+        Task SetupAsync();
     }
 }

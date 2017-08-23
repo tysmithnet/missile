@@ -13,6 +13,10 @@ namespace Missile.GooglePlugin
         public string ServiceName { get; } = "google";
         public string Title { get; } = "Google";
         public string Description { get; } = "Search google for results";
+        public Task SetupAsync()
+        {
+            return Task.FromResult(0);
+        }
 
         public Task<object> DeleteAsync(string json)
         {

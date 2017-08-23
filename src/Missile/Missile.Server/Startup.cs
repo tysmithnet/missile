@@ -25,7 +25,7 @@ namespace Missile.Server
         }
 
         public IConfiguration Configuration { get; }
-
+        public IContainer Container { get; private set; }
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
@@ -58,8 +58,9 @@ namespace Missile.Server
                 .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
                 .Where(t => t.IsAssignableTo<IService>())
                 .As<IService>();
-            
-            return builder.Build();
+
+            Container = builder.Build();
+            return Container;
         }
 
         private List<string> GetPluginFiles()
@@ -87,6 +88,16 @@ namespace Missile.Server
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Missile API V1");
             });
+
+            var tasks = Container.Resolve<IEnumerable<IPlugin>>().Select(x => x.SetupAsync());
+            try
+            {
+                Task.WaitAll(tasks.ToArray());
+            }
+            catch (AggregateException aggregateException)
+            {
+                
+            }   
         }
     }
 }
