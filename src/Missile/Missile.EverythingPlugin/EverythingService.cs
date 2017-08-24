@@ -8,8 +8,7 @@ using Missile.Core;
 namespace Missile.EverythingPlugin
 {
     public class EverythingService : IService
-    {                                            
-
+    {       
         public string ServiceName { get; } = "everything";
         public string Title { get; } = "Everything provider";
         public string Description { get; } = "Searches for files using the Everything application";
@@ -31,7 +30,7 @@ namespace Missile.EverythingPlugin
               
         public Task<object> GetAsync(string query)
         {
-            var results = EverythingFacade.Search(query);
+            var results = EverythingAdapter.Search(query);
             return Task.FromResult<object>(results);
         }
 

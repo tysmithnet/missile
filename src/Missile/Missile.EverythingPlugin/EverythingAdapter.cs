@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Missile.EverythingPlugin
 {
-    internal sealed class EverythingFacade
+    internal sealed class EverythingAdapter
     {
         [DllImport("Everything64.dll", CharSet = CharSet.Unicode)]
         private static extern int Everything_SetSearchW(string lpSearchString);
