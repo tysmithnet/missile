@@ -13,6 +13,9 @@ namespace Missile.GooglePlugin
         public string ServiceName { get; } = "google";
         public string Title { get; } = "Google";
         public string Description { get; } = "Search google for results";
+
+        internal IGoogleAdapter GoogleAdapter { get; set; }
+
         public Task SetupAsync()
         {
             return Task.FromResult(0);
@@ -30,14 +33,7 @@ namespace Missile.GooglePlugin
 
         public async Task<object> GetAsync(string json)
         {
-            string apiKey = Environment.GetEnvironmentVariable("GOOGLE_SEARCH_API_KEY");
-            string cseId = Environment.GetEnvironmentVariable("GOOGLE_SEARCH_CSE_KEY");
-
-            HttpClient httpClient = new HttpClient();
-            //string url = $"https://www.googleapis.com/customsearch/v1?key={apiKey}&cx={cseId}&q={query}";
-            //string google = await httpClient.GetStringAsync(url);
-            string google = File.ReadAllText(@"C:\Users\master\Documents\computing\projects\missile\src\Missile\Missile.GooglePlugin\sample.json");
-            return google;
+            return await GoogleAdapter.SearchAsync(json);
         }
 
         public Task<object> PatchAsync(string json)
