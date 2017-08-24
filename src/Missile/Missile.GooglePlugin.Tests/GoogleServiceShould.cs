@@ -21,8 +21,8 @@ namespace Missile.GooglePlugin.Tests
         }
 
         [Fact]
-        public async Task Return_Json()
-        {
+        public async Task Returns_What_The_Adapter_Provides()
+        {           
             // arrange
             GoogleService googleService = new GoogleService();
             var adapterMock = new Mock<IGoogleAdapter>();
@@ -34,6 +34,7 @@ namespace Missile.GooglePlugin.Tests
 
             // assert
             Assert.Equal(Fixture.GoogleJson, s);
+            adapterMock.Verify(adapter => adapter.SearchAsync(It.IsAny<string>()), Times.Once);
         }
     }
 }
