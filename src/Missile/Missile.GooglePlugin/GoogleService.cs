@@ -15,6 +15,18 @@ namespace Missile.GooglePlugin
         public string Description { get; } = "Search google for results";
 
         internal IGoogleAdapter GoogleAdapter { get; set; }
+        internal IConfigurationService ConfigurationService { get; set; }
+
+        internal GoogleService()
+        {
+            
+        }
+
+        public GoogleService(IGoogleAdapter googleAdapter, IConfigurationService configurationService)
+        {
+            GoogleAdapter = googleAdapter;
+            ConfigurationService = configurationService;
+        }
 
         public Task SetupAsync()
         {

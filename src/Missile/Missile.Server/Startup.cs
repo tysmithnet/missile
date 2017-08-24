@@ -48,16 +48,24 @@ namespace Missile.Server
             builder.Populate(services);
 
             var pluginFiles = GetPluginFiles();
-            pluginFiles.ForEach(x => Assembly.LoadFile(x));
+            var plugins = pluginFiles.Select(Assembly.LoadFile);
+
+            //builder
+            //    .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+            //    .Where(t => t.IsAssignableTo<IPlugin>())
+            //    .As<IPlugin>();
+            //builder
+            //    .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
+            //    .Where(t => t.IsAssignableTo<IService>())
+            //    .As<IService>();
 
             builder
-                .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                .Where(t => t.IsAssignableTo<IPlugin>())
-                .As<IPlugin>();
+                .RegisterAssemblyTypes(typeof(Program).Assembly)    
+                .AsImplementedInterfaces();
+
             builder
-                .RegisterAssemblyTypes(AppDomain.CurrentDomain.GetAssemblies())
-                .Where(t => t.IsAssignableTo<IService>())
-                .As<IService>();
+                .RegisterAssemblyTypes(plugins.ToArray())   
+                .AsImplementedInterfaces();
 
             Container = builder.Build();
             return Container;

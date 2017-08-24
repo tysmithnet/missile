@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Missile.GooglePlugin
 {
     public class GoogleAdapter : IGoogleAdapter
-    {
+    {  
         public async Task<string> SearchAsync(string query)
         {
             string apiKey = Environment.GetEnvironmentVariable("GOOGLE_SEARCH_API_KEY");
