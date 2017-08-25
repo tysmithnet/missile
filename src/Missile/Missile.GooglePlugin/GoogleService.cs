@@ -43,9 +43,9 @@ namespace Missile.GooglePlugin
             throw new NotImplementedException();
         }
 
-        public async Task<object> GetAsync(string json)
+        public async Task<object> GetAsync(string query)
         {
-            return await GoogleAdapter.SearchAsync(json);
+            return await GoogleAdapter.SearchAsync(query);
         }
 
         public Task<object> PatchAsync(string json)

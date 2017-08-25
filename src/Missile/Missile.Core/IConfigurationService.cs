@@ -7,6 +7,6 @@ namespace Missile.Core
 {
     public interface IConfigurationService
     {
-        Task<string> GetPropJsonAsync(string prop);
+        Task<T> GetConfigAsync<T>(string provider);
     }
 }

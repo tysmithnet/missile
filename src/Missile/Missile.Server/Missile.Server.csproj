@@ -19,6 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="config.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Missile.Core\Missile.Core.csproj" />
   </ItemGroup>
 

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Missile.Core\Missile.Core.csproj" />
+    <ProjectReference Include="..\Missile.Server\Missile.Server.csproj" />
   </ItemGroup>
 
   <ItemGroup>
