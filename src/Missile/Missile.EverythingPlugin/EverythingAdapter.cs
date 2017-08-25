@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Missile.EverythingPlugin
 {
-    internal sealed class EverythingAdapter
+    internal sealed class EverythingAdapter : IEverythingAdapter
     {
         [DllImport("Everything64.dll", CharSet = CharSet.Unicode)]
         private static extern int Everything_SetSearchW(string lpSearchString);
@@ -74,8 +74,9 @@ namespace Missile.EverythingPlugin
         [DllImport("Everything64.dll")]
         private static extern void Everything_Reset();
 
-        internal static List<string> Search(string search)
+        public List<string> Search(string search)
         {
+            // todo: make this async
             const int bufferSize = 1024;
             StringBuilder stringBuilder = new StringBuilder(bufferSize);
             Everything_SetSearchW(search);

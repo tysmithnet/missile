@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using System.Text;
+﻿using System;  
 using System.Threading.Tasks;
 using Missile.Core;
 
@@ -12,6 +9,18 @@ namespace Missile.EverythingPlugin
         public string ServiceName { get; } = "everything";
         public string Title { get; } = "Everything provider";
         public string Description { get; } = "Searches for files using the Everything application";
+
+        internal IEverythingAdapter EverythingAdapter { get; set; }
+
+        internal EverythingService()
+        {
+            
+        }
+
+        public EverythingService(IEverythingAdapter everythingAdapter)
+        {
+            EverythingAdapter = everythingAdapter;
+        }
 
         public async Task SetupAsync()
         {
@@ -30,8 +39,7 @@ namespace Missile.EverythingPlugin
               
         public Task<object> GetAsync(string query)
         {
-            var results = EverythingAdapter.Search(query);
-            return Task.FromResult<object>(results);
+            return Task.FromResult<object>(EverythingAdapter.Search(query));
         }
 
         public Task<object> PatchAsync(string json)
