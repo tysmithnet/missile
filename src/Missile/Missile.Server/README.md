@@ -2,6 +2,8 @@
 - Allow for chunked responses
   - e.g. file system search can return file objects as they come in
 - Should plugin methods return IObservable?
+  - chunked responses
+  - **i'm thinking yes this is almost necessary**
 - Needs to support executing commands and streaming the output
 - Allow for middleware
   - let everything be the file provider

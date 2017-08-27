@@ -1,5 +1,6 @@
 # Missile.Client
 Frontend project for the Missile project
+- Possibly consider renaming to WPF or something because the name makes it sound like its the only client
 
 # Ideas
 - Provide first class support for text based queries
@@ -45,7 +46,30 @@ Frontend project for the Missile project
   - generators produce value streams (observable)
   - transformations alter the stream in some way (projection or reduction)
   - outputters 
-    - list, grid, file, url, etc
+    - list, grid, file, url, zip, etc
+
+### Command Ideas
+- `everything *.cs | file | groupby path | where -p 10 <= len(p) <= 100 > list`
+  - `everything *.cs | file | groupby path | where -cs p.Length >= 10 && p.Length <= 100 > barchart`
+- `everything mysolution\\*.exe | first > apps add` add all the exes in mysolution to to the applauncher cache
+- `google image "long cat" | select -r 1:3 > grid -large` search google for images of long cat, select the 2nd and 3rd of those images, and display them in a grid using large icons
+- `everything *projects\\MyFancyProjcet*.* | file | zip > MyFancyProject.zip`
+- `apps -l` list all registered applications
+  - `apps -l | where -p x.contains("idontwantthis") | apps remove` remove all apps that contain "idontwantthis"
+- `python hex(16)` 0x10
+- `wolframalpha "how many days in a century" > wolfram` use the wolfram provider to ask how many days in a centure and display it using the wolfram renderer 
+- `weather -from $(DateTime.Now) -to $(DateTime.Now.AddDays(14) > weather` display the next two weeks of weather using the weather renderer 
+- `>wunderlist add "something todo" "private"` add something todo to the private folder
+- `mssource HttpApplication > list` search Microsoft source reference for HttpApplication
+- `>music next` play the next song in whatever music player is active (media buttons)
+- `google gmail | where labels.Contains("spam") > list`
+- `reddit subreddit search "tech" > list` list subreddits 
+- `google "long cat" | json > text` output the results of the search as json
+- `cocktail "old fashioned" > cocktail` search cocktail db for old fashioned and render it using the cocktail renderer
+- `twitter tweets -user "nfl" | where t.Text.Contains("ochocinco") > twitter` search @nfl for tweets containing ochocinco
+- `github issues -user "someone" -repo "somerepo > list"
+- `>twitter tweet "this is a cool tweet"` tweet this is a cool tweet from the configured account
+- `sports scores -league nfl > list`
 
 # Radial Launcher
 - mouse based launcher a la CS:GO buy menu
@@ -89,4 +113,4 @@ Able to display the content provided by plugins
 
 # Misc
 - splunk allows for you to select path substrings based on word boundaries
-
+- AUTOCOMPLTE IS A MUST
