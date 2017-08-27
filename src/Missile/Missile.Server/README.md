@@ -1,0 +1,11 @@
+﻿# Todo
+- Allow for chunked responses
+  - e.g. file system search can return file objects as they come in
+- Should plugin methods return IObservable?
+- Needs to support executing commands and streaming the output
+- Allow for middleware
+  - let everything be the file provider
+  - configure the default web browser etc
+- Move to its own repository
+  - allows for alternative clients to be built
+- Need to provide basic services (find files, media, solution files, etc)
