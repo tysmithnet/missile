@@ -2,8 +2,8 @@
 
 namespace Missile.Client.TextLauncher
 {
-    public interface IProvider
+    public interface IProvider<out TDest>
     {
-        IObservable<object> Get(string[] args);
+        IObservable<TDest> Get(string[] args);
     }
 }
