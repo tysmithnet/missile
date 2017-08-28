@@ -50,7 +50,11 @@ Frontend project for the Missile project
 
 ### Command Ideas
 - `everything *.cs | file | groupby path | where -p 10 <= len(p) <= 100 > list`
-  - `everything *.cs | file | groupby path | where -cs p.Length >= 10 && p.Length <= 100 > barchart`
+  - `everyting *.cs` use the everything client that knows how to parse command line args and make requests to everything service
+  - `file` implies that the output of everything somehow needs to be transformed into whatever is registered by file
+    - 
+  - EverythingPlugin needs to let the client know it is capable of outputting System.IO.FileInfo
+- `everything *.cs | file | groupby path | where -cs p.Length >= 10 && p.Length <= 100 > barchart`
 - `everything mysolution\\*.exe | first > apps add` add all the exes in mysolution to to the applauncher cache
 - `google image "long cat" | select -r 1:3 > grid -large` search google for images of long cat, select the 2nd and 3rd of those images, and display them in a grid using large icons
 - `everything *projects\\MyFancyProjcet*.* | file | zip > MyFancyProject.zip`
@@ -71,8 +75,13 @@ Frontend project for the Missile project
 - `>twitter tweet "this is a cool tweet"` tweet this is a cool tweet from the configured account
 - `sports scores -league nfl > list`
 
+### Converters/Filters
+- able to transform the output of one pipe segment into another format
+  - string to file
+  - anything to json
+  - 
+
 # Radial Launcher
-- mouse based launcher a la CS:GO buy menu
 - could have a menu item for other launchers which would change the current launcher
 
 # EverythingPlugin
