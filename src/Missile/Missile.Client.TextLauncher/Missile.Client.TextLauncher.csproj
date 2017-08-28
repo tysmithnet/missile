@@ -56,5 +56,11 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Missile.Client\Missile.Client.csproj">
+      <Project>{84CB4D00-9EC0-40CF-9231-E689433184DB}</Project>
+      <Name>Missile.Client</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

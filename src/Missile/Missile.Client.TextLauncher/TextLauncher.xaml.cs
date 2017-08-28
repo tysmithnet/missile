@@ -18,7 +18,7 @@ namespace Missile.Client.TextLauncher
     /// <summary>
     /// Interaction logic for TextLauncher.xaml
     /// </summary>
-    public partial class TextLauncher : UserControl
+    public partial class TextLauncher : Launcher
     {
         public TextLauncher()
         {
