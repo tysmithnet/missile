@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{CEAE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.Client.TextLauncher", "Missile.Client.TextLauncher\Missile.Client.TextLauncher.csproj", "{AC5497FD-A54A-4479-AC01-F1BA6DC04F67}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.Client.TextLauncher.Tests", "Missile.Client.TextLauncher.Tests\Missile.Client.TextLauncher.Tests.csproj", "{66B6924B-948B-4450-941A-21318E9C7C41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{AC5497FD-A54A-4479-AC01-F1BA6DC04F67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC5497FD-A54A-4479-AC01-F1BA6DC04F67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC5497FD-A54A-4479-AC01-F1BA6DC04F67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66B6924B-948B-4450-941A-21318E9C7C41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66B6924B-948B-4450-941A-21318E9C7C41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66B6924B-948B-4450-941A-21318E9C7C41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66B6924B-948B-4450-941A-21318E9C7C41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +88,7 @@ Global
 		{1AA367A7-C450-4DF9-B676-7CD9D120A233} = {CEAE2A6B-1AD2-44D9-BEB8-556ABF3C1F11}
 		{A3887870-9F32-4321-B4A8-2F190440F999} = {CEAE2A6B-1AD2-44D9-BEB8-556ABF3C1F11}
 		{AC5497FD-A54A-4479-AC01-F1BA6DC04F67} = {D2A9821B-BC3E-4361-898F-3F0EC3E4283F}
+		{66B6924B-948B-4450-941A-21318E9C7C41} = {D2A9821B-BC3E-4361-898F-3F0EC3E4283F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9080661D-69DC-4062-B02C-A8F87F033A25}
