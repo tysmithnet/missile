@@ -61,5 +61,105 @@ namespace Missile.Client.TextLauncher.Tests
 
             tokens.Should().Equal(expectedResult, "input with no operators is a provider followed by an argstring");
         }
+
+        [Fact]
+        public void Include_Pipe_Character_If_Escaped()
+        {
+            string input = @"google search \| unicode";
+            
+            Lexer lexer = new Lexer();
+            var tokens = lexer.Lex(input);
+
+            var expected = new Token[]
+            {
+                new ProviderToken
+                {
+                    Identifier = "google",
+                    ArgString = "search | unicode"
+                }, 
+            };
+
+            tokens.Should().Equal(expected, "an escaped pipe should appear in the arg string unescaped");
+        }
+
+        [Fact]
+        public void Recognize_Difference_Between_Escaped_And_Pipe_Operator()
+        {
+            string input = @"google search \| unicode | sort";
+
+            Lexer lexer = new Lexer();
+            var tokens = lexer.Lex(input);
+
+            var expected = new Token[]
+            {
+                new ProviderToken
+                {
+                    Identifier = "google",
+                    ArgString = "search | unicode "
+                },
+                new OperatorToken
+                {
+                    Identifier = "|",
+                    ArgString = ""
+                }, 
+                new FilterToken
+                {
+                    Identifier = "sort",
+                    ArgString = ""
+                }, 
+            };
+
+            tokens.Should().Equal(expected, "an escaped pipe should appear in the arg string unescaped, but should still recognize a pipe operator");
+        }
+
+        [Fact]
+        public void Include_Output_Operator_If_Escaped()
+        {
+            string input = @"google search \> unicode";
+
+            Lexer lexer = new Lexer();
+            var tokens = lexer.Lex(input);
+
+            var expected = new Token[]
+            {
+                new ProviderToken
+                {
+                    Identifier = "google",
+                    ArgString = "search > unicode"
+                },
+            };
+
+            tokens.Should().Equal(expected, "an escaped output operator should appear in the arg string unescaped");
+        }
+
+        [Fact]
+        public void Recognize_Difference_Between_Escaped_And_Output_Operator()
+        {
+            string input = @"google search \> unicode > list";
+
+            Lexer lexer = new Lexer();
+            var tokens = lexer.Lex(input);
+
+            var expected = new Token[]
+            {
+                new ProviderToken
+                {
+                    Identifier = "google",
+                    ArgString = "search > unicode "
+                },
+                new OperatorToken
+                {
+                    Identifier = ">",
+                    ArgString = ""
+                },
+                new FilterToken
+                {
+                    Identifier = "list",
+                    ArgString = ""
+                },
+            };
+
+            tokens.Should().Equal(expected, "an escaped output operator should appear in the arg string unescaped, but should still recognize a output operator");
+        }
     }
 }

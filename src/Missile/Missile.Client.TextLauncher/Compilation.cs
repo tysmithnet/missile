@@ -79,6 +79,7 @@ namespace Missile.Client.TextLauncher
 
         protected Token(string input)
         {
+            input = input.TrimStart();
             int i;
             for (i = 0; i < input.Length; i++)
             {
@@ -144,7 +145,7 @@ namespace Missile.Client.TextLauncher
             
         }
 
-        public OperatorToken(string id) : base(id, null)
+        public OperatorToken(string id) : base(id, "")
         {
             
         }
@@ -157,7 +158,7 @@ namespace Missile.Client.TextLauncher
             
         }
 
-        public FilterToken(string input) : base(input)
+        public  FilterToken(string input) : base(input)
         {
 
         }

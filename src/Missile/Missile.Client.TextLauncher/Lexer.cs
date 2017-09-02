@@ -46,7 +46,7 @@ namespace Missile.Client.TextLauncher
                 }
                 if (part == "|" || part == ">")
                 {
-                    tokens.Add(new OperatorToken{Identifier = part});
+                    tokens.Add(new OperatorToken(part));
                     continue;
                 }                            
                 throw new ApplicationException($"Unable to parse part: {part}");
@@ -71,7 +71,7 @@ namespace Missile.Client.TextLauncher
                     case '>':
                         if (!startEscape)
                         {
-                            parts.Add(input.Substring(lastIndex, i - lastIndex));
+                            parts.Add(input.Substring(lastIndex, i - lastIndex).Replace(@"\|", "|").Replace(@"\>", ">"));
                             parts.Add(input.Substring(i, 1));
                             lastIndex = i + 1;
                         }                                                        
@@ -83,7 +83,7 @@ namespace Missile.Client.TextLauncher
                 }
             }
             if(lastIndex < input.Length)
-                parts.Add(input.Substring(lastIndex));
+                parts.Add(input.Substring(lastIndex).Replace(@"\|", "|").Replace(@"\>", ">"));
 
             return parts;
         }
