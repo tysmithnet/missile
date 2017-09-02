@@ -15,53 +15,87 @@ namespace Missile.Client.TextLauncher
 
     public interface IParser
     {
-        AstNode Parse(IEnumerable<AstNode> nodes);
+        RootNode Parse(IEnumerable<Token> list);
     }
 
-    public class AstNode
+    public abstract class Node
     {
-        public Token Token { get; set; }
+        public string Name { get; set; }
         public string ArgString { get; set; }
     }
 
-    public class RootNode : AstNode
+    public class RootNode
     {
         public ProviderNode ProviderNode { get; set; }
         public List<FilterNode> FilterNodes { get; set; }
         public DestinationNode DestinationNode { get; set; }
-    }
 
-    public class FilterNode : AstNode
-    {
-
-    }
-
-    public class DestinationNode : AstNode
-    {
-
-    }
-
-    public class ProviderNode : AstNode
-    {
-        public string[] Args { get; set; }
-    }
-
-    public class Parser : IParser
-    {
-        public AstNode Parse(IEnumerable<AstNode> nodes)
+        public override bool Equals(object obj)
         {
-            throw new NotImplementedException();
+            var node = obj as RootNode;
+            return node != null &&
+                   base.Equals(obj) &&
+                   EqualityComparer<ProviderNode>.Default.Equals(ProviderNode, node.ProviderNode) &&
+                   EqualityComparer<List<FilterNode>>.Default.Equals(FilterNodes, node.FilterNodes) &&
+                   EqualityComparer<DestinationNode>.Default.Equals(DestinationNode, node.DestinationNode);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -74872637;
+            hashCode = hashCode * -1521134295 + base.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<ProviderNode>.Default.GetHashCode(ProviderNode);
+            hashCode = hashCode * -1521134295 + EqualityComparer<List<FilterNode>>.Default.GetHashCode(FilterNodes);
+            hashCode = hashCode * -1521134295 + EqualityComparer<DestinationNode>.Default.GetHashCode(DestinationNode);
+            return hashCode;
+        }
+
+        public static bool operator ==(RootNode node1, RootNode node2)
+        {
+            return EqualityComparer<RootNode>.Default.Equals(node1, node2);
+        }
+
+        public static bool operator !=(RootNode node1, RootNode node2)
+        {
+            return !(node1 == node2);
+        }
+    }
+
+    public class ProviderNode : Node
+    {                           
+        public ProviderNode(ProviderToken providerToken)
+        {
+            Name = providerToken.Identifier;
+            ArgString = providerToken.ArgString;
+        }       
+    }
+
+    public class FilterNode : Node
+    {          
+        public FilterNode(FilterToken filterToken)
+        {
+            Name = filterToken.Identifier;
+            ArgString = filterToken.ArgString;
+        }                                   
+    }
+
+    public class DestinationNode : Node
+    {                                        
+        public DestinationNode(DestinationToken destinationToken)
+        {
+            Name = destinationToken.Identifier;
+            ArgString = destinationToken.ArgString;
         }
     }
 
     public interface IInterpreter
     {
-        void Interpret(AstNode root);
+        void Interpret(RootNode root);
     }
 
     public class Interpreter : IInterpreter
     {
-        public void Interpret(AstNode root)
+        public void Interpret(RootNode root)
         {
             throw new NotImplementedException();
         }
@@ -74,7 +108,7 @@ namespace Missile.Client.TextLauncher
 
         internal Token()
         {
-            
+
         }
 
         protected Token(string input)
@@ -129,9 +163,9 @@ namespace Missile.Client.TextLauncher
     {
         internal ProviderToken()
         {
-            
+
         }
-        
+
         public ProviderToken(string input) : base(input)
         {
 
@@ -142,12 +176,12 @@ namespace Missile.Client.TextLauncher
     {
         internal OperatorToken()
         {
-            
+
         }
 
         public OperatorToken(string id) : base(id, "")
         {
-            
+
         }
     }
 
@@ -155,10 +189,10 @@ namespace Missile.Client.TextLauncher
     {
         internal FilterToken()
         {
-            
+
         }
 
-        public  FilterToken(string input) : base(input)
+        public FilterToken(string input) : base(input)
         {
 
         }
@@ -168,7 +202,7 @@ namespace Missile.Client.TextLauncher
     {
         public DestinationToken(string input) : base(input)
         {
-            
+
         }
     }
 }

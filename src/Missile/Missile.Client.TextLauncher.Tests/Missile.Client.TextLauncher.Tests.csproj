@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Lexer_Should.cs" />
+    <Compile Include="Parser_Should.cs" />
     <Compile Include="TextLauncher_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
