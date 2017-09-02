@@ -1,0 +1,27 @@
+﻿// this is a lazy grammar because the "language" probably doesn't even warrant this level of effort
+
+START
+    : PIPELINE
+    ;
+
+PIPELINE
+    : PROVIDER ARG_LIST (| FILTER ARG_LIST)* (> DESTINATION ARG_LIST)?
+    ;
+
+PROVIDER
+    : IDENTIFIER
+    ;
+
+ARG_LIST
+    : STRING*
+    ;
+
+FILTER
+    : IDENTIFIER
+    ;
+
+IDENTIFIER:
+    : [a-zA-Z0-9_*+-]
+    ;
+
+pipe and output need to be escaped to not be treated as operators

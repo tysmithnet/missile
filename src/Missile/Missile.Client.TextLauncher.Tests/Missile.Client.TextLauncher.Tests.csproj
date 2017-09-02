@@ -52,11 +52,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Lexer_Should.cs" />
     <Compile Include="TextLauncher_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Missile.Client.TextLauncher\Missile.Client.TextLauncher.csproj">
+      <Project>{AC5497FD-A54A-4479-AC01-F1BA6DC04F67}</Project>
+      <Name>Missile.Client.TextLauncher</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
