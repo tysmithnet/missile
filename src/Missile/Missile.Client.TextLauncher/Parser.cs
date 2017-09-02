@@ -13,10 +13,7 @@ namespace Missile.Client.TextLauncher
 
             if (list == null || !list.Any())
                 return root;
-
-            ProviderToken providerToken = list.First() as ProviderToken ?? throw new ArgumentException("first token should be ProviderToken");
-            root.ProviderNode = new ProviderNode(providerToken);
-
+                                                                         
             if(list.Count(x => x is ProviderToken) > 1)
                 throw new ArgumentException("cannot have more than 1 ProviderToken");
 
@@ -25,6 +22,22 @@ namespace Missile.Client.TextLauncher
 
             if(!(list.Last() is DestinationToken))
                 throw new ArgumentException("last token must be DestinationToken");
+
+            if(list.OfType<OperatorToken>().Count(o => o.Identifier == ">") != 1)
+                throw new ArgumentException("cannot have more than 1 output operator");
+
+            for (int i = 0; i < list.Count; i++)
+            {
+                var token = list[i];
+                if (i == 0)
+                {
+                    ProviderToken providerToken = token as ProviderToken;
+                    if(providerToken == null)
+                        throw new ArgumentException("first token must be ProviderToken");
+                    root.ProviderNode = new ProviderNode(providerToken);
+                    continue;
+                }   
+            }
 
             return root;
         }

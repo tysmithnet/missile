@@ -62,5 +62,50 @@ namespace Missile.Client.TextLauncher.Tests
 
             parser.Invoking(p => p.Parse(tokens)).ShouldThrow<ArgumentException>("Cannot have more than 1 ProviderToken");
         }
+
+        [Fact]
+        public void Throw_If_Multiple_Output_Operators()
+        {
+            var tokens = new Token[]
+            {
+                new ProviderToken("google search"),
+                new OperatorToken("|"),
+                new FilterToken("count -name"),
+                new OperatorToken(">"),
+                new FilterToken("sort"),
+                new OperatorToken(">"),
+                new DestinationToken("list small"),
+            };
+
+            var parser = new Parser();
+
+            parser.Invoking(p => p.Parse(tokens))
+                .ShouldThrow<ArgumentException>("you cannot have multiple output operators");
+            
+        }
+
+        [Fact]
+        public void Parse_Multiple_Filters()
+        {
+            var tokens = new Token[]
+            {
+                new ProviderToken("google search"),
+                new OperatorToken("|"), 
+                new FilterToken("count -name"), 
+                new OperatorToken("|"), 
+                new FilterToken("sort"), 
+                new OperatorToken(">"), 
+                new DestinationToken("list small"), 
+            };
+
+            var parser = new Parser();
+            var expected = new RootNode();
+            expected.ProviderNode = new ProviderNode(tokens[0] as ProviderToken);
+            expected.FilterNodes = tokens.OfType<FilterToken>().Select(x => new FilterNode(x)).ToList();
+            expected.DestinationNode = new DestinationNode(tokens.Last() as DestinationToken);
+
+            var result = parser.Parse(tokens);
+            result.Should().Be(expected, "Parser should recognize multiple filters");
+        }
     }
 }
