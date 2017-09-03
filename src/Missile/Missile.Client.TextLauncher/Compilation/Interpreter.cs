@@ -53,6 +53,11 @@ namespace Missile.Client.TextLauncher.Compilation
             var providerType = provider.GetType();
             var getMethodInfo = providerType.GetMethod("Get", new [] {typeof(string)});
             var result = getMethodInfo.Invoke(provider, new object[]{ root.ProviderNode.ArgString });
+            var filterName = root.FilterNodes.First().Name;
+            var filter = FilterRepository.Get(filterName);
+            var filterType = filter.GetType();
+            var filterMethodInfo = filterType.GetMethod("Filter");
+            var filteredResult = filterMethodInfo.Invoke(filter, new[] {result});
         }
     }
 
@@ -70,6 +75,7 @@ namespace Missile.Client.TextLauncher.Compilation
         public FilterRepository(IReadOnlyCollection<IFilter> filters)
         {
             Filters = filters;
+            Cache = new Dictionary<string, IFilter>();
         }
 
         public IFilter Get(string name)
