@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Missile.Client.TextLauncher
+namespace Missile.Client.TextLauncher.Compilation
 {
     public class Parser : IParser
     {

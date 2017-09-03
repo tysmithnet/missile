@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Missile.Client.TextLauncher.Compilation;
 using Xunit;
 
 namespace Missile.Client.TextLauncher.Tests

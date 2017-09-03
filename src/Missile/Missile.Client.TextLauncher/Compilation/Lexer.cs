@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Missile.Client.TextLauncher
+namespace Missile.Client.TextLauncher.Compilation
 {
     public class Lexer : ILexer
     {   
