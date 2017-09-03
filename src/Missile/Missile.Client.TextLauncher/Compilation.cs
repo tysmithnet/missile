@@ -22,6 +22,22 @@ namespace Missile.Client.TextLauncher
     {
         public string Name { get; set; }
         public string ArgString { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var node = obj as Node;
+            return node != null &&
+                   Name == node.Name &&
+                   ArgString == node.ArgString;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1319852120;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ArgString);
+            return hashCode;
+        }
     }
 
     public class RootNode
@@ -34,7 +50,6 @@ namespace Missile.Client.TextLauncher
         {
             var node = obj as RootNode;
             return node != null &&
-                   base.Equals(obj) &&
                    EqualityComparer<ProviderNode>.Default.Equals(ProviderNode, node.ProviderNode) &&
                    EqualityComparer<List<FilterNode>>.Default.Equals(FilterNodes, node.FilterNodes) &&
                    EqualityComparer<DestinationNode>.Default.Equals(DestinationNode, node.DestinationNode);
@@ -43,21 +58,10 @@ namespace Missile.Client.TextLauncher
         public override int GetHashCode()
         {
             var hashCode = -74872637;
-            hashCode = hashCode * -1521134295 + base.GetHashCode();
             hashCode = hashCode * -1521134295 + EqualityComparer<ProviderNode>.Default.GetHashCode(ProviderNode);
             hashCode = hashCode * -1521134295 + EqualityComparer<List<FilterNode>>.Default.GetHashCode(FilterNodes);
             hashCode = hashCode * -1521134295 + EqualityComparer<DestinationNode>.Default.GetHashCode(DestinationNode);
             return hashCode;
-        }
-
-        public static bool operator ==(RootNode node1, RootNode node2)
-        {
-            return EqualityComparer<RootNode>.Default.Equals(node1, node2);
-        }
-
-        public static bool operator !=(RootNode node1, RootNode node2)
-        {
-            return !(node1 == node2);
         }
     }
 
@@ -130,32 +134,6 @@ namespace Missile.Client.TextLauncher
         {
             Identifier = id;
             ArgString = args;
-        }
-
-        public override bool Equals(object obj)
-        {
-            var token = obj as Token;
-            return token != null &&
-                   Identifier == token.Identifier &&
-                   ArgString == token.ArgString;
-        }
-
-        public override int GetHashCode()
-        {
-            var hashCode = -672673088;
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Identifier);
-            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ArgString);
-            return hashCode;
-        }
-
-        public static bool operator ==(Token token1, Token token2)
-        {
-            return EqualityComparer<Token>.Default.Equals(token1, token2);
-        }
-
-        public static bool operator !=(Token token1, Token token2)
-        {
-            return !(token1 == token2);
         }
     }
 

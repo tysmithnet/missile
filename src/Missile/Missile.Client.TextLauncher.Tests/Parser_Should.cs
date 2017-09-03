@@ -81,7 +81,6 @@ namespace Missile.Client.TextLauncher.Tests
 
             parser.Invoking(p => p.Parse(tokens))
                 .ShouldThrow<ArgumentException>("you cannot have multiple output operators");
-            
         }
 
         [Fact]

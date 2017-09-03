@@ -8,14 +8,16 @@ namespace Missile.Client.TextLauncher
     {
         public RootNode Parse(IEnumerable<Token> tokens)
         {
-            var list = tokens.ToList();
-            RootNode root = new RootNode();
+            if(tokens == null)
+                throw new ArgumentNullException(nameof(tokens));
 
-            if (list == null || !list.Any())
-                return root;
-                                                                         
-            if(list.Count(x => x is ProviderToken) > 1)
-                throw new ArgumentException("cannot have more than 1 ProviderToken");
+            var list = tokens.ToList();
+            
+            if(list.Count(x => x is ProviderToken) != 1)
+                throw new ArgumentException("tokens must have exactly 1 ProviderToken");
+
+            if(!(list.First() is ProviderToken))
+                throw new ArgumentException("tokens must start with a ProviderToken");
 
             if (list.Count(x => x is DestinationToken) > 1)
                 throw new ArgumentException("cannot have more than 1 DestinationToken");
@@ -25,19 +27,12 @@ namespace Missile.Client.TextLauncher
 
             if(list.OfType<OperatorToken>().Count(o => o.Identifier == ">") != 1)
                 throw new ArgumentException("cannot have more than 1 output operator");
+                                                                                   
+            var root = new RootNode();
+            root.ProviderNode = new ProviderNode(list.First() as ProviderToken);
 
-            for (int i = 0; i < list.Count; i++)
-            {
-                var token = list[i];
-                if (i == 0)
-                {
-                    ProviderToken providerToken = token as ProviderToken;
-                    if(providerToken == null)
-                        throw new ArgumentException("first token must be ProviderToken");
-                    root.ProviderNode = new ProviderNode(providerToken);
-                    continue;
-                }   
-            }
+            root.FilterNodes = list.OfType<FilterToken>().Select(x => new FilterNode(x)).ToList();
+            root.DestinationNode = new DestinationNode(list.Last() as DestinationToken);
 
             return root;
         }
