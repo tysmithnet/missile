@@ -49,10 +49,14 @@ namespace Missile.Client.TextLauncher
         public override bool Equals(object obj)
         {
             var node = obj as RootNode;
-            return node != null &&
-                   EqualityComparer<ProviderNode>.Default.Equals(ProviderNode, node.ProviderNode) &&
-                   EqualityComparer<List<FilterNode>>.Default.Equals(FilterNodes, node.FilterNodes) &&
-                   EqualityComparer<DestinationNode>.Default.Equals(DestinationNode, node.DestinationNode);
+            if (node == null)
+                return false;
+            bool providerEqual = ProviderNode.Equals(node.ProviderNode);
+            bool filtersEqual = (FilterNodes == null && node.FilterNodes == null) ||
+                                   FilterNodes.Intersect(node.FilterNodes).Count() ==
+                                   FilterNodes.Union(node.FilterNodes).Count();
+            bool destinationEqual = DestinationNode.Equals(node.DestinationNode);
+            return providerEqual && filtersEqual && destinationEqual;
         }
 
         public override int GetHashCode()
@@ -71,7 +75,7 @@ namespace Missile.Client.TextLauncher
         {
             Name = providerToken.Identifier;
             ArgString = providerToken.ArgString;
-        }       
+        }
     }
 
     public class FilterNode : Node
