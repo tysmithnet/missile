@@ -8,6 +8,7 @@ namespace Missile.Client.TextLauncher.Compilation
     {
         public IProviderRepository ProviderRepository { get; set; }
         public IConverterRepository ConverterRepository { get; set; }
+        public IFilterRepository FilterRepository { get; set; }
         public IDestinationRepository DestinationRepository { get; set; }
         
         public void Interpret(RootNode root)
@@ -16,7 +17,30 @@ namespace Missile.Client.TextLauncher.Compilation
         }
     }
 
-    
+    public interface IFilterRepository
+    {
+        IFilter Get(string name);
+    }
+
+    public class FilterRepository : IFilterRepository
+    {
+
+        public IReadOnlyCollection<IFilter> Filters { get; set; }
+        private Dictionary<string, IFilter> Cache { get; set; }
+
+        public FilterRepository(IReadOnlyCollection<IFilter> filters)
+        {
+            Filters = filters;
+        }
+
+        public IFilter Get(string name)
+        {
+            if (Cache.ContainsKey(name))
+                return Cache[name];
+
+            throw new IndexOutOfRangeException($"no filter registered with name {name}");
+        }
+    }
 
     public interface IDestinationRepository
     {
