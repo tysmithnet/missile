@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Missile.Client.TextLauncher.Compilation;
 
 namespace Missile.Client.TextLauncher.Temp
 {
@@ -18,6 +19,12 @@ namespace Missile.Client.TextLauncher.Temp
             });
             return results.ToObservable();
         }
+
+        public string Name { get; }
+        IObservable<GoogleResult> IProvider<GoogleResult>.Get(string argString)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class GoogleResult
@@ -26,11 +33,16 @@ namespace Missile.Client.TextLauncher.Temp
         public string Url { get; set; }
     }
 
-    public class GoogleStringConverter : IFilter<GoogleResult, string>
+    public class GoogleStringConverter : IConverter<GoogleResult, string>
     {
-        public IObservable<string> Filter(IObservable<GoogleResult> source)
+        public string Convert(GoogleResult source)
         {
-            return source.Select(x => $"{x.Title}: {x.Url}");
+            throw new NotImplementedException();
+        }
+
+        public object Convert(object source)
+        {
+            throw new NotImplementedException();
         }
     }
 }

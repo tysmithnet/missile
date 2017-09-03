@@ -4,12 +4,11 @@ namespace Missile.Client.TextLauncher
 {
     public interface IProvider
     {
-        string Name { get; }
-        IObservable<object> Get(string argString);
+        string Name { get; }                        
     }
 
     public interface IProvider<out TDest> : IProvider
     {
-        new IObservable<TDest> Get(string argString);
+        IObservable<TDest> Get(string argString);
     }
 }

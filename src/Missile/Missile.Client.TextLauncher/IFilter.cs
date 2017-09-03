@@ -3,8 +3,8 @@
 namespace Missile.Client.TextLauncher
 {
     public interface IFilter
-    {
-        IObservable<object> Filter(IObservable<object> source);
+    {                                                           
+        string Name { get; }
     }
 
     public interface IFilter<in TSource, out TDest> : IFilter

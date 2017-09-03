@@ -13,5 +13,8 @@ namespace Missile.Client.TextLauncher.Temp
             source.Subscribe(Console.WriteLine, exception => Console.Error.WriteLine(exception),
                 () => Console.WriteLine("Complete"));
         }
+
+
+        public string Name { get; } = "console";
     }
 }

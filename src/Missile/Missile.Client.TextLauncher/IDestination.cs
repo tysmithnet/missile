@@ -3,8 +3,8 @@
 namespace Missile.Client.TextLauncher
 {
     public interface IDestination
-    {
-        void Process(IObservable<object> source);
+    {                                              
+        string Name { get; }
     }
 
     public interface IDestination<in TSource> : IDestination

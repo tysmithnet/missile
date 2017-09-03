@@ -1,19 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Missile.Client.TextLauncher.Compilation
 {
+    public interface ICommand
+    {
+        Task ExecuteAsync();
+    }
+
+    public class PipelineCommand : ICommand
+    {
+
+
+        public Task ExecuteAsync()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     public class Interpreter : IInterpreter
     {
         public IProviderRepository ProviderRepository { get; set; }
         public IConverterRepository ConverterRepository { get; set; }
         public IFilterRepository FilterRepository { get; set; }
         public IDestinationRepository DestinationRepository { get; set; }
-        
+
         public void Interpret(RootNode root)
         {
+            string providerName = root.ProviderNode.Name;
+            IProvider provider = ProviderRepository.Get(providerName);
+            //var providerOutputType = provider
+            //    .GetType()
+            //    .GetInterfaces()
+            //    .First(t => t.IsGenericType && t.GetGenericTypeDefinition() == typeof(IProvider<>))
+            //    .GenericTypeArguments[0];
 
+            //var filterType = root.FilterNodes.First().GetType();
+            //var filterInputType = filterType
+            //    .GetInterfaces()
+            //    .First(t => t.IsGenericType && t.GetGenericTypeDefinition() == typeof(IFilter<,>))
+            //    .GenericTypeArguments[0];
+
+            //var filterOutputType = filterType
+            //    .GetInterfaces()
+            //    .First(t => t.IsGenericType && t.GetGenericTypeDefinition() == typeof(IFilter<,>))
+            //    .GenericTypeArguments[1];
+
+            //var converter = ConverterRepository.Get(filterInputType, filterOutputType);
+
+            var providerType = provider.GetType();
+            var getMethodInfo = providerType.GetMethod("Get", new [] {typeof(string)});
+            var result = getMethodInfo.Invoke(provider, new object[]{ root.ProviderNode.ArgString });
         }
     }
 
@@ -68,7 +107,7 @@ namespace Missile.Client.TextLauncher.Compilation
 
     public interface IProviderRepository
     {
-        IProvider Get(string name);                    
+        IProvider Get(string name);
     }
 
     public class ProviderRepository : IProviderRepository
