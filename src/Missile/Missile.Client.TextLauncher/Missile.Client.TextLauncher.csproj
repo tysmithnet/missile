@@ -61,10 +61,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compilation\ConverterRepository.cs" />
     <Compile Include="Compilation\DestinationNode.cs" />
     <Compile Include="Compilation\DestinationToken.cs" />
     <Compile Include="Compilation\FilterNode.cs" />
     <Compile Include="Compilation\FilterToken.cs" />
+    <Compile Include="Compilation\IConverter.cs" />
+    <Compile Include="Compilation\IConverterRepository.cs" />
     <Compile Include="IDestination.cs" />
     <Compile Include="IFilter.cs" />
     <Compile Include="Compilation\IInterpreter.cs" />
