@@ -6,7 +6,7 @@ namespace Missile.Client.TextLauncher.Compilation
     {
         public void Interpret(RootNode root)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
