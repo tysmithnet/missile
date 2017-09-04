@@ -16,7 +16,39 @@ namespace Missile.Client.TextLauncher.Compilation
             public Type SourceType { get; set; }
             public Type DestType { get; set; }
             public IConverter Converter { get; set; }
-        }                  
+        }
+
+        protected internal interface IConverterRetrievalStrategy
+        {
+            IEnumerable<ConverterEntry> Get(IEnumerable<ConverterEntry> entries, Type requestedSource,
+                Type requestedDest);
+        }
+
+        protected internal class DefaultConverterRetrievalStrategy : IConverterRetrievalStrategy
+        {
+            public IEnumerable<ConverterEntry> Get(IEnumerable<ConverterEntry> entries, Type requestedSource, Type requestedDest)
+            {
+                var candidates = entries.Where(e =>
+                    e.SourceType.IsAssignableFrom(requestedSource) && requestedDest.IsAssignableFrom(e.DestType));
+
+                List<ConverterEntry> exactMatches = new List<ConverterEntry>();
+                List<ConverterEntry> partialMatches = new List<ConverterEntry>();
+                List<ConverterEntry> theRest = new List<ConverterEntry>();
+                foreach (var candidate in candidates)
+                {
+                    bool sameSource = requestedSource == candidate.SourceType;
+                    bool sameDest = requestedDest == candidate.DestType;
+                    if(sameSource && sameDest)
+                        exactMatches.Add(candidate);
+                    else if(sameSource || sameDest)
+                        partialMatches.Add(candidate);
+                     else
+                        theRest.Add(candidate);
+                }
+
+                return exactMatches.Concat(partialMatches).Concat(theRest);
+            }
+        }
 
         public ConverterRepository(IEnumerable<IConverter> converters)
         {
@@ -47,7 +79,7 @@ namespace Missile.Client.TextLauncher.Compilation
 
         public IEnumerable<IConverter> Get(Type sourceType, Type destType)
         {
-            return Lookup.Where(x => x.SourceType.IsAssignableFrom(sourceType) && destType.IsAssignableFrom(x.DestType)).Select(x => x.Converter);
+            return new DefaultConverterRetrievalStrategy().Get(Lookup, sourceType, destType).Select(x => x.Converter);
         }
     }
 }

@@ -8,40 +8,40 @@ using Missile.Client.TextLauncher.Compilation;
 using Xunit;
 
 namespace Missile.Client.TextLauncher.Tests
-{   
+{
     public class ConverterRepository_Should
     {
         public interface ICompanyMember
         {
-            
+
         }
 
         public interface IPayable
         {
-            
+
         }
 
         public interface IEmployee : ICompanyMember, IPayable
         {
-            
+
         }
 
         public class Employee : IEmployee
         {
-            
+
         }
 
         public class Manager : Employee
         {
-            
+
         }
 
         public class Volunteer : ICompanyMember
         {
-            
+
         }
 
-        public class IdToMemberConverter : IConverter<int, IEmployee>
+        public class IntToIEmployeeConverter : IConverter<int, IEmployee>
         {
             public IObservable<IEmployee> Convert(IObservable<int> source)
             {
@@ -49,7 +49,7 @@ namespace Missile.Client.TextLauncher.Tests
             }
         }
 
-        public class IdToManagerConverter : IConverter<int, Manager>
+        public class IntToManagerConverter : IConverter<int, Manager>
         {
             public IObservable<Manager> Convert(IObservable<int> source)
             {
@@ -70,17 +70,17 @@ namespace Missile.Client.TextLauncher.Tests
         {
             var converters = new IConverter[]
             {
-                new IdToManagerConverter(),
-                new IdToMemberConverter(),
-                new StringToEmployeeConverter(), 
-            };      
+                new IntToManagerConverter(),
+                new IntToIEmployeeConverter(),
+                new StringToEmployeeConverter(),
+            };
 
             ConverterRepository converterRepository = new ConverterRepository(converters);
 
             var results = converterRepository.Get(typeof(int), typeof(IEmployee));
-            var expected = converters.Take(2);
+            var expected = new[] { converters[1], converters[0] };
 
-            results.Should().Equal(expected, "multiple converters can be returned if the types are compatible, but non compatible converters should not be returned");
+            results.Should().Equal(expected, "multiple converters can be returned if the types are compatible, but non compatible converters should not be returned, and they should be in order of closeness of match");
         }
     }
 }
