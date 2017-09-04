@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace Missile.Client.TextLauncher
 {
@@ -9,6 +10,6 @@ namespace Missile.Client.TextLauncher
 
     public interface IDestination<in TSource> : IDestination
     {
-        void Process(IObservable<TSource> source);
+        Task Process(IObservable<TSource> source);
     }
 }

@@ -34,15 +34,11 @@ namespace Missile.Client.TextLauncher.Temp
     }
 
     public class GoogleStringConverter : IConverter<GoogleResult, string>
-    {
-        public string Convert(GoogleResult source)
+    {                                           
+        public IObservable<string> Convert(IObservable<GoogleResult> source)
         {
             throw new NotImplementedException();
         }
 
-        public object Convert(object source)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

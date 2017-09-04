@@ -8,10 +8,12 @@ namespace Missile.Client.TextLauncher.Temp
 {
     public class ConsoleDestination : IDestination<string>
     {
-        public void Process(IObservable<string> source)
+        public Task Process(IObservable<string> source)
         {
+            TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
             source.Subscribe(Console.WriteLine, exception => Console.Error.WriteLine(exception),
-                () => Console.WriteLine("Complete"));
+                () => tcs.SetResult(null));
+            return tcs.Task;
         }
 
 

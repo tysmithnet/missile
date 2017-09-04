@@ -5,21 +5,6 @@ using System.Threading.Tasks;
 
 namespace Missile.Client.TextLauncher.Compilation
 {
-    public interface ICommand
-    {
-        Task ExecuteAsync();
-    }
-
-    public class PipelineCommand : ICommand
-    {
-
-
-        public Task ExecuteAsync()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
     public class Interpreter : IInterpreter
     {
         public IProviderRepository ProviderRepository { get; set; }
@@ -27,7 +12,7 @@ namespace Missile.Client.TextLauncher.Compilation
         public IFilterRepository FilterRepository { get; set; }
         public IDestinationRepository DestinationRepository { get; set; }
 
-        public void Interpret(RootNode root)
+        public Task Interpret(RootNode root)
         {
             string providerName = root.ProviderNode.Name;
             IProvider provider = ProviderRepository.Get(providerName);
@@ -58,6 +43,15 @@ namespace Missile.Client.TextLauncher.Compilation
             var filterType = filter.GetType();
             var filterMethodInfo = filterType.GetMethod("Filter");
             var filteredResult = filterMethodInfo.Invoke(filter, new[] {result});
+            var destinationName = root.DestinationNode.Name;
+            var destination = DestinationRepository.Get(destinationName);
+            var destinationType = destination.GetType();
+            var processMethodInfo = destinationType.GetMethod("Process");
+            var processTask = processMethodInfo.Invoke(destination, new[] {filteredResult});
+            Task task = processTask as Task;
+            if(task == null)
+                throw new ApplicationException();
+            return task;
         }
     }
 

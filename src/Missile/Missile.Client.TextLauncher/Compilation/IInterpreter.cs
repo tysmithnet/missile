@@ -1,7 +1,9 @@
-﻿namespace Missile.Client.TextLauncher.Compilation
+﻿using System.Threading.Tasks;
+
+namespace Missile.Client.TextLauncher.Compilation
 {
     public interface IInterpreter
     {
-        void Interpret(RootNode root);
+        Task Interpret(RootNode root);
     }
 }
