@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Missile.Client.TextLauncher.Compilation
 {
@@ -31,6 +32,22 @@ namespace Missile.Client.TextLauncher.Compilation
         {
             Identifier = id;
             ArgString = args;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var token = obj as Token;
+            return token != null &&
+                   Identifier == token.Identifier &&
+                   ArgString == token.ArgString;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -672673088;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Identifier);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(ArgString);
+            return hashCode;
         }
     }
 }
