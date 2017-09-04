@@ -58,7 +58,7 @@ namespace Missile.Client.TextLauncher.Tests
     {
         public Task Process(IObservable<string> source)
         {
-            TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
+            var tcs = new TaskCompletionSource<object>();
             source.Subscribe(Console.WriteLine, () => tcs.SetResult(null));
             return tcs.Task;
         }
@@ -68,6 +68,40 @@ namespace Missile.Client.TextLauncher.Tests
 
     public class Interpreter_Should
     {
+        [Fact]
+        public async Task Handle_Pipeline_Where_Conversion_Is_Necessary()
+        {
+            var providerRepoMock = new Mock<IProviderRepository>();
+            providerRepoMock.Setup(repository => repository.Get("string")).Returns(() => new StringProvider());
+
+            var converterRepoMock = new Mock<IConverterRepository>();
+            converterRepoMock.Setup(c => c.Get(typeof(string), typeof(StringBuilder)))
+                .Returns(() => new[] {new StringBuilderStringConverter()});
+            converterRepoMock.Setup(c => c.Get(typeof(StringBuilder), typeof(string)))
+                .Returns(() => new[] {new StringBuilderStringConverter()});
+
+            var filterRepoMock = new Mock<IFilterRepository>();
+            filterRepoMock.Setup(repository => repository.Get("stringbuildermodifier"))
+                .Returns(() => new StringBuilderModifier());
+
+            var destinationRepoMock = new Mock<IDestinationRepository>();
+            destinationRepoMock.Setup(repository => repository.Get("console")).Returns(() => new ConsoleDestination());
+
+            var interpreter = new Interpreter();
+            interpreter.ProviderRepository = providerRepoMock.Object;
+            interpreter.FilterRepository = filterRepoMock.Object;
+            interpreter.DestinationRepository = destinationRepoMock.Object;
+            var rootNode = new RootNode();
+            rootNode.ProviderNode = new ProviderNode(new ProviderToken("string"));
+            rootNode.FilterNodes = new List<FilterNode>
+            {
+                new FilterNode(new FilterToken("stringbuildermodifier"))
+            };
+            rootNode.DestinationNode = new DestinationNode(new DestinationToken("console"));
+            interpreter.Invoking(i => i.Interpret(rootNode))
+                .ShouldNotThrow("a valid converter is registered to convert between the type mismatch");
+        }
+
         [Fact]
         public async Task Handle_Pipeline_Where_Conversion_Is_Not_Necessary()
         {
@@ -80,50 +114,19 @@ namespace Missile.Client.TextLauncher.Tests
             var destinationRepoMock = new Mock<IDestinationRepository>();
             destinationRepoMock.Setup(repository => repository.Get("console")).Returns(() => new ConsoleDestination());
 
-            Interpreter interpreter = new Interpreter();
+            var interpreter = new Interpreter();
             interpreter.ProviderRepository = providerRepoMock.Object;
             interpreter.FilterRepository = filterRepoMock.Object;
             interpreter.DestinationRepository = destinationRepoMock.Object;
-            RootNode rootNode = new RootNode();
+            var rootNode = new RootNode();
             rootNode.ProviderNode = new ProviderNode(new ProviderToken("string"));
-            rootNode.FilterNodes = new List<FilterNode>()
+            rootNode.FilterNodes = new List<FilterNode>
             {
                 new FilterNode(new FilterToken("distinct"))
             };
             rootNode.DestinationNode = new DestinationNode(new DestinationToken("console"));
-            interpreter.Invoking(i => i.Interpret(rootNode)).ShouldNotThrow("the same type is passed between each pipeline component and thus requires no conversion");
-        }
-
-        [Fact]
-        public async Task Handle_Pipeline_Where_Conversion_Is_Necessary()
-        {
-            var providerRepoMock = new Mock<IProviderRepository>();
-            providerRepoMock.Setup(repository => repository.Get("string")).Returns(() => new StringProvider());
-
-            var converterRepoMock = new Mock<IConverterRepository>();
-            converterRepoMock.Setup(c => c.Get(typeof(string), typeof(StringBuilder)))
-                .Returns(() => new []{new StringBuilderStringConverter()});
-            converterRepoMock.Setup(c => c.Get(typeof(StringBuilder), typeof(string)))
-                .Returns(() => new []{ new StringBuilderStringConverter() });
-
-            var filterRepoMock = new Mock<IFilterRepository>();
-            filterRepoMock.Setup(repository => repository.Get("stringbuildermodifier")).Returns(() => new StringBuilderModifier());
-
-            var destinationRepoMock = new Mock<IDestinationRepository>();
-            destinationRepoMock.Setup(repository => repository.Get("console")).Returns(() => new ConsoleDestination());
-
-            Interpreter interpreter = new Interpreter();
-            interpreter.ProviderRepository = providerRepoMock.Object;
-            interpreter.FilterRepository = filterRepoMock.Object;
-            interpreter.DestinationRepository = destinationRepoMock.Object;
-            RootNode rootNode = new RootNode();
-            rootNode.ProviderNode = new ProviderNode(new ProviderToken("string"));
-            rootNode.FilterNodes = new List<FilterNode>()
-            {
-                new FilterNode(new FilterToken("stringbuildermodifier"))
-            };
-            rootNode.DestinationNode = new DestinationNode(new DestinationToken("console"));
-            interpreter.Invoking(i => i.Interpret(rootNode)).ShouldNotThrow("a valid converter is registered to convert between the type mismatch");
+            interpreter.Invoking(i => i.Interpret(rootNode)).ShouldNotThrow(
+                "the same type is passed between each pipeline component and thus requires no conversion");
         }
     }
 }
