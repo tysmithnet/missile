@@ -56,7 +56,15 @@ namespace Missile.Client.TextLauncher.Tests
                 throw new NotImplementedException();
             }
         }
-        
+
+        public class StringToEmployeeConverter : IConverter<string, Employee>
+        {
+            public IObservable<Employee> Convert(IObservable<string> source)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         [Fact]
         public void Return_All_Valid_Converters()
         {
@@ -64,14 +72,15 @@ namespace Missile.Client.TextLauncher.Tests
             {
                 new IdToManagerConverter(),
                 new IdToMemberConverter(),
-            };
-
+                new StringToEmployeeConverter(), 
+            };      
 
             ConverterRepository converterRepository = new ConverterRepository(converters);
 
-            var results =converterRepository.Get(typeof(int), typeof(IEmployee));
+            var results = converterRepository.Get(typeof(int), typeof(IEmployee));
+            var expected = converters.Take(2);
 
-            results.Should().Equal(converters, "multiple converters can be returned if the types are compatible");
+            results.Should().Equal(expected, "multiple converters can be returned if the types are compatible, but non compatible converters should not be returned");
         }
     }
 }
