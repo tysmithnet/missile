@@ -16,25 +16,6 @@ namespace Missile.Client.TextLauncher.Compilation
         {
             string providerName = root.ProviderNode.Name;
             IProvider provider = ProviderRepository.Get(providerName);
-            //var providerOutputType = provider
-            //    .GetType()
-            //    .GetInterfaces()
-            //    .First(t => t.IsGenericType && t.GetGenericTypeDefinition() == typeof(IProvider<>))
-            //    .GenericTypeArguments[0];
-
-            //var filterType = root.FilterNodes.First().GetType();
-            //var filterInputType = filterType
-            //    .GetInterfaces()
-            //    .First(t => t.IsGenericType && t.GetGenericTypeDefinition() == typeof(IFilter<,>))
-            //    .GenericTypeArguments[0];
-
-            //var filterOutputType = filterType
-            //    .GetInterfaces()
-            //    .First(t => t.IsGenericType && t.GetGenericTypeDefinition() == typeof(IFilter<,>))
-            //    .GenericTypeArguments[1];
-
-            //var converter = ConverterRepository.Get(filterInputType, filterOutputType);
-
             var providerType = provider.GetType();
             var getMethodInfo = providerType.GetMethod("Get", new [] {typeof(string)});
             var result = getMethodInfo.Invoke(provider, new object[]{ root.ProviderNode.ArgString });

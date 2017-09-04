@@ -73,6 +73,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConverterRepository_Should.cs" />
     <Compile Include="Interpreter_Should.cs" />
     <Compile Include="Lexer_Should.cs" />
     <Compile Include="Parser_Should.cs" />
