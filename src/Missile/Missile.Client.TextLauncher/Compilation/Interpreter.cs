@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Missile.Client.TextLauncher.Compilation
@@ -25,15 +26,18 @@ namespace Missile.Client.TextLauncher.Compilation
             var filterMethodInfo = filterType.GetMethod("Filter");
             var converters = ConverterRepository.Get(providerResult.GetType().GenericTypeArguments[0],
                 filterMethodInfo.ReturnType.GenericTypeArguments[0]);
-            var converterType = converters.First();
-            var convertMethodInfo = typeof(IConverter<,>).GetMethod("Convert");
-            var convertedResult = convertMethodInfo.Invoke(converterType, new object[] {providerResult});
+            var converterEntry = converters.First();
+            var convertedResult =
+                converterEntry.ConvertMethodInfo.Invoke(converterEntry.Converter, new[] {providerResult});
             var filteredResult = filterMethodInfo.Invoke(filter, new[] {convertedResult});
             var destinationName = root.DestinationNode.Name;
             var destination = DestinationRepository.Get(destinationName);
             var destinationType = destination.GetType();
             var processMethodInfo = destinationType.GetMethod("Process");
-            var processTask = processMethodInfo.Invoke(destination, new[] {filteredResult});
+            var destinationConverter = ConverterRepository.Get(typeof(StringBuilder), typeof(string)).First();
+            var destinationConvertedResult =
+                destinationConverter.ConvertMethodInfo.Invoke(destinationConverter.Converter, new[] {filteredResult});
+            var processTask = processMethodInfo.Invoke(destination, new[] {destinationConvertedResult});
             Task task = processTask as Task;
             if(task == null)
                 throw new ApplicationException();
