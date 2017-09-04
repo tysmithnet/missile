@@ -68,7 +68,22 @@ namespace Missile.Client.TextLauncher.Tests
             var converterRepository = new ConverterRepository(converters);
 
             var results = converterRepository.Get(typeof(int), typeof(IEmployee));
-            var expected = new[] {converters[1], converters[0]};
+            //var expected = new[] {converters[1], converters[0]};
+            var expected = new[]
+            {
+                new ConverterEntry
+                {
+                    SourceType = typeof(int),
+                    DestType = typeof(IEmployee),
+                    Converter = converters[1]
+                },
+                new ConverterEntry
+                {
+                    SourceType = typeof(int),
+                    DestType = typeof(Manager),
+                    Converter = converters[0]
+                },
+            };
 
             results.Should().Equal(expected,
                 "multiple converters can be returned if the types are compatible, but non compatible converters should not be returned, and they should be in order of closeness of match");

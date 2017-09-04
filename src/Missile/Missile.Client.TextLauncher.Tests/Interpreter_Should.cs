@@ -75,10 +75,7 @@ namespace Missile.Client.TextLauncher.Tests
             providerRepoMock.Setup(repository => repository.Get("string")).Returns(() => new StringProvider());
 
             var converterRepoMock = new Mock<IConverterRepository>();
-            converterRepoMock.Setup(c => c.Get(typeof(string), typeof(StringBuilder)))
-                .Returns(() => new[] {new StringBuilderStringConverter()});
-            converterRepoMock.Setup(c => c.Get(typeof(StringBuilder), typeof(string)))
-                .Returns(() => new[] {new StringBuilderStringConverter()});
+            
 
             var filterRepoMock = new Mock<IFilterRepository>();
             filterRepoMock.Setup(repository => repository.Get("stringbuildermodifier"))
@@ -89,6 +86,7 @@ namespace Missile.Client.TextLauncher.Tests
 
             var interpreter = new Interpreter();
             interpreter.ProviderRepository = providerRepoMock.Object;
+            interpreter.ConverterRepository = converterRepoMock.Object;
             interpreter.FilterRepository = filterRepoMock.Object;
             interpreter.DestinationRepository = destinationRepoMock.Object;
             var rootNode = new RootNode();

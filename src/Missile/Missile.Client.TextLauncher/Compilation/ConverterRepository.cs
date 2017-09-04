@@ -2,9 +2,41 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection;
 
 namespace Missile.Client.TextLauncher.Compilation
 {
+    public class ConverterEntry
+    {
+        public Type SourceType { get; set; }
+        public Type DestType { get; set; }
+        public IConverter Converter { get; set; }
+
+        private Type interfaceType;
+        public Type InterfaceType => interfaceType ?? (interfaceType = typeof(IConverter<,>).MakeGenericType(SourceType, DestType));
+
+        private MethodInfo convertMethodInfo;
+        public MethodInfo ConvertMethodInfo => convertMethodInfo ?? (convertMethodInfo = InterfaceType.GetMethod("Convert"));
+
+        public override bool Equals(object obj)
+        {
+            var entry = obj as ConverterEntry;
+            return entry != null &&
+                   EqualityComparer<Type>.Default.Equals(SourceType, entry.SourceType) &&
+                   EqualityComparer<Type>.Default.Equals(DestType, entry.DestType) &&
+                   EqualityComparer<IConverter>.Default.Equals(Converter, entry.Converter);
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1060857348;
+            hashCode = hashCode * -1521134295 + EqualityComparer<Type>.Default.GetHashCode(SourceType);
+            hashCode = hashCode * -1521134295 + EqualityComparer<Type>.Default.GetHashCode(DestType);
+            hashCode = hashCode * -1521134295 + EqualityComparer<IConverter>.Default.GetHashCode(Converter);
+            return hashCode;
+        }
+    }
+             
     public class ConverterRepository : IConverterRepository
     {
         public ConverterRepository(IEnumerable<IConverter> converters)
@@ -36,18 +68,11 @@ namespace Missile.Client.TextLauncher.Compilation
 
         protected internal List<ConverterEntry> Lookup { get; set; }
 
-        public IEnumerable<IConverter> Get(Type sourceType, Type destType)
+        public IEnumerable<ConverterEntry> Get(Type sourceType, Type destType)
         {
-            return new DefaultConverterRetrievalStrategy().Get(Lookup, sourceType, destType).Select(x => x.Converter);
+            return new DefaultConverterRetrievalStrategy().Get(Lookup, sourceType, destType);
         }
-
-        protected internal struct ConverterEntry
-        {
-            public Type SourceType { get; set; }
-            public Type DestType { get; set; }
-            public IConverter Converter { get; set; }
-        }
-
+                                     
         protected internal interface IConverterRetrievalStrategy
         {
             IEnumerable<ConverterEntry> Get(IEnumerable<ConverterEntry> entries, Type requestedSource,

@@ -18,12 +18,17 @@ namespace Missile.Client.TextLauncher.Compilation
             IProvider provider = ProviderRepository.Get(providerName);
             var providerType = provider.GetType();
             var getMethodInfo = providerType.GetMethod("Get", new [] {typeof(string)});
-            var result = getMethodInfo.Invoke(provider, new object[]{ root.ProviderNode.ArgString });
+            var providerResult = getMethodInfo.Invoke(provider, new object[]{ root.ProviderNode.ArgString });
             var filterName = root.FilterNodes.First().Name;
             var filter = FilterRepository.Get(filterName);
             var filterType = filter.GetType();
             var filterMethodInfo = filterType.GetMethod("Filter");
-            var filteredResult = filterMethodInfo.Invoke(filter, new[] {result});
+            var converters = ConverterRepository.Get(providerResult.GetType().GenericTypeArguments[0],
+                filterMethodInfo.ReturnType.GenericTypeArguments[0]);
+            var converterType = converters.First();
+            var convertMethodInfo = typeof(IConverter<,>).GetMethod("Convert");
+            var convertedResult = convertMethodInfo.Invoke(converterType, new object[] {providerResult});
+            var filteredResult = filterMethodInfo.Invoke(filter, new[] {convertedResult});
             var destinationName = root.DestinationNode.Name;
             var destination = DestinationRepository.Get(destinationName);
             var destinationType = destination.GetType();
@@ -34,6 +39,12 @@ namespace Missile.Client.TextLauncher.Compilation
                 throw new ApplicationException();
             return task;
         }
+    }
+
+
+    public static class ExtensionMethods
+    {
+        
     }
 
     public interface IFilterRepository
