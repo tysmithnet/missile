@@ -6,31 +6,48 @@ using System.Linq;
 namespace Missile.Client.TextLauncher.Compilation
 {
     public class ConverterRepository : IConverterRepository
-    {
+    {     
         public IReadOnlyCollection<IConverter> Converters { get; set; }
 
-        private struct CacheKey
+        protected internal List<ConverterEntry> Lookup { get; set; }
+
+        protected internal struct ConverterEntry
         {
             public Type SourceType { get; set; }
             public Type DestType { get; set; }
-        }
-
-        private Dictionary<CacheKey, IConverter> Cache { get; set; }
+            public IConverter Converter { get; set; }
+        }                  
 
         public ConverterRepository(IEnumerable<IConverter> converters)
         {
             Converters = new ReadOnlyCollection<IConverter>(converters.ToList());
-            converters.Select(x => new
+            var precursors = Converters.Select(c => new
             {
-                Converter = x,
-                Interfaces = x.GetType().GetInterfaces().Where(i =>
-                    i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IConverter<,>))
-            });
+                Converter = c,
+                Interfaces = c.GetType().GetInterfaces().Where(type =>
+                    type.IsGenericType && type.GetGenericTypeDefinition() == typeof(IConverter<,>))
+            }).ToList();
+
+            Lookup = new List<ConverterEntry>();
+            foreach (var precursor in precursors)
+            {
+                foreach (var type in precursor.Interfaces)
+                {
+                    Type curSource = type.GenericTypeArguments[0];
+                    Type curDest = type.GenericTypeArguments[1];
+                    Lookup.Add(new ConverterEntry
+                    {
+                        Converter = precursor.Converter,
+                        SourceType = curSource,
+                        DestType = curDest
+                    });
+                }
+            }
         }
 
-        public IConverter Get(Type source, Type dest)
+        public IEnumerable<IConverter> Get(Type sourceType, Type destType)
         {
-            throw new NotImplementedException();
+            return Lookup.Where(x => x.SourceType.IsAssignableFrom(sourceType) && destType.IsAssignableFrom(x.DestType)).Select(x => x.Converter);
         }
     }
 }

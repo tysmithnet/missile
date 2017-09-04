@@ -102,9 +102,9 @@ namespace Missile.Client.TextLauncher.Tests
 
             var converterRepoMock = new Mock<IConverterRepository>();
             converterRepoMock.Setup(c => c.Get(typeof(string), typeof(StringBuilder)))
-                .Returns(() => new StringBuilderStringConverter());
+                .Returns(() => new []{new StringBuilderStringConverter()});
             converterRepoMock.Setup(c => c.Get(typeof(StringBuilder), typeof(string)))
-                .Returns(() => new StringBuilderStringConverter());
+                .Returns(() => new []{ new StringBuilderStringConverter() });
 
             var filterRepoMock = new Mock<IFilterRepository>();
             filterRepoMock.Setup(repository => repository.Get("stringbuildermodifier")).Returns(() => new StringBuilderModifier());
