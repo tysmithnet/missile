@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.Core", "Missile.Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.TextLauncher", "Missile.TextLauncher\Missile.TextLauncher.csproj", "{CEFBCCB2-1B93-43BF-A2D5-9EE40CE01B9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.TextLauncher.Interpretation", "Missile.TextLauncher.Interpretation\Missile.TextLauncher.Interpretation.csproj", "{32712A15-8415-4901-ADB8-C90A8EF2591A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CEFBCCB2-1B93-43BF-A2D5-9EE40CE01B9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEFBCCB2-1B93-43BF-A2D5-9EE40CE01B9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEFBCCB2-1B93-43BF-A2D5-9EE40CE01B9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32712A15-8415-4901-ADB8-C90A8EF2591A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32712A15-8415-4901-ADB8-C90A8EF2591A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32712A15-8415-4901-ADB8-C90A8EF2591A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32712A15-8415-4901-ADB8-C90A8EF2591A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
