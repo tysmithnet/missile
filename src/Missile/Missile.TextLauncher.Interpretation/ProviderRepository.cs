@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Missile.Core
+namespace Missile.TextLauncher.Interpretation
 {
-    public class Class1
+    class ProviderRepository
     {
+        public IEnumerable<Type> 
     }
 }

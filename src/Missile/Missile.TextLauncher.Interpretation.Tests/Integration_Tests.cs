@@ -15,13 +15,8 @@ namespace Missile.TextLauncher.Interpretation.Tests
         [Fact]
         public void Handle_Noop_Provider()
         {
-            AssemblyCatalog assemblyCatalog = new AssemblyCatalog(typeof(IFacade).Assembly);
-            TypeCatalog typeCatalog = new TypeCatalog(typeof(NoopProvider));
-            AggregateCatalog aggregateCatalog = new AggregateCatalog(assemblyCatalog, typeCatalog);
-            CompositionContainer compositionContainer = new CompositionContainer(aggregateCatalog);
-           
-            string input = "noop";
-            IFacade facade = compositionContainer.GetExport<IFacade>().Value;
+            string input = "noop";                                               
+
 
             Task task = facade.Execute(input);            
             task.Exception.Should().BeNull();
