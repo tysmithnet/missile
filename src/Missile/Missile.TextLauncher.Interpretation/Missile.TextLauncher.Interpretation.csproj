@@ -40,7 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Facade.cs" />
+    <Compile Include="ILexer.cs" />
     <Compile Include="Interpreter.cs" />
+    <Compile Include="IParser.cs" />
+    <Compile Include="IToken.cs" />
+    <Compile Include="Lexer.cs" />
+    <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
