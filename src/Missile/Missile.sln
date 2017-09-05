@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.Client", "Missile.Client\Missile.Client.csproj", "{2F9F3C8E-97D5-43B7-AA6E-9E5A7CEEB624}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.Core", "Missile.Core\Missile.Core.csproj", "{D7B2884D-38DB-427F-804F-074BEA6E4C0F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{2F9F3C8E-97D5-43B7-AA6E-9E5A7CEEB624}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F9F3C8E-97D5-43B7-AA6E-9E5A7CEEB624}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F9F3C8E-97D5-43B7-AA6E-9E5A7CEEB624}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7B2884D-38DB-427F-804F-074BEA6E4C0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7B2884D-38DB-427F-804F-074BEA6E4C0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7B2884D-38DB-427F-804F-074BEA6E4C0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7B2884D-38DB-427F-804F-074BEA6E4C0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
