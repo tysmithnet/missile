@@ -5,16 +5,17 @@ using System.Threading.Tasks;
 
 namespace Missile.TextLauncher.Interpretation
 {
-    public class Facade
+    public class Facade : IFacade
     {
-        public static Task Execute(string input)
+        public ILexer Lexer { get; set; }
+        public IParser Parser { get; set; }
+        public IInterpreter Interpreter { get; set; }
+                                                   
+        public Task Execute(string input)
         {
-            ILexer lexer = new Lexer();
-            IEnumerable<IToken> tokens = lexer.Lex(input);
-            IParser parser = new Parser();
-            RootNode rootNode = parser.Parse(tokens);
-            IInterpreter interpreter = new Interpreter();
-            return interpreter.Interpret(rootNode);
+            var tokens = Lexer.Lex(input);
+            var rootNode = Parser.Parse(tokens);
+            return Interpreter.Interpret(rootNode);
         }
     }
 }
