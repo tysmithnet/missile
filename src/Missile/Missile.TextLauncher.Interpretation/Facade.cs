@@ -10,7 +10,7 @@ namespace Missile.TextLauncher.Interpretation
         public ILexer Lexer { get; set; }
         public IParser Parser { get; set; }
         public IInterpreter Interpreter { get; set; }
-                                                   
+        
         public Task Execute(string input)
         {
             var tokens = Lexer.Lex(input);

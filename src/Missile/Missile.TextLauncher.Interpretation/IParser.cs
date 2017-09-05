@@ -4,6 +4,6 @@ namespace Missile.TextLauncher.Interpretation
 {
     public interface IParser
     {
-        RootNode Parse(IEnumerable<IToken> tokens);
+        RootNode Parse(IEnumerable<Token> tokens);
     }
 }

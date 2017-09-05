@@ -4,6 +4,6 @@ namespace Missile.TextLauncher.Interpretation
 {
     public interface ILexer
     {
-        IEnumerable<IToken> Lex(string input);
+        IEnumerable<Token> Lex(string input);
     }
 }

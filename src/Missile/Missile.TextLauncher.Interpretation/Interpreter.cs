@@ -16,11 +16,18 @@ namespace Missile.TextLauncher.Interpretation
             RequestedProvider = requestedProvider ?? throw new ArgumentNullException(nameof(requestedProvider));
             ArgString = argString ?? throw new ArgumentNullException(nameof(argString));
         }
+
+        public ProviderNode(ProviderToken requestedProvider)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class RootNode
     {
         public ProviderNode ProviderNode { get; set; }
+        public List<FilterNode> FilterNodes { get; set; }
+        public DestinationNode DestinationNode { get; set; }
     }
 
     public interface IInterpreter
