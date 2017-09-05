@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.Client", "Missile.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.Core", "Missile.Core\Missile.Core.csproj", "{D7B2884D-38DB-427F-804F-074BEA6E4C0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Missile.TextLauncher", "Missile.TextLauncher\Missile.TextLauncher.csproj", "{CEFBCCB2-1B93-43BF-A2D5-9EE40CE01B9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{D7B2884D-38DB-427F-804F-074BEA6E4C0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7B2884D-38DB-427F-804F-074BEA6E4C0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7B2884D-38DB-427F-804F-074BEA6E4C0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CEFBCCB2-1B93-43BF-A2D5-9EE40CE01B9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEFBCCB2-1B93-43BF-A2D5-9EE40CE01B9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEFBCCB2-1B93-43BF-A2D5-9EE40CE01B9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEFBCCB2-1B93-43BF-A2D5-9EE40CE01B9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
