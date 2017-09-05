@@ -6,4 +6,7 @@
         xmlns:local="clr-namespace:Missile.Client"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        
+    </Grid>
 </Window>
