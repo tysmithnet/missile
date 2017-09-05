@@ -70,5 +70,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Missile.TextLauncher.Interpretation\Missile.TextLauncher.Interpretation.csproj">
+      <Project>{32712a15-8415-4901-adb8-c90a8ef2591a}</Project>
+      <Name>Missile.TextLauncher.Interpretation</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
