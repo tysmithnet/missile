@@ -2,7 +2,7 @@
 
 namespace Missile.TextLauncher.Interpretation
 {
-    public class DestinationNode
+    public class DestinationNode : Node
     {
         public DestinationNode(DestinationToken destinationToken)
         {

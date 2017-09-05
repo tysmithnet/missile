@@ -12,7 +12,7 @@ namespace Missile.TextLauncher.Interpretation
     {
         public Task Interpret(RootNode rootNode)
         {
-            return Task.FromException(new Exception("crashed"));
+            return Task.CompletedTask;
         }
     }
 }

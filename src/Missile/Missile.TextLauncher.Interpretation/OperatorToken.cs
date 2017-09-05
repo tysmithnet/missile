@@ -1,14 +1,10 @@
 ﻿namespace Missile.TextLauncher.Interpretation
 {
     public class OperatorToken : Token
-    {
-        private string part;
-
-        public OperatorToken(string part)
+    {                                                
+        public OperatorToken(string part) : base(part)
         {
-            this.part = part;
-        }
-
-        public string Identifier { get; set; }
+            
+        }                                            
     }
 }

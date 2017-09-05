@@ -13,7 +13,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
     public class Integration_Tests
     {
         [Fact]
-        public void Handle_Only_Provider_No_Args()
+        public void Handle_Noop_Provider()
         {
             AssemblyCatalog assemblyCatalog = new AssemblyCatalog(typeof(IFacade).Assembly);
             TypeCatalog typeCatalog = new TypeCatalog(typeof(NoopProvider));
@@ -22,6 +22,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
            
             string input = "noop";
             IFacade facade = compositionContainer.GetExport<IFacade>().Value;
+
             Task task = facade.Execute(input);            
             task.Exception.Should().BeNull();
         }

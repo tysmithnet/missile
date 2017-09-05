@@ -6,7 +6,7 @@ namespace Missile.TextLauncher.Interpretation
     {
         public FilterToken(string part)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

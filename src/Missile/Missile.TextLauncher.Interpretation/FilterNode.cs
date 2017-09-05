@@ -2,7 +2,7 @@
 
 namespace Missile.TextLauncher.Interpretation
 {
-    public class FilterNode
+    public class FilterNode : Node
     {
         public FilterNode(FilterToken filterToken)
         {
