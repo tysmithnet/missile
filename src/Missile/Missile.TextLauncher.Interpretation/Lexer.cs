@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Primitives;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Missile.TextLauncher.Interpretation
 {
+    [Export(typeof(ILexer))]
     public class Lexer : ILexer
-    {
-        private static readonly Regex IdentifierRegex = new Regex(@"[a-zA-Z0-9_*]");
-        private static readonly Regex OperatorRegex = new Regex(@"[|>]");
-
+    {                 
         public IEnumerable<Token> Lex(string input)
         {
             if (input == null) throw new NullReferenceException(nameof(input));

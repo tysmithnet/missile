@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Primitives;
 using System.Linq;
 
 namespace Missile.TextLauncher.Interpretation
 {
+    [Export(typeof(IParser))]
     public class Parser : IParser
     {
         public RootNode Parse(IEnumerable<Token> tokens)

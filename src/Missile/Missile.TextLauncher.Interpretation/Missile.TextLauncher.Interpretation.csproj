@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,6 +47,7 @@
     <Compile Include="FilterNode.cs" />
     <Compile Include="FilterToken.cs" />
     <Compile Include="IFacade.cs" />
+    <Compile Include="IInterpreter.cs" />
     <Compile Include="ILexer.cs" />
     <Compile Include="Interpreter.cs" />
     <Compile Include="IParser.cs" />
@@ -54,7 +56,9 @@
     <Compile Include="OperatorToken.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProviderNode.cs" />
     <Compile Include="ProviderToken.cs" />
+    <Compile Include="RootNode.cs" />
     <Compile Include="Token.cs" />
   </ItemGroup>
   <ItemGroup>

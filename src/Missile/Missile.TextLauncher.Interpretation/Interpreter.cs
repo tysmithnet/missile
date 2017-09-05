@@ -1,40 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Primitives;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Missile.TextLauncher.Interpretation
 {
-    public class ProviderNode
-    {
-        public string RequestedProvider { get; set; }
-        public string ArgString { get; set; }
-
-        public ProviderNode(string requestedProvider, string argString)
-        {
-            RequestedProvider = requestedProvider ?? throw new ArgumentNullException(nameof(requestedProvider));
-            ArgString = argString ?? throw new ArgumentNullException(nameof(argString));
-        }
-
-        public ProviderNode(ProviderToken requestedProvider)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class RootNode
-    {
-        public ProviderNode ProviderNode { get; set; }
-        public List<FilterNode> FilterNodes { get; set; }
-        public DestinationNode DestinationNode { get; set; }
-    }
-
-    public interface IInterpreter
-    {
-        Task Interpret(RootNode rootNode);
-    }
-
+    [Export(typeof(IInterpreter))]
     public class Interpreter : IInterpreter
     {
         public Task Interpret(RootNode rootNode)
