@@ -1,4 +1,6 @@
-﻿namespace Missile.TextLauncher.Interpretation.Compilation
+﻿using System.Linq;
+
+namespace Missile.TextLauncher.Interpretation.Compilation
 {
     internal class RootNodeBuilder
     {
@@ -18,6 +20,8 @@
 
         public RootNode Build()
         {
+            if(RootNode.ProviderNode == null && !RootNode.FilterNodes.Any() && RootNode.DestinationNode == null)
+                return new NullRootNode();
             return RootNode;
         }
 

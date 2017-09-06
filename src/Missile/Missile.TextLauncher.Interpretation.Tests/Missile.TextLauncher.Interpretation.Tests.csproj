@@ -103,6 +103,7 @@
     <Compile Include="Integration_Tests.cs" />
     <Compile Include="InterpreterBuilder.cs" />
     <Compile Include="Interpreter_Should.cs" />
+    <Compile Include="Parser_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
