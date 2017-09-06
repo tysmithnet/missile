@@ -64,6 +64,7 @@
     <Compile Include="Facade.cs" />
     <Compile Include="FilterNode.cs" />
     <Compile Include="FilterToken.cs" />
+    <Compile Include="IDestinationRepository.cs" />
     <Compile Include="IFacade.cs" />
     <Compile Include="IInterpreter.cs" />
     <Compile Include="ILexer.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="ProviderRepository.cs" />
     <Compile Include="ProviderToken.cs" />
     <Compile Include="RangeProvider.cs" />
+    <Compile Include="RegisteredDestination.cs" />
     <Compile Include="RegisteredProvider.cs" />
     <Compile Include="RootNode.cs" />
     <Compile Include="RootNodeBuilder.cs" />

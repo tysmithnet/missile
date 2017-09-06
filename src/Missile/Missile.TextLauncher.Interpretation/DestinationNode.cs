@@ -6,7 +6,8 @@ namespace Missile.TextLauncher.Interpretation
     {
         public DestinationNode(DestinationToken destinationToken)
         {
-            throw new NotImplementedException();
+            Name = destinationToken.Identifier;
+            ArgString = destinationToken.ArgString;
         }
     }
 }

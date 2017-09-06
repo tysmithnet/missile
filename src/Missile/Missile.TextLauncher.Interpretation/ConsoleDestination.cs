@@ -8,11 +8,12 @@ namespace Missile.TextLauncher.Interpretation
 {
     public class ConsoleDestination : Destination<object>
     {
+        internal Action<object> WriteFunction = Console.WriteLine;
+
         public override Task ProcessAsync(IObservable<object> source)
         {
             TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
-
-            source.Subscribe(Console.WriteLine, exception => tcs.SetException(exception));
+            source.Subscribe(WriteFunction, exception => tcs.SetException(exception), () => tcs.SetResult(null));
 
             return tcs.Task;
         }
