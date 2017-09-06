@@ -81,6 +81,7 @@
     <Compile Include="ProviderToken.cs" />
     <Compile Include="RegisteredProvider.cs" />
     <Compile Include="RootNode.cs" />
+    <Compile Include="RootNodeBuilder.cs" />
     <Compile Include="Token.cs" />
   </ItemGroup>
   <ItemGroup>
