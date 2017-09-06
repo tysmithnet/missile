@@ -58,7 +58,6 @@
     <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderNode.cs" />
-    <Compile Include="ProviderRepository.cs" />
     <Compile Include="ProviderToken.cs" />
     <Compile Include="RootNode.cs" />
     <Compile Include="Token.cs" />

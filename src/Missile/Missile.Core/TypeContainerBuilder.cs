@@ -16,7 +16,7 @@ namespace Missile.Core
 
         public TypeContainerBuilder AddAssemblyTypes(params Assembly[] assemblies)
         {
-            var types = assemblies.SelectMany(a => a.GetTypes()).ToList();
+            var types = assemblies.SelectMany(a => a.GetExportedTypes()).ToList();
             types.ForEach(t => typeContainer.Types.Add(t));
             return this;
         }
@@ -31,6 +31,11 @@ namespace Missile.Core
         {
             types.ToList().ForEach(t => typeContainer.Types.Add(t));
             return this;
+        }
+
+        public TypeContainer Build()
+        {
+            return typeContainer;
         }
     }
 }

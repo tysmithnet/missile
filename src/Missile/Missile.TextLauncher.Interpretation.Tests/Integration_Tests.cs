@@ -16,10 +16,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
         public void Handle_Noop_Provider()
         {
             string input = "noop";                                               
-
-
-            Task task = facade.Execute(input);            
-            task.Exception.Should().BeNull();
+            
         }
     }
 }

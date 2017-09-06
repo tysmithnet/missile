@@ -3,9 +3,9 @@ using System.Reactive.Linq;
 
 namespace Missile.TextLauncher.Interpretation.Tests.Mocks
 {
-    public class NoopProvider : IProvider<object>
+    public class NoopProvider : Provider<object>
     {
-        public IObservable<object> Provide()
+        public override IObservable<object> Provide()
         {
             return new object[0].ToObservable();
         }
