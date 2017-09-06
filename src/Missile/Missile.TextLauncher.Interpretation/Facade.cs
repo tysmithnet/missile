@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.Composition;
-using System.Linq;
-using System.Text;
+﻿using System.ComponentModel.Composition;
 using System.Threading.Tasks;
 using Missile.TextLauncher.Interpretation.Compilation;
 
@@ -18,7 +15,7 @@ namespace Missile.TextLauncher.Interpretation
 
         [Import]
         public IInterpreter Interpreter { get; set; }
-        
+
         public Task Execute(string input)
         {
             var tokens = Lexer.Lex(input);

@@ -13,7 +13,7 @@ namespace Missile.TextLauncher.Interpretation
 
         public Task Process(object arg)
         {
-            return (Task)ProcessAsyncMethodInfo.Invoke(DestinationInstance, new object[] {arg});
-        }                                               
+            return (Task) ProcessAsyncMethodInfo.Invoke(DestinationInstance, new[] {arg});
+        }
     }
 }
