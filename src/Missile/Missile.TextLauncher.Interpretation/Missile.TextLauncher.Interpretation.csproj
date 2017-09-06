@@ -59,39 +59,39 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleDestination.cs" />
-    <Compile Include="DestinationNode.cs" />
-    <Compile Include="DestinationToken.cs" />
+    <Compile Include="Compilation\DestinationNode.cs" />
+    <Compile Include="Compilation\DestinationToken.cs" />
     <Compile Include="Facade.cs" />
-    <Compile Include="FilterNode.cs" />
-    <Compile Include="FilterToken.cs" />
+    <Compile Include="Compilation\FilterNode.cs" />
+    <Compile Include="Compilation\FilterToken.cs" />
     <Compile Include="DistinctFilter.cs" />
     <Compile Include="IDestinationRepository.cs" />
     <Compile Include="IFacade.cs" />
     <Compile Include="IFilterRepository.cs" />
-    <Compile Include="IInterpreter.cs" />
-    <Compile Include="ILexer.cs" />
-    <Compile Include="Interpreter.cs" />
-    <Compile Include="IParser.cs" />
+    <Compile Include="Compilation\IInterpreter.cs" />
+    <Compile Include="Compilation\ILexer.cs" />
+    <Compile Include="Compilation\Interpreter.cs" />
+    <Compile Include="Compilation\IParser.cs" />
     <Compile Include="IProviderRepository.cs" />
-    <Compile Include="IToken.cs" />
-    <Compile Include="Lexer.cs" />
-    <Compile Include="Node.cs" />
+    <Compile Include="Compilation\IToken.cs" />
+    <Compile Include="Compilation\Lexer.cs" />
+    <Compile Include="Compilation\Node.cs" />
     <Compile Include="NoopDestination.cs" />
     <Compile Include="NoopProvider.cs" />
-    <Compile Include="OperatorToken.cs" />
-    <Compile Include="Parser.cs" />
+    <Compile Include="Compilation\OperatorToken.cs" />
+    <Compile Include="Compilation\Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProviderNode.cs" />
+    <Compile Include="Compilation\ProviderNode.cs" />
     <Compile Include="ProviderRepository.cs" />
-    <Compile Include="ProviderToken.cs" />
+    <Compile Include="Compilation\ProviderToken.cs" />
     <Compile Include="RangeProvider.cs" />
     <Compile Include="RegisteredDestination.cs" />
     <Compile Include="RegisteredFilter.cs" />
     <Compile Include="RegisteredProvider.cs" />
-    <Compile Include="RootNode.cs" />
-    <Compile Include="RootNodeBuilder.cs" />
+    <Compile Include="Compilation\RootNode.cs" />
+    <Compile Include="Compilation\RootNodeBuilder.cs" />
     <Compile Include="TakeFilter.cs" />
-    <Compile Include="Token.cs" />
+    <Compile Include="Compilation\Token.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -99,7 +99,7 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="grammar.txt" />
+    <Content Include="Compilation\grammar.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Missile.TextLauncher\Missile.TextLauncher.csproj">

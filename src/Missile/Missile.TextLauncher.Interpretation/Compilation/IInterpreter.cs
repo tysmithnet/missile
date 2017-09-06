@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Missile.TextLauncher.Interpretation
+namespace Missile.TextLauncher.Interpretation.Compilation
 {
     public interface IInterpreter
     {

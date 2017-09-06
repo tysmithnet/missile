@@ -1,28 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Primitives;
 using System.Linq;
-using System.Text.RegularExpressions;
 
-namespace Missile.TextLauncher.Interpretation
+namespace Missile.TextLauncher.Interpretation.Compilation
 {
     [Export(typeof(ILexer))]
     public class Lexer : ILexer
-    {                 
+    {
         public IEnumerable<Token> Lex(string input)
         {
             if (input == null) throw new NullReferenceException(nameof(input));
 
-            List<Token> tokens = new List<Token>();
+            var tokens = new List<Token>();
 
             input = input.Trim();
 
             var parts = SplitInputIntoParts(input);
 
-            for (int i = 0; i < parts.Count; i++)
+            for (var i = 0; i < parts.Count; i++)
             {
-                string part = parts[i];
+                var part = parts[i];
 
                 if (tokens.LastOrDefault() == null)
                 {
@@ -57,11 +55,10 @@ namespace Missile.TextLauncher.Interpretation
 
         private List<string> SplitInputIntoParts(string input)
         {
-            bool startEscape = false;
-            List<string> parts = new List<string>();
-            int lastIndex = 0;
-            for (int i = 0; i < input.Length; i++)
-            {
+            var startEscape = false;
+            var parts = new List<string>();
+            var lastIndex = 0;
+            for (var i = 0; i < input.Length; i++)
                 switch (input[i])
                 {
                     case '\\':
@@ -71,7 +68,8 @@ namespace Missile.TextLauncher.Interpretation
                     case '>':
                         if (!startEscape)
                         {
-                            parts.Add(input.Substring(lastIndex, i - lastIndex).Replace(@"\|", "|").Replace(@"\>", ">"));
+                            parts.Add(input.Substring(lastIndex, i - lastIndex).Replace(@"\|", "|")
+                                .Replace(@"\>", ">"));
                             parts.Add(input.Substring(i, 1));
                             lastIndex = i + 1;
                         }
@@ -81,7 +79,6 @@ namespace Missile.TextLauncher.Interpretation
                         startEscape = false;
                         break;
                 }
-            }
             if (lastIndex < input.Length)
                 parts.Add(input.Substring(lastIndex).Replace(@"\|", "|").Replace(@"\>", ">"));
 

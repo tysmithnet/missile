@@ -1,12 +1,9 @@
-﻿using System;
-
-namespace Missile.TextLauncher.Interpretation
+﻿namespace Missile.TextLauncher.Interpretation.Compilation
 {
     public class FilterToken : Token
     {
         public FilterToken(string part)
         {
-            
         }
     }
 }

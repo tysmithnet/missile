@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using FluentAssertions;
+using Missile.TextLauncher.Interpretation.Compilation;
 using Moq;
 using Xunit;
 
