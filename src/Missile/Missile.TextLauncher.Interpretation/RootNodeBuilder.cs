@@ -20,5 +20,11 @@
         {
             return RootNode;
         }
+
+        public RootNodeBuilder WithDestination(string destination)
+        {
+            RootNode.DestinationNode = new DestinationNode(new DestinationToken(destination));
+            return this;
+        }
     }
 }

@@ -58,6 +58,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleDestination.cs" />
     <Compile Include="DestinationNode.cs" />
     <Compile Include="DestinationToken.cs" />
     <Compile Include="Facade.cs" />
@@ -73,12 +74,14 @@
     <Compile Include="Lexer.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="NoopDestination.cs" />
+    <Compile Include="NoopProvider.cs" />
     <Compile Include="OperatorToken.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderNode.cs" />
     <Compile Include="ProviderRepository.cs" />
     <Compile Include="ProviderToken.cs" />
+    <Compile Include="RangeProvider.cs" />
     <Compile Include="RegisteredProvider.cs" />
     <Compile Include="RootNode.cs" />
     <Compile Include="RootNodeBuilder.cs" />

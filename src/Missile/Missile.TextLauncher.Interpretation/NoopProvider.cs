@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
 
-namespace Missile.TextLauncher.Interpretation.Tests.Mocks
+namespace Missile.TextLauncher.Interpretation
 {
     public class NoopProvider : Provider<object>
     {
