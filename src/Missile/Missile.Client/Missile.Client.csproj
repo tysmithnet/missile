@@ -93,5 +93,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Missile.Core\Missile.Core.csproj">
+      <Project>{d7b2884d-38db-427f-804f-074bea6e4c0f}</Project>
+      <Name>Missile.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
