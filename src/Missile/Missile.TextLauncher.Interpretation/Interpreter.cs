@@ -10,6 +10,7 @@ namespace Missile.TextLauncher.Interpretation
     public class Interpreter : IInterpreter
     {       
         public IProviderRepository ProviderRepository { get; set; }
+        public IFilterRepository FilterRepository { get; set; }
         public IDestinationRepository DestinationRepository { get; set; }
             
         public Task Interpret(RootNode rootNode)

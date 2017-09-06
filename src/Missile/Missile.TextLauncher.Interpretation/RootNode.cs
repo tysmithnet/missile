@@ -5,7 +5,8 @@ namespace Missile.TextLauncher.Interpretation
     public class RootNode
     {
         public ProviderNode ProviderNode { get; set; }
-        public List<FilterNode> FilterNodes { get; set; }
+        public List<FilterNode> FilterNodes { get; set; } = new List<FilterNode>();
         public DestinationNode DestinationNode { get; set; }
+        
     }
 }

@@ -6,7 +6,8 @@ namespace Missile.TextLauncher.Interpretation
     {
         public FilterNode(FilterToken filterToken)
         {
-            throw new NotImplementedException();
+            Name = filterToken.Identifier;
+            ArgString = filterToken.ArgString;
         }
     }
 }

@@ -66,6 +66,7 @@
     <Compile Include="FilterToken.cs" />
     <Compile Include="IDestinationRepository.cs" />
     <Compile Include="IFacade.cs" />
+    <Compile Include="IFilterRepository.cs" />
     <Compile Include="IInterpreter.cs" />
     <Compile Include="ILexer.cs" />
     <Compile Include="Interpreter.cs" />
@@ -84,9 +85,11 @@
     <Compile Include="ProviderToken.cs" />
     <Compile Include="RangeProvider.cs" />
     <Compile Include="RegisteredDestination.cs" />
+    <Compile Include="RegisteredFilter.cs" />
     <Compile Include="RegisteredProvider.cs" />
     <Compile Include="RootNode.cs" />
     <Compile Include="RootNodeBuilder.cs" />
+    <Compile Include="TakeFilter.cs" />
     <Compile Include="Token.cs" />
   </ItemGroup>
   <ItemGroup>

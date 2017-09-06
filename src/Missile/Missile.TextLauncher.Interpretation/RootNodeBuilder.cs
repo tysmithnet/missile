@@ -26,5 +26,11 @@
             RootNode.DestinationNode = new DestinationNode(new DestinationToken(destination));
             return this;
         }
+
+        public RootNodeBuilder WithFilter(string log)
+        {
+            RootNode.FilterNodes.Add(new FilterNode(new FilterToken(log)));
+            return this;
+        }
     }
 }
