@@ -1,6 +1,4 @@
-﻿using Missile.TextLauncher.Interpretation.Compilation;
-
-namespace Missile.TextLauncher.Interpretation.Tests
+﻿namespace Missile.TextLauncher.Interpretation.Tests
 {
     public class InterpreterBuilder
     {

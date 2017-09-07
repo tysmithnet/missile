@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.Composition;
 using System.Threading.Tasks;
-using Missile.TextLauncher.Interpretation.Compilation;
 
 namespace Missile.TextLauncher.Interpretation
 {
