@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Missile.TextLauncher.Interpretation;
 
-namespace Missile.TextLauncher.Interpretation
+namespace Missile.TextLauncher
 {
     public interface IProviderRepository
     {

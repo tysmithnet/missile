@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Missile.TextLauncher.Interpretation
+namespace Missile.TextLauncher
 {
     public sealed class RegisteredProvider
     {

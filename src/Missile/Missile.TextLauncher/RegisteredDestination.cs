@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace Missile.TextLauncher.Interpretation
+namespace Missile.TextLauncher
 {
     public class RegisteredDestination
     {

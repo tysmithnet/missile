@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Missile.TextLauncher.Interpretation
+namespace Missile.TextLauncher
 {
     public class RegisteredFilter
     {

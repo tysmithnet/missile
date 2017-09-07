@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
 
-namespace Missile.TextLauncher.Interpretation
+namespace Missile.TextLauncher
 {
     public class DistinctFilter : Filter<object, object>
     {

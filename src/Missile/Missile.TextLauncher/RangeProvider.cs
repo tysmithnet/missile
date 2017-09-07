@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reactive.Linq;
 
-namespace Missile.TextLauncher.Interpretation
+namespace Missile.TextLauncher
 {
     public class RangeProvider : Provider<object>
     {
