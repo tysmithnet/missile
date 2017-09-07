@@ -50,7 +50,7 @@ namespace Missile.TextLauncher.Interpretation.Compilation
                 throw new ApplicationException($"Unable to parse part: {part}");
             }
 
-            return tokens;
+            return tokens.Where(x => !(x is OperatorToken));
         }
 
         private List<string> SplitInputIntoParts(string input)
