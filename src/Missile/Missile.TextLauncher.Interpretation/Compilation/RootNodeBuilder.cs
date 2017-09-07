@@ -27,7 +27,7 @@ namespace Missile.TextLauncher.Interpretation.Compilation
         public RootNode Build()
         {
             if(RootNode.ProviderNode == null && !RootNode.FilterNodes.Any() && RootNode.DestinationNode == null)
-                return new NullRootNode();
+                return new RootNode();
             return RootNode;
         }
 

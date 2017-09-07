@@ -58,7 +58,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Compilation\NullRootNode.cs" />
     <Compile Include="ConsoleDestination.cs" />
     <Compile Include="Compilation\DestinationNode.cs" />
     <Compile Include="Compilation\DestinationToken.cs" />

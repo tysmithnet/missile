@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using Missile.TextLauncher.Interpretation.Compilation;
 using Xunit;
 
@@ -7,43 +8,40 @@ namespace Missile.TextLauncher.Interpretation.Tests
     public class Parser_Should
     {
         [Fact]
-        public void Parse_Null_Object_If_Empty()
-        {
-            var tokens = new Token[] { };
-            var parser = new Parser();
-            parser.Parse(null).Should().Be(new NullRootNode(), "null is treaded as empty");
-            parser.Parse(tokens).Should().Be(new NullRootNode(), "no tokens is treated as empty");
-        }
-
-        [Fact]
-        public void Parse_Single_Provider()
+        public void Use_NoopProvider_And_NoopDestination_If_They_Arent_Supplied()
         {
             var tokens = new Token[]
             {
-                new ProviderToken("noop"), 
-            };
 
-            Parser parser = new Parser();
-            RootNodeBuilder rootNodeBuilder = new RootNodeBuilder()
-                .WithProvider("noop");
-            parser.Parse(tokens).Should().Be(rootNodeBuilder.Build());
-        }
-
-        [Fact]
-        public void Parse_Provider_And_Destination()
-        {
-            var tokens = new Token[]
-            {
-                new ProviderToken("noop"),
-                new DestinationToken("console"), 
             };
 
             Parser parser = new Parser();
             RootNode rootNode = new RootNodeBuilder()
                 .WithProvider("noop")
+                .WithDestination("noop")
+                .Build();
+            parser.Parse(tokens).Should().Be(rootNode, "nothing is actually required");
+        }
+
+        [Fact]
+        public void Parse_Respective_Components()
+        {
+            var tokens = new Token[]
+            {
+                new ProviderToken("lorem"),
+                new FilterToken("sort"),
+                new FilterToken("unique"),
+                new DestinationToken("console"), 
+            };
+
+            Parser parser = new Parser();
+            RootNode rootNode = new RootNodeBuilder()
+                .WithProvider("lorem")
+                .WithFilter("sort")
+                .WithFilter("unique")
                 .WithDestination("console")
                 .Build();
-            parser.Parse(tokens).Should().Be(rootNode);
-        }
+            parser.Parse(tokens).Should().Be(rootNode, "filters are not required");
+        }   
     }
 }

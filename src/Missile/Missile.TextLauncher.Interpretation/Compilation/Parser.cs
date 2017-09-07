@@ -8,11 +8,24 @@ namespace Missile.TextLauncher.Interpretation.Compilation
     {
         public RootNode Parse(IEnumerable<Token> tokens)
         {
-            List<Token> list = tokens?.ToList() ?? new List<Token>();
-            RootNodeBuilder builder = new RootNodeBuilder();
-            builder.WithProvider(list.First() as ProviderToken);
-            builder.WithDestination(list.Last() as DestinationToken);
-            return builder.Build();
+            if(tokens == null)
+                throw new NullReferenceException(nameof(tokens));
+
+            var list = tokens.ToList();
+
+            if (!(list.FirstOrDefault() is ProviderToken))
+            {
+                  list.Insert(0, new ProviderToken("noop"));
+            }   
+            if(!(list.LastOrDefault() is DestinationToken))
+                list.Add(new DestinationToken("noop"));
+            
+            return new RootNode
+            {
+                ProviderNode = new ProviderNode(list.First() as ProviderToken),
+                FilterNodes = list.OfType<FilterToken>().Select(x => new FilterNode(x)).ToList(),
+                DestinationNode = new DestinationNode(list.Last() as DestinationToken)
+            };
         }
     }
 }
