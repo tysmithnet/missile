@@ -19,7 +19,13 @@ namespace Missile.TextLauncher.Interpretation.Compilation
             }   
             if(!(list.LastOrDefault() is DestinationToken))
                 list.Add(new DestinationToken("noop"));
-            
+                                                                                 
+            if(list.OfType<ProviderToken>().Count() > 1)
+                throw new ArgumentException("there can be only 1 provider token");
+
+            if(list.OfType<DestinationToken>().Count() > 1)
+                throw new ArgumentException("there can be only 1 destination token");
+
             return new RootNode
             {
                 ProviderNode = new ProviderNode(list.First() as ProviderToken),

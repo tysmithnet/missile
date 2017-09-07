@@ -61,10 +61,12 @@
     <Compile Include="ConsoleDestination.cs" />
     <Compile Include="Compilation\DestinationNode.cs" />
     <Compile Include="Compilation\DestinationToken.cs" />
+    <Compile Include="DestinationRepository.cs" />
     <Compile Include="Facade.cs" />
     <Compile Include="Compilation\FilterNode.cs" />
     <Compile Include="Compilation\FilterToken.cs" />
     <Compile Include="DistinctFilter.cs" />
+    <Compile Include="FilterRepository.cs" />
     <Compile Include="IDestinationRepository.cs" />
     <Compile Include="IFacade.cs" />
     <Compile Include="IFilterRepository.cs" />

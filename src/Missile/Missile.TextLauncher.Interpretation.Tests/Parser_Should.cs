@@ -42,6 +42,35 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 .WithDestination("console")
                 .Build();
             parser.Parse(tokens).Should().Be(rootNode, "filters are not required");
-        }   
+        }
+
+        [Fact]
+        public void Throw_If_Provider_Used_Inappropriately()
+        {
+            var providerOutOfPlace = new Token[]
+            {
+                new FilterToken("sort"), 
+                new ProviderToken("lorem"), 
+            };
+
+            var filterOutOfPlace = new Token[]
+            {
+                new ProviderToken("lorem"),
+                new DestinationToken("console"),
+                new FilterToken("sort"),
+            };
+
+            var destinationOutOfPlace = new Token[]
+            {
+                new DestinationToken("console"),
+                new ProviderToken("lorem"),     
+                new FilterToken("sort"),
+            };
+
+            Parser parser = new Parser();
+            parser.Invoking(p => p.Parse(providerOutOfPlace)).ShouldThrow<ArgumentException>("provider cannot come after filter");
+            parser.Invoking(p => p.Parse(filterOutOfPlace)).ShouldThrow<ArgumentException>("filter cannot come after destination");
+            parser.Invoking(p => p.Parse(destinationOutOfPlace)).ShouldThrow<ArgumentException>("destination cannot come before provider");
+        }
     }
 }

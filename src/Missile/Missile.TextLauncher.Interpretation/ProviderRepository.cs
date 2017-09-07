@@ -5,7 +5,7 @@ namespace Missile.TextLauncher.Interpretation
 {
     public class ProviderRepository : IProviderRepository
     {
-        public IList<RegisteredProvider> RegisteredProviders { get; set; }
+        public IList<RegisteredProvider> RegisteredProviders { get; set; } = new List<RegisteredProvider>();
 
         public RegisteredProvider Get(string providerName)
         {
