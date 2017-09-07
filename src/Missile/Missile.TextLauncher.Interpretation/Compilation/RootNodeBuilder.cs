@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace Missile.TextLauncher.Interpretation.Compilation
 {
@@ -12,10 +13,15 @@ namespace Missile.TextLauncher.Interpretation.Compilation
         internal RootNode RootNode { get; set; }
 
 
-        public RootNodeBuilder WithProvider(string noop)
+        public RootNodeBuilder WithProvider(string providerName)
         {
-            RootNode.ProviderNode = new ProviderNode(new ProviderToken(noop));
+            RootNode.ProviderNode = new ProviderNode(new ProviderToken(providerName));
             return this;
+        }
+
+        internal void WithProvider(ProviderToken token)
+        {
+            RootNode.ProviderNode = new ProviderNode(token);
         }
 
         public RootNode Build()
@@ -25,15 +31,15 @@ namespace Missile.TextLauncher.Interpretation.Compilation
             return RootNode;
         }
 
-        public RootNodeBuilder WithDestination(string destination)
+        public RootNodeBuilder WithDestination(string destinationName)
         {
-            RootNode.DestinationNode = new DestinationNode(new DestinationToken(destination));
+            RootNode.DestinationNode = new DestinationNode(new DestinationToken(destinationName));
             return this;
         }
 
-        public RootNodeBuilder WithFilter(string log)
+        public RootNodeBuilder WithFilter(string filterName)
         {
-            RootNode.FilterNodes.Add(new FilterNode(new FilterToken(log)));
+            RootNode.FilterNodes.Add(new FilterNode(new FilterToken(filterName)));
             return this;
         }
     }

@@ -12,10 +12,16 @@ namespace Missile.TextLauncher.Interpretation.Compilation
         public override bool Equals(object obj)
         {
             var node = obj as RootNode;
-            return node != null &&
-                   EqualityComparer<ProviderNode>.Default.Equals(ProviderNode, node.ProviderNode) &&
-                   EqualityComparer<List<FilterNode>>.Default.Equals(FilterNodes, node.FilterNodes) &&
-                   EqualityComparer<DestinationNode>.Default.Equals(DestinationNode, node.DestinationNode);
+            if (node == null)
+                return false;
+            var providersBothNull = ProviderNode == null && node.ProviderNode == null;
+            var providersAreSame = ProviderNode?.Equals(node.ProviderNode) ?? false;
+            var filterNodesEqual = FilterNodes.Intersect(node.FilterNodes).Count() ==
+                                   FilterNodes.Union(node.FilterNodes).Count();
+            var destinationsBothNull = DestinationNode == null && node.DestinationNode == null;
+            var destiantionsAreEqual = DestinationNode?.Equals(node.DestinationNode) ?? false;
+            return (providersBothNull || providersAreSame) && filterNodesEqual &&
+                   (destinationsBothNull || destiantionsAreEqual);
         }
 
         public override int GetHashCode()
