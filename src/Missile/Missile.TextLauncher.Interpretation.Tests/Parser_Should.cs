@@ -28,5 +28,22 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 .WithProvider("noop");
             parser.Parse(tokens).Should().Be(rootNodeBuilder.Build());
         }
+
+        [Fact]
+        public void Parse_Provider_And_Destination()
+        {
+            var tokens = new Token[]
+            {
+                new ProviderToken("noop"),
+                new DestinationToken("console"), 
+            };
+
+            Parser parser = new Parser();
+            RootNode rootNode = new RootNodeBuilder()
+                .WithProvider("noop")
+                .WithDestination("console")
+                .Build();
+            parser.Parse(tokens).Should().Be(rootNode);
+        }
     }
 }
