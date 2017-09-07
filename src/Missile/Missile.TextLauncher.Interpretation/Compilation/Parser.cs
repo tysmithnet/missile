@@ -11,6 +11,7 @@ namespace Missile.TextLauncher.Interpretation.Compilation
             List<Token> list = tokens?.ToList() ?? new List<Token>();
             RootNodeBuilder builder = new RootNodeBuilder();
             builder.WithProvider(list.First() as ProviderToken);
+            builder.WithDestination(list.Last() as DestinationToken);
             return builder.Build();
         }
     }

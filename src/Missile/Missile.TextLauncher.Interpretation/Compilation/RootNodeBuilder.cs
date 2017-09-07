@@ -31,6 +31,12 @@ namespace Missile.TextLauncher.Interpretation.Compilation
             return RootNode;
         }
 
+        public RootNodeBuilder WithDestination(DestinationToken destintationToken)
+        {
+            RootNode.DestinationNode = new DestinationNode(destintationToken);
+            return this;
+        }
+
         public RootNodeBuilder WithDestination(string destinationName)
         {
             RootNode.DestinationNode = new DestinationNode(new DestinationToken(destinationName));
