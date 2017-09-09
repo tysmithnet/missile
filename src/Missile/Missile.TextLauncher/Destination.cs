@@ -5,7 +5,7 @@ namespace Missile.TextLauncher
 {
     public abstract class Destination<TSource> where TSource : class
     {
-        public abstract Task ProcessAsync(IObservable<TSource> source);
         public abstract string Name { get; set; }
+        public abstract Task ProcessAsync(IObservable<TSource> source);
     }
 }

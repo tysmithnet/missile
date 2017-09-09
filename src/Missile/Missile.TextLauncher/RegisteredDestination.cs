@@ -11,14 +11,13 @@ namespace Missile.TextLauncher
 
         internal RegisteredDestination()
         {
-            
         }
 
         public RegisteredDestination(Destination<object> destination)
         {
             Name = destination.Name;
             DestinationInstance = destination;
-            Type itr = destination.GetType().BaseType;
+            var itr = destination.GetType().BaseType;
             while (itr != null)
             {
                 if (itr.GetGenericTypeDefinition() == typeof(Destination<>))

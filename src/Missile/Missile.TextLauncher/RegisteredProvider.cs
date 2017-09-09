@@ -8,9 +8,9 @@ namespace Missile.TextLauncher
     {
         public RegisteredProvider(Provider<object> provider)
         {
-            Name = provider.Name;                                          
+            Name = provider.Name;
             ProviderInstance = provider;
-            Type itr = provider.GetType().BaseType;
+            var itr = provider.GetType().BaseType;
             while (itr != null)
             {
                 if (itr.GetGenericTypeDefinition() == typeof(Provider<>))

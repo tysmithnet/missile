@@ -8,10 +8,10 @@ namespace Missile.TextLauncher
     [Export(typeof(IProviderRepository))]
     public class ProviderRepository : IProviderRepository
     {
+        internal List<RegisteredProvider> registeredProviders;
+
         [ImportMany(typeof(Provider<object>))]
         public IEnumerable<Provider<object>> Providers { get; set; }
-
-        internal List<RegisteredProvider> registeredProviders;
 
         public IList<RegisteredProvider> RegisteredProviders =>
             registeredProviders ?? (registeredProviders = Providers.Select(x => new RegisteredProvider(x)).ToList());
@@ -23,7 +23,7 @@ namespace Missile.TextLauncher
 
         public void Add(RegisteredProvider provider)
         {
-            if(registeredProviders == null)
+            if (registeredProviders == null)
                 registeredProviders = new List<RegisteredProvider>();
             registeredProviders.Add(provider);
         }

@@ -19,9 +19,9 @@ namespace Missile.Client
             aggregateCatalog.Catalogs.Add(assemblyCatalog);
             aggregateCatalog.Catalogs.Add(coreAssemblyCatalog);
             aggregateCatalog.Catalogs.Add(textLauncherAssemblyCatalog);
-            CompositionContainer compositionContainer = new CompositionContainer(aggregateCatalog);
-            Launcher launcher = compositionContainer.GetExportedValue<Launcher>();
-            MainWindow mainWindow = new MainWindow(launcher);
+            var compositionContainer = new CompositionContainer(aggregateCatalog);
+            var launcher = compositionContainer.GetExportedValue<Launcher>();
+            var mainWindow = new MainWindow(launcher);
             mainWindow.Show();
         }
     }

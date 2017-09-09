@@ -7,6 +7,8 @@ namespace Missile.TextLauncher
     [Export(typeof(Destination<object>))]
     public class NoOpDestination : Destination<object>
     {
+        public override string Name { get; set; } = "noop";
+
         public override Task ProcessAsync(IObservable<object> source)
         {
             var tcs = new TaskCompletionSource<object>();
@@ -16,7 +18,5 @@ namespace Missile.TextLauncher
 
             return tcs.Task;
         }
-
-        public override string Name { get; set; } = "noop";
     }
 }

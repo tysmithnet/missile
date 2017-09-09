@@ -9,6 +9,8 @@ namespace Missile.TextLauncher
     {
         internal Action<object> WriteFunction = Console.WriteLine;
 
+        public override string Name { get; set; } = "console";
+
         public override Task ProcessAsync(IObservable<object> source)
         {
             var tcs = new TaskCompletionSource<object>();
@@ -16,7 +18,5 @@ namespace Missile.TextLauncher
 
             return tcs.Task;
         }
-
-        public override string Name { get; set; } = "console";
     }
 }

@@ -8,10 +8,10 @@ namespace Missile.TextLauncher
     [Export(typeof(IDestinationRepository))]
     public class DestinationRepository : IDestinationRepository
     {
+        internal List<RegisteredDestination> registeredDestinations;
+
         [ImportMany(typeof(Destination<object>))]
         public IEnumerable<Destination<object>> Destinations { get; set; }
-
-        internal List<RegisteredDestination> registeredDestinations;
 
         public IList<RegisteredDestination> RegisteredDestinations =>
             registeredDestinations ??
@@ -24,7 +24,7 @@ namespace Missile.TextLauncher
 
         public void Add(RegisteredDestination destination)
         {
-            if(registeredDestinations == null)
+            if (registeredDestinations == null)
                 registeredDestinations = new List<RegisteredDestination>();
             registeredDestinations.Add(destination);
         }
