@@ -6,8 +6,12 @@
                xmlns:local="clr-namespace:Missile.TextLauncher"
                xmlns:core="clr-namespace:Missile.Core;assembly=Missile.Core"
                mc:Ignorable="d"
-               d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Label Content="hello" />
-    </Grid>
+               d:DesignHeight="300" d:DesignWidth="300"
+               LayoutUpdated="TextLauncherImplementation_OnLayoutUpdated"
+               >
+    <DockPanel>
+        <TextBox x:Name="Input" DockPanel.Dock="Top" Height="30" VerticalContentAlignment="Center"></TextBox>
+        <TextBox x:Name="Output" Background="Black" Foreground="White"></TextBox>
+    </DockPanel>
+
 </core:Launcher>

@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
+using System.Windows;
 using Missile.Core;
 
 namespace Missile.TextLauncher
@@ -12,6 +14,11 @@ namespace Missile.TextLauncher
         public TextLauncherImplementation()
         {
             InitializeComponent();
+        }
+
+        private void TextLauncherImplementation_OnLayoutUpdated(object sender, EventArgs e)
+        {
+            Input.Focus();
         }
     }
 }
