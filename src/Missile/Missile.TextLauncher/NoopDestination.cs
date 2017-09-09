@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using System.Threading.Tasks;
 
 namespace Missile.TextLauncher
 {
-    public class NoopDestination : Destination<object>
+    [Export(typeof(Destination<>))]
+    public class NoOpDestination : Destination<object>
     {
         public override Task ProcessAsync(IObservable<object> source)
         {

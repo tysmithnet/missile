@@ -1,9 +1,11 @@
 ﻿using System;
+using System.ComponentModel.Composition;
 using System.Reactive.Linq;
 
 namespace Missile.TextLauncher
 {
-    public class NoopProvider : Provider<object>
+    [Export(typeof(Provider<>))]
+    public class NoOpProvider : Provider<object>
     {
         public override IObservable<object> Provide()
         {

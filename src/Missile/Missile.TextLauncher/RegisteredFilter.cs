@@ -2,7 +2,7 @@
 
 namespace Missile.TextLauncher
 {
-    public class RegisteredFilter
+    public sealed class RegisteredFilter
     {
         public string Name { get; set; }
         public object FilterInstance { get; set; }

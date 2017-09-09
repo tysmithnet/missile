@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Missile.Core;
 
 namespace Missile.Client
 {
@@ -20,9 +21,10 @@ namespace Missile.Client
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(Launcher launcher)
         {
             InitializeComponent();
+            Content = launcher;
         }
     }
 }

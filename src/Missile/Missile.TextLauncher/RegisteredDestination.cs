@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Missile.TextLauncher
 {
-    public class RegisteredDestination
+    public sealed class RegisteredDestination
     {
         public string Name { get; internal set; }
         public Type SourceType { get; internal set; }
