@@ -1,5 +1,8 @@
-﻿using System.ComponentModel.Composition.Hosting;
+﻿using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.Windows;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Debug;
 using Missile.Core;
 using Missile.TextLauncher;
 
@@ -8,12 +11,12 @@ namespace Missile.Client
     /// <summary>
     ///     Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
-    {
+    public sealed partial class App : Application
+    {  
         private void App_OnStartup(object sender, StartupEventArgs e)
-        {
+        {                               
             var aggregateCatalog = new AggregateCatalog();
-            var assemblyCatalog = new AssemblyCatalog(typeof(App).Assembly);
+            var assemblyCatalog = new AssemblyCatalog(typeof(App).Assembly);    
             var coreAssemblyCatalog = new AssemblyCatalog(typeof(Launcher).Assembly);
             var textLauncherAssemblyCatalog = new AssemblyCatalog(typeof(TextLauncherImplementation).Assembly);
             aggregateCatalog.Catalogs.Add(assemblyCatalog);
