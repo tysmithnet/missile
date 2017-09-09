@@ -5,7 +5,8 @@ namespace Missile.TextLauncher
 {
     public interface IDestinationRepository
     {
-        IList<RegisteredDestination> RegisteredDestinations { get; set; }
+        IList<RegisteredDestination> RegisteredDestinations { get; }
         RegisteredDestination Get(string requestedDestinationName);
+        void Add(RegisteredDestination destination);
     }
 }

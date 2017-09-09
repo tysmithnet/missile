@@ -16,7 +16,7 @@
 
         public InterpreterBuilder WithProvider(RegisteredProvider provider)
         {
-            Interpreter.ProviderRepository.RegisteredProviders.Add(provider);
+            Interpreter.ProviderRepository.Add(provider);
             return this;
         }
 
@@ -28,7 +28,7 @@
 
         public InterpreterBuilder WithDestination(RegisteredDestination destination)
         {
-            Interpreter.DestinationRepository.RegisteredDestinations.Add(destination);
+            Interpreter.DestinationRepository.Add(destination);
             return this;
         }
 

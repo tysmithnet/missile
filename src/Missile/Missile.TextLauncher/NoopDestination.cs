@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Missile.TextLauncher
 {
-    [Export(typeof(Destination<>))]
+    [Export(typeof(Destination<object>))]
     public class NoOpDestination : Destination<object>
     {
         public override Task ProcessAsync(IObservable<object> source)
@@ -16,5 +16,7 @@ namespace Missile.TextLauncher
 
             return tcs.Task;
         }
+
+        public override string Name { get; set; } = "noop";
     }
 }

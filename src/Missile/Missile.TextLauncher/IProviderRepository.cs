@@ -5,8 +5,7 @@ namespace Missile.TextLauncher
 {
     public interface IProviderRepository
     {
-        IList<RegisteredProvider> RegisteredProviders { get; set; }
-
-        RegisteredProvider Get(string providerName);
+        RegisteredProvider Get(string name);
+        void Add(RegisteredProvider provider);
     }
 }
