@@ -9,7 +9,7 @@
                d:DesignHeight="300" d:DesignWidth="300"
                LayoutUpdated="TextLauncherImplementation_OnLayoutUpdated" d:DataContext="{d:DesignData Source}">
     <DockPanel>
-        <TextBox x:Name="Input" DockPanel.Dock="Top" Height="30" VerticalContentAlignment="Center" Text="{Binding Path=Input}" KeyDown="Input_OnKeyDown"></TextBox>
+        <TextBox x:Name="Input" DockPanel.Dock="Top" Height="30" VerticalContentAlignment="Center" KeyDown="Input_OnKeyDown"></TextBox>
         <TextBox x:Name="Output" Background="Black" Foreground="White"></TextBox>
     </DockPanel>
 
