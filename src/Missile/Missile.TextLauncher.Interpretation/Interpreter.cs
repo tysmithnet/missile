@@ -21,10 +21,17 @@ namespace Missile.TextLauncher.Interpretation
             var provider = ProviderRepository.Get(rootNode.ProviderNode.Name);
 
             if (rootNode.DestinationNode == null)
-                return new NoopDestination().ProcessAsync((IObservable<object>) provider.Provide());
+                rootNode.DestinationNode = new DestinationNode(new DestinationToken("noop"));
 
             var destination =
                 DestinationRepository.Get(rootNode.DestinationNode.Name);
+
+            var providerResult = provider.Provide();
+            if (!destination.SourceType.IsAssignableFrom(provider.DestinationType))
+            {
+                // converter repo get
+            }
+            
 
             var destinationTask = destination.Process(provider.Provide());
             return destinationTask;

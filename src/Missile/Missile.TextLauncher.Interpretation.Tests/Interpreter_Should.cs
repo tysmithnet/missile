@@ -18,8 +18,15 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 {
                     Name = "noop",
                     DestinationType = typeof(object),
-                    ProviderInstance = new NoopProvider(),
-                    ProvideMethodInfo = typeof(NoopProvider).GetMethod("Provide")
+                    ProviderInstance = new NoOpProvider(),
+                    ProvideMethodInfo = typeof(NoOpProvider).GetMethod("Provide")
+                })
+                .WithDestination(new RegisteredDestination
+                {
+                    Name = "noop",
+                    SourceType = typeof(object),
+                    DestinationInstance = new NoOpDestination(),
+                    ProcessAsyncMethodInfo = typeof(NoOpDestination).GetMethod("ProcessAsync")
                 });
 
             var task = interpreterBuilder.Build().Interpret(rootNode);

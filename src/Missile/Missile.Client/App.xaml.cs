@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition.Hosting;
+﻿using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.Windows;
 using Missile.Core;
 using Missile.TextLauncher;
@@ -22,8 +23,9 @@ namespace Missile.Client
             aggregateCatalog.Catalogs.Add(coreAssemblyCatalog);
             aggregateCatalog.Catalogs.Add(textLauncherAssemblyCatalog);
             aggregateCatalog.Catalogs.Add(textLauncherInterpretationAssemblyCatalog);
-            var compositionContainer = new CompositionContainer(aggregateCatalog);
-            var launcher = compositionContainer.GetExportedValue<Launcher>();
+            var compositionContainer = new CompositionContainer(aggregateCatalog);      
+            TextLauncherImplementation launcher = new TextLauncherImplementation();
+            compositionContainer.ComposeParts(launcher);
             var mainWindow = new MainWindow(launcher);
             mainWindow.Show();
         }

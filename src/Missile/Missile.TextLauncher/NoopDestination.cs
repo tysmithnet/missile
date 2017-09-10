@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 namespace Missile.TextLauncher
 {
     [Export(typeof(IDestination))]
-    public class NoOpDestination : IDestination<object>
+    public class NoOpDestination : IDestination<object>, IDestination
     {
         public string Name { get; set; } = "noop";
 
