@@ -11,7 +11,7 @@
     <DockPanel>
         <TextBox x:Name="Input" DockPanel.Dock="Top" Height="30" VerticalContentAlignment="Center"
                  KeyDown="Input_OnKeyDown" />
-        <TextBox x:Name="Output" Background="Black" Foreground="White" />
+        <StackPanel x:Name="OutputPanel"></StackPanel>
     </DockPanel>
 
 </core:Launcher>

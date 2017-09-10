@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Windows.Controls;
 using System.Windows.Input;
 using Missile.Core;
 
@@ -9,7 +10,8 @@ namespace Missile.TextLauncher
     ///     Interaction logic for TextLauncherImplementation.xaml
     /// </summary>
     [Export(typeof(Launcher))]
-    public partial class TextLauncherImplementation : Launcher
+    [Export(typeof(IUiFacade))]
+    public partial class TextLauncherImplementation : Launcher, IUiFacade
     {
         public TextLauncherImplementation()
         {
@@ -21,9 +23,7 @@ namespace Missile.TextLauncher
 
         [Import(typeof(IInterpretationFacade))]
         public IInterpretationFacade InterpretationFacade { get; set; }
-
-        public string Text { get; set; }
-
+                                             
         // TODO: hack
         private void TextLauncherImplementation_OnLayoutUpdated(object sender, EventArgs e)
         {
@@ -37,6 +37,12 @@ namespace Missile.TextLauncher
                 Logger.Information(Input.Text);
                 await InterpretationFacade.ExecuteAsync(Input.Text);
             }
+        }
+
+        public void SetOutputControl(UserControl userControl)
+        {
+            OutputPanel.Children.RemoveRange(0, OutputPanel.Children.Count);
+            OutputPanel.Children.Add(userControl);
         }
     }
 }

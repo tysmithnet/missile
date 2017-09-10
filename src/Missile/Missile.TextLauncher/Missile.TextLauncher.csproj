@@ -71,8 +71,13 @@
     <Compile Include="IInterpretationFacade.cs" />
     <Compile Include="IFilterRepository.cs" />
     <Compile Include="IProviderRepository.cs" />
-    <Compile Include="NoopDestination.cs" />
-    <Compile Include="NoopProvider.cs" />
+    <Compile Include="IUiFacade.cs" />
+    <Compile Include="ListDestination.cs" />
+    <Compile Include="ListOutputControl.xaml.cs">
+      <DependentUpon>ListOutputControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NoOpDestination.cs" />
+    <Compile Include="NoOpProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Provider.cs" />
     <Compile Include="ProviderRepository.cs" />
@@ -97,6 +102,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ListOutputControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="TextLauncherImplementation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
