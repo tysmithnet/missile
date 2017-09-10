@@ -4,12 +4,12 @@ using System.Reactive.Linq;
 
 namespace Missile.TextLauncher
 {
-    [Export(typeof(Provider<object>))]
-    public class NoOpProvider : Provider<object>
+    [Export(typeof(IProvider))]
+    public class NoOpProvider : IProvider<object>
     {
-        public override string Name { get; set; } = "noop";
+        public string Name { get; set; } = "noop";
 
-        public override IObservable<object> Provide()
+        public IObservable<object> Provide()
         {
             return new object[0].ToObservable();
         }

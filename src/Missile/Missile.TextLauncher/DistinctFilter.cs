@@ -4,10 +4,10 @@ using System.Reactive.Linq;
 
 namespace Missile.TextLauncher
 {
-    [Export(typeof(Filter<object, object>))]
-    public class DistinctFilter : Filter<object, object>
+    [Export(typeof(IFilter<object, object>))]
+    public class DistinctFilter : IFilter<object, object>
     {
-        public override IObservable<object> Process(IObservable<object> source)
+        public IObservable<object> Process(IObservable<object> source)
         {
             return source.Distinct();
         }

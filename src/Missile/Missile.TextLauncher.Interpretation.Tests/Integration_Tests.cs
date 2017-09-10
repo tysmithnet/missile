@@ -11,7 +11,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
         {
             var aggregateCatalog = new AggregateCatalog();
             var facadeAssembly = new AssemblyCatalog(typeof(InterpretationFacade).Assembly);
-            var providerAssembly = new AssemblyCatalog(typeof(Provider<>).Assembly);
+            var providerAssembly = new AssemblyCatalog(typeof(IProvider<>).Assembly);
             aggregateCatalog.Catalogs.Add(facadeAssembly);
             aggregateCatalog.Catalogs.Add(providerAssembly);
             var compositionContainer = new CompositionContainer(aggregateCatalog);

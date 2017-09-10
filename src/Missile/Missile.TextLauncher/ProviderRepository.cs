@@ -10,11 +10,11 @@ namespace Missile.TextLauncher
     {
         internal List<RegisteredProvider> registeredProviders;
 
-        [ImportMany(typeof(Provider<object>))]
-        public IEnumerable<Provider<object>> Providers { get; set; }
+        [ImportMany(typeof(IProvider))]
+        public IEnumerable<IProvider> Providers { get; set; }
 
-        public IList<RegisteredProvider> RegisteredProviders =>
-            registeredProviders ?? (registeredProviders = Providers.Select(x => new RegisteredProvider(x)).ToList());
+        internal IList<RegisteredProvider> RegisteredProviders =>
+            registeredProviders ?? (registeredProviders = GetRegisteredProviders(Providers));
 
         public RegisteredProvider Get(string providerName)
         {
@@ -26,6 +26,27 @@ namespace Missile.TextLauncher
             if (registeredProviders == null)
                 registeredProviders = new List<RegisteredProvider>();
             registeredProviders.Add(provider);
+        }
+
+        internal List<RegisteredProvider> GetRegisteredProviders(IEnumerable<IProvider> providers)
+        {
+            List<RegisteredProvider> registeredProviders = new List<RegisteredProvider>();
+
+            var mapping = providers.Select(d => new
+            {
+                Instance = d,
+                Interfaces = d.GetType().GetInterfaces().Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IProvider<>)).ToList()
+            }).Where(x => x.Interfaces.Any());
+                                                                                                     
+            foreach (var item in mapping)
+            {
+                foreach (var iface in item.Interfaces)
+                {
+                    registeredProviders.Add(new RegisteredProvider(item.Instance, iface));
+                }
+            }
+
+            return registeredProviders;
         }
     }
 }

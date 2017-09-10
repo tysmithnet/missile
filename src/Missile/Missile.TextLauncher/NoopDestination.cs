@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace Missile.TextLauncher
 {
-    [Export(typeof(Destination<object>))]
-    public class NoOpDestination : Destination<object>
+    [Export(typeof(IDestination))]
+    public class NoOpDestination : IDestination<object>
     {
-        public override string Name { get; set; } = "noop";
+        public string Name { get; set; } = "noop";
 
-        public override Task ProcessAsync(IObservable<object> source)
+        public Task ProcessAsync(IObservable<object> source)
         {
             var tcs = new TaskCompletionSource<object>();
 

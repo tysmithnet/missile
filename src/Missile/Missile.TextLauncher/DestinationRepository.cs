@@ -10,12 +10,12 @@ namespace Missile.TextLauncher
     {
         internal List<RegisteredDestination> registeredDestinations;
 
-        [ImportMany(typeof(Destination<object>))]
-        public IEnumerable<Destination<object>> Destinations { get; set; }
+        [ImportMany(typeof(IDestination))]
+        public IEnumerable<IDestination> Destinations { get; set; }
 
-        public IList<RegisteredDestination> RegisteredDestinations =>
+        internal IList<RegisteredDestination> RegisteredDestinations =>
             registeredDestinations ??
-            (registeredDestinations = Destinations.Select(x => new RegisteredDestination(x)).ToList());
+            (registeredDestinations = GetRegisteredDestinations(Destinations));
 
         public RegisteredDestination Get(string requestedDestinationName)
         {
@@ -27,6 +27,26 @@ namespace Missile.TextLauncher
             if (registeredDestinations == null)
                 registeredDestinations = new List<RegisteredDestination>();
             registeredDestinations.Add(destination);
+        }
+
+        internal List<RegisteredDestination> GetRegisteredDestinations(IEnumerable<IDestination> destinations)
+        {
+            var mapping = destinations.Select(d => new
+            {
+                Instance = d,
+                Interfaces = d.GetType().GetInterfaces().Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDestination<>)).ToList()
+            }).Where(x => x.Interfaces.Any());
+
+            List<RegisteredDestination> registeredDestinations = new List<RegisteredDestination>();
+            foreach (var item in mapping)
+            {
+                foreach (var iface in item.Interfaces)
+                {
+                    registeredDestinations.Add(new RegisteredDestination(item.Instance, iface));
+                }
+            }
+
+            return registeredDestinations;
         }
     }
 }

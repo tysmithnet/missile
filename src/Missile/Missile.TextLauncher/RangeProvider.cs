@@ -5,12 +5,12 @@ using System.Reactive.Linq;
 
 namespace Missile.TextLauncher
 {
-    [Export(typeof(Provider<object>))]
-    public class RangeProvider : Provider<object>
+    [Export(typeof(IProvider))]
+    public class RangeProvider : IProvider<object>
     {
-        public override string Name { get; set; } = "range";
+        public string Name { get; set; } = "range";
 
-        public override IObservable<object> Provide()
+        public IObservable<object> Provide()
         {
             return Enumerable.Range(1, 10).Cast<object>().ToObservable();
         }

@@ -4,17 +4,17 @@ using System.Threading.Tasks;
 
 namespace Missile.TextLauncher
 {
-    [Export(typeof(Destination<object>))]
-    public class ListDestination : Destination<IListDestinationItem>
+    [Export(typeof(IDestination))]
+    public class ListDestination : IDestination<IListDestinationItem>
     {
-        public override string Name { get; set; } = "list";
+        public string Name { get; set; } = "list";
 
         //[Import]
         //public IUiFacade UiFacade { get; set; }
 
-        public override Task ProcessAsync(IObservable<IListDestinationItem> source)
+        public Task ProcessAsync(IObservable<IListDestinationItem> source)
         {
-            Destination<IListDestinationItem> x = new ListDestination();
+            IDestination<IListDestinationItem> x = new ListDestination();
             //UiFacade.SetOutputControl(new ListOutputControl());
             return Task.CompletedTask;
             

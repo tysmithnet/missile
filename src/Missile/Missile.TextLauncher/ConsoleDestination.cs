@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 
 namespace Missile.TextLauncher
 {
-    [Export(typeof(Destination<object>))]
-    public class ConsoleDestination : Destination<object>
+    [Export(typeof(IDestination))]
+    public class ConsoleDestination : IDestination<object>
     {
         internal Action<object> WriteFunction = Console.WriteLine;
 
-        public override string Name { get; set; } = "console";
+        public string Name { get; set; } = "console";
 
-        public override Task ProcessAsync(IObservable<object> source)
+        public Task ProcessAsync(IObservable<object> source)
         {
             var tcs = new TaskCompletionSource<object>();
             source.Subscribe(WriteFunction, exception => tcs.SetException(exception), () => tcs.SetResult(null));

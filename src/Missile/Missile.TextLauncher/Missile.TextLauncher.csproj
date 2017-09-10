@@ -62,10 +62,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleDestination.cs" />
-    <Compile Include="Destination.cs" />
+    <Compile Include="IDestination.cs" />
     <Compile Include="DestinationRepository.cs" />
     <Compile Include="DistinctFilter.cs" />
-    <Compile Include="Filter.cs" />
+    <Compile Include="IFilter.cs" />
     <Compile Include="FilterRepository.cs" />
     <Compile Include="IDestinationRepository.cs" />
     <Compile Include="IInterpretationFacade.cs" />
@@ -79,7 +79,7 @@
     <Compile Include="NoOpDestination.cs" />
     <Compile Include="NoOpProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Provider.cs" />
+    <Compile Include="IProvider.cs" />
     <Compile Include="ProviderRepository.cs" />
     <Compile Include="RangeProvider.cs" />
     <Compile Include="RegisteredDestination.cs" />
