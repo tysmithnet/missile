@@ -15,7 +15,7 @@ namespace Missile.TextLauncher.Interpretation
         [Import]
         public IInterpreter Interpreter { get; set; }
 
-        public Task Execute(string input)
+        public Task ExecuteAsync(string input)
         {
             var tokens = Lexer.Lex(input);
             var rootNode = Parser.Parse(tokens);

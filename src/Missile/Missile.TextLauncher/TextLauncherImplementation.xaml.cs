@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Missile.Core;
@@ -15,6 +16,9 @@ namespace Missile.TextLauncher
         [Import(typeof(ILogger))]
         public ILogger Logger { get; set; }
 
+        [Import(typeof(IInterpretationFacade))]
+        public IInterpretationFacade InterpretationFacade { get; set; }
+
         public string Text { get; set; }
 
         public TextLauncherImplementation()
@@ -28,10 +32,13 @@ namespace Missile.TextLauncher
             Input.Focus();
         }
 
-        private void Input_OnKeyDown(object sender, KeyEventArgs e)
+        private async void Input_OnKeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Key.Enter || e.Key == Key.Return)
+            if (e.Key == Key.Enter || e.Key == Key.Return)
+            {
                 Logger.Information(Input.Text);
+                await InterpretationFacade.ExecuteAsync(Input.Text);
+            }      
         }
     }
 }

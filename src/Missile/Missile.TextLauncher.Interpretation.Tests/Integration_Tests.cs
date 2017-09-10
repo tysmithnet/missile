@@ -17,7 +17,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
             var compositionContainer = new CompositionContainer(aggregateCatalog);
             var input = "noop";
             var facade = compositionContainer.GetExportedValue<IInterpretationFacade>();
-            facade.Invoking(f => f.Execute(input)).ShouldNotThrow("this is the most basic integration test possible");
+            facade.Invoking(f => f.ExecuteAsync(input)).ShouldNotThrow("this is the most basic integration test possible");
         }
     }
 }

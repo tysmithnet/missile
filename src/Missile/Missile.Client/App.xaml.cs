@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Debug;
 using Missile.Core;
 using Missile.TextLauncher;
+using Missile.TextLauncher.Interpretation;
 
 namespace Missile.Client
 {
@@ -19,9 +20,11 @@ namespace Missile.Client
             var assemblyCatalog = new AssemblyCatalog(typeof(App).Assembly);    
             var coreAssemblyCatalog = new AssemblyCatalog(typeof(Launcher).Assembly);
             var textLauncherAssemblyCatalog = new AssemblyCatalog(typeof(TextLauncherImplementation).Assembly);
+            var textLauncherInterpretationAssemblyCatalog = new AssemblyCatalog(typeof(InterpretationFacade).Assembly);
             aggregateCatalog.Catalogs.Add(assemblyCatalog);
             aggregateCatalog.Catalogs.Add(coreAssemblyCatalog);
             aggregateCatalog.Catalogs.Add(textLauncherAssemblyCatalog);
+            aggregateCatalog.Catalogs.Add(textLauncherInterpretationAssemblyCatalog);
             var compositionContainer = new CompositionContainer(aggregateCatalog);
             var launcher = compositionContainer.GetExportedValue<Launcher>();
             var mainWindow = new MainWindow(launcher);
