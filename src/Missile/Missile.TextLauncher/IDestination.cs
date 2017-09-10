@@ -5,9 +5,8 @@ namespace Missile.TextLauncher
 {
     public interface IDestination
     {
-        
     }
-    
+
     public interface IDestination<in TSource> : IDestination
     {
         string Name { get; set; }

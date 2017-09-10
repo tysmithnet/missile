@@ -3,7 +3,7 @@ using System.ComponentModel.Composition;
 using System.Threading.Tasks;
 
 namespace Missile.TextLauncher.Interpretation
-{   
+{
     [Export(typeof(IInterpreter))]
     public class Interpreter : IInterpreter
     {
@@ -30,14 +30,14 @@ namespace Missile.TextLauncher.Interpretation
                 DestinationRepository.Get(rootNode.DestinationNode.Name);
 
             var providerResult = provider.Provide();
-            object toDestination = providerResult;
+            var toDestination = providerResult;
             if (!destination.SourceType.IsAssignableFrom(provider.DestinationType))
             {
                 var sourceType = typeof(IObservable<>).MakeGenericType(provider.DestinationType);
                 var destType = typeof(IObservable<>).MakeGenericType(destination.SourceType);
                 var converter = ConverterRepository.Get(sourceType, destType);
                 toDestination = converter.Convert(providerResult, sourceType, destType);
-            }                              
+            }
 
             var destinationTask = destination.Process(toDestination);
             return destinationTask;

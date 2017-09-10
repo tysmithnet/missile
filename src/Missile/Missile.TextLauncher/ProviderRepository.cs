@@ -30,21 +30,18 @@ namespace Missile.TextLauncher
 
         internal List<RegisteredProvider> GetRegisteredProviders(IEnumerable<IProvider> providers)
         {
-            List<RegisteredProvider> registeredProviders = new List<RegisteredProvider>();
+            var registeredProviders = new List<RegisteredProvider>();
 
             var mapping = providers.Select(d => new
             {
                 Instance = d,
-                Interfaces = d.GetType().GetInterfaces().Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IProvider<>)).ToList()
+                Interfaces = d.GetType().GetInterfaces()
+                    .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IProvider<>)).ToList()
             }).Where(x => x.Interfaces.Any());
-                                                                                                     
+
             foreach (var item in mapping)
-            {
-                foreach (var iface in item.Interfaces)
-                {
-                    registeredProviders.Add(new RegisteredProvider(item.Instance, iface));
-                }
-            }
+            foreach (var iface in item.Interfaces)
+                registeredProviders.Add(new RegisteredProvider(item.Instance, iface));
 
             return registeredProviders;
         }

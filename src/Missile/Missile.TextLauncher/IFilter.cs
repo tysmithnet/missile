@@ -4,7 +4,6 @@ namespace Missile.TextLauncher
 {
     public interface IFilter
     {
-        
     }
 
     public interface IFilter<in TSource, out TDest> : IFilter

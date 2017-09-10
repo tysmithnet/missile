@@ -23,7 +23,13 @@ namespace Missile.TextLauncher
 
         [Import(typeof(IInterpretationFacade))]
         public IInterpretationFacade InterpretationFacade { get; set; }
-                                             
+
+        public void SetOutputControl(UserControl userControl)
+        {
+            OutputPanel.Children.RemoveRange(0, OutputPanel.Children.Count);
+            OutputPanel.Children.Add(userControl);
+        }
+
         // TODO: hack
         private void TextLauncherImplementation_OnLayoutUpdated(object sender, EventArgs e)
         {
@@ -37,12 +43,6 @@ namespace Missile.TextLauncher
                 Logger.Information(Input.Text);
                 await InterpretationFacade.ExecuteAsync(Input.Text);
             }
-        }
-
-        public void SetOutputControl(UserControl userControl)
-        {
-            OutputPanel.Children.RemoveRange(0, OutputPanel.Children.Count);
-            OutputPanel.Children.Add(userControl);
         }
     }
 }

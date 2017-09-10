@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Missile.TextLauncher
 {
@@ -15,15 +13,15 @@ namespace Missile.TextLauncher
     [Export(typeof(IConverterRepository))]
     public class ConverterRepository : IConverterRepository
     {
-
         [ImportMany(typeof(IConverter))]
         public IEnumerable<IConverter> Converters { get; set; }
 
         public IConverter Get(Type source, Type dest)
         {
             var converter = Converters.FirstOrDefault(c => c.CanHandleRequest(source, dest));
-            if(converter == null)
-                throw new ArgumentOutOfRangeException($"There is no converter registered that can handle the conversion: {source} -> {dest}");
+            if (converter == null)
+                throw new ArgumentOutOfRangeException(
+                    $"There is no converter registered that can handle the conversion: {source} -> {dest}");
             return converter;
         }
     }

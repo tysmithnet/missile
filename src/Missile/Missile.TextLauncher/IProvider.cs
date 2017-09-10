@@ -4,7 +4,6 @@ namespace Missile.TextLauncher
 {
     public interface IProvider
     {
-        
     }
 
     public interface IProvider<out TDest> : IProvider

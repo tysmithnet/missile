@@ -2,13 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Missile.TextLauncher
 {
     public static class TypeExtensions
     {
+        public static MethodInfo GetGenericMethod(this Type type, string name, Type[] parameterTypes)
+        {
+            var methods = type.GetMethods();
+            foreach (var method in methods.Where(m => m.Name == name))
+            {
+                var methodParameterTypes = method.GetParameters().Select(p => p.ParameterType).ToArray();
+
+                if (methodParameterTypes.SequenceEqual(parameterTypes, new SimpleTypeComparer()))
+                    return method;
+            }
+
+            return null;
+        }
+
         private class SimpleTypeComparer : IEqualityComparer<Type>
         {
             public bool Equals(Type x, Type y)
@@ -22,22 +34,6 @@ namespace Missile.TextLauncher
             {
                 return obj.GetHashCode();
             }
-        }
-
-        public static MethodInfo GetGenericMethod(this Type type, string name, Type[] parameterTypes)
-        {
-            var methods = type.GetMethods();
-            foreach (var method in methods.Where(m => m.Name == name))
-            {
-                var methodParameterTypes = method.GetParameters().Select(p => p.ParameterType).ToArray();
-
-                if (methodParameterTypes.SequenceEqual(parameterTypes, new SimpleTypeComparer()))
-                {
-                    return method;
-                }
-            }
-
-            return null;
         }
     }
 }

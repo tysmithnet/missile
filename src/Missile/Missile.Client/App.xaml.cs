@@ -23,8 +23,8 @@ namespace Missile.Client
             aggregateCatalog.Catalogs.Add(coreAssemblyCatalog);
             aggregateCatalog.Catalogs.Add(textLauncherAssemblyCatalog);
             aggregateCatalog.Catalogs.Add(textLauncherInterpretationAssemblyCatalog);
-            var compositionContainer = new CompositionContainer(aggregateCatalog);      
-            TextLauncherImplementation launcher = new TextLauncherImplementation();
+            var compositionContainer = new CompositionContainer(aggregateCatalog);
+            var launcher = new TextLauncherImplementation();
             compositionContainer.ComposeParts(launcher);
             var mainWindow = new MainWindow(launcher);
             mainWindow.Show();

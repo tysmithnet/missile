@@ -34,17 +34,14 @@ namespace Missile.TextLauncher
             var mapping = destinations.Select(d => new
             {
                 Instance = d,
-                Interfaces = d.GetType().GetInterfaces().Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDestination<>)).ToList()
+                Interfaces = d.GetType().GetInterfaces()
+                    .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(IDestination<>)).ToList()
             }).Where(x => x.Interfaces.Any());
 
-            List<RegisteredDestination> registeredDestinations = new List<RegisteredDestination>();
+            var registeredDestinations = new List<RegisteredDestination>();
             foreach (var item in mapping)
-            {
-                foreach (var iface in item.Interfaces)
-                {
-                    registeredDestinations.Add(new RegisteredDestination(item.Instance, iface));
-                }
-            }
+            foreach (var iface in item.Interfaces)
+                registeredDestinations.Add(new RegisteredDestination(item.Instance, iface));
 
             return registeredDestinations;
         }

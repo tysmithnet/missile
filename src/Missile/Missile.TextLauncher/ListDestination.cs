@@ -17,7 +17,6 @@ namespace Missile.TextLauncher
             IDestination<ListDestinationItem> x = new ListDestination();
             //UiFacade.SetOutputControl(new ListOutputControl());
             return Task.CompletedTask;
-            
         }
     }
 

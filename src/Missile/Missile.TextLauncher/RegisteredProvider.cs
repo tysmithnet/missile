@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Reflection;
 
 namespace Missile.TextLauncher
 {
     public sealed class RegisteredProvider
-    {         
+    {
         public RegisteredProvider(IProvider instance, Type iProviderInterface)
         {
             ProviderInstance = instance;
-            PropertyInfo namePropertyInfo = iProviderInterface.GetProperty("Name");
+            var namePropertyInfo = iProviderInterface.GetProperty("Name");
             Name = (string) namePropertyInfo.GetValue(instance);
             DestinationType = iProviderInterface.GenericTypeArguments[0];
             ProvideMethodInfo = iProviderInterface.GetMethod("Provide");

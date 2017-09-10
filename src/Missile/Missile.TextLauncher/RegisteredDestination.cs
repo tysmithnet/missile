@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Missile.TextLauncher
 {
     public sealed class RegisteredDestination
-    {                                            
+    {
         internal RegisteredDestination()
         {
         }
@@ -14,7 +13,7 @@ namespace Missile.TextLauncher
         public RegisteredDestination(IDestination instance, Type interfaceType)
         {
             DestinationInstance = instance;
-            PropertyInfo propertyInfo = interfaceType.GetProperty("Name");
+            var propertyInfo = interfaceType.GetProperty("Name");
             Name = (string) propertyInfo.GetValue(instance);
             SourceType = interfaceType.GenericTypeArguments[0];
             ProcessAsyncMethodInfo = interfaceType.GetMethod("ProcessAsync");
