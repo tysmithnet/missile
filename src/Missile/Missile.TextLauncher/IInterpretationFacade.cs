@@ -3,7 +3,7 @@
 namespace Missile.TextLauncher
 {
     public interface IInterpretationFacade
-    {    
+    {
         Task ExecuteAsync(string input);
     }
 }

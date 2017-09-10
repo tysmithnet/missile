@@ -1,7 +1,5 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using Missile.Core;
 
@@ -13,6 +11,11 @@ namespace Missile.TextLauncher
     [Export(typeof(Launcher))]
     public partial class TextLauncherImplementation : Launcher
     {
+        public TextLauncherImplementation()
+        {
+            InitializeComponent();
+        }
+
         [Import(typeof(ILogger))]
         public ILogger Logger { get; set; }
 
@@ -21,14 +24,9 @@ namespace Missile.TextLauncher
 
         public string Text { get; set; }
 
-        public TextLauncherImplementation()
-        {                                     
-            InitializeComponent();
-        }
-
         // TODO: hack
         private void TextLauncherImplementation_OnLayoutUpdated(object sender, EventArgs e)
-        {                                              
+        {
             Input.Focus();
         }
 
@@ -38,7 +36,7 @@ namespace Missile.TextLauncher
             {
                 Logger.Information(Input.Text);
                 await InterpretationFacade.ExecuteAsync(Input.Text);
-            }      
+            }
         }
     }
 }

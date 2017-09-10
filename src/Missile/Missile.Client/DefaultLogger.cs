@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.Composition;
-using Microsoft.Extensions.Logging;            
+using Microsoft.Extensions.Logging;
+using ILogger = Missile.Core.ILogger;
 
 namespace Missile.Client
 {
-    [Export(typeof(Missile.Core.ILogger))]
-    public class DefaultLogger : Missile.Core.ILogger
+    [Export(typeof(ILogger))]
+    public class DefaultLogger : ILogger
     {
         public DefaultLogger()
         {
