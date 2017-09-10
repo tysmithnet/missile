@@ -68,6 +68,7 @@
     <Compile Include="Filter.cs" />
     <Compile Include="FilterRepository.cs" />
     <Compile Include="IDestinationRepository.cs" />
+    <Compile Include="IInterpretationFacade.cs" />
     <Compile Include="IFilterRepository.cs" />
     <Compile Include="IProviderRepository.cs" />
     <Compile Include="NoopDestination.cs" />

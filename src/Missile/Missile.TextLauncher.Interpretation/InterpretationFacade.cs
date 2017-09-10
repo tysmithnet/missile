@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace Missile.TextLauncher.Interpretation
 {
-    [Export(typeof(IFacade))]
-    public class Facade : IFacade
+    [Export(typeof(IInterpretationFacade))]
+    public class InterpretationFacade : IInterpretationFacade
     {
         [Import]
         public ILexer Lexer { get; set; }
