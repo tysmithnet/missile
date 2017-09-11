@@ -29,7 +29,8 @@ namespace Missile.TextLauncher.Interpretation.Tests
                     ProcessAsyncMethodInfo = typeof(NoOpDestination).GetMethod("ProcessAsync")
                 });
 
-            var task = interpreterBuilder.Build().Interpret(rootNode);
+            var interpreter = interpreterBuilder.Build();
+            var task = interpreter.Interpret(rootNode);
             Action action = () => task.Wait();
             action.ShouldNotThrow("single provider should be no problem");
         }
