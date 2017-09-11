@@ -2,7 +2,7 @@
 {
     public class FilterToken : Token
     {
-        public FilterToken(string part)
+        public FilterToken(string part) : base(part)
         {
         }
     }

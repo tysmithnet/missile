@@ -9,7 +9,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
         public const string SingleProviderWithArgString = "spotify play --playlist heavy";
         public const string ProviderAndDestination = "todo > list";
         public const string ProviderFilterDestination = "todo | sort > list";
-        public const string MultipleFilters = "lorem | sort | unqiue | take 100 > list";
+        public const string MultipleFilters = "lorem | sort | unique | take 100 > list";
         public const string EscapedPipe = @"google search \| unicode";
         public const string EscapedOutput = @"google search \> unicode";
 
@@ -46,7 +46,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 new ProviderToken("lorem"),
                 new FilterToken("sort"),
                 new FilterToken("unique"),
-                new FilterToken("take 100"),
+                new FilterToken("take 100 "),
                 new DestinationToken("list")
             };
 
