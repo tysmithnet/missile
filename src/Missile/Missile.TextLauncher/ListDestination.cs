@@ -22,5 +22,11 @@ namespace Missile.TextLauncher
 
     public class ListDestinationItem
     {
+        private string v;
+
+        public ListDestinationItem(string v)
+        {
+            this.v = v;
+        }
     }
 }

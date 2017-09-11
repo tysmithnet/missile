@@ -4,7 +4,11 @@ namespace Missile.TextLauncher
 {
     public interface IConverter
     {
-        bool CanHandleRequest(Type sourceType, Type destType);
-        object Convert(object source, Type sourceType, Type destType);
+        
+    }
+
+    public interface IConverter<in TSource, out TDest> : IConverter
+    {
+        IObservable<TDest> Convert(IObservable<TSource> source);
     }
 }

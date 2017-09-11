@@ -1,5 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Linq;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 namespace Missile.TextLauncher.Interpretation
@@ -36,7 +38,7 @@ namespace Missile.TextLauncher.Interpretation
                 var sourceType = typeof(IObservable<>).MakeGenericType(provider.DestinationType);
                 var destType = typeof(IObservable<>).MakeGenericType(destination.SourceType);
                 var converter = ConverterRepository.Get(sourceType, destType);
-                toDestination = converter.Convert(providerResult, sourceType, destType);
+                toDestination = converter.Convert(toDestination);
             }
 
             var destinationTask = destination.Process(toDestination);

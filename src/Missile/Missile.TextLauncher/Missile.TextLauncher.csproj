@@ -65,6 +65,7 @@
     <Compile Include="ConverterRepository.cs" />
     <Compile Include="FirstFilter.cs" />
     <Compile Include="IConverter.cs" />
+    <Compile Include="IConverterRepository.cs" />
     <Compile Include="IDestination.cs" />
     <Compile Include="DestinationRepository.cs" />
     <Compile Include="DistinctFilter.cs" />
