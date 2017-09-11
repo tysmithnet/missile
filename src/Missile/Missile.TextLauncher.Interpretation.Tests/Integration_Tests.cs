@@ -34,6 +34,20 @@ namespace Missile.TextLauncher.Interpretation.Tests
         {
             var input = "lorem";
             GetFacade().Invoking(async f => await f.ExecuteAsync(input)).ShouldNotThrow("providers can act on their own");
-        }                       
+        }
+
+        [Fact]
+        public void Handle_Provider_And_Destination()
+        {
+            var input = "lorem > console";
+            GetFacade().Invoking(async f => await f.ExecuteAsync(input)).ShouldNotThrow("filters are not required");
+        }
+
+        [Fact]
+        public void Handle_Provider_Filter_Destination()
+        {
+            var input = "lorem | first > console";
+            GetFacade().Invoking(f => f.ExecuteAsync(input)).ShouldNotThrow("the most basic full pipeline should pass");
+        }     
     }
 }
