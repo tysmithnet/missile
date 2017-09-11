@@ -103,6 +103,7 @@
     <Compile Include="InterpreterBuilder.cs" />
     <Compile Include="Interpreter_Should.cs" />
     <Compile Include="Lexer_Should.cs" />
+    <Compile Include="LoremIpsumProvider.cs" />
     <Compile Include="Parser_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
