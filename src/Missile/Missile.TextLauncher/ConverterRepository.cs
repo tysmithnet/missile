@@ -55,10 +55,30 @@ namespace Missile.TextLauncher
 
         public RegisteredConverter Get(Type source, Type dest)
         {
-            var converter = RegisteredConverters.FirstOrDefault(x => x.Sourcetype == source && x.DestType == dest);
-            if(converter == null)
-                throw new ArgumentOutOfRangeException($"Unable to find a converter from {source} -> {dest}");
-            return converter;
+            RegisteredConverter converter;
+
+            Type destItr = dest;
+            Type sourceItr = source;
+
+            while (destItr != null)
+            {
+                while (sourceItr != null)
+                {
+                    converter =
+                        RegisteredConverters.FirstOrDefault(c => c.Sourcetype == sourceItr && c.DestType == destItr);
+                    if (converter != null)
+                        return converter;
+                    sourceItr = sourceItr.BaseType;
+                }
+                destItr = destItr.BaseType;
+            }
+
+            converter = RegisteredConverters.FirstOrDefault(c =>
+                c.Sourcetype.IsAssignableFrom(source) && c.DestType.IsAssignableFrom(dest));
+
+            if (converter != null)
+                return converter;
+            throw new ArgumentOutOfRangeException($"Unable to find a converter from {source} -> {dest}");    
         }
     }
 }

@@ -34,10 +34,8 @@ namespace Missile.TextLauncher.Interpretation
             var providerResult = provider.Provide();
             var toDestination = providerResult;
             if (!destination.SourceType.IsAssignableFrom(provider.DestinationType))
-            {
-                var sourceType = typeof(IObservable<>).MakeGenericType(provider.DestinationType);
-                var destType = typeof(IObservable<>).MakeGenericType(destination.SourceType);
-                var converter = ConverterRepository.Get(sourceType, destType);
+            {   
+                var converter = ConverterRepository.Get(provider.DestinationType, destination.SourceType);
                 toDestination = converter.Convert(toDestination);
             }
 

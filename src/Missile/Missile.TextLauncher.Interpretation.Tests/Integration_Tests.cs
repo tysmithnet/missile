@@ -47,7 +47,14 @@ namespace Missile.TextLauncher.Interpretation.Tests
         public void Handle_Provider_Filter_Destination()
         {
             var input = "lorem | first > console";
-            GetFacade().Invoking(f => f.ExecuteAsync(input)).ShouldNotThrow("the most basic full pipeline should pass");
-        }     
+            GetFacade().Invoking(async f => await f.ExecuteAsync(input)).ShouldNotThrow("the most basic full pipeline should pass");
+        }
+
+        [Fact]
+        public void Handle_Conversion()
+        {
+            var input = "lorem > list";
+            GetFacade().Invoking(async f => await f.ExecuteAsync(input)).ShouldNotThrow("conversions should be provided if an appropriate converter is registered");
+        }
     }
 }
