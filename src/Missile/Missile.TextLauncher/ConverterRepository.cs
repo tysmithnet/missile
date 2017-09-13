@@ -2,30 +2,16 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Reflection;
 
 namespace Missile.TextLauncher
 {
-    public class RegisteredConverter
-    {
-        public IConverter ConverterInstance { get; set; }
-        public Type Sourcetype { get; set; }
-        public Type DestType { get; set; }
-        public MethodInfo ConvertMethodInfo { get; set; }
-
-        public object Convert(object source)
-        {
-            return ConvertMethodInfo.Invoke(ConverterInstance, new object[] {source});
-        }
-    }
-
     [Export(typeof(IConverterRepository))]
     public class ConverterRepository : IConverterRepository
     {
         internal List<RegisteredConverter> registeredConverters;
 
         [ImportMany(typeof(IConverter))]
-        public IEnumerable<IConverter> Converters { get; set; }
+        public IConverter[] Converters { get; set; }
 
         protected internal IList<RegisteredConverter> RegisteredConverters =>
             registeredConverters ?? (registeredConverters = GetRegisteredConverters(Converters));
