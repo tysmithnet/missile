@@ -30,7 +30,8 @@ namespace Missile.TextLauncher
 
         public ConverterRedinessScore ScoreConverter(RegisteredConverter registeredConverter, Type source, Type dest)
         {
-            var sourceTypes = source.GetBaseTypes().ToList();
+            var sourceTypes = new Type[] {source}.Concat(source.GetInterfaces()).Concat(source.GetBaseTypes()).ToList();
+            
             int sourceDistance = 0;
             int destDistance = 0;
             if (sourceTypes.Contains(registeredConverter.SourceType))
@@ -94,6 +95,11 @@ namespace Missile.TextLauncher
             if(!converters.Any())
                 throw new IndexOutOfRangeException($"Unable to find a converter from {source} -> {dest}");
             return converters.First();
+        }
+
+        public void Add(RegisteredConverter registeredConverter)
+        {
+            
         }
     }
 }

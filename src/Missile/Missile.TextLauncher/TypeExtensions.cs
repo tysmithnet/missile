@@ -8,12 +8,22 @@ namespace Missile.TextLauncher
     public static class TypeExtensions
     {
         public static IEnumerable<Type> GetBaseTypes(this Type type)
-        {
-            Type itr = type;
-            while (itr != null)
+        {               
+            if(type == null)
+                yield break;
+
+            if (type.IsInterface)
             {
-                yield return itr;
-                itr = itr.BaseType;
+                foreach (var iface in type.GetInterfaces())
+                    yield return iface;
+                yield break;
+            }
+            
+            type = type.BaseType;    
+            while (type != null)
+            {
+                yield return type;
+                type = type.BaseType;
             }
         }
     }
