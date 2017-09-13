@@ -5,10 +5,59 @@ using System.Linq;
 
 namespace Missile.TextLauncher
 {
+    public interface IConverterSelectionStrategy
+    {
+        IEnumerable<RegisteredConverter> Select(IEnumerable<RegisteredConverter> registeredConverters, Type source, Type dest);
+    }
+
+    [Export(typeof(IConverterSelectionStrategy))]
+    public class ConverterSelectionStrategy : IConverterSelectionStrategy
+    {
+        public class ConverterRedinessScore
+        {
+            public int SourceDistance { get; set; }
+            public int DestDistance { get; set; }
+        }
+
+        public IEnumerable<RegisteredConverter> Select(IEnumerable<RegisteredConverter> registeredConverters, Type source, Type dest)
+        {
+            return registeredConverters.Select(x => new
+            {
+                Converter = x,
+                Score = ScoreConverter(x, source, dest)
+            }).Where(x => x.Score != null).Select(x => x.Converter);
+        }
+
+        public ConverterRedinessScore ScoreConverter(RegisteredConverter registeredConverter, Type source, Type dest)
+        {
+            var sourceTypes = source.GetBaseTypes().ToList();
+            int sourceDistance = 0;
+            int destDistance = 0;
+            if (sourceTypes.Contains(registeredConverter.SourceType))
+                sourceDistance = sourceTypes.IndexOf(registeredConverter.SourceType);
+            else
+                return null;
+
+            if (registeredConverter.DestTypes.Contains(dest))
+                destDistance = registeredConverter.DestTypes.IndexOf(dest);
+            else
+                return null;
+            
+            return new ConverterRedinessScore
+            {
+                SourceDistance = sourceDistance,
+                DestDistance = destDistance
+            };
+        }
+    }
+
     [Export(typeof(IConverterRepository))]
     public class ConverterRepository : IConverterRepository
     {
         internal List<RegisteredConverter> registeredConverters;
+
+        
+        public IConverterSelectionStrategy ConverterSelectionStrategy { get; set; } = new ConverterSelectionStrategy();
 
         [ImportMany(typeof(IConverter))]
         public IConverter[] Converters { get; set; }
@@ -31,40 +80,20 @@ namespace Missile.TextLauncher
                     registeredConverters.Add(new RegisteredConverter
                     {
                         ConverterInstance = item.Instance,
-                        Sourcetype = iface.GenericTypeArguments[0],
-                        DestType = iface.GenericTypeArguments[1],
+                        SourceType = iface.GenericTypeArguments[0],
+                        DestTypes = iface.GenericTypeArguments[1].GetBaseTypes().ToList(),
                         ConvertMethodInfo = typeof(IConverter<,>).MakeGenericType(iface.GenericTypeArguments[0], iface.GenericTypeArguments[1]).GetMethod("Convert")
                     });
 
             return registeredConverters;
         }
-
+        
         public RegisteredConverter Get(Type source, Type dest)
         {
-            RegisteredConverter converter;
-
-            Type destItr = dest;
-            Type sourceItr = source;
-
-            while (destItr != null)
-            {
-                while (sourceItr != null)
-                {
-                    converter =
-                        RegisteredConverters.FirstOrDefault(c => c.Sourcetype == sourceItr && c.DestType == destItr);
-                    if (converter != null)
-                        return converter;
-                    sourceItr = sourceItr.BaseType;
-                }
-                destItr = destItr.BaseType;
-            }
-
-            converter = RegisteredConverters.FirstOrDefault(c =>
-                c.Sourcetype.IsAssignableFrom(source) && c.DestType.IsAssignableFrom(dest));
-
-            if (converter != null)
-                return converter;
-            throw new ArgumentOutOfRangeException($"Unable to find a converter from {source} -> {dest}");    
+            var converters = ConverterSelectionStrategy.Select(RegisteredConverters, source, dest).ToList();
+            if(!converters.Any())
+                throw new IndexOutOfRangeException($"Unable to find a converter from {source} -> {dest}");
+            return converters.First();
         }
     }
 }
