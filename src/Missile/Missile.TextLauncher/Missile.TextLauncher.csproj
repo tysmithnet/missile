@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleDestination.cs" />
+    <Compile Include="ConverterRedinessScore.cs" />
     <Compile Include="ConverterRepository.cs" />
     <Compile Include="ConverterSelectionStrategy.cs" />
     <Compile Include="FirstFilter.cs" />

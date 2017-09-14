@@ -8,7 +8,7 @@ namespace Missile.TextLauncher
     {
         public IConverter ConverterInstance { get; set; }
         public Type SourceType { get; set; }
-        public List<Type> DestTypes { get; set; }
+        public Type DestType { get; set; }
         public MethodInfo ConvertMethodInfo { get; set; }
 
         public object Convert(object source)

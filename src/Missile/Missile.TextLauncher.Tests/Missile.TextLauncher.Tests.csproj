@@ -77,6 +77,8 @@
   <ItemGroup>
     <Compile Include="ConverterRepositoryBuilder.cs" />
     <Compile Include="ConverterRepository_Should.cs" />
+    <Compile Include="ConverterSelectionStrategy_Should.cs" />
+    <Compile Include="Mock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

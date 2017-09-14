@@ -43,7 +43,7 @@ namespace Missile.TextLauncher
                 {
                     ConverterInstance = item.Instance,
                     SourceType = iface.GenericTypeArguments[0],
-                    DestTypes = iface.GenericTypeArguments[1].GetBaseTypes().ToList(),
+                    DestType = iface.GenericTypeArguments[1],
                     ConvertMethodInfo = typeof(IConverter<,>)
                         .MakeGenericType(iface.GenericTypeArguments[0], iface.GenericTypeArguments[1])
                         .GetMethod("Convert")
