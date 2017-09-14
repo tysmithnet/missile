@@ -23,17 +23,27 @@ namespace Missile.TextLauncher.Interpretation.Tests
         }
 
         [Fact]
+        public void Handle_Conversion()
+        {
+            var input = "lorem > list";
+            GetFacade().Invoking(async f => await f.ExecuteAsync(input))
+                .ShouldNotThrow("conversions should be provided if an appropriate converter is registered");
+        }
+
+        [Fact]
         public void Handle_No_Input()
         {
             var input = "";
-            GetFacade().Invoking(async f => await f.ExecuteAsync(input)).ShouldNotThrow("this is the most basic integration test possible");
+            GetFacade().Invoking(async f => await f.ExecuteAsync(input))
+                .ShouldNotThrow("this is the most basic integration test possible");
         }
 
         [Fact]
         public void Handle_Only_Provider()
         {
             var input = "lorem";
-            GetFacade().Invoking(async f => await f.ExecuteAsync(input)).ShouldNotThrow("providers can act on their own");
+            GetFacade().Invoking(async f => await f.ExecuteAsync(input))
+                .ShouldNotThrow("providers can act on their own");
         }
 
         [Fact]
@@ -47,14 +57,8 @@ namespace Missile.TextLauncher.Interpretation.Tests
         public void Handle_Provider_Filter_Destination()
         {
             var input = "lorem | first > console";
-            GetFacade().Invoking(async f => await f.ExecuteAsync(input)).ShouldNotThrow("the most basic full pipeline should pass");
-        }
-
-        [Fact]
-        public void Handle_Conversion()
-        {
-            var input = "lorem > list";
-            GetFacade().Invoking(async f => await f.ExecuteAsync(input)).ShouldNotThrow("conversions should be provided if an appropriate converter is registered");
+            GetFacade().Invoking(async f => await f.ExecuteAsync(input))
+                .ShouldNotThrow("the most basic full pipeline should pass");
         }
     }
 }

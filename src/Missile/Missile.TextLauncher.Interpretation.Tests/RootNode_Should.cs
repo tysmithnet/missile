@@ -65,7 +65,6 @@ namespace Missile.TextLauncher.Interpretation.Tests
         [Fact]
         public void Provide_Correct_Inequality_Logic()
         {
-            
             var r3 = new RootNodeBuilder()
                 .WithProvider("noop")
                 .Build();

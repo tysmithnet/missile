@@ -5,6 +5,7 @@ namespace Missile.TextLauncher
 {
     public interface IConverterSelectionStrategy
     {
-        IEnumerable<RegisteredConverter> Select(IEnumerable<RegisteredConverter> registeredConverters, Type source, Type dest);
+        IEnumerable<RegisteredConverter> Select(IEnumerable<RegisteredConverter> registeredConverters, Type source,
+            Type dest);
     }
 }

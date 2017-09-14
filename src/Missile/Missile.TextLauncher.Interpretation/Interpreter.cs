@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Reactive.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
@@ -15,7 +14,7 @@ namespace Missile.TextLauncher.Interpretation
 
     [Export(typeof(IObservableInspector))]
     public class ToObservableInspector : IObservableInspector
-    {                                           
+    {
         public bool CanHandle(Type type)
         {
             return Regex.IsMatch(type?.FullName ?? "",
@@ -61,7 +60,7 @@ namespace Missile.TextLauncher.Interpretation
             if (!destination.SourceType.IsInstanceOfType(toDestination))
             {
                 var inspector = ObservableInspectors.FirstOrDefault(i => i.CanHandle(toDestination.GetType()));
-                if(inspector == null)
+                if (inspector == null)
                     throw new ApplicationException($"Unable to find an inspector for {toDestination.GetType()}");
                 var typeForConverter = inspector.GetObservableType(toDestination.GetType());
                 var converter = ConverterRepository.Get(typeForConverter, destination.SourceType);

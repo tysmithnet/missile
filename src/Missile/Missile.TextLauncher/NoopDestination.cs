@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Reactive.Linq;
-using System.Reactive.Threading.Tasks;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace Missile.TextLauncher

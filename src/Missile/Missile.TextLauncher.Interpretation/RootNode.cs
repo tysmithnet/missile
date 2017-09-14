@@ -26,10 +26,10 @@ namespace Missile.TextLauncher.Interpretation
 
         public override int GetHashCode()
         {
-            int hashCode = 74872637;
+            var hashCode = 74872637;
             if (ProviderNode != null)
                 hashCode ^= ProviderNode.GetHashCode() % 790199;
-            if(FilterNodes != null)
+            if (FilterNodes != null)
                 foreach (var filter in FilterNodes)
                     hashCode ^= filter.GetHashCode() % 793489;
             if (DestinationNode != null)

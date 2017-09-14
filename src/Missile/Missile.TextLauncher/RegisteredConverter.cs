@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reflection;
 
 namespace Missile.TextLauncher
@@ -13,7 +12,7 @@ namespace Missile.TextLauncher
 
         public object Convert(object source)
         {
-            return ConvertMethodInfo.Invoke(ConverterInstance, new object[] {source});
+            return ConvertMethodInfo.Invoke(ConverterInstance, new[] {source});
         }
     }
 }

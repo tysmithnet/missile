@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Missile.TextLauncher.Interpretation
 {
     public abstract class Token
-    {   
+    {
         protected Token(string input)
         {
             input = input.TrimStart();
@@ -15,7 +14,7 @@ namespace Missile.TextLauncher.Interpretation
             Identifier = input.Substring(0, i);
             ArgString = input.Substring(Math.Min(input.Length, i + 1));
         }
-                                            
+
         public string Identifier { get; protected internal set; }
         public string ArgString { get; protected internal set; }
 
@@ -30,7 +29,7 @@ namespace Missile.TextLauncher.Interpretation
 
         public override int GetHashCode()
         {
-            int hashCode = 824443;
+            var hashCode = 824443;
             if (Identifier != null)
                 hashCode ^= Identifier.GetHashCode() % 820921;
             if (ArgString != null)

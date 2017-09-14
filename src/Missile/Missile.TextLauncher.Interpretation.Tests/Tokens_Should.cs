@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Xunit;
 
 namespace Missile.TextLauncher.Interpretation.Tests
@@ -18,7 +13,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
 
             var p3 = new ProviderToken("lorem --words --count 10");
             var p4 = new ProviderToken("lorem --words --count 10");
-            
+
             p1.Should().Be(p2, "freshly created provider tokens should be equal");
             p1.GetHashCode().Should().Be(p2.GetHashCode(),
                 "freshly created provider tokens should have the same hash code");
@@ -44,5 +39,6 @@ namespace Missile.TextLauncher.Interpretation.Tests
             p3.Should().NotBe(p4, "freshly created provider tokens with args should be equal");
             p3.GetHashCode().Should().NotBe(p4.GetHashCode(),
                 "freshly created provider tokens with args should have the same hash code");
-        }}
+        }
+    }
 }

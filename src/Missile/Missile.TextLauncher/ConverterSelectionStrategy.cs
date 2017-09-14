@@ -8,8 +8,8 @@ namespace Missile.TextLauncher
     [Export(typeof(IConverterSelectionStrategy))]
     public class ConverterSelectionStrategy : IConverterSelectionStrategy
     {
-
-        public IEnumerable<RegisteredConverter> Select(IEnumerable<RegisteredConverter> registeredConverters, Type source, Type dest)
+        public IEnumerable<RegisteredConverter> Select(IEnumerable<RegisteredConverter> registeredConverters,
+            Type source, Type dest)
         {
             return registeredConverters.Select(x => new
             {
@@ -20,22 +20,22 @@ namespace Missile.TextLauncher
 
         public ConverterRedinessScore GetConverterScore(RegisteredConverter registeredConverter, Type source, Type dest)
         {
-            Type converterSource = registeredConverter.SourceType;
-            Type converterDest = registeredConverter.DestType;
+            var converterSource = registeredConverter.SourceType;
+            var converterDest = registeredConverter.DestType;
 
             int? sourceDistance = null;
             int? destDistance = null;
 
             var leftBreakdown = new TypeBreakDown(source);
             var converterSourceBreakdown = new TypeBreakDown(converterDest);
-                                            
+
             if (source == converterSource)
                 sourceDistance = 0;
             else if (leftBreakdown.Interfaces.Contains(converterSource))
                 sourceDistance = 1;
             else if (leftBreakdown.BaseTypes.Contains(converterSource))
                 sourceDistance = leftBreakdown.BaseTypes.IndexOf(converterSource);
-            
+
             if (converterDest == dest)
                 destDistance = 0;
             else if (converterSourceBreakdown.Interfaces.Contains(dest))
@@ -65,6 +65,6 @@ namespace Missile.TextLauncher
 
         public Type InstanceType { get; set; }
         public List<Type> Interfaces { get; set; } = new List<Type>();
-        public List<Type> BaseTypes { get; set; } = new List<Type>();
+        public List<Type> BaseTypes { get; set; }
     }
 }
