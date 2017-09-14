@@ -16,7 +16,7 @@ namespace Missile.TextLauncher.Tests
                     SourceType = converterSource,
                     DestType = converterDest
                 }, requestSource, requestDest).Should()
-                .Be(new ConverterRedinessScore {SourceDistance = sourceDistance, DestDistance = destDistance}, because);
+                .Be(new ConverterRedinessScore { SourceDistance = sourceDistance, DestDistance = destDistance }, because);
         }
 
         [Fact]
@@ -34,6 +34,18 @@ namespace Missile.TextLauncher.Tests
                 "quadraped is 1 from haslegs and snake is 1 from nolegs");
             CalculateScoreShortcut(typeof(Chimp), typeof(Mammal), typeof(Python), typeof(Amphibion), 2, 2,
                 "a chimp is 2 from mammal and python is 2 from amphibion");
+        }
+
+        [Fact]
+        public void Return_Null_If_Not_A_Match()
+        {
+            var converterSelectionStrategy = new ConverterSelectionStrategy();
+            converterSelectionStrategy.GetConverterScore(new RegisteredConverter
+                {
+                    SourceType = typeof(int),
+                    DestType = typeof(int)
+                }, typeof(string), typeof(string)).Should()
+                .Be(null, "there is no compatible conversion between string and int");
         }
     }
 }
