@@ -9,7 +9,7 @@ namespace Missile.TextLauncher
     {
         public string Name { get; set; } = "noop";
 
-        public IObservable<object> Provide()
+        public IObservable<object> Provide(string argString)
         {
             return new object[0].ToObservable();
         }

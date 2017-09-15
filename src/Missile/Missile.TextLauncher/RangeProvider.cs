@@ -10,7 +10,7 @@ namespace Missile.TextLauncher
     {
         public string Name { get; set; } = "range";
 
-        public IObservable<object> Provide()
+        public IObservable<object> Provide(string argString)
         {
             return Enumerable.Range(1, 10).Cast<object>().ToObservable();
         }

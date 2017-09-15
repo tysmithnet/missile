@@ -55,7 +55,7 @@ namespace Missile.TextLauncher.Interpretation
             var destination =
                 DestinationRepository.Get(rootNode.DestinationNode.Name);
 
-            var providerResult = provider.Provide();
+            var providerResult = provider.Provide(rootNode.ProviderNode.ArgString);
             var toDestination = providerResult;
             if (!destination.SourceType.IsInstanceOfType(toDestination))
             {
