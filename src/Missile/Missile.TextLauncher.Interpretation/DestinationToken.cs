@@ -2,7 +2,7 @@
 {
     public class DestinationToken : Token
     {
-        public DestinationToken(string part) : base(part)
+        public DestinationToken(string part, string[] args) : base(part, args)
         {
         }
     }

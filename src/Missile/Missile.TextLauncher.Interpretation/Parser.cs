@@ -16,9 +16,9 @@ namespace Missile.TextLauncher.Interpretation
             var list = tokens.ToList();
 
             if (!(list.FirstOrDefault() is ProviderToken))
-                list.Insert(0, new ProviderToken("noop"));
+                list.Insert(0, new ProviderToken("noop", new string[0]));
             if (!(list.LastOrDefault() is DestinationToken))
-                list.Add(new DestinationToken("noop"));
+                list.Add(new DestinationToken("noop", new string[0]));
 
             if (list.OfType<ProviderToken>().Count() > 1)
                 throw new ArgumentException("there can be only 1 provider token");

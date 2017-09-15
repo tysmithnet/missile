@@ -12,35 +12,35 @@ namespace Missile.TextLauncher.Interpretation.Tests
             var r2 = new RootNode();
 
             var r3 = new RootNodeBuilder()
-                .WithProvider("noop")
+                .WithProvider("noop", new string[0])
                 .Build();
             var r4 = new RootNodeBuilder()
-                .WithProvider("noop")
+                .WithProvider("noop", new string[0])
                 .Build();
 
             var r5 = new RootNodeBuilder()
-                .WithFilter("filter")
+                .WithFilter("filter", new string[0])
                 .Build();
             var r6 = new RootNodeBuilder()
-                .WithFilter("filter")
+                .WithFilter("filter", new string[0])
                 .Build();
 
             var r7 = new RootNodeBuilder()
-                .WithDestination("destination")
+                .WithDestination("destination", new string[0])
                 .Build();
             var r8 = new RootNodeBuilder()
-                .WithDestination("destination")
+                .WithDestination("destination", new string[0])
                 .Build();
 
             var r9 = new RootNodeBuilder()
-                .WithProvider("provider")
-                .WithFilter("sort")
-                .WithDestination("list")
+                .WithProvider("provider", new string[0])
+                .WithFilter("sort", new string[0])
+                .WithDestination("list", new string[0])
                 .Build();
             var r10 = new RootNodeBuilder()
-                .WithProvider("provider")
-                .WithFilter("sort")
-                .WithDestination("list")
+                .WithProvider("provider", new string[0])
+                .WithFilter("sort", new string[0])
+                .WithDestination("list", new string[0])
                 .Build();
 
             r1.Should().Be(r2, "freshly created root nodes are equal");
@@ -66,35 +66,35 @@ namespace Missile.TextLauncher.Interpretation.Tests
         public void Provide_Correct_Inequality_Logic()
         {
             var r3 = new RootNodeBuilder()
-                .WithProvider("noop")
+                .WithProvider("noop", new string[0])
                 .Build();
             var r4 = new RootNodeBuilder()
-                .WithProvider("lorem")
+                .WithProvider("lorem", new string[0])
                 .Build();
 
             var r5 = new RootNodeBuilder()
-                .WithFilter("filter")
+                .WithFilter("filter", new string[0])
                 .Build();
             var r6 = new RootNodeBuilder()
-                .WithFilter("sort")
+                .WithFilter("sort", new string[0])
                 .Build();
 
             var r7 = new RootNodeBuilder()
-                .WithDestination("destination")
+                .WithDestination("destination", new string[0])
                 .Build();
             var r8 = new RootNodeBuilder()
-                .WithDestination("list")
+                .WithDestination("list", new string[0])
                 .Build();
 
             var r9 = new RootNodeBuilder()
-                .WithProvider("provider")
-                .WithFilter("filter")
-                .WithDestination("list")
+                .WithProvider("provider", new string[0])
+                .WithFilter("filter", new string[0])
+                .WithDestination("list", new string[0])
                 .Build();
             var r10 = new RootNodeBuilder()
-                .WithProvider("provider")
-                .WithFilter("sort")
-                .WithDestination("list")
+                .WithProvider("provider", new string[0])
+                .WithFilter("sort", new string[0])
+                .WithDestination("list", new string[0])
                 .Build();
 
             r3.Should().NotBe(r4, "if only providers are set, and they are equal then root nodes are equal");

@@ -50,12 +50,12 @@ namespace Missile.TextLauncher.Interpretation
             var provider = ProviderRepository.Get(rootNode.ProviderNode.Name);
 
             if (rootNode.DestinationNode == null)
-                rootNode.DestinationNode = new DestinationNode(new DestinationToken("noop"));
+                rootNode.DestinationNode = new DestinationNode(new DestinationToken("noop", new string[0]));
 
             var destination =
                 DestinationRepository.Get(rootNode.DestinationNode.Name);
 
-            var providerResult = provider.Provide(rootNode.ProviderNode.ArgString);
+            var providerResult = provider.Provide(rootNode.ProviderNode.Args);
             var toDestination = providerResult;
             if (!destination.SourceType.IsInstanceOfType(toDestination))
             {

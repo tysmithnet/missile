@@ -11,7 +11,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
         public void Handle_Most_Basic_Use_Case()
         {
             var rootNodeBuilder = new RootNodeBuilder();
-            rootNodeBuilder.WithProvider("noop");
+            rootNodeBuilder.WithProvider("noop", new string[0]);
             var rootNode = rootNodeBuilder.Build();
             var interpreterBuilder = new InterpreterBuilder()
                 .WithProvider(new RegisteredProvider
@@ -40,10 +40,10 @@ namespace Missile.TextLauncher.Interpretation.Tests
         {
             var rootNodeBuilder = new RootNodeBuilder();
             rootNodeBuilder
-                .WithProvider("range")
-                .WithFilter("take")
-                .WithFilter("distinct")
-                .WithDestination("console");
+                .WithProvider("range", new string[0])
+                .WithFilter("take", new string[0])
+                .WithFilter("distinct", new string[0])
+                .WithDestination("console", new string[0]);
             var sb = new StringBuilder();
             var interpreterBuilder = new InterpreterBuilder()
                 .WithProvider(new RegisteredProvider
@@ -84,9 +84,9 @@ namespace Missile.TextLauncher.Interpretation.Tests
         {
             var rootNodeBuilder = new RootNodeBuilder();
             rootNodeBuilder
-                .WithProvider("range")
-                .WithFilter("take")
-                .WithDestination("console");
+                .WithProvider("range", new string[0])
+                .WithFilter("take", new string[0])
+                .WithDestination("console", new string[0]);
 
             var sb = new StringBuilder();
             var interpreterBuilder = new InterpreterBuilder()
@@ -128,8 +128,8 @@ namespace Missile.TextLauncher.Interpretation.Tests
         {
             var rootNodeBuilder = new RootNodeBuilder();
             rootNodeBuilder
-                .WithProvider("range")
-                .WithDestination("console");
+                .WithProvider("range", new string[0])
+                .WithDestination("console", new string[0]);
 
             var sb = new StringBuilder();
             var interpreterBuilder = new InterpreterBuilder()

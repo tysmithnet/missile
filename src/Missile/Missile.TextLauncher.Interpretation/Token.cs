@@ -1,39 +1,41 @@
 ﻿using System;
+using System.Linq;
 
 namespace Missile.TextLauncher.Interpretation
 {
     public abstract class Token
     {
-        protected Token(string input)
-        {
-            input = input.TrimStart();
-            int i;
-            for (i = 0; i < input.Length; i++)
-                if (input[i] == ' ')
-                    break;
-            Identifier = input.Substring(0, i);
-            ArgString = input.Substring(Math.Min(input.Length, i + 1));
-        }
+        protected internal string Input { get; set; }
+        protected internal string Name { get; set; }
+        protected internal string[] Args { get; set; }
 
-        public string Identifier { get; protected internal set; }
-        public string ArgString { get; protected internal set; }
+        protected internal Token(string input, string[] args)
+        {
+            if(string.IsNullOrWhiteSpace(input))
+                throw new ArgumentNullException(nameof(input));
+            Input = input;
+            Args = args ?? new string[0];
+        }
 
         public override bool Equals(object obj)
         {
             var token = obj as Token;
             return token != null &&
                    GetType() == token.GetType() &&
-                   Identifier == token.Identifier &&
-                   ArgString == token.ArgString;
+                   Input == token.Name &&
+                   Args.SequenceEqual(token.Args);
         }
 
         public override int GetHashCode()
         {
             var hashCode = 824443;
-            if (Identifier != null)
-                hashCode ^= Identifier.GetHashCode() % 820921;
-            if (ArgString != null)
-                hashCode ^= ArgString.GetHashCode() % 824147;
+            if (Name != null)
+                hashCode ^= Name.GetHashCode() % 820921;
+            foreach (string arg in Args)
+            {
+                hashCode ^= Name.GetHashCode() % 373903;
+            }
+                
             return hashCode;
         }
     }

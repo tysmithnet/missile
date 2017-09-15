@@ -4,8 +4,8 @@
     {
         public DestinationNode(DestinationToken destinationToken)
         {
-            Name = destinationToken.Identifier;
-            ArgString = destinationToken.ArgString;
+            Name = destinationToken.Name;
+            Args = destinationToken.Args;
         }
     }
 }

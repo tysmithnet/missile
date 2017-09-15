@@ -4,8 +4,8 @@
     {
         public FilterNode(FilterToken filterToken)
         {
-            Name = filterToken.Identifier;
-            ArgString = filterToken.ArgString;
+            Name = filterToken.Name;
+            Args = filterToken.Args;
         }
     }
 }

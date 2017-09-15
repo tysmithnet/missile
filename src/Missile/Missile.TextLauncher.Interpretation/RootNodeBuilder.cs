@@ -12,9 +12,9 @@ namespace Missile.TextLauncher.Interpretation
         internal RootNode RootNode { get; set; }
 
 
-        public RootNodeBuilder WithProvider(string providerName)
+        public RootNodeBuilder WithProvider(string providerName, string[] args)
         {
-            RootNode.ProviderNode = new ProviderNode(new ProviderToken(providerName));
+            RootNode.ProviderNode = new ProviderNode(new ProviderToken(providerName, args));
             return this;
         }
 
@@ -36,15 +36,15 @@ namespace Missile.TextLauncher.Interpretation
             return this;
         }
 
-        public RootNodeBuilder WithDestination(string destinationName)
+        public RootNodeBuilder WithDestination(string destinationName, string[] args)
         {
-            RootNode.DestinationNode = new DestinationNode(new DestinationToken(destinationName));
+            RootNode.DestinationNode = new DestinationNode(new DestinationToken(destinationName, args));
             return this;
         }
 
-        public RootNodeBuilder WithFilter(string filterName)
+        public RootNodeBuilder WithFilter(string filterName, string[] args)
         {
-            RootNode.FilterNodes.Add(new FilterNode(new FilterToken(filterName)));
+            RootNode.FilterNodes.Add(new FilterNode(new FilterToken(filterName, args)));
             return this;
         }
     }

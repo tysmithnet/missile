@@ -4,8 +4,8 @@
     {
         public ProviderNode(ProviderToken requestedProvider)
         {
-            Name = requestedProvider.Identifier;
-            ArgString = requestedProvider.ArgString;
+            Name = requestedProvider.Name;
+            Args = requestedProvider.Args;
         }
     }
 }

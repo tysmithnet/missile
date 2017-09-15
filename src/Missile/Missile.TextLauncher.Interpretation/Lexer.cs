@@ -10,47 +10,7 @@ namespace Missile.TextLauncher.Interpretation
     {
         public IEnumerable<Token> Lex(string input)
         {
-            if (input == null) throw new NullReferenceException(nameof(input));
-
-            var tokens = new List<Token>();
-
-            input = input.Trim();
-
-            var parts = SplitInputIntoParts(input);
-
-            for (var i = 0; i < parts.Count; i++)
-            {
-                var part = parts[i];
-
-                if (tokens.LastOrDefault() == null)
-                {
-                    tokens.Add(new ProviderToken(part));
-                    continue;
-                }
-                if (tokens.LastOrDefault() is OperatorToken operatorToken)
-                {
-                    switch (operatorToken.Identifier)
-                    {
-                        case "|":
-                            tokens.Add(new FilterToken(part));
-                            break;
-                        case ">":
-                            tokens.Add(new DestinationToken(part));
-                            break;
-                        default:
-                            throw new ApplicationException($"Unexpected operator {operatorToken.Identifier}");
-                    }
-                    continue;
-                }
-                if (part == "|" || part == ">")
-                {
-                    tokens.Add(new OperatorToken(part));
-                    continue;
-                }
-                throw new ApplicationException($"Unable to parse part: {part}");
-            }
-
-            return tokens.Where(x => !(x is OperatorToken));
+            return null;
         }
 
         private List<string> SplitInputIntoParts(string input)

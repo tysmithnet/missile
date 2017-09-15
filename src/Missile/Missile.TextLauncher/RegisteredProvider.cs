@@ -23,9 +23,9 @@ namespace Missile.TextLauncher
         public IProvider ProviderInstance { get; internal set; }
         public MethodInfo ProvideMethodInfo { get; internal set; }
 
-        public object Provide(string argString)
+        public object Provide(string[] args)
         {
-            return ProvideMethodInfo.Invoke(ProviderInstance, new object[] {argString});
+            return ProvideMethodInfo.Invoke(ProviderInstance, new object[] {args});
         }
     }
 }

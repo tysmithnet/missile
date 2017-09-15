@@ -11,18 +11,18 @@ namespace Missile.TextLauncher.Interpretation.Tests
         {
             var tokens = new Token[]
             {
-                new ProviderToken("lorem"),
-                new FilterToken("sort"),
-                new FilterToken("unique"),
-                new DestinationToken("console")
+                new ProviderToken("lorem", new string[0]),
+                new FilterToken("sort", new string[0]),
+                new FilterToken("unique", new string[0]),
+                new DestinationToken("console", new string[0])
             };
 
             var parser = new Parser();
             var rootNode = new RootNodeBuilder()
-                .WithProvider("lorem")
-                .WithFilter("sort")
-                .WithFilter("unique")
-                .WithDestination("console")
+                .WithProvider("lorem", new string[0])
+                .WithFilter("sort", new string[0])
+                .WithFilter("unique", new string[0])
+                .WithDestination("console", new string[0])
                 .Build();
             parser.Parse(tokens).Should().Be(rootNode, "filters are not required");
         }
@@ -32,22 +32,22 @@ namespace Missile.TextLauncher.Interpretation.Tests
         {
             var providerOutOfPlace = new Token[]
             {
-                new FilterToken("sort"),
-                new ProviderToken("lorem")
+                new FilterToken("sort", new string[0]),
+                new ProviderToken("lorem", new string[0])
             };
 
             var filterOutOfPlace = new Token[]
             {
-                new ProviderToken("lorem"),
-                new DestinationToken("console"),
-                new FilterToken("sort")
+                new ProviderToken("lorem", new string[0]),
+                new DestinationToken("console", new string[0]),
+                new FilterToken("sort", new string[0])
             };
 
             var destinationOutOfPlace = new Token[]
             {
-                new DestinationToken("console"),
-                new ProviderToken("lorem"),
-                new FilterToken("sort")
+                new DestinationToken("console", new string[0]),
+                new ProviderToken("lorem", new string[0]),
+                new FilterToken("sort", new string[0])
             };
 
             var parser = new Parser();
@@ -68,8 +68,8 @@ namespace Missile.TextLauncher.Interpretation.Tests
 
             var parser = new Parser();
             var rootNode = new RootNodeBuilder()
-                .WithProvider("noop")
-                .WithDestination("noop")
+                .WithProvider("noop", new string[0])
+                .WithDestination("noop", new string[0])
                 .Build();
             parser.Parse(tokens).Should().Be(rootNode, "nothing is actually required");
         }
