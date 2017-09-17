@@ -38,7 +38,19 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 .Equal(new Token[]
                 {
                     new ProviderToken("google", new [] {"search"}),
-                }, "a single word is treated as provider with no args");
+                }, "a two single words are interpretted as provider and one arg");
+
+            new Lexer().Lex("google search long cat").Should()
+                .Equal(new Token[]
+                {
+                    new ProviderToken("google", new [] {"search", "long", "cat"}),
+                }, "n words are treated as a provider followed by n-1 args");
+
+            new Lexer().Lex("everything -type image --regex *.cs").Should()
+                .Equal(new Token[]
+                {
+                    new ProviderToken("everything", new [] {"-type", "image", "--regex", "*.cs"}),
+                }, "n words are treated as a provider followed by n-1 args and hyphens are included");
         }
     }
 }
