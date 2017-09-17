@@ -5,7 +5,6 @@ namespace Missile.TextLauncher.Interpretation
 {
     public abstract class Token
     {
-        protected internal string Input { get; set; }
         protected internal string Name { get; set; }
         protected internal string[] Args { get; set; }
 
@@ -13,7 +12,7 @@ namespace Missile.TextLauncher.Interpretation
         {
             if(string.IsNullOrWhiteSpace(input))
                 throw new ArgumentNullException(nameof(input));
-            Input = input;
+            Name = input;
             Args = args ?? new string[0];
         }
 
@@ -22,7 +21,7 @@ namespace Missile.TextLauncher.Interpretation
             var token = obj as Token;
             return token != null &&
                    GetType() == token.GetType() &&
-                   Input == token.Name &&
+                   Name == token.Name &&
                    Args.SequenceEqual(token.Args);
         }
 
@@ -33,7 +32,7 @@ namespace Missile.TextLauncher.Interpretation
                 hashCode ^= Name.GetHashCode() % 820921;
             foreach (string arg in Args)
             {
-                hashCode ^= Name.GetHashCode() % 373903;
+                hashCode ^= arg.GetHashCode() % 373903;
             }
                 
             return hashCode;

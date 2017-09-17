@@ -2,7 +2,7 @@
 {
     public class ProviderToken : Token
     {
-        public ProviderToken(string part, string[] args) : base(part, args)
+        public ProviderToken(string providerName, string[] args) : base(providerName, args)
         {
         }
     }
