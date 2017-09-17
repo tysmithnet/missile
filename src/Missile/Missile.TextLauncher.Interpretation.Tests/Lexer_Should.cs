@@ -29,12 +29,16 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 {
                     new ProviderToken("google", new string[0]),
                 }, "a single word is treated as provider with no args");
+        }
 
-            //new Lexer().Invoking(l => l.Lex("google search")).Should()
-            //    .Be(new Token[]
-            //    {
-            //        new ProviderToken("google", new string[] {"search"}),
-            //    }, "a single word is treated as provider with no args");
+        [Fact]
+        public void Handle_Basic_Args()
+        {
+            new Lexer().Lex("google search").Should()
+                .Equal(new Token[]
+                {
+                    new ProviderToken("google", new [] {"search"}),
+                }, "a single word is treated as provider with no args");
         }
     }
 }
