@@ -5,16 +5,16 @@ namespace Missile.TextLauncher.Interpretation
 {
     public abstract class Token
     {
-        protected internal string Name { get; set; }
-        protected internal string[] Args { get; set; }
-
         protected internal Token(string input, string[] args)
         {
-            if(string.IsNullOrWhiteSpace(input))
+            if (string.IsNullOrWhiteSpace(input))
                 throw new ArgumentNullException(nameof(input));
             Name = input;
             Args = args ?? new string[0];
         }
+
+        protected internal string Name { get; set; }
+        protected internal string[] Args { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -30,11 +30,9 @@ namespace Missile.TextLauncher.Interpretation
             var hashCode = 824443;
             if (Name != null)
                 hashCode ^= Name.GetHashCode() % 820921;
-            foreach (string arg in Args)
-            {
+            foreach (var arg in Args)
                 hashCode ^= arg.GetHashCode() % 373903;
-            }
-                
+
             return hashCode;
         }
     }

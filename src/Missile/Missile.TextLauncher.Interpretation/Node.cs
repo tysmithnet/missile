@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 namespace Missile.TextLauncher.Interpretation
 {
@@ -7,7 +6,7 @@ namespace Missile.TextLauncher.Interpretation
     {
         public string Name { get; set; }
         public string[] Args { get; set; } = new string[0];
-        
+
         public override bool Equals(object obj)
         {
             var node = obj as Node;
@@ -20,7 +19,7 @@ namespace Missile.TextLauncher.Interpretation
         {
             var hashCode = -1319852120;
             hashCode ^= Name.GetHashCode();
-            foreach (string arg in Args)
+            foreach (var arg in Args)
                 hashCode ^= arg.GetHashCode();
             return hashCode;
         }

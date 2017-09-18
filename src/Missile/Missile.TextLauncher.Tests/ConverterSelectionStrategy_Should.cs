@@ -16,7 +16,7 @@ namespace Missile.TextLauncher.Tests
                     SourceType = converterSource,
                     DestType = converterDest
                 }, requestSource, requestDest).Should()
-                .Be(new ConverterRedinessScore { SourceDistance = sourceDistance, DestDistance = destDistance }, because);
+                .Be(new ConverterRedinessScore {SourceDistance = sourceDistance, DestDistance = destDistance}, because);
         }
 
         [Fact]

@@ -85,7 +85,7 @@ namespace Missile.TextLauncher.Interpretation
                     if (Identifier == null)
                         return this;
                     return GetArgState();
-                }                        
+                }
 
                 if (IdentifierRegex.IsMatch(input.ToString()))
                 {
@@ -109,6 +109,10 @@ namespace Missile.TextLauncher.Interpretation
 
         internal abstract class PrimaryArgState : State
         {
+            private bool isEscaped;
+
+            private bool isOpenQuote;
+
             protected PrimaryArgState(string identifier)
             {
                 Identifier = identifier ?? throw new ArgumentNullException(nameof(identifier));
@@ -117,9 +121,6 @@ namespace Missile.TextLauncher.Interpretation
             public string Identifier { get; set; }
             public string CurrentArg { get; set; } = "";
             public List<string> Args { get; set; } = new List<string>();
-
-            private bool isOpenQuote = false;
-            private bool isEscaped = false;
 
             public override State Transition(char input)
             {
@@ -172,7 +173,9 @@ namespace Missile.TextLauncher.Interpretation
                         CurrentArg = "";
                     }
                     else
+                    {
                         isOpenQuote = true;
+                    }
                     return this;
                 }
 
@@ -198,9 +201,7 @@ namespace Missile.TextLauncher.Interpretation
                 }
 
                 if (!string.IsNullOrWhiteSpace(Identifier))
-                {       
-                    OnRaiseTokenEvent(new TokenEventArgs(GetToken()));   
-                }                                                     
+                    OnRaiseTokenEvent(new TokenEventArgs(GetToken()));
             }
         }
 
@@ -236,13 +237,13 @@ namespace Missile.TextLauncher.Interpretation
                     Args.Add(CurrentArg);
                     CurrentArg = "";
                 }
-                    
+
                 return new ProviderToken(Identifier, Args.ToArray());
             }
         }
 
         internal class FilterState : PrimaryState
-        {                      
+        {
             public override Token GetToken()
             {
                 return new FilterToken(Identifier, new string[0]);
@@ -267,7 +268,7 @@ namespace Missile.TextLauncher.Interpretation
         }
 
         internal class DestinationState : PrimaryState
-        {                                           
+        {
             public override Token GetToken()
             {
                 return new DestinationToken(Identifier, new string[0]);
