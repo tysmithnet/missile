@@ -1,6 +1,7 @@
 ﻿using System.Linq;
+using Missile.TextLauncher.Interpretation.Lexing;
 
-namespace Missile.TextLauncher.Interpretation
+namespace Missile.TextLauncher.Interpretation.Parsing
 {
     internal class RootNodeBuilder
     {

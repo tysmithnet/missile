@@ -1,4 +1,4 @@
-﻿namespace Missile.TextLauncher.Interpretation
+﻿namespace Missile.TextLauncher.Interpretation.Lexing
 {
     public class OperatorToken : Token
     {

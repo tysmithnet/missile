@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Missile.TextLauncher.Interpretation
+namespace Missile.TextLauncher.Interpretation.Parsing
 {
     public class RootNode
     {

@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
+using Missile.TextLauncher.Interpretation.Lexing;  
 
-namespace Missile.TextLauncher.Interpretation
+namespace Missile.TextLauncher.Interpretation.Parsing
 {
     [Export(typeof(IParser))]
     public class Parser : IParser

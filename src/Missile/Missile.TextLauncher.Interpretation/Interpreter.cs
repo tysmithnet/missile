@@ -3,6 +3,8 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Missile.TextLauncher.Interpretation.Lexing;
+using Missile.TextLauncher.Interpretation.Parsing;
 
 namespace Missile.TextLauncher.Interpretation
 {

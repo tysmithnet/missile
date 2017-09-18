@@ -1,4 +1,6 @@
-﻿namespace Missile.TextLauncher.Interpretation
+﻿using Missile.TextLauncher.Interpretation.Lexing;
+
+namespace Missile.TextLauncher.Interpretation.Parsing
 {
     public class FilterNode : Node
     {

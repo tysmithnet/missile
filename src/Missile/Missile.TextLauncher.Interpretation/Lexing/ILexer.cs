@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Missile.TextLauncher.Interpretation
+namespace Missile.TextLauncher.Interpretation.Lexing
 {
     public interface ILexer
     {

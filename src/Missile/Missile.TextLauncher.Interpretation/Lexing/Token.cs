@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Missile.TextLauncher.Interpretation
+namespace Missile.TextLauncher.Interpretation.Lexing
 {
     public abstract class Token
     {

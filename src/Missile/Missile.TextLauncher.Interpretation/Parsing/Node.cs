@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace Missile.TextLauncher.Interpretation
+namespace Missile.TextLauncher.Interpretation.Parsing
 {
     public abstract class Node
     {
