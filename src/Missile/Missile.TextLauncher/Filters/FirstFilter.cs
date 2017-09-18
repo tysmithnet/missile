@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
 
-namespace Missile.TextLauncher
+namespace Missile.TextLauncher.Filters
 {
     public class FirstFilter : IFilter<object, object>
     {

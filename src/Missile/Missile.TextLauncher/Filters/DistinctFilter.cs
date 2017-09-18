@@ -2,7 +2,7 @@
 using System.ComponentModel.Composition;
 using System.Reactive.Linq;
 
-namespace Missile.TextLauncher
+namespace Missile.TextLauncher.Filters
 {
     [Export(typeof(IFilter<object, object>))]
     public class DistinctFilter : IFilter<object, object>

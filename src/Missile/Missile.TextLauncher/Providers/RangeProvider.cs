@@ -3,7 +3,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Reactive.Linq;
 
-namespace Missile.TextLauncher
+namespace Missile.TextLauncher.Providers
 {
     [Export(typeof(IProvider))]
     public class RangeProvider : IProvider<object>

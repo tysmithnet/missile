@@ -3,7 +3,7 @@ using System.ComponentModel.Composition;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 
-namespace Missile.TextLauncher
+namespace Missile.TextLauncher.Destinations
 {
     [Export(typeof(IDestination))]
     public class NoOpDestination : IDestination<object>

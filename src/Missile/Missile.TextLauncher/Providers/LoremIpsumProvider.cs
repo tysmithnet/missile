@@ -2,7 +2,7 @@
 using System.ComponentModel.Composition;
 using System.Reactive.Linq;
 
-namespace Missile.TextLauncher.Interpretation
+namespace Missile.TextLauncher.Providers
 {
     [Export(typeof(IProvider))]
     public class LoremIpsumProvider : IProvider<string>

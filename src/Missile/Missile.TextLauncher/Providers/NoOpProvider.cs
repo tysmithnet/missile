@@ -2,7 +2,7 @@
 using System.ComponentModel.Composition;
 using System.Reactive.Linq;
 
-namespace Missile.TextLauncher
+namespace Missile.TextLauncher.Providers
 {
     [Export(typeof(IProvider))]
     public class NoOpProvider : IProvider<object>

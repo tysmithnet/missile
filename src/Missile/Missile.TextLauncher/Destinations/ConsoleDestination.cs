@@ -2,7 +2,7 @@
 using System.ComponentModel.Composition;
 using System.Threading.Tasks;
 
-namespace Missile.TextLauncher
+namespace Missile.TextLauncher.Destinations
 {
     [Export(typeof(IDestination))]
     public class ConsoleDestination : IDestination<object>

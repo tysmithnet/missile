@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Missile.TextLauncher
+namespace Missile.TextLauncher.Filters
 {
     public class NoOpFilter : IFilter<object, object>
     {
