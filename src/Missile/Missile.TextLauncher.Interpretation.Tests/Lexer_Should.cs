@@ -113,5 +113,16 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 new ProviderToken("echo", new []{"quote \" in quote"}),
             }, "escaped double quote in quotes appear in the string as a single character");
         }
+
+        [Fact]
+        public void Handle_Basic_Destinations()
+        {
+            new Lexer().Lex("lorem > list").Should().Equal(new Token[]
+            {
+                new ProviderToken("lorem", new string[0]), 
+                new OperatorToken(">", new string[0]), 
+                new DestinationToken("list", new string[0]), 
+            }, "two words separated by > should be treated as a provider and a destination");
+        }
     }
 }

@@ -176,6 +176,13 @@ namespace Missile.TextLauncher.Interpretation
                     return this;
                 }
 
+                if (input == '>')
+                {
+                    OnRaiseTokenEvent(new TokenEventArgs(GetToken()));
+                    OnRaiseTokenEvent(new TokenEventArgs(new OperatorToken(">", new string[0])));
+                    return new DestinationState();
+                }
+
                 CurrentArg += input;
                 return this;
             }
@@ -256,6 +263,37 @@ namespace Missile.TextLauncher.Interpretation
             public override Token GetToken()
             {
                 return new FilterToken(Identifier, Args.ToArray());
+            }
+        }
+
+        internal class DestinationState : PrimaryState
+        {                                           
+            public override Token GetToken()
+            {
+                return new DestinationToken(Identifier, new string[0]);
+            }
+
+            public override PrimaryArgState GetArgState()
+            {
+                return new DestinationArgState(Identifier);
+            }
+        }
+
+        internal class DestinationArgState : PrimaryArgState
+        {
+            public DestinationArgState(string identifier) : base(identifier)
+            {
+            }
+
+            public override Token GetToken()
+            {
+                if (!string.IsNullOrWhiteSpace(CurrentArg))
+                {
+                    Args.Add(CurrentArg);
+                    CurrentArg = "";
+                }
+
+                return new DestinationToken(Identifier, Args.ToArray());
             }
         }
 
