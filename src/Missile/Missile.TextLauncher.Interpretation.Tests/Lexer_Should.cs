@@ -123,6 +123,13 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 new OperatorToken(">", new string[0]), 
                 new DestinationToken("list", new string[0]), 
             }, "two words separated by > should be treated as a provider and a destination");
+
+            new Lexer().Lex("lorem > list --head 10").Should().Equal(new Token[]
+            {
+                new ProviderToken("lorem", new string[0]),
+                new OperatorToken(">", new string[0]),
+                new DestinationToken("list", new []{"--head", "10"}),
+            }, "destinations should be able to take arguments");
         }
     }
 }
