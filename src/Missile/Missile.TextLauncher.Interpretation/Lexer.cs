@@ -8,6 +8,8 @@ namespace Missile.TextLauncher.Interpretation
     [Export(typeof(ILexer))]
     public class Lexer : ILexer
     {
+        public static readonly Regex IdentifierRegex = new Regex("[a-zA-Z0-9_]");
+
         public IEnumerable<Token> Lex(string input)
         {
             var stateMachine = new StateMachine();
@@ -65,30 +67,29 @@ namespace Missile.TextLauncher.Interpretation
             {
                 if (input == ' ')
                     return this;
-                if (Regex.IsMatch(input.ToString(), "[a-zA-Z0-9_]"))
+                if (IdentifierRegex.IsMatch(input.ToString()))
                     return new ProviderState(input.ToString());
 
                 return null;
             }
         }
 
-        internal class ProviderState : State
+        internal abstract class PrimaryState : State
         {
-            public ProviderState(string providerName)
-            {
-                ProviderName = providerName;
-            }
+            public string Identifier { get; set; }
 
-            public string ProviderName { get; set; }
-
-            public override State Transition(char input)
+            public sealed override State Transition(char input)
             {
                 if (input == ' ')
-                    return new ProviderArgsState(ProviderName);
-
-                if (Regex.IsMatch(input.ToString(), "[a-zA-Z0-9_]"))
                 {
-                    ProviderName += input;
+                    if (Identifier == null)
+                        return this;
+                    return GetArgState();
+                }                        
+
+                if (IdentifierRegex.IsMatch(input.ToString()))
+                {
+                    Identifier += input;
                     return this;
                 }
 
@@ -97,55 +98,110 @@ namespace Missile.TextLauncher.Interpretation
 
             public override void Flush()
             {
-                OnRaiseTokenEvent(new TokenEventArgs(new ProviderToken(ProviderName, new string[0])));
+                if (!string.IsNullOrWhiteSpace(Identifier))
+                    OnRaiseTokenEvent(new TokenEventArgs(GetToken()));
             }
+
+            public abstract Token GetToken();
+
+            public abstract PrimaryArgState GetArgState();
         }
 
-        internal class ProviderArgsState : State
+        internal abstract class PrimaryArgState : State
         {
-            private readonly List<string> args = new List<string>();
-            private string currentArg = "";
-
-            public ProviderArgsState(string providerName)
+            protected PrimaryArgState(string identifier)
             {
-                ProviderName = providerName;
+                Identifier = identifier ?? throw new ArgumentNullException(nameof(identifier));
             }
 
-            public string ProviderName { get; set; }
+            public string Identifier { get; set; }
+            public string CurrentArg { get; set; } = "";
+            public List<string> Args { get; set; } = new List<string>();
 
             public override State Transition(char input)
             {
                 if (input == ' ')
                 {
-                    args.Add(currentArg);
-                    currentArg = "";
+                    if (!string.IsNullOrWhiteSpace(CurrentArg))
+                        Args.Add(CurrentArg);
+                    CurrentArg = "";
                     return this;
                 }
-                currentArg += input;
+                if (input == '|')
+                {
+                    OnRaiseTokenEvent(new TokenEventArgs(GetToken()));
+                    OnRaiseTokenEvent(new TokenEventArgs(new OperatorToken("|", new string[0])));
+                    return new FilterState();
+                }
+                CurrentArg += input;
                 return this;
             }
 
+            public abstract Token GetToken();
+
             public override void Flush()
             {
-                if (!string.IsNullOrWhiteSpace(currentArg))
-                    args.Add(currentArg);
-                OnRaiseTokenEvent(new TokenEventArgs(new ProviderToken(ProviderName, args.ToArray())));
+                if (!string.IsNullOrWhiteSpace(Identifier))
+                    OnRaiseTokenEvent(new TokenEventArgs(GetToken()));
             }
         }
 
-        internal class FilterState : State
+        internal class ProviderState : PrimaryState
         {
-            public string FilterName { get; set; }
-
-            public override State Transition(char input)
+            public ProviderState(string identifier)
             {
-                throw new NotImplementedException();
+                Identifier = identifier;
+            }
+
+
+            public override Token GetToken()
+            {
+                return new ProviderToken(Identifier, new string[0]);
+            }
+
+            public override PrimaryArgState GetArgState()
+            {
+                return new ProviderArgState(Identifier);
             }
         }
 
-        internal class DestinationState
+        internal class ProviderArgState : PrimaryArgState
         {
-            public string DestinationName { get; set; }
+            public ProviderArgState(string identifier) : base(identifier)
+            {
+            }
+
+            public override Token GetToken()
+            {
+                if (!string.IsNullOrWhiteSpace(CurrentArg))
+                    Args.Add(CurrentArg);
+                return new ProviderToken(Identifier, Args.ToArray());
+            }
+        }
+
+        internal class FilterState : PrimaryState
+        {                      
+            public override Token GetToken()
+            {
+                return new FilterToken(Identifier, new string[0]);
+            }
+
+            public override PrimaryArgState GetArgState()
+            {
+                return new FilterArgState(Identifier);
+            }
+        }
+
+        internal class FilterArgState : PrimaryArgState
+        {
+            public FilterArgState(string identifier) : base(identifier)
+            {
+            }
+
+            public override Token GetToken()
+            {
+                return new FilterToken(Identifier, Args.ToArray());
+            }
         }
 
         internal class ErrorState : State

@@ -52,5 +52,27 @@ namespace Missile.TextLauncher.Interpretation.Tests
                     new ProviderToken("everything", new [] {"-type", "image", "--regex", "*.cs"}),
                 }, "n words are treated as a provider followed by n-1 args and hyphens are included");
         }
+
+        [Fact]
+        public void Handle_Basic_Filters()
+        {
+            new Lexer().Lex("lorem | sort").Should()
+                .Equal(new Token[]
+                {
+                    new ProviderToken("lorem", new string[0]),
+                    new OperatorToken("|", new string[0]), 
+                    new FilterToken("sort", new string[0]), 
+                }, "two words separated by | is interpretted as provider and filter");
+
+            new Lexer().Lex("lorem | sort | first").Should()
+                .Equal(new Token[]
+                {
+                    new ProviderToken("lorem", new string[0]),
+                    new OperatorToken("|", new string[0]),
+                    new FilterToken("sort", new string[0]),
+                    new OperatorToken("|", new string[0]),
+                    new FilterToken("first", new string[0]), 
+                }, "multiple words separated by | is interpretted as a provider followed by multiple filters");
+        }
     }
 }
