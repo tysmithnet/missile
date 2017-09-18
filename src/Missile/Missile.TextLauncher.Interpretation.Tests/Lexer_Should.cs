@@ -131,5 +131,18 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 new DestinationToken("list", new []{"--head", "10"}),
             }, "destinations should be able to take arguments");
         }
+
+        [Fact]
+        public void Handle_All_Primary_Components()
+        {
+            new Lexer().Lex("lorem | sort > list").Should().Equal(new Token[]
+            {
+                new ProviderToken("lorem", new string[0]),
+                new OperatorToken("|", new string[0]), 
+                new FilterToken("sort", new string[0]), 
+                new OperatorToken(">", new string[0]),
+                new DestinationToken("list", new string[0]),
+            }, "two words separated by > should be treated as a provider and a destination");
+        }
     }
 }
