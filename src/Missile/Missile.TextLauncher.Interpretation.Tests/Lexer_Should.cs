@@ -142,7 +142,16 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 new FilterToken("sort", new string[0]), 
                 new OperatorToken(">", new string[0]),
                 new DestinationToken("list", new string[0]),
-            }, "two words separated by > should be treated as a provider and a destination");
+            }, "three words separated by | and > are provider, filter, and destination");
+
+            new Lexer().Lex("lorem --words 10 | sort --Length > list --head 5").Should().Equal(new Token[]
+            {
+                new ProviderToken("lorem", new [] {"--words", "10"}),
+                new OperatorToken("|", new string[0]),
+                new FilterToken("sort", new []{"--Length"}),
+                new OperatorToken(">", new string[0]),
+                new DestinationToken("list", new []{"--head", "5"}),
+            }, "providers, filters, and destinations can have arguments");
         }
     }
 }

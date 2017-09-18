@@ -9,6 +9,6 @@ namespace Missile.TextLauncher
     public interface IProvider<out TDest> : IProvider
     {
         string Name { get; set; }
-        IObservable<TDest> Provide(string argString);
+        IObservable<TDest> Provide(string[] args);
     }
 }

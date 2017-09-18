@@ -17,7 +17,7 @@ Morbi fringilla tellus ac quam porta, ultrices cursus nisl elementum. Aenean eu 
 
         public string Name { get; set; } = "lorem";
 
-        public IObservable<string> Provide(string argString)
+        public IObservable<string> Provide(string[] args)
         {
             return "Lorem ipsum dolor sit amet.".Split().ToObservable();
         }
