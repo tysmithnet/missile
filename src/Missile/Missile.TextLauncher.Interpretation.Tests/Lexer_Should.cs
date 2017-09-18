@@ -74,5 +74,25 @@ namespace Missile.TextLauncher.Interpretation.Tests
                     new FilterToken("first", new string[0]), 
                 }, "multiple words separated by | is interpretted as a provider followed by multiple filters");
         }
+
+        [Fact]
+        public void Handle_Filters_With_Args()
+        {
+            new Lexer().Lex("lorem | sort --prop Length").Should().Equal(new Token[]
+            {
+                new ProviderToken("lorem", new string[0]),
+                new OperatorToken("|", new string[0]),
+                new FilterToken("sort", new[] {"--prop", "Length"}),
+            }, "filters can have args");
+
+            new Lexer().Lex("lorem | sort --prop Length | first ").Should().Equal(new Token[]
+            {
+                new ProviderToken("lorem", new string[0]),
+                new OperatorToken("|", new string[0]),
+                new FilterToken("sort", new[] {"--prop", "Length"}),
+                new OperatorToken("|", new string[0]), 
+                new FilterToken("first", new string[0]), 
+            }, "filters can have args");
+        }
     }
 }

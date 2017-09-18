@@ -142,7 +142,12 @@ namespace Missile.TextLauncher.Interpretation
             public override void Flush()
             {
                 if (!string.IsNullOrWhiteSpace(Identifier))
+                {
+                    if(!string.IsNullOrWhiteSpace(CurrentArg))
+                        Args.Add(CurrentArg);
                     OnRaiseTokenEvent(new TokenEventArgs(GetToken()));
+                    
+                }                                                     
             }
         }
 
