@@ -94,5 +94,14 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 new FilterToken("first", new string[0]), 
             }, "filters can have args");
         }
+
+        [Fact]
+        public void Handle_Double_Quotes_In_Args()
+        {
+            new Lexer().Lex(@"echo ""three   spaces""").Should().Equal(new Token[]
+            {
+               new ProviderToken("echo", new []{"three   spaces"}),
+            }, "double quotes indicates a literal string");
+        }
     }
 }

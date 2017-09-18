@@ -118,21 +118,42 @@ namespace Missile.TextLauncher.Interpretation
             public string CurrentArg { get; set; } = "";
             public List<string> Args { get; set; } = new List<string>();
 
+            private bool isOpenQuote = false;
+
             public override State Transition(char input)
             {
                 if (input == ' ')
                 {
+                    if (isOpenQuote)
+                    {
+                        CurrentArg += input;
+                        return this;
+                    }
                     if (!string.IsNullOrWhiteSpace(CurrentArg))
                         Args.Add(CurrentArg);
                     CurrentArg = "";
                     return this;
                 }
+
                 if (input == '|')
                 {
                     OnRaiseTokenEvent(new TokenEventArgs(GetToken()));
                     OnRaiseTokenEvent(new TokenEventArgs(new OperatorToken("|", new string[0])));
                     return new FilterState();
                 }
+
+                if (input == '"')
+                {
+                    if (isOpenQuote)
+                    {
+                        Args.Add(CurrentArg);
+                        CurrentArg = "";
+                    }
+                    else
+                        isOpenQuote = true;
+                    return this;
+                }
+
                 CurrentArg += input;
                 return this;
             }
