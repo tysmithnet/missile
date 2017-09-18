@@ -29,8 +29,8 @@ namespace Missile.TextLauncher.Interpretation.Tests
             var p1 = new ProviderToken("noop", new string[0]);
             var p2 = new ProviderToken("lorem", new string[0]);
 
-            var p3 = new ProviderToken("lorem --words --count 100", new []{"--words", "--count", "100"});
-            var p4 = new ProviderToken("lorem --words --count 100", new[] { "--words", "--count", "100" });
+            var p3 = new ProviderToken("noop", new []{"--words", "--count", "100"});
+            var p4 = new ProviderToken("lorem", new[] { "--words", "--count", "100" });
 
             p1.Should().NotBe(p2, "freshly created provider tokens should be equal");
             p1.GetHashCode().Should().NotBe(p2.GetHashCode(),
