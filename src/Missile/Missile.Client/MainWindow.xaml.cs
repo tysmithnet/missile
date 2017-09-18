@@ -10,6 +10,7 @@ namespace Missile.Client
     {
         public MainWindow(Launcher launcher)
         {
+            
             InitializeComponent();
             Content = launcher;
         }
