@@ -119,9 +119,24 @@ namespace Missile.TextLauncher.Interpretation
             public List<string> Args { get; set; } = new List<string>();
 
             private bool isOpenQuote = false;
+            private bool isEscaped = false;
 
             public override State Transition(char input)
             {
+                if (input == '\\')
+                {
+                    if (isEscaped)
+                    {
+                        isEscaped = false;
+                        CurrentArg += '\\';
+                    }
+                    else
+                    {
+                        isEscaped = true;
+                    }
+                    return this;
+                }
+
                 if (input == ' ')
                 {
                     if (isOpenQuote)
@@ -144,6 +159,13 @@ namespace Missile.TextLauncher.Interpretation
 
                 if (input == '"')
                 {
+                    if (isEscaped)
+                    {
+                        CurrentArg += "\"";
+                        isEscaped = false;
+                        return this;
+                    }
+
                     if (isOpenQuote)
                     {
                         Args.Add(CurrentArg);
@@ -162,12 +184,15 @@ namespace Missile.TextLauncher.Interpretation
 
             public override void Flush()
             {
-                if (!string.IsNullOrWhiteSpace(Identifier))
+                if (!string.IsNullOrWhiteSpace(CurrentArg))
                 {
-                    if(!string.IsNullOrWhiteSpace(CurrentArg))
-                        Args.Add(CurrentArg);
-                    OnRaiseTokenEvent(new TokenEventArgs(GetToken()));
-                    
+                    Args.Add(CurrentArg);
+                    CurrentArg = "";
+                }
+
+                if (!string.IsNullOrWhiteSpace(Identifier))
+                {       
+                    OnRaiseTokenEvent(new TokenEventArgs(GetToken()));   
                 }                                                     
             }
         }
@@ -200,7 +225,11 @@ namespace Missile.TextLauncher.Interpretation
             public override Token GetToken()
             {
                 if (!string.IsNullOrWhiteSpace(CurrentArg))
+                {
                     Args.Add(CurrentArg);
+                    CurrentArg = "";
+                }
+                    
                 return new ProviderToken(Identifier, Args.ToArray());
             }
         }

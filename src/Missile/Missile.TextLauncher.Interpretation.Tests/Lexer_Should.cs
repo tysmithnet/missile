@@ -102,6 +102,16 @@ namespace Missile.TextLauncher.Interpretation.Tests
             {
                new ProviderToken("echo", new []{"three   spaces"}),
             }, "double quotes indicates a literal string");
+
+            new Lexer().Lex(@"echo double quote: \""").Should().Equal(new Token[]
+            {
+                new ProviderToken("echo", new []{"double", "quote:", "\""}), 
+            }, "escaped quotes should be treated as regular characters");
+
+            new Lexer().Lex(@"echo ""quote \"" in quote""").Should().Equal(new Token[]
+            {
+                new ProviderToken("echo", new []{"quote \" in quote"}),
+            }, "escaped double quote in quotes appear in the string as a single character");
         }
     }
 }
