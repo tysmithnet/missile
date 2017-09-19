@@ -88,6 +88,7 @@
     <Compile Include="Integration_Tests.cs" />
     <Compile Include="Mock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomValueProvider_Should.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
