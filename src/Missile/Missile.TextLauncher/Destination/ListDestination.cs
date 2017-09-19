@@ -7,10 +7,10 @@ namespace Missile.TextLauncher.Destination
     [Export(typeof(IDestination))]
     public class ListDestination : IDestination<ListDestinationItem>
     {
-        public string Name { get; set; } = "list";
-
         [Import]
         public IUiFacade UiFacade { get; set; }
+
+        public string Name { get; set; } = "list";
 
         public Task ProcessAsync(IObservable<ListDestinationItem> source)
         {

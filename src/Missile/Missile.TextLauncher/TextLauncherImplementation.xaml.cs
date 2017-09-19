@@ -14,7 +14,7 @@ namespace Missile.TextLauncher
     [Export(typeof(IUiFacade))]
     public partial class TextLauncherImplementation : Launcher, IUiFacade
     {
-        private SynchronizationContext synchronizationContext;
+        private readonly SynchronizationContext synchronizationContext;
 
         public TextLauncherImplementation()
         {
@@ -34,7 +34,7 @@ namespace Missile.TextLauncher
             {
                 OutputPanel.Children.RemoveRange(0, OutputPanel.Children.Count);
                 OutputPanel.Children.Add(userControl);
-            }, null);                                       
+            }, null);
         }
 
         // TODO: hack

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using Missile.TextLauncher.Interpretation.Lexing;  
+using Missile.TextLauncher.Interpretation.Lexing;
 
 namespace Missile.TextLauncher.Interpretation.Parsing
 {

@@ -2,9 +2,7 @@
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Linq;
-using System.Reflection;
 using FluentAssertions;
-using Missile.TextLauncher.Provision;
 using Xunit;
 
 namespace Missile.TextLauncher.Interpretation.Tests
@@ -13,7 +11,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
     {
         public static InterpretationFacade GetFacade()
         {
-            AggregateCatalog aggregateCatalog = new AggregateCatalog();
+            var aggregateCatalog = new AggregateCatalog();
             var types = AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName.StartsWith("Missile"))
                 .SelectMany(x => x.GetExportedTypes());
             aggregateCatalog.Catalogs.Add(new TypeCatalog(types));
