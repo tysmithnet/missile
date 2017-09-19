@@ -9,13 +9,13 @@ namespace Missile.TextLauncher.Destination
     /// </summary>
     public partial class ListOutputControl : UserControl
     {
-        public List<ListDestinationItem> Items { get; set; }
-
         public ListOutputControl(IEnumerable<ListDestinationItem> items)
         {
             Items = items.ToList();
             InitializeComponent();
             ListBox.ItemsSource = Items;
         }
+
+        public List<ListDestinationItem> Items { get; set; }
     }
 }

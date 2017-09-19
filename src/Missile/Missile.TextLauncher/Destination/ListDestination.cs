@@ -23,11 +23,11 @@ namespace Missile.TextLauncher.Destination
 
     public class ListDestinationItem
     {
-        public string MainText { get; set; }
-
         public ListDestinationItem(string text)
         {
             MainText = text;
         }
+
+        public string MainText { get; set; }
     }
 }

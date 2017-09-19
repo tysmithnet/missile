@@ -10,7 +10,7 @@
         <ListBox x:Name="ListBox">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBox Text="{Binding MainText}"></TextBox>
+                    <TextBox Text="{Binding MainText}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
