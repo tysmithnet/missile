@@ -21,7 +21,7 @@ FILTER
     ;
 
 IDENTIFIER:
-    : [a-zA-Z0-9_*+-]
+    : [a-zA-Z0-9_]
     ;
 
 pipe and output need to be escaped to not be treated as operators

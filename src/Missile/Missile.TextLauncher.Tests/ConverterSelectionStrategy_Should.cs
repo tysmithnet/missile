@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentAssertions;
+using Missile.TextLauncher.Conversion;
 using Xunit;
 
 namespace Missile.TextLauncher.Tests

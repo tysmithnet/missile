@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using FluentAssertions;
+using Missile.TextLauncher.Provision;
 using Xunit;
 
 namespace Missile.TextLauncher.Interpretation.Tests

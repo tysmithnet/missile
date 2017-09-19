@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Missile.TextLauncher.Conversion;
 
 namespace Missile.TextLauncher.Tests
 {

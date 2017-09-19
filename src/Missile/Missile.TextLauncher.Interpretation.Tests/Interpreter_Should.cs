@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
 using FluentAssertions;
-using Missile.TextLauncher.Destinations;
-using Missile.TextLauncher.Filters;
+using Missile.TextLauncher.Destination;
+using Missile.TextLauncher.Filtration;
 using Missile.TextLauncher.Interpretation.Parsing;
-using Missile.TextLauncher.Providers;
+using Missile.TextLauncher.Provision;
 using Xunit;
 
 namespace Missile.TextLauncher.Interpretation.Tests

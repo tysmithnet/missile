@@ -1,4 +1,8 @@
-﻿namespace Missile.TextLauncher.Interpretation.Tests
+﻿using Missile.TextLauncher.Destination;
+using Missile.TextLauncher.Filtration;
+using Missile.TextLauncher.Provision;
+
+namespace Missile.TextLauncher.Interpretation.Tests
 {
     public class InterpreterBuilder
     {
