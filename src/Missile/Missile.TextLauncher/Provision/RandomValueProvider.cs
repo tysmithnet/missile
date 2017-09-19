@@ -59,7 +59,7 @@ Vivamus blandit turpis in risus condimentum consequat. In tortor sapien, pharetr
                                 break;
                             case "sentence":
                                 result = Enumerable.Range(0, loremOptions.Count)
-                                    .Select(x => Sentences[rng.Next(0, Words.Length)]).ToObservable();
+                                    .Select(x => Sentences[rng.Next(0, Sentences.Length)]).ToObservable();
                                 break;
                         }
 
