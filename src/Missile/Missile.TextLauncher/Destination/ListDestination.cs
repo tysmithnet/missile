@@ -9,13 +9,13 @@ namespace Missile.TextLauncher.Destination
     {
         public string Name { get; set; } = "list";
 
-        //[Import]
-        //public IUiFacade UiFacade { get; set; }
+        [Import]
+        public IUiFacade UiFacade { get; set; }
 
         public Task ProcessAsync(IObservable<ListDestinationItem> source)
         {
             IDestination<ListDestinationItem> x = new ListDestination();
-            //UiFacade.SetOutputControl(new ListOutputControl());
+            UiFacade.SetOutputControl(new ListOutputControl());
             return Task.CompletedTask;
         }
     }

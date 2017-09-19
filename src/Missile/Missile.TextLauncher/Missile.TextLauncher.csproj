@@ -87,7 +87,6 @@
     <Compile Include="ListOutputControl.xaml.cs">
       <DependentUpon>ListOutputControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Provision\LoremIpsumProvider.cs" />
     <Compile Include="Destination\NoOpDestination.cs" />
     <Compile Include="Filtration\NoOpFilter.cs" />
     <Compile Include="Provision\NoOpProvider.cs" />

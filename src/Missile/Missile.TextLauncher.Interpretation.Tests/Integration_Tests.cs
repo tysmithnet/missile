@@ -1,5 +1,8 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.Linq;
+using System.Reflection;
 using FluentAssertions;
 using Missile.TextLauncher.Provision;
 using Xunit;
@@ -10,13 +13,10 @@ namespace Missile.TextLauncher.Interpretation.Tests
     {
         public static InterpretationFacade GetFacade()
         {
-            var aggregateCatalog = new AggregateCatalog();
-            var facadeAssembly = new AssemblyCatalog(typeof(InterpretationFacade).Assembly);
-            var providerAssembly = new AssemblyCatalog(typeof(IProvider<>).Assembly);
-            var testAssembly = new AssemblyCatalog(typeof(Integration_Tests).Assembly);
-            aggregateCatalog.Catalogs.Add(facadeAssembly);
-            aggregateCatalog.Catalogs.Add(providerAssembly);
-            aggregateCatalog.Catalogs.Add(testAssembly);
+            AggregateCatalog aggregateCatalog = new AggregateCatalog();
+            var types = AppDomain.CurrentDomain.GetAssemblies().Where(x => x.FullName.StartsWith("Missile"))
+                .SelectMany(x => x.GetExportedTypes());
+            aggregateCatalog.Catalogs.Add(new TypeCatalog(types));
             var compositionContainer = new CompositionContainer(aggregateCatalog);
             var facade = new InterpretationFacade();
             compositionContainer.ComposeParts(facade);
@@ -26,7 +26,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
         [Fact]
         public void Handle_Conversion()
         {
-            var input = "lorem > list";
+            var input = "mockobject > mockstring";
             GetFacade().Invoking(async f => await f.ExecuteAsync(input))
                 .ShouldNotThrow("conversions should be provided if an appropriate converter is registered");
         }
@@ -42,7 +42,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
         [Fact]
         public void Handle_Only_Provider()
         {
-            var input = "lorem";
+            var input = "mockobject";
             GetFacade().Invoking(async f => await f.ExecuteAsync(input))
                 .ShouldNotThrow("providers can act on their own");
         }
@@ -50,14 +50,14 @@ namespace Missile.TextLauncher.Interpretation.Tests
         [Fact]
         public void Handle_Provider_And_Destination()
         {
-            var input = "lorem > console";
+            var input = "mockobject > mockobject";
             GetFacade().Invoking(async f => await f.ExecuteAsync(input)).ShouldNotThrow("filters are not required");
         }
 
         [Fact]
         public void Handle_Provider_Filter_Destination()
         {
-            var input = "lorem | first > console";
+            var input = "mockobject | mockobject > mockobject";
             GetFacade().Invoking(async f => await f.ExecuteAsync(input))
                 .ShouldNotThrow("the most basic full pipeline should pass");
         }

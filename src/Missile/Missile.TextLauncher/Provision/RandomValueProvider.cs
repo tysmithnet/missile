@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Primitives;
 using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
@@ -7,6 +9,7 @@ using CommandLine;
 
 namespace Missile.TextLauncher.Provision
 {
+    [Export(typeof(IProvider))]
     public class RandomValueProvider : IProvider<object>
     {
         private static readonly string Lorem =

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Missile.Core;
@@ -13,8 +14,11 @@ namespace Missile.TextLauncher
     [Export(typeof(IUiFacade))]
     public partial class TextLauncherImplementation : Launcher, IUiFacade
     {
+        private SynchronizationContext synchronizationContext;
+
         public TextLauncherImplementation()
         {
+            synchronizationContext = SynchronizationContext.Current;
             InitializeComponent();
         }
 
@@ -26,8 +30,11 @@ namespace Missile.TextLauncher
 
         public void SetOutputControl(UserControl userControl)
         {
-            OutputPanel.Children.RemoveRange(0, OutputPanel.Children.Count);
-            OutputPanel.Children.Add(userControl);
+            synchronizationContext.Post(state =>
+            {
+                OutputPanel.Children.RemoveRange(0, OutputPanel.Children.Count);
+                OutputPanel.Children.Add(userControl);
+            }, null);                                       
         }
 
         // TODO: hack
