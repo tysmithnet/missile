@@ -84,7 +84,7 @@
     <Compile Include="IUiFacade.cs" />
     <Compile Include="Destination\ListDestination.cs" />
     <Compile Include="Conversion\ListDestinationConverter.cs" />
-    <Compile Include="ListOutputControl.xaml.cs">
+    <Compile Include="Destination\ListOutputControl.xaml.cs">
       <DependentUpon>ListOutputControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Destination\NoOpDestination.cs" />
@@ -117,7 +117,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ListOutputControl.xaml">
+    <Page Include="Destination\ListOutputControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

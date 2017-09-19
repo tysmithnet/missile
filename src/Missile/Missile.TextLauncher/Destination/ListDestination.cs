@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 namespace Missile.TextLauncher.Destination
@@ -14,19 +15,19 @@ namespace Missile.TextLauncher.Destination
 
         public Task ProcessAsync(IObservable<ListDestinationItem> source)
         {
-            IDestination<ListDestinationItem> x = new ListDestination();
-            UiFacade.SetOutputControl(new ListOutputControl());
+            var items = source.ToEnumerable();
+            UiFacade.SetOutputControl(new ListOutputControl(items));
             return Task.CompletedTask;
         }
     }
 
     public class ListDestinationItem
     {
-        private string v;
+        public string MainText { get; set; }
 
-        public ListDestinationItem(string v)
+        public ListDestinationItem(string text)
         {
-            this.v = v;
+            MainText = text;
         }
     }
 }
