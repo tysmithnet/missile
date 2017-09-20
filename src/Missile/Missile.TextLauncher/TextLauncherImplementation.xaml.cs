@@ -37,6 +37,11 @@ namespace Missile.TextLauncher
             }, null);
         }
 
+        public void Post(Action<object> command, object argument)
+        {                                      
+            synchronizationContext.Post(state => command(state), argument);
+        }
+
         // TODO: hack
         private void TextLauncherImplementation_OnLayoutUpdated(object sender, EventArgs e)
         {
