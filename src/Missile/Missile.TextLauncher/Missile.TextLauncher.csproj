@@ -68,6 +68,7 @@
     <Compile Include="Conversion\ConverterRedinessScore.cs" />
     <Compile Include="Conversion\ConverterRepository.cs" />
     <Compile Include="Conversion\ConverterSelectionStrategy.cs" />
+    <Compile Include="Destination\ListDestination\ListDestinationItem.cs" />
     <Compile Include="Filtration\FirstFilter.cs" />
     <Compile Include="Conversion\IConverter.cs" />
     <Compile Include="Conversion\IConverterRepository.cs" />
@@ -83,9 +84,9 @@
     <Compile Include="Provision\ApplicationProvider.cs" />
     <Compile Include="Provision\IProviderRepository.cs" />
     <Compile Include="IUiFacade.cs" />
-    <Compile Include="Destination\ListDestination.cs" />
+    <Compile Include="Destination\ListDestination\ListDestination.cs" />
     <Compile Include="Conversion\ListDestinationConverter.cs" />
-    <Compile Include="Destination\ListOutputControl.xaml.cs">
+    <Compile Include="Destination\ListDestination\ListOutputControl.xaml.cs">
       <DependentUpon>ListOutputControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Destination\NoOpDestination.cs" />
@@ -118,7 +119,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Destination\ListOutputControl.xaml">
+    <Page Include="Destination\ListDestination\ListOutputControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

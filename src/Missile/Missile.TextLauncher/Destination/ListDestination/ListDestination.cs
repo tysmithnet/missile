@@ -2,8 +2,9 @@
 using System.ComponentModel.Composition;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
-namespace Missile.TextLauncher.Destination
+namespace Missile.TextLauncher.Destination.ListDestination
 {
     [Export(typeof(IDestination))]
     public class ListDestination : IDestination<ListDestinationItem>
@@ -12,7 +13,7 @@ namespace Missile.TextLauncher.Destination
         public IUiFacade UiFacade { get; set; }
 
         public string Name { get; set; } = "list";
-
+        public virtual ContextMenu ContextMenu { get; set; }
         public Task ProcessAsync(IObservable<ListDestinationItem> source)
         {
             var items = source.ToEnumerable();
@@ -31,15 +32,5 @@ namespace Missile.TextLauncher.Destination
             });
             return tcs.Task;
         }
-    }
-
-    public class ListDestinationItem
-    {
-        public ListDestinationItem(string text)
-        {
-            MainText = text;
-        }
-
-        public string MainText { get; set; }
     }
 }

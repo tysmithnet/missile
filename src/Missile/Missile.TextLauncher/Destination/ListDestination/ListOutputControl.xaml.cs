@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Controls;
 
-namespace Missile.TextLauncher.Destination
+namespace Missile.TextLauncher.Destination.ListDestination
 {
     /// <summary>
     ///     Interaction logic for ListOutputControl.xaml
