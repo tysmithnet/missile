@@ -80,6 +80,7 @@
     <Compile Include="Destination\IDestinationRepository.cs" />
     <Compile Include="IInterpretationFacade.cs" />
     <Compile Include="Filtration\IFilterRepository.cs" />
+    <Compile Include="Provision\ApplicationProvider.cs" />
     <Compile Include="Provision\IProviderRepository.cs" />
     <Compile Include="IUiFacade.cs" />
     <Compile Include="Destination\ListDestination.cs" />
