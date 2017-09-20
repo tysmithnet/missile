@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommandLine;
 using Microsoft.Win32;
 
 namespace Missile.TextLauncher.Provision
@@ -17,12 +18,18 @@ namespace Missile.TextLauncher.Provision
 
         public IObservable<string> Provide(string[] args)
         {
-            return GetInstalledApps().ToObservable();
+            Options options = new Options();
+            Parser.Default.ParseArgumentsStrict(args, options);
+            var installedApps = GetInstalledApps();
+            if (options.SearchStrings != null && options.SearchStrings.Any())
+                installedApps = installedApps.Where(x => options.SearchStrings.Any(x.Contains));
+            return installedApps.ToObservable();
         }
 
-        public IEnumerable<string> GetInstalledApps()
+        protected internal IEnumerable<string> GetInstalledApps()
         {
             string uninstallKey = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+            
             using (RegistryKey rk = Registry.LocalMachine.OpenSubKey(uninstallKey))
             {
                 foreach (string skName in rk.GetSubKeyNames())
@@ -41,6 +48,12 @@ namespace Missile.TextLauncher.Provision
                     }
                 }
             }
+        }
+
+        private class Options
+        {
+            [ValueList(typeof(List<string>))]
+            public IList<string> SearchStrings { get; set; }
         }
     }
 }
