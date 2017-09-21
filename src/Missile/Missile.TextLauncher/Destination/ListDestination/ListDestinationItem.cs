@@ -1,10 +1,11 @@
-﻿namespace Missile.TextLauncher.Destination.ListDestination
+﻿using System.Windows.Controls;
+
+namespace Missile.TextLauncher.Destination.ListDestination
 {
-    public class ListDestinationItem
+    public class ListDestinationItem : UserControl
     {
-        public ListDestinationItem(string text)
-        {
-            MainText = text;
+        public ListDestinationItem()
+        {                          
         }
 
         public string MainText { get; set; }

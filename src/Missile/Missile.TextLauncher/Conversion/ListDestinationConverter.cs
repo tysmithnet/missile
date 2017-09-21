@@ -11,7 +11,7 @@ namespace Missile.TextLauncher.Conversion
     {
         public IObservable<ListDestinationItem> Convert(IObservable<object> source)
         {
-            return source.Select(x => new ListDestinationItem(x.ToString()));
+            return source.Select(x => new ListDestinationItem(){MainText = x.ToString() });
         }
     }
 }

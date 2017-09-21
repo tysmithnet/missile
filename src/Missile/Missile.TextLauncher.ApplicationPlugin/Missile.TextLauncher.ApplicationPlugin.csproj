@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CEFBCCB2-1B93-43BF-A2D5-9EE40CE01B9A}</ProjectGuid>
+    <ProjectGuid>{B5F41297-4523-4609-978A-C86C3106286A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Missile.TextLauncher</RootNamespace>
-    <AssemblyName>Missile.TextLauncher</AssemblyName>
+    <RootNamespace>Missile.TextLauncher.ApplicationPlugin</RootNamespace>
+    <AssemblyName>Missile.TextLauncher.ApplicationPlugin</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -36,7 +36,6 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Reactive.Core, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Reactive.Core.3.1.1\lib\net46\System.Reactive.Core.dll</HintPath>
@@ -64,68 +63,31 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Destination\ConsoleDestination.cs" />
-    <Compile Include="Conversion\ConverterRedinessScore.cs" />
-    <Compile Include="Conversion\ConverterRepository.cs" />
-    <Compile Include="Conversion\ConverterSelectionStrategy.cs" />
-    <Compile Include="Destination\ListDestination\ListDestinationItem.cs" />
-    <Compile Include="Filtration\FirstFilter.cs" />
-    <Compile Include="Conversion\IConverter.cs" />
-    <Compile Include="Conversion\IConverterRepository.cs" />
-    <Compile Include="Conversion\IConverterSelectionStrategy.cs" />
-    <Compile Include="Destination\IDestination.cs" />
-    <Compile Include="Destination\DestinationRepository.cs" />
-    <Compile Include="Filtration\DistinctFilter.cs" />
-    <Compile Include="Filtration\IFilter.cs" />
-    <Compile Include="Filtration\FilterRepository.cs" />
-    <Compile Include="Destination\IDestinationRepository.cs" />
-    <Compile Include="IInterpretationFacade.cs" />
-    <Compile Include="Filtration\IFilterRepository.cs" />
-    <Compile Include="Provision\IProviderRepository.cs" />
-    <Compile Include="IUiFacade.cs" />
-    <Compile Include="Destination\ListDestination\ListDestination.cs" />
-    <Compile Include="Conversion\ListDestinationConverter.cs" />
-    <Compile Include="Destination\ListDestination\ListOutputControl.xaml.cs">
-      <DependentUpon>ListOutputControl.xaml</DependentUpon>
+    <Compile Include="ApplicationListDestinationItem.xaml.cs">
+      <DependentUpon>ApplicationListDestinationItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Destination\NoOpDestination.cs" />
-    <Compile Include="Filtration\NoOpFilter.cs" />
-    <Compile Include="Provision\NoOpProvider.cs" />
+    <Compile Include="ApplicationProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Provision\IProvider.cs" />
-    <Compile Include="Provision\ProviderRepository.cs" />
-    <Compile Include="Provision\RandomValueProvider.cs" />
-    <Compile Include="Provision\RangeProvider.cs" />
-    <Compile Include="Conversion\RegisteredConverter.cs" />
-    <Compile Include="Destination\RegisteredDestination.cs" />
-    <Compile Include="Filtration\RegisteredFilter.cs" />
-    <Compile Include="Provision\RegisteredProvider.cs" />
-    <Compile Include="Filtration\TakeFilter.cs" />
-    <Compile Include="TextLauncherImplementation.xaml.cs">
-      <DependentUpon>TextLauncherImplementation.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TypeExtensions.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Missile.Core\Missile.Core.csproj">
+      <Project>{d7b2884d-38db-427f-804f-074bea6e4c0f}</Project>
+      <Name>Missile.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Missile.TextLauncher\Missile.TextLauncher.csproj">
+      <Project>{CEFBCCB2-1B93-43BF-A2D5-9EE40CE01B9A}</Project>
+      <Name>Missile.TextLauncher</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="ApplicationListDestinationItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
-    <None Include="README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Missile.Core\Missile.Core.csproj">
-      <Project>{D7B2884D-38DB-427F-804F-074BEA6E4C0F}</Project>
-      <Name>Missile.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Destination\ListDestination\ListOutputControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TextLauncherImplementation.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
