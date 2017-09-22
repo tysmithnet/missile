@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Xml;
@@ -28,7 +27,7 @@ namespace Missile.Client
             aggregateCatalog.Catalogs.Add(coreAssemblyCatalog);
             aggregateCatalog.Catalogs.Add(textLauncherAssemblyCatalog);
             aggregateCatalog.Catalogs.Add(textLauncherInterpretationAssemblyCatalog);
-            foreach(var assembly in assemblies)
+            foreach (var assembly in assemblies)
                 aggregateCatalog.Catalogs.Add(new AssemblyCatalog(assembly));
             var compositionContainer = new CompositionContainer(aggregateCatalog);
             var launcher = new TextLauncherImplementation();
@@ -40,11 +39,11 @@ namespace Missile.Client
         private static IEnumerable<Assembly> LoadPlugins()
         {
             var xmlReader = new XmlTextReader("plugins.xml");
-            List<Assembly> assemblies = new List<Assembly>();
+            var assemblies = new List<Assembly>();
             while (xmlReader.Read())
             {
                 if (xmlReader.NodeType != XmlNodeType.Text) continue;
-                Assembly assembly = Assembly.LoadFile(xmlReader.Value);
+                var assembly = Assembly.LoadFile(xmlReader.Value);
                 assemblies.Add(assembly);
             }
             return assemblies;

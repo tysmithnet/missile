@@ -12,24 +12,18 @@ namespace Missile.TextLauncher.Destination.ListDestination
         [Import]
         public IUiFacade UiFacade { get; set; }
 
-        public string Name { get; set; } = "list";
         public virtual ContextMenu ContextMenu { get; set; }
+
+        public string Name { get; set; } = "list";
+
         public Task ProcessAsync(IObservable<ListDestinationItem> source)
         {
             var items = source.ToEnumerable();
             var outputControl = new ListOutputControl(items);
             UiFacade.SetOutputControl(outputControl);
-            TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
-            source.Subscribe(item =>
-            {
-                UiFacade.Post(x => outputControl.Items.Add(item), null);
-            }, exception =>
-            {
-                tcs.TrySetException(exception);
-            }, () =>
-            {
-                tcs.TrySetResult(null);
-            });
+            var tcs = new TaskCompletionSource<object>();
+            source.Subscribe(item => { UiFacade.Post(x => outputControl.Items.Add(item), null); },
+                exception => { tcs.TrySetException(exception); }, () => { tcs.TrySetResult(null); });
             return tcs.Task;
         }
     }

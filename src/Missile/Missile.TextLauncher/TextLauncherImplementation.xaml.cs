@@ -38,7 +38,7 @@ namespace Missile.TextLauncher
         }
 
         public void Post(Action<object> command, object argument)
-        {                                      
+        {
             synchronizationContext.Post(state => command(state), argument);
         }
 
