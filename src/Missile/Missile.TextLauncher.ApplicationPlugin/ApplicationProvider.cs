@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text;
@@ -10,16 +11,17 @@ using Missile.TextLauncher.Provision;
 
 namespace Missile.TextLauncher.ApplicationPlugin
 {
+    [Export(typeof(IProvider))]
     public class ApplicationProvider : IProvider<ApplicationListDestinationItem>
     {
-        public IApplicationRepository ApplicationRepository { get; set; }
+        public IApplicationRepository ApplicationRepository { get; set; } = new ApplicationRepository();
         public string Name { get; set; } = "apps";
         public IObservable<ApplicationListDestinationItem> Provide(string[] args)
         {
             Options options = new Options();
             Parser.Default.ParseArgumentsStrict(args, options);
             return args.SelectMany(x => ApplicationRepository.Search(x))
-                .Select(x => new ApplicationListDestinationItem(null, null, null)).ToObservable();
+                .Select(x => new ApplicationListDestinationItem(x.Icon, x.ApplicationName, x.ApplicationPath)).ToObservable();
         }
 
         public class Options
@@ -47,7 +49,11 @@ namespace Missile.TextLauncher.ApplicationPlugin
 
         public IEnumerable<RegisteredApplication> Search(string searchString)
         {
-            throw new NotImplementedException();
+            BitmapImage image = new BitmapImage(new Uri(@"C:\Users\master\AppData\Local\atom\app.ico"));
+            return new List<RegisteredApplication>()
+            {
+                new RegisteredApplication{Icon = image, ApplicationName = "Atom", ApplicationPath = @"C:\Users\master\AppData\Local\atom\atom.exe"}
+            };
         }
     }
 
