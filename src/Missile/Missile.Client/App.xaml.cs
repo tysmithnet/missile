@@ -1,6 +1,10 @@
-﻿using System.ComponentModel.Composition;
+﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
+using System.Linq;
+using System.Reflection;
 using System.Windows;
+using System.Xml;
 using Missile.Core;
 using Missile.TextLauncher;
 using Missile.TextLauncher.Interpretation;
@@ -14,6 +18,7 @@ namespace Missile.Client
     {
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
+            var assemblies = LoadPlugins();
             var aggregateCatalog = new AggregateCatalog();
             var assemblyCatalog = new AssemblyCatalog(typeof(App).Assembly);
             var coreAssemblyCatalog = new AssemblyCatalog(typeof(Launcher).Assembly);
@@ -23,11 +28,26 @@ namespace Missile.Client
             aggregateCatalog.Catalogs.Add(coreAssemblyCatalog);
             aggregateCatalog.Catalogs.Add(textLauncherAssemblyCatalog);
             aggregateCatalog.Catalogs.Add(textLauncherInterpretationAssemblyCatalog);
+            foreach(var assembly in assemblies)
+                aggregateCatalog.Catalogs.Add(new AssemblyCatalog(assembly));
             var compositionContainer = new CompositionContainer(aggregateCatalog);
             var launcher = new TextLauncherImplementation();
             compositionContainer.ComposeParts(launcher);
             var mainWindow = new MainWindow(launcher);
             mainWindow.Show();
+        }
+
+        private static IEnumerable<Assembly> LoadPlugins()
+        {
+            var xmlReader = new XmlTextReader("plugins.xml");
+            List<Assembly> assemblies = new List<Assembly>();
+            while (xmlReader.Read())
+            {
+                if (xmlReader.NodeType != XmlNodeType.Text) continue;
+                Assembly assembly = Assembly.LoadFile(xmlReader.Value);
+                assemblies.Add(assembly);
+            }
+            return assemblies;
         }
     }
 }
