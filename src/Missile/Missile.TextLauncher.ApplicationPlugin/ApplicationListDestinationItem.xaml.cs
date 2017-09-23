@@ -1,12 +1,12 @@
-﻿using System.Windows.Media.Imaging;
-using Missile.TextLauncher.Destination.ListDestination;
+﻿using System.Windows.Controls;
+using System.Windows.Media.Imaging;                                  
 
 namespace Missile.TextLauncher.ApplicationPlugin
 {
     /// <summary>
     ///     Interaction logic for ApplicationListDestinationItem.xaml
     /// </summary>
-    public partial class ApplicationListDestinationItem : ListDestinationItem
+    public partial class ApplicationListDestinationItem : UserControl
     {
         public ApplicationListDestinationItem(BitmapImage icon, string applicationName, string applicationPath)
         {
