@@ -95,4 +95,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+    <ItemGroup>
+        <BinFiles Include="$(TargetDir)\**\*.*"/>
+    </ItemGroup>
+
+    <Target Name="AfterBuild">
+        <Copy SourceFiles="@(BinFiles)"
+              DestinationFolder="..\Missile.Client\bin\Debug" />
+    </Target>
 </Project>

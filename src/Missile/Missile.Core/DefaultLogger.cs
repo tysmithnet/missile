@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using Microsoft.Extensions.Logging;
-using ILogger = Missile.Core.ILogger;
 
-namespace Missile.Client
+namespace Missile.Core
 {
     [Export(typeof(ILogger))]
     public class DefaultLogger : ILogger
