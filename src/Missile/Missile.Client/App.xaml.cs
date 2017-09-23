@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.Composition;
+﻿using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Reflection;
 using System.Windows;
-using System.Xml;
-using Missile.Core;
 using Missile.TextLauncher;
-using Missile.TextLauncher.Interpretation;
 
 namespace Missile.Client
 {
@@ -19,7 +15,7 @@ namespace Missile.Client
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             //var assemblies = LoadPlugins();
-            string location = Assembly.GetExecutingAssembly().Location;    
+            var location = Assembly.GetExecutingAssembly().Location;
             var compositionContainer = new CompositionContainer(new DirectoryCatalog(Path.GetDirectoryName(location)));
             var launcher = new TextLauncherImplementation();
             compositionContainer.ComposeParts(launcher);
