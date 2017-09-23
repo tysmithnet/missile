@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Media.Imaging;
 using CommandLine;
+using Missile.TextLauncher.ListPlugin;
 using Missile.TextLauncher.Provision;
 
 namespace Missile.TextLauncher.ApplicationPlugin
@@ -17,6 +18,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
 
         public IObservable<ApplicationListDestinationItem> Provide(string[] args)
         {
+            ListDestinationItem item;
             var options = new Options();
             Parser.Default.ParseArgumentsStrict(args, options);
             return args.SelectMany(x => ApplicationRepository.Search(x))
