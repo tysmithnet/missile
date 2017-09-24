@@ -13,8 +13,7 @@ namespace Missile.Client
     public sealed partial class App : Application
     {
         private void App_OnStartup(object sender, StartupEventArgs e)
-        {
-            //var assemblies = LoadPlugins();
+        {                                          
             var location = Assembly.GetExecutingAssembly().Location;
             var compositionContainer = new CompositionContainer(new DirectoryCatalog(Path.GetDirectoryName(location)));
             var launcher = new TextLauncherImplementation();

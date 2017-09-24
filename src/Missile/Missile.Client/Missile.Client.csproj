@@ -100,10 +100,5 @@
       <Name>Missile.TextLauncher</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="plugins.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
