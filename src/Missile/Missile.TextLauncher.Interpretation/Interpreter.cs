@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Missile.TextLauncher.Conversion;
 using Missile.TextLauncher.Destination;
@@ -12,27 +11,6 @@ using Missile.TextLauncher.Provision;
 
 namespace Missile.TextLauncher.Interpretation
 {
-    public interface IObservableInspector
-    {
-        bool CanHandle(Type type);
-        Type GetObservableType(Type type);
-    }
-
-    [Export(typeof(IObservableInspector))]
-    public class ToObservableInspector : IObservableInspector
-    {
-        public bool CanHandle(Type type)
-        {
-            return Regex.IsMatch(type?.FullName ?? "",
-                @"^System\.Reactive\.Linq\.ObservableImpl\.ToObservable`1");
-        }
-
-        public Type GetObservableType(Type type)
-        {
-            return type.GenericTypeArguments[0];
-        }
-    }
-
     [Export(typeof(IInterpreter))]
     public class Interpreter : IInterpreter
     {

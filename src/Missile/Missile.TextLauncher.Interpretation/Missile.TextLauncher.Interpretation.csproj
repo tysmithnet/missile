@@ -58,6 +58,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Parsing\IObservableInspector.cs" />
     <Compile Include="Parsing\DestinationNode.cs" />
     <Compile Include="Lexing\DestinationToken.cs" />
     <Compile Include="Parsing\FilterNode.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Parsing\RootNode.cs" />
     <Compile Include="Parsing\RootNodeBuilder.cs" />
     <Compile Include="Lexing\Token.cs" />
+    <Compile Include="Parsing\ToObservableInspector.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -106,12 +108,10 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <ItemGroup>
-        <BinFiles Include="$(TargetDir)\**\*.*"/>
-    </ItemGroup>
-
-    <Target Name="AfterBuild">
-        <Copy SourceFiles="@(BinFiles)"
-              DestinationFolder="..\Missile.Client\bin\Debug" />
-    </Target>
+  <ItemGroup>
+    <BinFiles Include="$(TargetDir)\**\*.*" />
+  </ItemGroup>
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" />
+  </Target>
 </Project>
