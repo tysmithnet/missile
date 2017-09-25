@@ -28,9 +28,6 @@ namespace Missile.TextLauncher
         [Import(typeof(IInterpretationFacade))]
         public IInterpretationFacade InterpretationFacade { get; set; }
 
-        [ImportMany]
-        public ISettings[] AllSettings { get; set; }
-
         public void SetOutputControl(UserControl userControl)
         {
             _synchronizationContext.Post(state =>
