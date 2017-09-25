@@ -9,11 +9,13 @@ namespace Missile.TextLauncher.ApplicationPlugin
     public partial class ApplicationListDestinationItem : UserControl
     {
         public ApplicationListDestinationItem(BitmapImage icon, string applicationName, string applicationPath)
-        {
+        {   
+            InitializeComponent();
             Icon = icon;
             ApplicationName = applicationName;
             ApplicationPath = applicationPath;
-            InitializeComponent();
+            IconImage.Source = Icon;
+            ApplicationNameTextBlock.Text = ApplicationName;
         }
 
         public BitmapImage Icon { get; set; }

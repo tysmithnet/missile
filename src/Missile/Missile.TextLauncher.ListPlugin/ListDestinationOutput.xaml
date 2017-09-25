@@ -6,5 +6,7 @@
              xmlns:local="clr-namespace:Missile.TextLauncher.ListPlugin"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid />
+    <ListBox x:Name="ItemsListBox">
+        
+    </ListBox>
 </UserControl>

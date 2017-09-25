@@ -62,18 +62,20 @@ namespace Missile.TextLauncher.Interpretation
                 DestinationRepository.Get(rootNode.DestinationNode.Name);
 
             var providerResult = provider.Provide(rootNode.ProviderNode.Args);
-            var toDestination = providerResult;
-            if (!destination.SourceType.IsInstanceOfType(toDestination))
-            {
-                var inspector = ObservableInspectors.FirstOrDefault(i => i.CanHandle(toDestination.GetType()));
-                if (inspector == null)
-                    throw new ApplicationException($"Unable to find an inspector for {toDestination.GetType()}");
-                var typeForConverter = inspector.GetObservableType(toDestination.GetType());
+            var destinationInput = providerResult;
+            var inspector = ObservableInspectors.FirstOrDefault(i => i.CanHandle(destinationInput.GetType()));
+            if (inspector == null)
+                throw new ApplicationException($"Unable to find an inspector for {destinationInput.GetType()}");
+
+            var typeForConverter = inspector.GetObservableType(destinationInput.GetType());
+
+            if (!destination.SourceType.IsAssignableFrom(typeForConverter))
+            {                                                                     
                 var converter = ConverterRepository.Get(typeForConverter, destination.SourceType);
-                toDestination = converter.Convert(toDestination);
+                destinationInput = converter.Convert(destinationInput);
             }
 
-            var destinationTask = destination.Process(toDestination);
+            var destinationTask = destination.Process(destinationInput);
             return destinationTask;
         }
     }

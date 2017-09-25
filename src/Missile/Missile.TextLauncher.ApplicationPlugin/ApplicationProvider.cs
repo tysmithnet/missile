@@ -17,8 +17,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
         public string Name { get; set; } = "apps";
 
         public IObservable<ApplicationListDestinationItem> Provide(string[] args)
-        {
-            ListDestinationItem item;
+        {   
             var options = new Options();
             Parser.Default.ParseArgumentsStrict(args, options);
             return args.SelectMany(x => ApplicationRepository.Search(x))
