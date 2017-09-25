@@ -68,7 +68,10 @@
       <DependentUpon>ApplicationListDestinationItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="ApplicationProvider.cs" />
+    <Compile Include="ApplicationRepository.cs" />
+    <Compile Include="IApplicationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegisteredApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Missile.Core\Missile.Core.csproj">
@@ -95,12 +98,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <ItemGroup>
-        <BinFiles Include="$(TargetDir)\**\*.*"/>
-    </ItemGroup>
-
-    <Target Name="AfterBuild">
-        <Copy SourceFiles="@(BinFiles)"
-              DestinationFolder="..\Missile.Client\bin\Debug" />
-    </Target>
+  <ItemGroup>
+    <BinFiles Include="$(TargetDir)\**\*.*" />
+  </ItemGroup>
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" />
+  </Target>
 </Project>

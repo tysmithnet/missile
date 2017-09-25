@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Windows.Media.Imaging;
 using CommandLine;
 using Missile.TextLauncher.Provision;
 
@@ -28,37 +27,6 @@ namespace Missile.TextLauncher.ApplicationPlugin
         {
             [ValueList(typeof(List<string>))]
             public IList<string> SearchStrings { get; set; }
-        }
-    }
-
-    public class RegisteredApplication
-    {
-        public BitmapImage Icon { get; set; }
-        public string ApplicationName { get; set; }
-        public string ApplicationPath { get; set; }
-    }
-
-    public interface IApplicationRepository
-    {
-        IEnumerable<RegisteredApplication> Search(string searchString);
-    }
-
-    public class ApplicationRepository : IApplicationRepository
-    {
-        public List<RegisteredApplication> RegisteredApplications { get; set; }
-
-        public IEnumerable<RegisteredApplication> Search(string searchString)
-        {
-            var image = new BitmapImage(new Uri(@"C:\Users\master\AppData\Local\atom\app.ico"));
-            return new List<RegisteredApplication>
-            {
-                new RegisteredApplication
-                {
-                    Icon = image,
-                    ApplicationName = "Atom",
-                    ApplicationPath = @"C:\Users\master\AppData\Local\atom\atom.exe"
-                }
-            };
         }
     }
 }
