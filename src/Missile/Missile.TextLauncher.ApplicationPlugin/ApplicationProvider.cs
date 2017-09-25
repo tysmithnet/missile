@@ -29,4 +29,10 @@ namespace Missile.TextLauncher.ApplicationPlugin
             public IList<string> SearchStrings { get; set; }
         }
     }
+
+    [Export(typeof(ISettings))]
+    public class ApplicationProviderSettings : ISettings
+    {
+        public string[] SearchPaths { get; set; }
+    }
 }

@@ -80,6 +80,7 @@
     <Compile Include="Destination\IDestinationRepository.cs" />
     <Compile Include="IInterpretationFacade.cs" />
     <Compile Include="Filtration\IFilterRepository.cs" />
+    <Compile Include="ISettings.cs" />
     <Compile Include="Provision\IProviderRepository.cs" />
     <Compile Include="IUiFacade.cs" />
     <Compile Include="Destination\NoOpDestination.cs" />
@@ -124,12 +125,10 @@
   <Target Name="AfterBuild">
     <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" />
   </Target>
-    <ItemGroup>
-        <BinFiles Include="$(TargetDir)\**\*.*"/>
-    </ItemGroup>
-
-    <Target Name="AfterBuild">
-        <Copy SourceFiles="@(BinFiles)"
-              DestinationFolder="..\Missile.Client\bin\Debug" />
-    </Target>
+  <ItemGroup>
+    <BinFiles Include="$(TargetDir)\**\*.*" />
+  </ItemGroup>
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" />
+  </Target>
 </Project>

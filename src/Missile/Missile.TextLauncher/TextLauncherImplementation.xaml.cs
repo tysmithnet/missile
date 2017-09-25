@@ -14,11 +14,11 @@ namespace Missile.TextLauncher
     [Export(typeof(IUiFacade))]
     public partial class TextLauncherImplementation : Launcher, IUiFacade
     {
-        private readonly SynchronizationContext synchronizationContext;
+        private readonly SynchronizationContext _synchronizationContext;
 
         public TextLauncherImplementation()
         {
-            synchronizationContext = SynchronizationContext.Current;
+            _synchronizationContext = SynchronizationContext.Current;
             InitializeComponent();
         }
 
@@ -28,9 +28,12 @@ namespace Missile.TextLauncher
         [Import(typeof(IInterpretationFacade))]
         public IInterpretationFacade InterpretationFacade { get; set; }
 
+        [ImportMany]
+        public ISettings[] AllSettings { get; set; }
+
         public void SetOutputControl(UserControl userControl)
         {
-            synchronizationContext.Post(state =>
+            _synchronizationContext.Post(state =>
             {
                 OutputPanel.Children.RemoveRange(0, OutputPanel.Children.Count);
                 OutputPanel.Children.Add(userControl);
@@ -39,7 +42,7 @@ namespace Missile.TextLauncher
 
         public void Post(Action<object> command, object argument)
         {
-            synchronizationContext.Post(state => command(state), argument);
+            _synchronizationContext.Post(state => command(state), argument);
         }
 
         // TODO: hack
