@@ -1,5 +1,6 @@
 ﻿using Missile.TextLauncher.Destination;
 using Missile.TextLauncher.Filtration;
+using Missile.TextLauncher.Interpretation.Parsing;
 using Missile.TextLauncher.Provision;
 
 namespace Missile.TextLauncher.Interpretation.Tests
@@ -12,7 +13,11 @@ namespace Missile.TextLauncher.Interpretation.Tests
             {
                 ProviderRepository = new ProviderRepository(),
                 FilterRepository = new FilterRepository(),
-                DestinationRepository = new DestinationRepository()
+                DestinationRepository = new DestinationRepository(),
+                ObservableInspectors = new []
+                {
+                    new ToObservableInspector(), 
+                }
             };
         }
 
