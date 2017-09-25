@@ -3,7 +3,7 @@ using System.ComponentModel.Composition.Hosting;
 using System.IO;
 using System.Reflection;
 using System.Windows;
-using Missile.TextLauncher;
+using Missile.Core;
 
 namespace Missile.Client
 {
@@ -16,8 +16,7 @@ namespace Missile.Client
         {
             var location = Assembly.GetExecutingAssembly().Location;
             var compositionContainer = new CompositionContainer(new DirectoryCatalog(Path.GetDirectoryName(location)));
-            var launcher = new TextLauncherImplementation();
-            compositionContainer.ComposeParts(launcher);
+            var launcher = compositionContainer.GetExportedValue<Launcher>();
             var mainWindow = new MainWindow(launcher);
             mainWindow.Show();
         }

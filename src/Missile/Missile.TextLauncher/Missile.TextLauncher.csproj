@@ -124,4 +124,12 @@
   <Target Name="AfterBuild">
     <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" />
   </Target>
+    <ItemGroup>
+        <BinFiles Include="$(TargetDir)\**\*.*"/>
+    </ItemGroup>
+
+    <Target Name="AfterBuild">
+        <Copy SourceFiles="@(BinFiles)"
+              DestinationFolder="..\Missile.Client\bin\Debug" />
+    </Target>
 </Project>
