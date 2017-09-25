@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Missile.TextLauncher.Destination;
@@ -16,7 +15,7 @@ namespace Missile.TextLauncher.ListPlugin
         public string Name { get; set; } = "list";
 
         public Task ProcessAsync(IObservable<UserControl> source)
-        {                                        
+        {
             var outputControl = new ListDestinationOutput(source);
             UiFacade.SetOutputControl(outputControl);
             var tcs = new TaskCompletionSource<object>();
@@ -24,14 +23,8 @@ namespace Missile.TextLauncher.ListPlugin
                 {
                     ;
                 },
-                exception =>
-                {
-                    tcs.TrySetException(exception);
-                }, () =>
-                {
-                    tcs.TrySetResult(null);
-                });
-            return tcs.Task; 
+                exception => { tcs.TrySetException(exception); }, () => { tcs.TrySetResult(null); });
+            return tcs.Task;
         }
     }
 }

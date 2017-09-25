@@ -70,7 +70,7 @@ namespace Missile.TextLauncher.Interpretation
             var typeForConverter = inspector.GetObservableType(destinationInput.GetType());
 
             if (!destination.SourceType.IsAssignableFrom(typeForConverter))
-            {                                                                     
+            {
                 var converter = ConverterRepository.Get(typeForConverter, destination.SourceType);
                 destinationInput = converter.Convert(destinationInput);
             }
