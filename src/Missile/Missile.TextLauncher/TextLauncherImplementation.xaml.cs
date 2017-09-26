@@ -20,6 +20,7 @@ namespace Missile.TextLauncher
         {
             _synchronizationContext = SynchronizationContext.Current;
             InitializeComponent();
+            Input.Focus();
         }
 
         [Import(typeof(ILogger))]
@@ -45,7 +46,7 @@ namespace Missile.TextLauncher
         // TODO: hack
         private void TextLauncherImplementation_OnLayoutUpdated(object sender, EventArgs e)
         {
-            Input.Focus();
+            //Input.Focus();
         }
 
         private async void Input_OnKeyDown(object sender, KeyEventArgs e)

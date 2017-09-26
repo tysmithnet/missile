@@ -37,7 +37,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
         public string[] SearchPaths { get; set; }
 
         [Setting]
-        public int SearchDepth { get; set; }
+        public int SearchDepth { get; set; } = 5;
 
         [SubSettings]
         public ApplicationProviderColorSettings ApplicationProviderColorSettings { get; set; } = new ApplicationProviderColorSettings();

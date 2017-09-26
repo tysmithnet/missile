@@ -20,13 +20,36 @@ namespace Missile.TextLauncher
     /// </summary>
     public partial class Settings : UserControl
     {
-        public SettingsViewModel SettingsViewModel { get; set; }
+        public IList<SettingsViewModel> SettingsViewModels { get; set; }
 
-        public Settings(SettingsViewModel settings)
+        public Settings(IEnumerable<SettingsViewModel> settings)
         {
-            SettingsViewModel = settings;
+            SettingsViewModels = settings.ToList();
             InitializeComponent();
-            ItemsListBox.ItemsSource = new object[] {settings.Instance.GetType().FullName};
+            foreach (var settingsViewModel in SettingsViewModels)
+            {
+                AddSettingsEditorPanels(settingsViewModel, SettingsPanel);
+            }
+        }
+
+        private void AddSettingsEditorPanels(SettingsViewModel settingsViewModel, StackPanel container)
+        {
+            StackPanel newStackPanel = new StackPanel();
+            newStackPanel.Margin = new Thickness(10, 0, 0, 0);
+            container.Children.Add(newStackPanel);
+            newStackPanel.Children.Add(new TextBlock(){Text = settingsViewModel.GetType().FullName });
+            foreach (var subSection in settingsViewModel.SubSettings)
+            {                                                                                                
+                AddSettingsEditorPanels(subSection, newStackPanel);
+            }
+            foreach (var settingViewModel in settingsViewModel.Settings)
+            {
+                StackPanel row = new StackPanel();
+                row.Orientation = Orientation.Horizontal;
+                row.Children.Add(new TextBlock() {Text = settingViewModel.Name});
+                row.Children.Add(settingViewModel.PropertyEditor);
+                newStackPanel.Children.Add(row);
+            }
         }
     }
 }

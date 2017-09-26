@@ -24,19 +24,11 @@ namespace Missile.TextLauncher
 
         protected internal IList<SettingsViewModel> Settings => _settings ?? (_settings = GetSettings());
 
-        // todo: need better abstraction
-        public Type[] ValidTypes { get; set; } =
-        {
-            typeof(string),
-            typeof(bool),
-            typeof(int)
-        };
-
         public string Name { get; set; } = "settings";
 
         public IObservable<object> Provide(string[] args)
         {
-            Settings settings = new Settings(Settings[0]);
+            Settings settings = new Settings(Settings);
             UiFacade.SetOutputControl(settings);
             return new object[0].ToObservable();
         }
@@ -83,8 +75,8 @@ namespace Missile.TextLauncher
                 }
                 else
                 {
-                    var subSettingsViewModel = ExtractSettingsViewModel(adapter.Getvalue(settings));
-                    subSettingsViewModel.SubSettings.Add(subSettingsViewModel);
+                    var subSettingsViewModel = ExtractSettingsViewModel(adapter.GetValue(settings));
+                    settingsViewModel.SubSettings.Add(subSettingsViewModel);
                 }   
             }
             return settingsViewModel;
@@ -116,7 +108,7 @@ namespace Missile.TextLauncher
                     _fieldInfo.SetValue(instance, value);
             }
 
-            public object Getvalue(object instance)
+            public object GetValue(object instance)
             {
                 if (_propertyInfo != null)
                     return _propertyInfo.GetMethod.Invoke(instance, new object[0]);
@@ -127,27 +119,12 @@ namespace Missile.TextLauncher
 
         private Control GetPropertyEditor(MemberInfo member, object instance)
         {
-            var propertyInfo = member as PropertyInfo;
-            var fieldInfo = member as FieldInfo;
-
-            if (propertyInfo != null)
-            {
-                var editor = new TextBox();
-                editor.TextChanged += (sender, args) =>
-                {
-                    propertyInfo.SetMethod.Invoke(instance, new object[] {editor.Text});
-                };
-                return editor;
-            }
-            else
-            {
-                Debug.Assert(fieldInfo != null,
-                    $"{nameof(fieldInfo)} cannot be null because member must be property or field");
-
-                var editor = new TextBox();
-                editor.TextChanged += (sender, args) => { fieldInfo.SetValue(instance, editor.Text); };
-                return editor;
-            }            
+            var adapter = new PropertyFieldAdapter(member);
+            var editor = new TextBox();
+            editor.Text = Convert.ToString(adapter.GetValue(instance));
+            editor.Width = 200;
+            editor.TextChanged += (sender, args) => adapter.SetValue(instance, editor.Text);
+            return editor;
         }
     }
 
