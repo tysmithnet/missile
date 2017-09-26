@@ -20,9 +20,13 @@ namespace Missile.TextLauncher
     /// </summary>
     public partial class Settings : UserControl
     {
-        public Settings()
+        public SettingsViewModel SettingsViewModel { get; set; }
+
+        public Settings(SettingsViewModel settings)
         {
+            SettingsViewModel = settings;
             InitializeComponent();
+            ItemsListBox.ItemsSource = new object[] {settings.Instance.GetType().FullName};
         }
     }
 }
