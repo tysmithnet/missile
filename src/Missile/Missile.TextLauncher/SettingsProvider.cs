@@ -84,12 +84,12 @@ namespace Missile.TextLauncher
                     }
                     catch (FileNotFoundException)
                     {
-                        continue;
+                        
                     }
-                    var settingsViewModel = ExtractSettingsViewModel(settings);
-
-                    results.Add(settingsViewModel);
                 }
+                var settingsViewModel = ExtractSettingsViewModel(settings);
+
+                results.Add(settingsViewModel);
             }
             return results;
         }
