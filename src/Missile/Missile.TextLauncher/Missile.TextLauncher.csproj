@@ -81,7 +81,10 @@
     <Compile Include="Destination\IDestinationRepository.cs" />
     <Compile Include="IInterpretationFacade.cs" />
     <Compile Include="Filtration\IFilterRepository.cs" />
+    <Compile Include="IPropertyEditorFactory.cs" />
+    <Compile Include="IPropertyEditorFactoryRepository.cs" />
     <Compile Include="ISettings.cs" />
+    <Compile Include="PropertyEditorFactoryRepository.cs" />
     <Compile Include="Provision\IProviderRepository.cs" />
     <Compile Include="IUiFacade.cs" />
     <Compile Include="Destination\NoOpDestination.cs" />
@@ -102,6 +105,7 @@
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="SettingsProvider.cs" />
+    <Compile Include="StringPropertyEditorFactory.cs" />
     <Compile Include="TextLauncherImplementation.xaml.cs">
       <DependentUpon>TextLauncherImplementation.xaml</DependentUpon>
     </Compile>

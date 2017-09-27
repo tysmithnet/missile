@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Controls;
 using Missile.TextLauncher.Provision;
 
@@ -21,6 +22,9 @@ namespace Missile.TextLauncher
 
         [ImportMany]
         public ISettings[] AllSettings { get; set; }
+
+        [Import]
+        public IPropertyEditorFactoryRepository PropertyEditorFactoryRepository { get; set; }
 
         protected internal IList<SettingsViewModel> Settings => _settings ?? (_settings = GetSettings());
 
@@ -61,7 +65,7 @@ namespace Missile.TextLauncher
                 if (propertyInfo == null && fieldInfo == null)
                     continue;
                 
-                var adapter = new PropertyFieldAdapter(member);
+                var adapter = new PropertyFieldAdapter(member, settings);
 
                 if (!adapter.IsSetting && !adapter.IsSubSection)
                     continue;
@@ -70,61 +74,21 @@ namespace Missile.TextLauncher
                 {
                     var setting = new SettingViewModel();
                     setting.Name = member.Name;
-                    setting.PropertyEditor = GetPropertyEditor(member, settings);
+                    setting.PropertyEditor = GetPropertyEditor(adapter);
                     settingsViewModel.Settings.Add(setting);
                 }
                 else
                 {
-                    var subSettingsViewModel = ExtractSettingsViewModel(adapter.GetValue(settings));
+                    var subSettingsViewModel = ExtractSettingsViewModel(adapter.GetValue());
                     settingsViewModel.SubSettings.Add(subSettingsViewModel);
                 }   
             }
             return settingsViewModel;
         }
 
-        private class PropertyFieldAdapter
+        private UIElement GetPropertyEditor(PropertyFieldAdapter adapter)
         {
-            private MemberInfo _memberInfo;
-            private PropertyInfo _propertyInfo;
-            private FieldInfo _fieldInfo;
-
-            public bool IsSubSection => _memberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SubSettingsAttribute));
-            public bool IsSetting => _memberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SettingAttribute));
-
-            public PropertyFieldAdapter(MemberInfo memberInfo)
-            {
-                _memberInfo = memberInfo;
-                _propertyInfo = memberInfo as PropertyInfo;
-                _fieldInfo = memberInfo as FieldInfo;
-                if(_propertyInfo == null && _fieldInfo == null)
-                    throw new ArgumentException($"{nameof(memberInfo)} must be PropertyInfo or FieldInfo");
-            }
-
-            public void SetValue(object instance, object value)
-            {
-                if(_propertyInfo != null)                
-                    _propertyInfo.SetValue(instance, value);
-                else
-                    _fieldInfo.SetValue(instance, value);
-            }
-
-            public object GetValue(object instance)
-            {
-                if (_propertyInfo != null)
-                    return _propertyInfo.GetMethod.Invoke(instance, new object[0]);
-                else
-                    return _fieldInfo.GetValue(instance);
-            }
-        }
-
-        private Control GetPropertyEditor(MemberInfo member, object instance)
-        {
-            var adapter = new PropertyFieldAdapter(member);
-            var editor = new TextBox();
-            editor.Text = Convert.ToString(adapter.GetValue(instance));
-            editor.Width = 200;
-            editor.TextChanged += (sender, args) => adapter.SetValue(instance, editor.Text);
-            return editor;
+            return PropertyEditorFactoryRepository.Get(adapter.GetMemberType()).GetControl(adapter);
         }
     }
 
@@ -139,6 +103,48 @@ namespace Missile.TextLauncher
     public class SettingViewModel
     {
         public string Name { get; set; }
-        public Control PropertyEditor { get; set; }
+        public UIElement PropertyEditor { get; set; }
+    }
+
+    public class PropertyFieldAdapter
+    {
+        private MemberInfo _memberInfo;
+        private PropertyInfo _propertyInfo;
+        private object _instance;
+        private FieldInfo _fieldInfo;
+
+        public bool IsSubSection => _memberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SubSettingsAttribute));
+        public bool IsSetting => _memberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SettingAttribute));
+
+        public PropertyFieldAdapter(MemberInfo memberInfo, object instance)
+        {
+            _memberInfo = memberInfo;
+            _propertyInfo = memberInfo as PropertyInfo;
+            _fieldInfo = memberInfo as FieldInfo;
+            _instance = instance;
+            if(_instance == null)
+                throw new ArgumentNullException($"{nameof(_instance)} cannot be null because it is required for getting/setting values");
+            if (_propertyInfo == null && _fieldInfo == null)
+                throw new ArgumentException($"{nameof(memberInfo)} must be PropertyInfo or FieldInfo");
+        }
+
+        // todo: convert to properties
+        public void SetValue(object value)
+        {   
+            if (_propertyInfo != null)
+                _propertyInfo.SetValue(_instance, value);
+            else
+                _fieldInfo.SetValue(_instance, value);
+        }
+
+        public object GetValue()
+        {
+            return _propertyInfo != null ? _propertyInfo.GetMethod.Invoke(_instance, new object[0]) : _fieldInfo.GetValue(_instance);
+        }
+
+        public Type GetMemberType()
+        {
+            return _propertyInfo != null ? _propertyInfo.PropertyType : _fieldInfo.FieldType;
+        }
     }
 }

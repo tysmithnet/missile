@@ -34,19 +34,13 @@ namespace Missile.TextLauncher.ApplicationPlugin
     public class ApplicationProviderSettings : ISettings
     {
         [Setting]
-        public string[] SearchPaths { get; set; }
+        public List<string> SearchPaths { get; set; } = new List<string>()
+        {
+            "hello",
+            "world"
+        };
 
         [Setting]
-        public int SearchDepth { get; set; } = 5;
-
-        [SubSettings]
-        public ApplicationProviderColorSettings ApplicationProviderColorSettings { get; set; } = new ApplicationProviderColorSettings();
-    }
-
-    public class ApplicationProviderColorSettings
-    {
-        [Setting]
-        public string Color { get; set; }
-    }
-    
+        public int SearchDepth { get; set; } = 5;                          
+    }                                                                                                                                        
 }
