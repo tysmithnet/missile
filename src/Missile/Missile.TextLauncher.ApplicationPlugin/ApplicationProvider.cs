@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using System.Reactive.Linq;
@@ -11,7 +10,8 @@ namespace Missile.TextLauncher.ApplicationPlugin
     [Export(typeof(IProvider))]
     public class ApplicationProvider : IProvider<ApplicationListDestinationItem>
     {
-        public IApplicationRepository ApplicationRepository { get; set; } = new ApplicationRepository();
+        [Import]
+        public IApplicationRepository ApplicationRepository { get; set; }
         public string Name { get; set; } = "apps";
 
         [Import]
@@ -25,11 +25,5 @@ namespace Missile.TextLauncher.ApplicationPlugin
                 .Select(x => new ApplicationListDestinationItem(x.Icon, x.ApplicationName, x.ApplicationPath))
                 .ToObservable();
         }
-    }
-
-    public class ApplicationProviderOptions
-    {
-        [ValueList(typeof(List<string>))]
-        public IList<string> SearchStrings { get; set; }
     }
 }
