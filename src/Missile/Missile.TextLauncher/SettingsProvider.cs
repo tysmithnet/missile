@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
 using System.Windows;
+using System.Xml.Serialization;
+using CommandLine;
 using Missile.TextLauncher.Provision;
 
 namespace Missile.TextLauncher
@@ -29,9 +32,32 @@ namespace Missile.TextLauncher
 
         public IObservable<object> Provide(string[] args)
         {
-            var settings = new Settings(Settings);
-            UiFacade.SetOutputControl(settings);
+            var options = new SettingsProviderOptions();
+            CommandLine.Parser.Default.ParseArgumentsStrict(args, options);
+            if (options.Save)
+            {
+                SaveSettings();
+            }
+            else
+            {
+                var settings = new Settings(Settings);
+                UiFacade.SetOutputControl(settings);
+            }                                       
             return new object[0].ToObservable();
+        }
+
+        private void SaveSettings()
+        {
+            var settingsToSave = AllSettings.Where(x => x.GetType().IsSerializable);
+            foreach (var settingToSave in settingsToSave)
+            {
+                XmlSerializer serializer = new XmlSerializer(settingToSave.GetType());
+                string fileName = settingToSave.GetType().FullName + ".config";
+                using (FileStream fileStream = new FileStream(fileName, FileMode.Create))
+                {
+                    serializer.Serialize(fileStream, settingToSave);   
+                }
+            }
         }
 
         // todo: don't throw if bad property, gracefully degrade
@@ -87,8 +113,14 @@ namespace Missile.TextLauncher
         {
             return PropertyEditorFactoryRepository.Get(adapter.GetMemberType()).GetControl(adapter);
         }
-    }
 
+        private class SettingsProviderOptions
+        {
+            [Option('s', "save", HelpText = "Save the current settings")]
+            public bool Save { get; set; }
+        }   
+    }
+         
     public class SettingsViewModel
     {
         public string Name { get; set; }
