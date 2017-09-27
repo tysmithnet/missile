@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using System.Text.RegularExpressions;                     
+using System.Text.RegularExpressions;
 
 namespace Missile.TextLauncher.Interpretation.Parsing
 {

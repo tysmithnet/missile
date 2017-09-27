@@ -34,13 +34,13 @@ namespace Missile.TextLauncher.ApplicationPlugin
     public class ApplicationProviderSettings : ISettings
     {
         [Setting]
-        public List<string> SearchPaths { get; set; } = new List<string>()
+        public List<string> SearchPaths { get; set; } = new List<string>
         {
             "hello",
             "world"
         };
 
         [Setting]
-        public int SearchDepth { get; set; } = 5;                          
-    }                                                                                                                                        
+        public int SearchDepth { get; set; } = 5;
+    }
 }

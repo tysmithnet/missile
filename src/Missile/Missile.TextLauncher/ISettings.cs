@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Dynamic;
-
-namespace Missile.TextLauncher
+﻿namespace Missile.TextLauncher
 {
     public interface ISettings
-    {                              
+    {
     }
 }

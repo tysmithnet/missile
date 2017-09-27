@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -18,7 +16,7 @@ namespace Missile.TextLauncher
         public IPropertyEditorFactory Get(Type type)
         {
             var first = PropertyEditorFactories.FirstOrDefault(x => x.CanHandle(type));
-            if(first == null)
+            if (first == null)
                 throw new ArgumentOutOfRangeException($"{type} does not have any registered property editors");
             return first;
         }
@@ -34,7 +32,7 @@ namespace Missile.TextLauncher
 
         public UIElement GetControl(PropertyFieldAdapter adapter)
         {
-            StackPanel stackPanel = new StackPanel();
+            var stackPanel = new StackPanel();
 
             var list = (List<string>) adapter.GetValue();
             for (var index = 0; index < list.Count; index++)
@@ -42,7 +40,7 @@ namespace Missile.TextLauncher
                 var editor = new TextBox();
                 editor.Width = 200;
                 editor.Text = list[index];
-                int copy = index;
+                var copy = index;
                 editor.TextChanged += (sender, args) => list[copy] = editor.Text;
                 stackPanel.Children.Add(editor);
             }
@@ -50,7 +48,7 @@ namespace Missile.TextLauncher
             stackPanel.Children.Add(addButton);
             addButton.Click += (sender, args) =>
             {
-                int save = list.Count;
+                var save = list.Count;
                 list.Add("");
                 var editor = new TextBox();
                 editor.Width = 200;

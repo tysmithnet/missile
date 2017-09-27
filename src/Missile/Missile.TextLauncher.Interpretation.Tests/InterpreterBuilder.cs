@@ -14,9 +14,9 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 ProviderRepository = new ProviderRepository(),
                 FilterRepository = new FilterRepository(),
                 DestinationRepository = new DestinationRepository(),
-                ObservableInspectors = new []
+                ObservableInspectors = new[]
                 {
-                    new ToObservableInspector(), 
+                    new ToObservableInspector()
                 }
             };
         }

@@ -1,13 +1,10 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Diagnostics;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
 using Missile.TextLauncher.Provision;
 
 namespace Missile.TextLauncher
@@ -32,7 +29,7 @@ namespace Missile.TextLauncher
 
         public IObservable<object> Provide(string[] args)
         {
-            Settings settings = new Settings(Settings);
+            var settings = new Settings(Settings);
             UiFacade.SetOutputControl(settings);
             return new object[0].ToObservable();
         }
@@ -59,12 +56,12 @@ namespace Missile.TextLauncher
             settingsViewModel.Instance = settings;
             foreach (var member in settings.GetType().GetMembers())
             {
-                PropertyInfo propertyInfo = member as PropertyInfo;
-                FieldInfo fieldInfo = member as FieldInfo;
+                var propertyInfo = member as PropertyInfo;
+                var fieldInfo = member as FieldInfo;
 
                 if (propertyInfo == null && fieldInfo == null)
                     continue;
-                
+
                 var adapter = new PropertyFieldAdapter(member, settings);
 
                 if (!adapter.IsSetting && !adapter.IsSubSection)
@@ -81,7 +78,7 @@ namespace Missile.TextLauncher
                 {
                     var subSettingsViewModel = ExtractSettingsViewModel(adapter.GetValue());
                     settingsViewModel.SubSettings.Add(subSettingsViewModel);
-                }   
+                }
             }
             return settingsViewModel;
         }
@@ -108,13 +105,10 @@ namespace Missile.TextLauncher
 
     public class PropertyFieldAdapter
     {
-        private MemberInfo _memberInfo;
-        private PropertyInfo _propertyInfo;
-        private object _instance;
-        private FieldInfo _fieldInfo;
-
-        public bool IsSubSection => _memberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SubSettingsAttribute));
-        public bool IsSetting => _memberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SettingAttribute));
+        private readonly FieldInfo _fieldInfo;
+        private readonly object _instance;
+        private readonly MemberInfo _memberInfo;
+        private readonly PropertyInfo _propertyInfo;
 
         public PropertyFieldAdapter(MemberInfo memberInfo, object instance)
         {
@@ -122,15 +116,21 @@ namespace Missile.TextLauncher
             _propertyInfo = memberInfo as PropertyInfo;
             _fieldInfo = memberInfo as FieldInfo;
             _instance = instance;
-            if(_instance == null)
-                throw new ArgumentNullException($"{nameof(_instance)} cannot be null because it is required for getting/setting values");
+            if (_instance == null)
+                throw new ArgumentNullException(
+                    $"{nameof(_instance)} cannot be null because it is required for getting/setting values");
             if (_propertyInfo == null && _fieldInfo == null)
                 throw new ArgumentException($"{nameof(memberInfo)} must be PropertyInfo or FieldInfo");
         }
 
+        public bool IsSubSection =>
+            _memberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SubSettingsAttribute));
+
+        public bool IsSetting => _memberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SettingAttribute));
+
         // todo: convert to properties
         public void SetValue(object value)
-        {   
+        {
             if (_propertyInfo != null)
                 _propertyInfo.SetValue(_instance, value);
             else
@@ -139,7 +139,9 @@ namespace Missile.TextLauncher
 
         public object GetValue()
         {
-            return _propertyInfo != null ? _propertyInfo.GetMethod.Invoke(_instance, new object[0]) : _fieldInfo.GetValue(_instance);
+            return _propertyInfo != null
+                ? _propertyInfo.GetMethod.Invoke(_instance, new object[0])
+                : _fieldInfo.GetValue(_instance);
         }
 
         public Type GetMemberType()
