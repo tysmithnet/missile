@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Windows;
 using System.Xml.Serialization;
 using CommandLine;
@@ -68,12 +69,50 @@ namespace Missile.TextLauncher
         {
             var results = new List<SettingsViewModel>();
             foreach (var settings in AllSettings)
-            {
-                var settingsViewModel = ExtractSettingsViewModel(settings);
+            {     
+                string fileName = settings.GetType().FullName + ".config";
+                if (settings.GetType().IsSerializable)
+                {
+                    try
+                    {
+                        using (var stream = new FileStream(fileName, FileMode.Open))
+                        {
+                            XmlSerializer serializer = new XmlSerializer(settings.GetType());
+                            var deserializedSettings = serializer.Deserialize(stream);
+                            CopySettings(deserializedSettings, settings);
+                        }
+                    }
+                    catch (FileNotFoundException)
+                    {
+                        continue;
+                    }
+                    var settingsViewModel = ExtractSettingsViewModel(settings);
 
-                results.Add(settingsViewModel);
+                    results.Add(settingsViewModel);
+                }
             }
             return results;
+        }
+
+        private void CopySettings(object sourceSettings, ISettings destSettings)
+        {
+            var sourceAdapters = sourceSettings.GetType().GetMembers().Where(m => m is PropertyInfo || m is FieldInfo)
+                .Select(x => new PropertyFieldAdapter(x, sourceSettings));
+            var destAdapters = destSettings.GetType().GetMembers().Where(m => m is PropertyInfo || m is FieldInfo)
+                .Select(x => new PropertyFieldAdapter(x, destSettings));
+
+            var zip = from lhs in sourceAdapters
+                join rhs in destAdapters
+                    on lhs.MemberInfo equals rhs.MemberInfo
+                select new
+                {
+                    Source = lhs,
+                    Dest = rhs
+                };
+            foreach (var pair in zip)
+            {
+                 pair.Dest.SetValue(pair.Source.GetValue());
+            }
         }
 
         private SettingsViewModel ExtractSettingsViewModel(object settings)
@@ -154,6 +193,8 @@ namespace Missile.TextLauncher
             if (_propertyInfo == null && _fieldInfo == null)
                 throw new ArgumentException($"{nameof(memberInfo)} must be PropertyInfo or FieldInfo");
         }
+
+        public MemberInfo MemberInfo => _memberInfo;
 
         public bool IsSubSection =>
             _memberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SubSettingsAttribute));
