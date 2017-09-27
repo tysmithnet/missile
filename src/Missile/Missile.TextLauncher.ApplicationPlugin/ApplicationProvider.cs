@@ -14,33 +14,22 @@ namespace Missile.TextLauncher.ApplicationPlugin
         public IApplicationRepository ApplicationRepository { get; set; } = new ApplicationRepository();
         public string Name { get; set; } = "apps";
 
+        [Import]
+        public ApplicationProviderSettings Settings { get; set; }
+
         public IObservable<ApplicationListDestinationItem> Provide(string[] args)
         {
-            var options = new Options();
+            var options = new ApplicationProviderOptions();
             Parser.Default.ParseArgumentsStrict(args, options);
             return args.SelectMany(x => ApplicationRepository.Search(x))
                 .Select(x => new ApplicationListDestinationItem(x.Icon, x.ApplicationName, x.ApplicationPath))
                 .ToObservable();
         }
-
-        public class Options
-        {
-            [ValueList(typeof(List<string>))]
-            public IList<string> SearchStrings { get; set; }
-        }
     }
 
-    [Export(typeof(ISettings))]
-    public class ApplicationProviderSettings : ISettings
+    public class ApplicationProviderOptions
     {
-        [Setting]
-        public List<string> SearchPaths { get; set; } = new List<string>
-        {
-            "hello",
-            "world"
-        };
-
-        [Setting]
-        public int SearchDepth { get; set; } = 5;
+        [ValueList(typeof(List<string>))]
+        public IList<string> SearchStrings { get; set; }
     }
 }

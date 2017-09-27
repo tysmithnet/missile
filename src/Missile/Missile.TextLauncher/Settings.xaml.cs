@@ -21,7 +21,7 @@ namespace Missile.TextLauncher
         public IList<SettingsViewModel> SettingsViewModels { get; set; }
 
         private void AddSettingsEditorPanels(SettingsViewModel settingsViewModel, StackPanel container)
-        {
+        {   
             var newStackPanel = new StackPanel();
             newStackPanel.Margin = new Thickness(10, 0, 0, 0);
             container.Children.Add(newStackPanel);

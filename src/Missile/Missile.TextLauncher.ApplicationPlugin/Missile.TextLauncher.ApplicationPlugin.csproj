@@ -68,6 +68,7 @@
       <DependentUpon>ApplicationListDestinationItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="ApplicationProvider.cs" />
+    <Compile Include="ApplicationProviderSettings.cs" />
     <Compile Include="ApplicationRepository.cs" />
     <Compile Include="IApplicationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
