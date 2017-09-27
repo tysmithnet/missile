@@ -3,8 +3,7 @@
 namespace Missile.TextLauncher
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-    public class SettingAttribute : Attribute
+    public class SubSettingsAttribute : Attribute
     {
-        // todo: allow for custom property editory control
     }
 }
