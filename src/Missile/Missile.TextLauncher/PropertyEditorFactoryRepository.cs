@@ -46,7 +46,17 @@ namespace Missile.TextLauncher
                 editor.TextChanged += (sender, args) => list[copy] = editor.Text;
                 stackPanel.Children.Add(editor);
             }
-
+            var addButton = new Button {Content = "Add"};
+            stackPanel.Children.Add(addButton);
+            addButton.Click += (sender, args) =>
+            {
+                int save = list.Count;
+                list.Add("");
+                var editor = new TextBox();
+                editor.Width = 200;
+                editor.TextChanged += (o, eventArgs) => list[save] = editor.Text;
+                stackPanel.Children.Insert(list.Count - 1, editor);
+            };
             return stackPanel;
         }
     }
