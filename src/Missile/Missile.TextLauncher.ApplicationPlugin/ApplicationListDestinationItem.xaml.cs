@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Diagnostics;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Missile.TextLauncher.ApplicationPlugin
@@ -21,5 +23,10 @@ namespace Missile.TextLauncher.ApplicationPlugin
         public ImageSource Icon { get; set; }
         public string ApplicationName { get; set; }
         public string ApplicationPath { get; set; }
+
+        private void ApplicationListDestinationItem_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start(ApplicationPath);
+        }
     }
 }
