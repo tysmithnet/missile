@@ -9,10 +9,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
     public class ApplicationProviderSettings : ISettings
     {
         [Setting]
-        public List<string> SearchPaths { get; set; } = new List<string>
-        {                                   
-
-        };
+        public List<string> SearchPaths { get; set; } = new List<string>();
 
         [Setting]
         public int SearchDepth { get; set; } = 5;

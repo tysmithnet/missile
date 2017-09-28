@@ -8,12 +8,11 @@ namespace Missile.TextLauncher
     {
         private readonly FieldInfo _fieldInfo;
         private readonly object _instance;
-        private readonly MemberInfo _memberInfo;
         private readonly PropertyInfo _propertyInfo;
 
         public PropertyFieldAdapter(MemberInfo memberInfo, object instance)
         {
-            _memberInfo = memberInfo;
+            MemberInfo = memberInfo;
             _propertyInfo = memberInfo as PropertyInfo;
             _fieldInfo = memberInfo as FieldInfo;
             _instance = instance;
@@ -24,12 +23,12 @@ namespace Missile.TextLauncher
                 throw new ArgumentException($"{nameof(memberInfo)} must be PropertyInfo or FieldInfo");
         }
 
-        public MemberInfo MemberInfo => _memberInfo;
+        public MemberInfo MemberInfo { get; }
 
         public bool IsSubSection =>
-            _memberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SubSettingsAttribute));
+            MemberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SubSettingsAttribute));
 
-        public bool IsSetting => _memberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SettingAttribute));
+        public bool IsSetting => MemberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SettingAttribute));
 
         // todo: convert to properties
         public void SetValue(object value)
