@@ -75,7 +75,7 @@
     <Compile Include="InterpreterBuilder.cs" />
     <Compile Include="Interpreter_Should.cs" />
     <Compile Include="Lexer_Should.cs" />
-    <Compile Include="Mocks\MockConverter.cs" />
+    <Compile Include="Mocks\MockObjectStringConverter.cs" />
     <Compile Include="Mocks\MockObjectDestination.cs" />
     <Compile Include="Mocks\MockObjectFilter.cs" />
     <Compile Include="Mocks\MockObjectProvider.cs" />

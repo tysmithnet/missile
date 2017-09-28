@@ -26,6 +26,13 @@ namespace Missile.TextLauncher.Conversion
             return converters.First();
         }
 
+        public void Add(RegisteredConverter registeredConverter)
+        {
+            if(registeredConverters == null)
+                registeredConverters = new List<RegisteredConverter>();
+            registeredConverters.Add(registeredConverter);
+        }
+
         private List<RegisteredConverter> GetRegisteredConverters(IEnumerable<IConverter> converters)
         {
             var registeredConverters = new List<RegisteredConverter>();

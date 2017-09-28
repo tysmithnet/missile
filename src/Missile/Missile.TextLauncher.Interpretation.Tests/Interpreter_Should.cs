@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Text;
 using FluentAssertions;
+using Missile.TextLauncher.Conversion;
 using Missile.TextLauncher.Destination;
 using Missile.TextLauncher.Filtration;
 using Missile.TextLauncher.Interpretation.Parsing;
+using Missile.TextLauncher.Interpretation.Tests.Mocks;
 using Missile.TextLauncher.Provision;
 using Xunit;
 
@@ -159,6 +161,43 @@ namespace Missile.TextLauncher.Interpretation.Tests
             Action action = async () => await task;
             action.ShouldNotThrow("provider and destination combo should work");
             sb.Length.Should().BeGreaterThan(0);
+        }
+
+        [Fact]
+        public void Handle_Conversion()
+        {
+            // todo: add many more conversion tests
+            var rootNodeBuilder = new RootNodeBuilder();
+            rootNodeBuilder
+                .WithProvider("mockobject", new string[0])
+                .WithDestination("mockstring", new string[0]);
+                                          
+            var interpreterBuilder = new InterpreterBuilder()
+                .WithProvider(new RegisteredProvider
+                {
+                    Name = "mockobject",
+                    DestinationType = typeof(object),
+                    ProviderInstance = new MockObjectProvider(),
+                    ProvideMethodInfo = typeof(MockObjectProvider).GetMethod("Provide")
+                }).WithConverter(new RegisteredConverter
+                {
+                    SourceType = typeof(object),
+                    DestType = typeof(string),
+                    ConverterInstance = new MockObjectStringConverter(),
+                    ConvertMethodInfo = typeof(MockObjectStringConverter).GetMethod("Convert")
+                })
+                .WithDestination(new RegisteredDestination
+                {
+                    Name = "mockstring",
+                    SourceType = typeof(string),
+                    DestinationInstance = new MockStringDestination(),
+                    ProcessAsyncMethodInfo = typeof(MockStringDestination).GetMethod("ProcessAsync")
+                });
+
+
+            var task = interpreterBuilder.Build().Interpret(rootNodeBuilder.Build());
+            Action action = async () => await task;
+            action.ShouldNotThrow("conversion should be used if the output type of a provider is not assignable to the source type of the destination");
         }
     }
 }

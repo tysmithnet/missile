@@ -6,7 +6,7 @@ using Missile.TextLauncher.Conversion;
 namespace Missile.TextLauncher.Interpretation.Tests.Mocks
 {
     [Export(typeof(IConverter))]
-    public class MockConverter : IConverter<object, string>
+    public class MockObjectStringConverter : IConverter<object, string>
     {
         public IObservable<string> Convert(IObservable<object> source)
         {

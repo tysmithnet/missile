@@ -1,4 +1,5 @@
-﻿using Missile.TextLauncher.Destination;
+﻿using Missile.TextLauncher.Conversion;
+using Missile.TextLauncher.Destination;
 using Missile.TextLauncher.Filtration;
 using Missile.TextLauncher.Interpretation.Parsing;
 using Missile.TextLauncher.Provision;
@@ -12,6 +13,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
             Interpreter = new Interpreter
             {
                 ProviderRepository = new ProviderRepository(),
+                ConverterRepository = new ConverterRepository(),
                 FilterRepository = new FilterRepository(),
                 DestinationRepository = new DestinationRepository(),
                 ObservableInspectors = new[]
@@ -44,6 +46,12 @@ namespace Missile.TextLauncher.Interpretation.Tests
         public Interpreter Build()
         {
             return Interpreter;
+        }
+
+        public InterpreterBuilder WithConverter(RegisteredConverter registeredConverter)
+        {
+            Interpreter.ConverterRepository.Add(registeredConverter);
+            return this;
         }
     }
 }
