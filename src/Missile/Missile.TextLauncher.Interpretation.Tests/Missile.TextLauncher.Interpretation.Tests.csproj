@@ -99,7 +99,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Integration_Tests.cs" />
     <Compile Include="InterpreterBuilder.cs" />
     <Compile Include="Interpreter_Should.cs" />
     <Compile Include="Lexer_Should.cs" />
