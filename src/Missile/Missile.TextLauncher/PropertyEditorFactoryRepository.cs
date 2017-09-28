@@ -8,7 +8,7 @@ namespace Missile.TextLauncher
     public class PropertyEditorFactoryRepository : IPropertyEditorFactoryRepository
     {
         [ImportMany(typeof(IPropertyEditorFactory))]
-        public IPropertyEditorFactory[] PropertyEditorFactories { get; set; }
+        protected internal IPropertyEditorFactory[] PropertyEditorFactories { get; set; }
 
         public IPropertyEditorFactory Get(Type type)
         {

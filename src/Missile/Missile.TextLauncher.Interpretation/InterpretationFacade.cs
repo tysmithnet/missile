@@ -9,13 +9,13 @@ namespace Missile.TextLauncher.Interpretation
     public class InterpretationFacade : IInterpretationFacade
     {
         [Import]
-        public ILexer Lexer { get; set; }
+        protected internal ILexer Lexer { get; set; }
 
         [Import]
-        public IParser Parser { get; set; }
+        protected internal IParser Parser { get; set; }
 
         [Import]
-        public IInterpreter Interpreter { get; set; }
+        protected internal IInterpreter Interpreter { get; set; }
 
         public Task ExecuteAsync(string input)
         {

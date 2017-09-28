@@ -11,7 +11,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
     public class ApplicationProvider : IProvider<ApplicationListDestinationItem>
     {
         [Import]
-        public IApplicationRepository ApplicationRepository { get; set; }
+        protected internal IApplicationRepository ApplicationRepository { get; set; }
 
         public string Name { get; set; } = "apps";
 

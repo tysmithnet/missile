@@ -24,10 +24,10 @@ namespace Missile.TextLauncher
         }
 
         [Import(typeof(ILogger))]
-        public ILogger Logger { get; set; }
+        protected internal ILogger Logger { get; set; }
 
         [Import(typeof(IInterpretationFacade))]
-        public IInterpretationFacade InterpretationFacade { get; set; }
+        protected internal IInterpretationFacade InterpretationFacade { get; set; }
 
         public void SetOutputControl(UserControl userControl)
         {

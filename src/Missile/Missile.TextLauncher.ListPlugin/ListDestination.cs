@@ -10,7 +10,7 @@ namespace Missile.TextLauncher.ListPlugin
     public class ListDestination : IDestination<UserControl>
     {
         [Import]
-        public IUiFacade UiFacade { get; set; }
+        protected internal IUiFacade UiFacade { get; set; }
 
         public string Name { get; set; } = "list";
 

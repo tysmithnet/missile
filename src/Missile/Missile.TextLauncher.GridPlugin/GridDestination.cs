@@ -10,7 +10,7 @@ namespace Missile.TextLauncher.GridPlugin
     public class GridDestination : IDestination<GridDestinationItem>
     {
         [Import]
-        public IUiFacade UiFacade { get; set; }
+        protected internal IUiFacade UiFacade { get; set; }
 
         public string Name { get; set; } = "grid";
 

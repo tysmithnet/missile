@@ -8,12 +8,13 @@ namespace Missile.TextLauncher.Conversion
     [Export(typeof(IConverterRepository))]
     public class ConverterRepository : IConverterRepository
     {
-        internal List<RegisteredConverter> registeredConverters;
+        protected internal List<RegisteredConverter> registeredConverters;
 
-        public IConverterSelectionStrategy ConverterSelectionStrategy { get; set; } = new ConverterSelectionStrategy();
+        // todo: import
+        protected internal IConverterSelectionStrategy ConverterSelectionStrategy { get; set; } = new ConverterSelectionStrategy();
 
         [ImportMany(typeof(IConverter))]
-        public IConverter[] Converters { get; set; }
+        protected internal IConverter[] Converters { get; set; }
 
         protected internal IList<RegisteredConverter> RegisteredConverters =>
             registeredConverters ?? (registeredConverters = GetRegisteredConverters(Converters));

@@ -24,7 +24,7 @@ namespace Missile.TextLauncher
         private bool _isLoaded;
 
         [ImportMany]
-        public ISettings[] AllSettings { get; set; }
+        protected internal ISettings[] AllSettings { get; set; }
 
         // todo: load settings from file
 

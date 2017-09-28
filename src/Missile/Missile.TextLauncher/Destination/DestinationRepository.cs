@@ -10,7 +10,7 @@ namespace Missile.TextLauncher.Destination
         internal List<RegisteredDestination> registeredDestinations;
 
         [ImportMany(typeof(IDestination))]
-        public IEnumerable<IDestination> Destinations { get; set; }
+        protected internal IEnumerable<IDestination> Destinations { get; set; }
 
         internal IList<RegisteredDestination> RegisteredDestinations =>
             registeredDestinations ??

@@ -7,12 +7,12 @@ namespace Missile.TextLauncher.Provision
     [Export(typeof(IProviderRepository))]
     public class ProviderRepository : IProviderRepository
     {
-        internal List<RegisteredProvider> registeredProviders;
+        protected internal List<RegisteredProvider> registeredProviders;
 
         [ImportMany(typeof(IProvider))]
-        public IEnumerable<IProvider> Providers { get; set; }
+        protected internal IEnumerable<IProvider> Providers { get; set; }
 
-        internal IList<RegisteredProvider> RegisteredProviders =>
+        protected internal IList<RegisteredProvider> RegisteredProviders =>
             registeredProviders ?? (registeredProviders = GetRegisteredProviders(Providers));
 
         public RegisteredProvider Get(string providerName)

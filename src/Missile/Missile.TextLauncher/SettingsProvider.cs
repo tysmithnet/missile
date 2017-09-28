@@ -18,13 +18,13 @@ namespace Missile.TextLauncher
         private List<SettingsViewModel> _settings;
 
         [Import]
-        public IUiFacade UiFacade { get; set; }
+        protected internal IUiFacade UiFacade { get; set; }
 
         [Import]
-        public ISettingsRepository SettingsRepository { get; set; }
+        protected internal ISettingsRepository SettingsRepository { get; set; }
 
         [Import]
-        public IPropertyEditorFactoryRepository PropertyEditorFactoryRepository { get; set; }
+        protected internal IPropertyEditorFactoryRepository PropertyEditorFactoryRepository { get; set; }
 
         protected internal IList<SettingsViewModel> Settings =>
             _settings ?? (_settings = SettingsRepository.GetAll().Select(ExtractSettingsViewModel).ToList());

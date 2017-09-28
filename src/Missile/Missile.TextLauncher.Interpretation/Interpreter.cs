@@ -15,19 +15,19 @@ namespace Missile.TextLauncher.Interpretation
     public class Interpreter : IInterpreter
     {
         [Import]
-        public IProviderRepository ProviderRepository { get; set; }
+        protected internal IProviderRepository ProviderRepository { get; set; }
 
         [Import]
-        public IFilterRepository FilterRepository { get; set; }
+        protected internal IFilterRepository FilterRepository { get; set; }
 
         [Import]
-        public IDestinationRepository DestinationRepository { get; set; }
+        protected internal IDestinationRepository DestinationRepository { get; set; }
 
         [Import]
-        public IConverterRepository ConverterRepository { get; set; }
+        protected internal IConverterRepository ConverterRepository { get; set; }
 
         [ImportMany]
-        public IObservableInspector[] ObservableInspectors { get; set; }
+        protected internal IObservableInspector[] ObservableInspectors { get; set; }
 
         public Task Interpret(RootNode rootNode)
         {

@@ -11,7 +11,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
         public List<RegisteredApplication> RegisteredApplications { get; set; }
 
         [Import]
-        public ISettingsRepository SettingsRepository { get; set; }
+        protected internal ISettingsRepository SettingsRepository { get; set; }
 
         public IEnumerable<RegisteredApplication> Search(string searchString)
         {
