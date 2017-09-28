@@ -13,16 +13,13 @@ namespace Missile.TextLauncher.ApplicationPlugin
         [Import]
         public IApplicationRepository ApplicationRepository { get; set; }
         public string Name { get; set; } = "apps";
-
-        [Import]
-        public ApplicationProviderSettings Settings { get; set; }
-
+                           
         public IObservable<ApplicationListDestinationItem> Provide(string[] args)
         {
             var options = new ApplicationProviderOptions();
             Parser.Default.ParseArgumentsStrict(args, options);
             return args.SelectMany(x => ApplicationRepository.Search(x))
-                .Select(x => new ApplicationListDestinationItem(x.Icon, x.ApplicationName, x.ApplicationPath))
+                .Select(x => new ApplicationListDestinationItem(x.Icon.ToImageSource(), x.ApplicationName, x.ApplicationPath))
                 .ToObservable();
         }
     }

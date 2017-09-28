@@ -5,7 +5,6 @@ using System.ComponentModel.Composition;
 namespace Missile.TextLauncher.ApplicationPlugin
 {
     [Export(typeof(ISettings))]
-    [Export(typeof(ApplicationProviderSettings))]
     [Serializable]
     public class ApplicationProviderSettings : ISettings
     {

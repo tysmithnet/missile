@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace Missile.TextLauncher.ApplicationPlugin
 {
@@ -8,7 +8,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
     /// </summary>
     public partial class ApplicationListDestinationItem : UserControl
     {
-        public ApplicationListDestinationItem(BitmapImage icon, string applicationName, string applicationPath)
+        public ApplicationListDestinationItem(ImageSource icon, string applicationName, string applicationPath)
         {
             InitializeComponent();
             Icon = icon;
@@ -18,7 +18,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
             ApplicationNameTextBlock.Text = ApplicationName;
         }
 
-        public BitmapImage Icon { get; set; }
+        public ImageSource Icon { get; set; }
         public string ApplicationName { get; set; }
         public string ApplicationPath { get; set; }
     }
