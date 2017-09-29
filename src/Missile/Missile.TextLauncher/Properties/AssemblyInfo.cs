@@ -37,3 +37,4 @@ using System.Runtime.InteropServices;
 
 [assembly: InternalsVisibleTo("Missile.TextLauncher.Tests")]
 [assembly: InternalsVisibleTo("Missile.TextLauncher.Interpretation.Tests")]
+[assembly: InternalsVisibleTo("Missile.TextLauncher.IntegrationTests")]

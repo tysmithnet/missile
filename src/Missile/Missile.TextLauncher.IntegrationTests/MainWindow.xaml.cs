@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Automation;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -32,6 +33,12 @@ namespace Missile.TextLauncher.IntegrationTests
             compositionContainer.ComposeParts(textLauncher);
             InitializeComponent();
             Content = textLauncher;
+        }
+
+
+        private void MainWindow_OnActivated(object sender, EventArgs e)
+        {
+            var root = AutomationElement.RootElement;
         }
     }
 }

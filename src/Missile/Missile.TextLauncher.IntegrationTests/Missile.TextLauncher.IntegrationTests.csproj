@@ -46,6 +46,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -121,4 +123,10 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <BinFiles Include="$(TargetDir)\**\*.*" />
+  </ItemGroup>
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" />
+  </Target>
 </Project>

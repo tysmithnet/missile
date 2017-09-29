@@ -49,7 +49,7 @@ namespace Missile.TextLauncher
             //Input.Focus();
         }
 
-        private async void Input_OnKeyDown(object sender, KeyEventArgs e)
+        public async void Input_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter || e.Key == Key.Return)
             {
