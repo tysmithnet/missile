@@ -33,12 +33,6 @@ namespace Missile.TextLauncher.IntegrationTests
             compositionContainer.ComposeParts(textLauncher);
             InitializeComponent();
             Content = textLauncher;
-        }
-
-
-        private void MainWindow_OnActivated(object sender, EventArgs e)
-        {
-            var root = AutomationElement.RootElement;
-        }
+        }    
     }
 }
