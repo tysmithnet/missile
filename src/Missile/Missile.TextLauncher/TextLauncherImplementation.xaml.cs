@@ -11,7 +11,8 @@ namespace Missile.TextLauncher
     ///     Interaction logic for TextLauncherImplementation.xaml
     /// </summary>
     [Export(typeof(Launcher))]
-    [Export(typeof(IUiFacade))]
+    [Export(typeof(IUiFacade))]     
+    // todo: extract MVVM pattern
     public partial class TextLauncherImplementation : Launcher, IUiFacade
     {
         private readonly SynchronizationContext _synchronizationContext;
@@ -20,7 +21,7 @@ namespace Missile.TextLauncher
         {
             _synchronizationContext = SynchronizationContext.Current;
             InitializeComponent();
-            Input.Focus();
+            InputTextBox.Focus();
         }
 
         [Import(typeof(ILogger))]
@@ -53,8 +54,8 @@ namespace Missile.TextLauncher
         {
             if (e.Key == Key.Enter || e.Key == Key.Return)
             {
-                Logger.Information(Input.Text);
-                await InterpretationFacade.ExecuteAsync(Input.Text);
+                Logger.Information(InputTextBox.Text);
+                await InterpretationFacade.ExecuteAsync(InputTextBox.Text);
             }
         }
     }
