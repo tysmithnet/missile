@@ -4,7 +4,7 @@ using System.Reactive.Linq;
 namespace Missile.TextLauncher.Filtration
 {
     /// <summary>
-    /// Filter that returns the first value and then closes
+    ///     Filter that returns the first value and then closes
     /// </summary>
     public class FirstFilter : IFilter<object, object>
     {

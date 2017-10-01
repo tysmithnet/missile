@@ -5,7 +5,7 @@ using System.Reactive.Linq;
 namespace Missile.TextLauncher.Filtration
 {
     /// <summary>
-    /// Represents a filter that will only provide up to a maximum number of values
+    ///     Represents a filter that will only provide up to a maximum number of values
     /// </summary>
     [Export(typeof(IFilter<object, object>))]
     public class TakeFilter : IFilter<object, object>

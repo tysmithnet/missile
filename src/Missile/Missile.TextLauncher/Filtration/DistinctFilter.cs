@@ -5,7 +5,7 @@ using System.Reactive.Linq;
 namespace Missile.TextLauncher.Filtration
 {
     /// <summary>
-    /// Filter that does not allow duplicate values to pass through
+    ///     Filter that does not allow duplicate values to pass through
     /// </summary>
     [Export(typeof(IFilter<object, object>))]
     public class DistinctFilter : IFilter<object, object>

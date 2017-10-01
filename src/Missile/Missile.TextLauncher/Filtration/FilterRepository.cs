@@ -5,7 +5,7 @@ using System.Linq;
 namespace Missile.TextLauncher.Filtration
 {
     /// <summary>
-    /// Represents a central location for filters
+    ///     Represents a central location for filters
     /// </summary>
     [Export(typeof(IFilterRepository))]
     public class FilterRepository : IFilterRepository
