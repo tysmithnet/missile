@@ -21,7 +21,7 @@ namespace Missile.TextLauncher.Interpretation
         public async Task ExecuteAsync(string input, CancellationToken cancellationToken)
         {
             var tokens = await Lexer.LexAsync(input, cancellationToken);
-            var rootNode = Parser.Parse(tokens);
+            var rootNode = await Parser.ParseAsync(tokens, cancellationToken);
             await Interpreter.InterpretAsync(rootNode, cancellationToken);
             // todo: error handling
         }

@@ -1,4 +1,8 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using FluentAssertions;
 using Missile.TextLauncher.Interpretation.Lexing;
 using Missile.TextLauncher.Interpretation.Parsing;
@@ -26,7 +30,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 .WithFilter("unique", new string[0])
                 .WithDestination("console", new string[0])
                 .Build();
-            parser.Parse(tokens).Should().Be(rootNode, "filters are not required");
+            parser.ParseAsync(tokens, CancellationToken.None).Result.Should().Be(rootNode, "filters are not required");
         }
 
         [Fact]
@@ -53,12 +57,23 @@ namespace Missile.TextLauncher.Interpretation.Tests
             };
 
             var parser = new Parser();
-            parser.Invoking(p => p.Parse(providerOutOfPlace))
-                .ShouldThrow<ArgumentException>("provider cannot come after filter");
-            parser.Invoking(p => p.Parse(filterOutOfPlace))
-                .ShouldThrow<ArgumentException>("filter cannot come after destination");
-            parser.Invoking(p => p.Parse(destinationOutOfPlace))
-                .ShouldThrow<ArgumentException>("destination cannot come before provider");
+            Func<Task> providerTask = async () =>
+            {
+                await parser.ParseAsync(providerOutOfPlace, CancellationToken.None);
+            };
+            providerTask.ShouldThrow<ArgumentException>("provider cannot come after filter");
+
+            Func<Task> filterTask = async () =>
+            {
+                await parser.ParseAsync(filterOutOfPlace, CancellationToken.None);
+            };
+            filterTask.ShouldThrow<ArgumentException>("filter cannot come after destination");
+
+            Func<Task> destinationTask = async () =>
+            {
+                await parser.ParseAsync(destinationOutOfPlace, CancellationToken.None);
+            };
+            destinationTask.ShouldThrow<ArgumentException>("destination cannot come before provider");
         }
 
         [Fact]
@@ -73,7 +88,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 .WithProvider("noop", new string[0])
                 .WithDestination("noop", new string[0])
                 .Build();
-            parser.Parse(tokens).Should().Be(rootNode, "nothing is actually required");
+            parser.ParseAsync(tokens, CancellationToken.None).Result.Should().Be(rootNode, "nothing is actually required");
         }
     }
 }

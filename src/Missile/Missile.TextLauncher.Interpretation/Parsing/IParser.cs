@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Missile.TextLauncher.Interpretation.Lexing;
 
 namespace Missile.TextLauncher.Interpretation.Parsing
 {
     public interface IParser
     {
-        RootNode Parse(IEnumerable<Token> tokens);
+        Task<RootNode> ParseAsync(IEnumerable<Token> tokens, CancellationToken cancellationToken);
     }
 }
