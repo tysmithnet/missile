@@ -8,6 +8,7 @@ namespace Missile.TextLauncher.Tests
         public ConverterRepositoryBuilder()
         {
             ConverterRepository = new ConverterRepository();
+            ConverterRepository.ConverterSelectionStrategy = new ConverterSelectionStrategy();
         }
 
         public ConverterRepository ConverterRepository { get; set; }

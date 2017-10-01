@@ -13,14 +13,17 @@ namespace Missile.TextLauncher.Interpretation.Tests
             Interpreter = new Interpreter
             {
                 ProviderRepository = new ProviderRepository(),
-                ConverterRepository = new ConverterRepository(),
+                ConverterRepository = new ConverterRepository()
+                {
+                    ConverterSelectionStrategy = new ConverterSelectionStrategy()
+                },
                 FilterRepository = new FilterRepository(),
                 DestinationRepository = new DestinationRepository(),
                 ObservableInspectors = new[]
                 {
                     new ToObservableInspector()
                 }
-            };
+            };                              
         }
 
         protected Interpreter Interpreter { get; set; }
@@ -50,7 +53,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
 
         public InterpreterBuilder WithConverter(RegisteredConverter registeredConverter)
         {
-            Interpreter.ConverterRepository.Add(registeredConverter);
+            Interpreter.ConverterRepository.Register(registeredConverter);
             return this;
         }
     }

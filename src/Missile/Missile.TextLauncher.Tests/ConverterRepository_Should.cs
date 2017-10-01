@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using Xunit;
 
@@ -37,7 +38,7 @@ namespace Missile.TextLauncher.Tests
                 .Build();
 
             converterRepository.Invoking(r => r.Get(typeof(string), typeof(int)))
-                .ShouldThrow<IndexOutOfRangeException>("if no compatible converter exists, then throw an exception");
+                .ShouldThrow<KeyNotFoundException>("if no compatible converter exists, then throw an exception");
         }
 
         [Fact]

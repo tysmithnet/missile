@@ -1,40 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;
+using System.Linq;           
 
 namespace Missile.TextLauncher.Conversion
 {
+    /// <summary>
+    /// Repository for converters that transform observables of one type into
+    /// observables of another type
+    /// </summary>
     [Export(typeof(IConverterRepository))]
     public class ConverterRepository : IConverterRepository
     {
+        /// <summary>
+        /// Source of truth for registered converters
+        /// </summary>
         protected internal List<RegisteredConverter> registeredConverters;
+        
+        /// <summary>
+        /// Strategy implementation that determines which converter to use given a request
+        /// </summary>
+        [Import]
+        protected internal IConverterSelectionStrategy ConverterSelectionStrategy { get; set; }
 
-        // todo: import
-        protected internal IConverterSelectionStrategy ConverterSelectionStrategy { get; set; } =
-            new ConverterSelectionStrategy();
-
-        [ImportMany(typeof(IConverter))]
+        /// <summary>
+        /// Converter implementation instances
+        /// </summary>
+        [ImportMany]
         protected internal IConverter[] Converters { get; set; }
 
+        /// <summary>
+        /// RegisteredConverter getter
+        /// </summary>
         protected internal IList<RegisteredConverter> RegisteredConverters =>
             registeredConverters ?? (registeredConverters = GetRegisteredConverters(Converters));
 
+        /// <summary>
+        /// Gets a converter for the conversion from source -> dest
+        /// </summary>
+        /// <param name="source">Source type of the conversion</param>
+        /// <param name="dest">Destination type of the conversion</param>
+        /// <returns>A suitable RegisteredConverter for the conversion of source -> dest</returns>
+        /// <exception cref="KeyNotFoundException">There was no suitable converter for the requested conversion</exception>
         public RegisteredConverter Get(Type source, Type dest)
         {
             var converters = ConverterSelectionStrategy.Select(RegisteredConverters, source, dest).ToList();
             if (!converters.Any())
-                throw new IndexOutOfRangeException($"Unable to find a converter from {source} -> {dest}");
+                throw new KeyNotFoundException($"Unable to find a converter from {source} -> {dest}");
             return converters.First();
         }
 
-        public void Add(RegisteredConverter registeredConverter)
+        /// <summary>
+        /// Registers a new converter with this repository
+        /// </summary>
+        /// <param name="registeredConverter">Converter to register</param>
+        /// <exception cref="ArgumentNullException">Converter is null</exception>
+        public void Register(RegisteredConverter registeredConverter)
         {
+            if(registeredConverter == null)
+                throw new ArgumentNullException($"{nameof(registeredConverter)} cannot be null because the repository will not hold null values");
             if (registeredConverters == null)
                 registeredConverters = new List<RegisteredConverter>();
             registeredConverters.Add(registeredConverter);
         }
 
+        /// <summary>
+        /// Transforms converter instances to RegisteredConverters
+        /// </summary>
+        /// <param name="converters">Converter instances to transform</param>
+        /// <returns>Transformed converter instances</returns>
         private List<RegisteredConverter> GetRegisteredConverters(IEnumerable<IConverter> converters)
         {
             var registeredConverters = new List<RegisteredConverter>();
