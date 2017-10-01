@@ -4,31 +4,49 @@ using System.Linq;
 
 namespace Missile.TextLauncher.Destination
 {
+    /// <inheritdoc />
     [Export(typeof(IDestinationRepository))]
     public class DestinationRepository : IDestinationRepository
     {
-        internal List<RegisteredDestination> registeredDestinations;
+        /// <summary>
+        ///     Single source of truth for RegisteredDestinations backing field
+        /// </summary>
+        private List<RegisteredDestination> _registeredDestinations;
 
-        [ImportMany(typeof(IDestination))]
+        /// <summary>
+        ///     All destination instances
+        /// </summary>
+        [ImportMany]
         protected internal IEnumerable<IDestination> Destinations { get; set; }
 
-        internal IList<RegisteredDestination> RegisteredDestinations =>
-            registeredDestinations ??
-            (registeredDestinations = GetRegisteredDestinations(Destinations));
+        /// <summary>
+        ///     Single source of truth for RegisteredDestinations
+        /// </summary>
+        protected internal virtual IList<RegisteredDestination> RegisteredDestinations =>
+            _registeredDestinations ??
+            (_registeredDestinations = GetRegisteredDestinations(Destinations));
 
+        /// <inheritdoc />
         public RegisteredDestination Get(string requestedDestinationName)
         {
             return RegisteredDestinations.Single(x => x.Name == requestedDestinationName);
         }
 
-        public void Add(RegisteredDestination destination)
+        /// <inheritdoc />
+        public void Register(RegisteredDestination destination)
         {
-            if (registeredDestinations == null)
-                registeredDestinations = new List<RegisteredDestination>();
-            registeredDestinations.Add(destination);
+            if (_registeredDestinations == null)
+                _registeredDestinations = new List<RegisteredDestination>();
+            _registeredDestinations.Add(destination);
         }
 
-        internal List<RegisteredDestination> GetRegisteredDestinations(IEnumerable<IDestination> destinations)
+        /// <summary>
+        ///     Transforms an enumeration of destination instances into RegisteredDestinations
+        /// </summary>
+        /// <param name="destinations">Destination instances to transform</param>
+        /// <returns>Transformed RegisteredDestinations</returns>
+        protected internal virtual List<RegisteredDestination> GetRegisteredDestinations(
+            IEnumerable<IDestination> destinations)
         {
             var mapping = destinations.Select(d => new
             {

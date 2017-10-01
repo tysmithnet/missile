@@ -4,13 +4,21 @@ using System.Threading.Tasks;
 
 namespace Missile.TextLauncher.Destination
 {
+    /// <summary>
+    ///     Destination that will output source items to the Console
+    /// </summary>
     [Export(typeof(IDestination))]
     public class ConsoleDestination : IDestination<object>
     {
-        internal Action<object> WriteFunction = Console.WriteLine;
+        /// <summary>
+        ///     Function to invoke when writing to Console
+        /// </summary>
+        protected internal virtual Action<object> WriteFunction { get; set; } = Console.WriteLine;
 
+        /// <inheritdoc />
         public string Name { get; set; } = "console";
 
+        /// <inheritdoc />
         public Task ProcessAsync(IObservable<object> source)
         {
             var tcs = new TaskCompletionSource<object>();

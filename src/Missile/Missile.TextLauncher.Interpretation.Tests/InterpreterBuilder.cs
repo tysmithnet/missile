@@ -42,7 +42,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
 
         public InterpreterBuilder WithDestination(RegisteredDestination destination)
         {
-            Interpreter.DestinationRepository.Add(destination);
+            Interpreter.DestinationRepository.Register(destination);
             return this;
         }
 
