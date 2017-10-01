@@ -9,19 +9,23 @@ namespace Missile.TextLauncher.IntegrationTests
     public sealed class MissileClient : IDisposable
     {
         private Process _process;
-        private AutomationElement _mainWindow;
+
+        public AutomationElement MainWindow { get; }
+
+        public AutomationElement InputTextBox { get; }
 
         public MissileClient(int waitMs = 1000)
         {
             _process = Process.Start(Path.GetFullPath("../../../Missile.Client/bin/Debug/Missile.Client.exe"));
             Thread.Sleep(waitMs);
-            _mainWindow = AutomationElement.RootElement.FindFirst(TreeScope.Children,
-                new PropertyCondition(AutomationElement.AutomationIdProperty, "Missile.Client.MainWindow"));
-        }
+            MainWindow = AutomationElement.RootElement.FindFirst(
+                TreeScope.Children,
+                new PropertyCondition(AutomationElement.AutomationIdProperty,
+                    "Missile.Client.MainWindow"));
 
-        public AutomationElement GetMainWindow()
-        {
-            return _mainWindow;
+            InputTextBox = MainWindow.FindFirst(TreeScope.Descendants,
+                new PropertyCondition(AutomationElement.AutomationIdProperty,
+                    "Missile.TextLauncher.TextLauncherImplementation.InputTextBox"));
         }
 
         private void ReleaseUnmanagedResources()
