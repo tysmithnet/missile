@@ -6,5 +6,6 @@
         xmlns:local="clr-namespace:Missile.Client"
         mc:Ignorable="d"
         x:Name="Main"
+        Title="Missile"
         AutomationProperties.AutomationId="Missile.Client.MainWindow">
 </Window>
