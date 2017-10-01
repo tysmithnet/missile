@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Missile.TextLauncher.Interpretation.Lexing
 {
@@ -18,7 +20,7 @@ namespace Missile.TextLauncher.Interpretation.Lexing
         public string CurrentArg { get; set; } = "";
         public List<string> Args { get; set; } = new List<string>();
 
-        public override State Transition(char input)
+        public override async Task<State> TransitionAsync(char input, CancellationToken cancellationToken)
         {
             if (input == '\\')
             {

@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System.Threading;
+using FluentAssertions;
 using Missile.TextLauncher.Interpretation.Lexing;
 using Xunit;
 
@@ -9,7 +10,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
         [Fact]
         public void Handle_All_Primary_Components()
         {
-            new Lexer().Lex("lorem | sort > list").Should().Equal(new Token[]
+            new Lexer().LexAsync("lorem | sort > list", CancellationToken.None).Result.Should().Equal(new Token[]
             {
                 new ProviderToken("lorem", new string[0]),
                 new OperatorToken("|", new string[0]),
@@ -18,7 +19,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 new DestinationToken("list", new string[0])
             }, "three words separated by | and > are provider, filter, and destination");
 
-            new Lexer().Lex("lorem --words 10 | sort --Length > list --head 5").Should().Equal(new Token[]
+            new Lexer().LexAsync("lorem --words 10 | sort --Length > list --head 5", CancellationToken.None).Result.Should().Equal(new Token[]
             {
                 new ProviderToken("lorem", new[] {"--words", "10"}),
                 new OperatorToken("|", new string[0]),
@@ -31,19 +32,19 @@ namespace Missile.TextLauncher.Interpretation.Tests
         [Fact]
         public void Handle_Basic_Args()
         {
-            new Lexer().Lex("google search").Should()
+            new Lexer().LexAsync("google search", CancellationToken.None).Result.Should()
                 .Equal(new Token[]
                 {
                     new ProviderToken("google", new[] {"search"})
                 }, "a two single words are interpretted as provider and one arg");
 
-            new Lexer().Lex("google search long cat").Should()
+            new Lexer().LexAsync("google search long cat", CancellationToken.None).Result.Should()
                 .Equal(new Token[]
                 {
                     new ProviderToken("google", new[] {"search", "long", "cat"})
                 }, "n words are treated as a provider followed by n-1 args");
 
-            new Lexer().Lex("everything -type image --regex *.cs").Should()
+            new Lexer().LexAsync("everything -type image --regex *.cs", CancellationToken.None).Result.Should()
                 .Equal(new Token[]
                 {
                     new ProviderToken("everything", new[] {"-type", "image", "--regex", "*.cs"})
@@ -53,13 +54,13 @@ namespace Missile.TextLauncher.Interpretation.Tests
         [Fact]
         public void Handle_Basic_Cases()
         {
-            new Lexer().Lex("a").Should()
+            new Lexer().LexAsync("a", CancellationToken.None).Result.Should()
                 .Equal(new Token[]
                 {
                     new ProviderToken("a", new string[0])
                 }, "a single letter is treated as a provider with no args");
 
-            new Lexer().Lex("google").Should()
+            new Lexer().LexAsync("google", CancellationToken.None).Result.Should()
                 .Equal(new Token[]
                 {
                     new ProviderToken("google", new string[0])
@@ -69,14 +70,14 @@ namespace Missile.TextLauncher.Interpretation.Tests
         [Fact]
         public void Handle_Basic_Destinations()
         {
-            new Lexer().Lex("lorem > list").Should().Equal(new Token[]
+            new Lexer().LexAsync("lorem > list", CancellationToken.None).Result.Should().Equal(new Token[]
             {
                 new ProviderToken("lorem", new string[0]),
                 new OperatorToken(">", new string[0]),
                 new DestinationToken("list", new string[0])
             }, "two words separated by > should be treated as a provider and a destination");
 
-            new Lexer().Lex("lorem > list --head 10").Should().Equal(new Token[]
+            new Lexer().LexAsync("lorem > list --head 10", CancellationToken.None).Result.Should().Equal(new Token[]
             {
                 new ProviderToken("lorem", new string[0]),
                 new OperatorToken(">", new string[0]),
@@ -87,7 +88,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
         [Fact]
         public void Handle_Basic_Filters()
         {
-            new Lexer().Lex("lorem | sort").Should()
+            new Lexer().LexAsync("lorem | sort", CancellationToken.None).Result.Should()
                 .Equal(new Token[]
                 {
                     new ProviderToken("lorem", new string[0]),
@@ -95,7 +96,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
                     new FilterToken("sort", new string[0])
                 }, "two words separated by | is interpretted as provider and filter");
 
-            new Lexer().Lex("lorem | sort | first").Should()
+            new Lexer().LexAsync("lorem | sort | first", CancellationToken.None).Result.Should()
                 .Equal(new Token[]
                 {
                     new ProviderToken("lorem", new string[0]),
@@ -109,17 +110,17 @@ namespace Missile.TextLauncher.Interpretation.Tests
         [Fact]
         public void Handle_Double_Quotes_In_Args()
         {
-            new Lexer().Lex(@"echo ""three   spaces""").Should().Equal(new Token[]
+            new Lexer().LexAsync(@"echo ""three   spaces""", CancellationToken.None).Result.Should().Equal(new Token[]
             {
                 new ProviderToken("echo", new[] {"three   spaces"})
             }, "double quotes indicates a literal string");
 
-            new Lexer().Lex(@"echo double quote: \""").Should().Equal(new Token[]
+            new Lexer().LexAsync(@"echo double quote: \""", CancellationToken.None).Result.Should().Equal(new Token[]
             {
                 new ProviderToken("echo", new[] {"double", "quote:", "\""})
             }, "escaped quotes should be treated as regular characters");
 
-            new Lexer().Lex(@"echo ""quote \"" in quote""").Should().Equal(new Token[]
+            new Lexer().LexAsync(@"echo ""quote \"" in quote""", CancellationToken.None).Result.Should().Equal(new Token[]
             {
                 new ProviderToken("echo", new[] {"quote \" in quote"})
             }, "escaped double quote in quotes appear in the string as a single character");
@@ -128,14 +129,14 @@ namespace Missile.TextLauncher.Interpretation.Tests
         [Fact]
         public void Handle_Filters_With_Args()
         {
-            new Lexer().Lex("lorem | sort --prop Length").Should().Equal(new Token[]
+            new Lexer().LexAsync("lorem | sort --prop Length", CancellationToken.None).Result.Should().Equal(new Token[]
             {
                 new ProviderToken("lorem", new string[0]),
                 new OperatorToken("|", new string[0]),
                 new FilterToken("sort", new[] {"--prop", "Length"})
             }, "filters can have args");
 
-            new Lexer().Lex("lorem | sort --prop Length | first ").Should().Equal(new Token[]
+            new Lexer().LexAsync("lorem | sort --prop Length | first ", CancellationToken.None).Result.Should().Equal(new Token[]
             {
                 new ProviderToken("lorem", new string[0]),
                 new OperatorToken("|", new string[0]),
@@ -148,10 +149,10 @@ namespace Missile.TextLauncher.Interpretation.Tests
         [Fact]
         public void Handle_Null_And_Empty_Cases()
         {
-            new Lexer().Lex(null).Should()
+            new Lexer().LexAsync(null, CancellationToken.None).Result.Should()
                 .Equal(new Token[0], "null is treated as empty string which is no tokens");
 
-            new Lexer().Lex("").Should()
+            new Lexer().LexAsync("", CancellationToken.None).Result.Should()
                 .Equal(new Token[0], "empty string implies no tokens");
         }
     }

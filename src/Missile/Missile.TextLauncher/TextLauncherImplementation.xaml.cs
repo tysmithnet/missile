@@ -16,7 +16,7 @@ namespace Missile.TextLauncher
     public partial class TextLauncherImplementation : Launcher, IUiFacade
     {
         private readonly SynchronizationContext _synchronizationContext;
-
+        private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         public TextLauncherImplementation()
         {
             _synchronizationContext = SynchronizationContext.Current;
@@ -55,7 +55,8 @@ namespace Missile.TextLauncher
             if (e.Key == Key.Enter || e.Key == Key.Return)
             {
                 Logger.Information(InputTextBox.Text);
-                await InterpretationFacade.ExecuteAsync(InputTextBox.Text);
+
+                await InterpretationFacade.ExecuteAsync(InputTextBox.Text, cancellationTokenSource.Token);
             }
         }
     }

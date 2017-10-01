@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Threading;
 using FluentAssertions;
 using Missile.TextLauncher.Conversion;
 using Missile.TextLauncher.Destination;
@@ -45,7 +46,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 });
 
 
-            var task = interpreterBuilder.Build().Interpret(rootNodeBuilder.Build());
+            var task = interpreterBuilder.Build().InterpretAsync(rootNodeBuilder.Build(), CancellationToken.None);
             Action action = async () => await task;
             action.ShouldNotThrow(
                 "conversion should be used if the output type of a provider is not assignable to the source type of the destination");
@@ -74,7 +75,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 });
 
             var interpreter = interpreterBuilder.Build();
-            var task = interpreter.Interpret(rootNode);
+            var task = interpreter.InterpretAsync(rootNode, CancellationToken.None);
             Action action = () => task.Wait();
             action.ShouldNotThrow("single provider should be no problem");
         }
@@ -117,7 +118,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
                     ProcessAsyncMethodInfo = typeof(ConsoleDestination).GetMethod("ProcessAsync")
                 });
 
-            var task = interpreterBuilder.Build().Interpret(rootNodeBuilder.Build());
+            var task = interpreterBuilder.Build().InterpretAsync(rootNodeBuilder.Build(), CancellationToken.None);
             Action action = async () => await task;
             action.ShouldNotThrow("interpreter should handle multiple filters");
             sb.Length.Should().BeGreaterThan(0);
@@ -161,7 +162,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
                     ProcessAsyncMethodInfo = typeof(ConsoleDestination).GetMethod("ProcessAsync")
                 });
 
-            var task = interpreterBuilder.Build().Interpret(rootNodeBuilder.Build());
+            var task = interpreterBuilder.Build().InterpretAsync(rootNodeBuilder.Build(), CancellationToken.None);
             Action action = async () => await task;
             action.ShouldNotThrow("provider, filter, destination combo should work");
             sb.Length.Should().BeGreaterThan(0);
@@ -195,7 +196,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 });
 
 
-            var task = interpreterBuilder.Build().Interpret(rootNodeBuilder.Build());
+            var task = interpreterBuilder.Build().InterpretAsync(rootNodeBuilder.Build(), CancellationToken.None);
             Action action = async () => await task;
             action.ShouldNotThrow("provider and destination combo should work");
             sb.Length.Should().BeGreaterThan(0);

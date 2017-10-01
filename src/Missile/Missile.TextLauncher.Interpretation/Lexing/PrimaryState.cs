@@ -1,10 +1,13 @@
+using System.Threading;
+using System.Threading.Tasks;
+
 namespace Missile.TextLauncher.Interpretation.Lexing
 {
     internal abstract class PrimaryState : State
     {
         public string Identifier { get; set; }
 
-        public sealed override State Transition(char input)
+        public sealed override async Task<State> TransitionAsync(char input, CancellationToken cancellationToken)
         {
             if (input == ' ')
             {

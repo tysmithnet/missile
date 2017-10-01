@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Missile.TextLauncher.Conversion;
 using Missile.TextLauncher.Destination;
@@ -29,7 +30,7 @@ namespace Missile.TextLauncher.Interpretation
         [ImportMany]
         protected internal IObservableInspector[] ObservableInspectors { get; set; }
 
-        public Task Interpret(RootNode rootNode)
+        public Task InterpretAsync(RootNode rootNode, CancellationToken cancellationToken)
         {
             var provider = ProviderRepository.Get(rootNode.ProviderNode.Name);
 

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition;
+using System.Threading;
 using System.Threading.Tasks;
 using Missile.TextLauncher.Interpretation.Lexing;
 using Missile.TextLauncher.Interpretation.Parsing;
@@ -17,11 +18,12 @@ namespace Missile.TextLauncher.Interpretation
         [Import]
         protected internal IInterpreter Interpreter { get; set; }
 
-        public Task ExecuteAsync(string input)
+        public async Task ExecuteAsync(string input, CancellationToken cancellationToken)
         {
-            var tokens = Lexer.Lex(input);
+            var tokens = await Lexer.LexAsync(input, cancellationToken);
             var rootNode = Parser.Parse(tokens);
-            return Interpreter.Interpret(rootNode);
+            await Interpreter.InterpretAsync(rootNode, cancellationToken);
+            // todo: error handling
         }
     }
 }
