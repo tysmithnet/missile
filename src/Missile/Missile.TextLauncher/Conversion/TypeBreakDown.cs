@@ -9,6 +9,10 @@ namespace Missile.TextLauncher.Conversion
     /// </summary>
     public class TypeBreakDown
     {
+        /// <summary>
+        /// Initializes a new instance of TypeBreakDown
+        /// </summary>
+        /// <param name="type"></param>
         public TypeBreakDown(Type type)
         {
             InstanceType = type;

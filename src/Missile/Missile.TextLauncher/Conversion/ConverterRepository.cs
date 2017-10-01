@@ -35,13 +35,7 @@ namespace Missile.TextLauncher.Conversion
         protected internal IList<RegisteredConverter> RegisteredConverters =>
             registeredConverters ?? (registeredConverters = GetRegisteredConverters(Converters));
 
-        /// <summary>
-        /// Gets a converter for the conversion from source -> dest
-        /// </summary>
-        /// <param name="source">Source type of the conversion</param>
-        /// <param name="dest">Destination type of the conversion</param>
-        /// <returns>A suitable RegisteredConverter for the conversion of source -> dest</returns>
-        /// <exception cref="KeyNotFoundException">There was no suitable converter for the requested conversion</exception>
+        /// <inheritdoc />
         public RegisteredConverter Get(Type source, Type dest)
         {
             var converters = ConverterSelectionStrategy.Select(RegisteredConverters, source, dest).ToList();
@@ -50,11 +44,7 @@ namespace Missile.TextLauncher.Conversion
             return converters.First();
         }
 
-        /// <summary>
-        /// Registers a new converter with this repository
-        /// </summary>
-        /// <param name="registeredConverter">Converter to register</param>
-        /// <exception cref="ArgumentNullException">Converter is null</exception>
+        /// <inheritdoc />
         public void Register(RegisteredConverter registeredConverter)
         {
             if(registeredConverter == null)
