@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Missile.TextLauncher.ListPlugin
@@ -9,7 +10,7 @@ namespace Missile.TextLauncher.ListPlugin
     /// </summary>
     public partial class ListDestinationOutput : UserControl
     {
-        public ListDestinationOutput(IObservable<UserControl> items)
+        public ListDestinationOutput(IObservable<UIElement> items)
         {
             items.Subscribe(control => { UserControls.Add(control); }, exception =>
             {
@@ -19,6 +20,6 @@ namespace Missile.TextLauncher.ListPlugin
             ItemsListBox.ItemsSource = UserControls;
         }
 
-        public ObservableCollection<UserControl> UserControls { get; set; } = new ObservableCollection<UserControl>();
+        public ObservableCollection<UIElement> UserControls { get; set; } = new ObservableCollection<UIElement>();
     }
 }
