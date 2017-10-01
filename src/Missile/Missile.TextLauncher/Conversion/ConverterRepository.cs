@@ -11,7 +11,8 @@ namespace Missile.TextLauncher.Conversion
         protected internal List<RegisteredConverter> registeredConverters;
 
         // todo: import
-        protected internal IConverterSelectionStrategy ConverterSelectionStrategy { get; set; } = new ConverterSelectionStrategy();
+        protected internal IConverterSelectionStrategy ConverterSelectionStrategy { get; set; } =
+            new ConverterSelectionStrategy();
 
         [ImportMany(typeof(IConverter))]
         protected internal IConverter[] Converters { get; set; }
@@ -29,7 +30,7 @@ namespace Missile.TextLauncher.Conversion
 
         public void Add(RegisteredConverter registeredConverter)
         {
-            if(registeredConverters == null)
+            if (registeredConverters == null)
                 registeredConverters = new List<RegisteredConverter>();
             registeredConverters.Add(registeredConverter);
         }

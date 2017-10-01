@@ -11,7 +11,7 @@ namespace Missile.TextLauncher
     ///     Interaction logic for TextLauncherImplementation.xaml
     /// </summary>
     [Export(typeof(Launcher))]
-    [Export(typeof(IUiFacade))]     
+    [Export(typeof(IUiFacade))]
     // todo: extract MVVM pattern
     public partial class TextLauncherImplementation : Launcher, IUiFacade
     {

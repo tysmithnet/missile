@@ -8,11 +8,7 @@ namespace Missile.TextLauncher.IntegrationTests
 {
     public sealed class MissileClient : IDisposable
     {
-        private Process _process;
-
-        public AutomationElement MainWindow { get; }
-
-        public AutomationElement InputTextBox { get; }
+        private readonly Process _process;
 
         public MissileClient(int waitMs = 1000)
         {
@@ -28,15 +24,19 @@ namespace Missile.TextLauncher.IntegrationTests
                     "Missile.TextLauncher.TextLauncherImplementation.InputTextBox"));
         }
 
-        private void ReleaseUnmanagedResources()
-        {
-            _process.Kill();
-        }
+        public AutomationElement MainWindow { get; }
+
+        public AutomationElement InputTextBox { get; }
 
         public void Dispose()
         {
             ReleaseUnmanagedResources();
             GC.SuppressFinalize(this);
+        }
+
+        private void ReleaseUnmanagedResources()
+        {
+            _process.Kill();
         }
 
         ~MissileClient()
