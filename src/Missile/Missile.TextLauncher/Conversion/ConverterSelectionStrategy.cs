@@ -5,6 +5,13 @@ using System.Linq;
 
 namespace Missile.TextLauncher.Conversion
 {
+    /// <summary>
+    /// Default IConverterSelectionStrategy pattern.
+    /// It scores in this way:
+    ///     1. same type -> 
+    ///     2. requested type implements converter type -> 1
+    ///     3. requested type is related to base types -> distance
+    /// </summary>
     [Export(typeof(IConverterSelectionStrategy))]
     public class ConverterSelectionStrategy : IConverterSelectionStrategy
     {
@@ -18,6 +25,13 @@ namespace Missile.TextLauncher.Conversion
             }).Where(x => x.Score != null).Select(x => x.Converter);
         }
 
+        /// <summary>
+        /// Score a RegisteredCovnerter against a conversion
+        /// </summary>
+        /// <param name="registeredConverter">Converter to test</param>
+        /// <param name="source">Source type of the conversion</param>
+        /// <param name="dest">Destination type of the conversion</param>
+        /// <returns></returns>
         public ConverterRedinessScore GetConverterScore(RegisteredConverter registeredConverter, Type source, Type dest)
         {
             var converterSource = registeredConverter.SourceType;
@@ -26,15 +40,15 @@ namespace Missile.TextLauncher.Conversion
             int? sourceDistance = null;
             int? destDistance = null;
 
-            var leftBreakdown = new TypeBreakDown(source);
+            var sourceBreakdown = new TypeBreakDown(source);
             var converterSourceBreakdown = new TypeBreakDown(converterDest);
 
             if (source == converterSource)
                 sourceDistance = 0;
-            else if (leftBreakdown.Interfaces.Contains(converterSource))
+            else if (sourceBreakdown.Interfaces.Contains(converterSource))
                 sourceDistance = 1;
-            else if (leftBreakdown.BaseTypes.Contains(converterSource))
-                sourceDistance = leftBreakdown.BaseTypes.IndexOf(converterSource);
+            else if (sourceBreakdown.BaseTypes.Contains(converterSource))
+                sourceDistance = sourceBreakdown.BaseTypes.IndexOf(converterSource);
 
             if (converterDest == dest)
                 destDistance = 0;
@@ -52,19 +66,5 @@ namespace Missile.TextLauncher.Conversion
                 DestDistance = destDistance.Value
             };
         }
-    }
-
-    public class TypeBreakDown
-    {
-        public TypeBreakDown(Type type)
-        {
-            InstanceType = type;
-            Interfaces.AddRange(type.GetInterfaces() ?? new Type[0]);
-            BaseTypes = type.GetBaseTypes().ToList();
-        }
-
-        public Type InstanceType { get; set; }
-        public List<Type> Interfaces { get; set; } = new List<Type>();
-        public List<Type> BaseTypes { get; set; }
     }
 }
