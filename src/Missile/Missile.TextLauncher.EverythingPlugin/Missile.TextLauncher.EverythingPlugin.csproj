@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -49,6 +52,7 @@
       <HintPath>..\packages\System.Reactive.Windows.Threading.3.1.1\lib\net45\System.Reactive.Windows.Threading.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -67,6 +71,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Missile.TextLauncher.ListPlugin\Missile.TextLauncher.ListPlugin.csproj">
+      <Project>{05e3aa07-6776-41af-9a64-1c9360a279b7}</Project>
+      <Name>Missile.TextLauncher.ListPlugin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Missile.TextLauncher\Missile.TextLauncher.csproj">
       <Project>{CEFBCCB2-1B93-43BF-A2D5-9EE40CE01B9A}</Project>
       <Name>Missile.TextLauncher</Name>
@@ -77,10 +85,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-    <ItemGroup>
-        <BinFiles Include="$(TargetDir)\**\*.*" />
-    </ItemGroup>
-    <Target Name="AfterBuild">
-        <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" />
-    </Target>
+  <ItemGroup>
+    <BinFiles Include="$(TargetDir)\**\*.*" />
+  </ItemGroup>
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" />
+  </Target>
 </Project>

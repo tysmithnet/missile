@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using CommandLine;
+using Missile.TextLauncher.ListPlugin;
 using Missile.TextLauncher.Provision;
 
 namespace Missile.TextLauncher.EverythingPlugin
 {
     [Export(typeof(IProvider))]
-    public class EverythingProvider : IProvider<string>
+    public class EverythingProvider : IProvider<object>
     {
         [DllImport("Everything64.dll", CharSet = CharSet.Unicode)]
         public static extern int Everything_SetSearchW(string lpSearchString);
@@ -81,22 +84,39 @@ namespace Missile.TextLauncher.EverythingPlugin
         public static extern void Everything_Reset();
                                                                
         public string Name { get; set; } = "everything";
-        public IObservable<string> Provide(string[] args)
+        public IObservable<object> Provide(string[] args)
         {   
-            const int bufferSize = 1 << 10;
+            const int bufferSize = 1 << 20;
             StringBuilder stringBuilder = new StringBuilder(bufferSize);
             Everything_SetSearchW("windbg");
-            Everything_SetMax(10);
+            Everything_SetMax(1000);
             Everything_QueryW(true);
             int numResults = Everything_GetNumResults();
-            List<string> results = new List<string>();
+            List<FileListDestinationItem> results = new List<FileListDestinationItem>();
             for (int i = 0; i < numResults; i++)
             {                                          
                 Everything_GetResultFullPathNameW(i, stringBuilder, bufferSize);
-                results.Add(stringBuilder.ToString());
+                var fileInfo = new FileInfo(stringBuilder.ToString());
+                try
+                {
+                    results.Add(new FileListDestinationItem(fileInfo));
+                }
+                catch (IOException e)
+                {
+                    //todo: do something with this
+                }
+                catch (UnauthorizedAccessException e)
+                {
+                    // todo: do something with this
+                }
                 stringBuilder.Clear();
             }
             return results.ToObservable();
         }
+    }
+
+    public class EverythingProviderOptions
+    {
+        
     }
 }

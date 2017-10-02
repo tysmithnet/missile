@@ -43,7 +43,8 @@ namespace Missile.TextLauncher
             {
                 var settings = new Settings(Settings);
                 UiFacade.SetOutputControl(settings);
-            }
+            }    
+            // todo: this is really hacky and ugly, need a way to handle stand alone providers without piping to null destination
             return new object[0].ToObservable();
         }
 
