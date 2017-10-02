@@ -14,7 +14,7 @@ namespace Missile.TextLauncher
             return typeof(IList<string>).IsAssignableFrom(type);
         }
 
-        public UIElement GetControl(PropertyFieldAdapter adapter)
+        public FrameworkElement GetControl(PropertyFieldAdapter adapter)
         {
             var stackPanel = new StackPanel();
 

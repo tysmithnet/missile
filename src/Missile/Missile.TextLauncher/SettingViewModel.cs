@@ -5,6 +5,6 @@ namespace Missile.TextLauncher
     public class SettingViewModel
     {
         public string Name { get; set; }
-        public UIElement PropertyEditor { get; set; }
+        public FrameworkElement PropertyEditor { get; set; }
     }
 }

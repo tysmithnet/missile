@@ -13,7 +13,7 @@ namespace Missile.TextLauncher
             return typeof(int).IsAssignableFrom(type);
         }
 
-        public UIElement GetControl(PropertyFieldAdapter adapter)
+        public FrameworkElement GetControl(PropertyFieldAdapter adapter)
         {
             var editor = new TextBox();
 

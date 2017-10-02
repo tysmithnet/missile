@@ -13,7 +13,7 @@ namespace Missile.TextLauncher
             return type == typeof(string);
         }
 
-        public UIElement GetControl(PropertyFieldAdapter adapter)
+        public FrameworkElement GetControl(PropertyFieldAdapter adapter)
         {
             var editor = new TextBox {Text = Convert.ToString(adapter.GetValue())};
             editor.TextChanged += (sender, args) => adapter.SetValue(editor.Text);

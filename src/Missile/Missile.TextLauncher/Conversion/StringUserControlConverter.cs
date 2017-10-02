@@ -11,9 +11,9 @@ using System.Windows.Controls;
 namespace Missile.TextLauncher.Conversion
 {
     [Export(typeof(IConverter))]
-    public class StringUserControlConverter : IConverter<string, UIElement>
+    public class StringUserControlConverter : IConverter<string, FrameworkElement>
     {
-        public IObservable<UIElement> Convert(IObservable<string> source)
+        public IObservable<FrameworkElement> Convert(IObservable<string> source)
         {
             return source.Select(x => new TextBlock()
             {

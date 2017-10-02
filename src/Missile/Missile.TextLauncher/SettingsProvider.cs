@@ -94,7 +94,7 @@ namespace Missile.TextLauncher
             return settingsViewModel;
         }
 
-        private UIElement GetPropertyEditor(PropertyFieldAdapter adapter)
+        private FrameworkElement GetPropertyEditor(PropertyFieldAdapter adapter)
         {
             return PropertyEditorFactoryRepository.Get(adapter.GetMemberType()).GetControl(adapter);
         }
