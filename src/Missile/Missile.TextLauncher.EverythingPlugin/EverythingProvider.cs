@@ -85,21 +85,26 @@ namespace Missile.TextLauncher.EverythingPlugin
                                                                
         public string Name { get; set; } = "everything";
         public IObservable<object> Provide(string[] args)
-        {   
+        {
+            return GetFiles().ToObservable();
+        }
+
+        public IEnumerable<FileListDestinationItem> GetFiles()
+        {
             const int bufferSize = 1 << 20;
             StringBuilder stringBuilder = new StringBuilder(bufferSize);
             Everything_SetSearchW("windbg");
             Everything_SetMax(1000);
             Everything_QueryW(true);
-            int numResults = Everything_GetNumResults();
-            List<FileListDestinationItem> results = new List<FileListDestinationItem>();
+            int numResults = Everything_GetNumResults();                                  
             for (int i = 0; i < numResults; i++)
-            {                                          
+            {
                 Everything_GetResultFullPathNameW(i, stringBuilder, bufferSize);
                 var fileInfo = new FileInfo(stringBuilder.ToString());
+                FileListDestinationItem info = null;
                 try
                 {
-                    results.Add(new FileListDestinationItem(fileInfo));
+                    info = new FileListDestinationItem(fileInfo);
                 }
                 catch (IOException e)
                 {
@@ -109,11 +114,16 @@ namespace Missile.TextLauncher.EverythingPlugin
                 {
                     // todo: do something with this
                 }
+
+                if (info != null)
+                    yield return info;
+
                 stringBuilder.Clear();
-            }
-            return results.ToObservable();
+            }  
         }
     }
+
+ 
 
     public class EverythingProviderOptions
     {
