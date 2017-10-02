@@ -12,7 +12,7 @@
         <TextBox x:Name="InputTextBox" DockPanel.Dock="Top" Height="30" VerticalContentAlignment="Center"
                  KeyDown="Input_OnKeyDown"
                  AutomationProperties.AutomationId="Missile.TextLauncher.TextLauncherImplementation.InputTextBox" />
-        <StackPanel x:Name="OutputPanel"
+        <DockPanel x:Name="OutputPanel"
                     AutomationProperties.AutomationId="Missile.TextLauncher.TextLauncherImplementation.OutputPanel" />
     </DockPanel>
 
