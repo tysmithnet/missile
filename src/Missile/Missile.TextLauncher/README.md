@@ -26,6 +26,9 @@
 - spotify
   - `spotify next`
   - `spotify play --playlist heavy`
+- imdb
+- imgur
+- 
 - clipboard
   - make sure to support various clipboard formats (text, bmp, file, etc)
 - random
