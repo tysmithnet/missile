@@ -12,9 +12,12 @@ namespace Missile.TextLauncher.ListPlugin
     {
         public ListDestinationOutput(IObservable<UIElement> items)
         {
-            items.Subscribe(control => { UserControls.Add(control); }, exception =>
+            items.Subscribe(control =>
             {
-                ;
+                UserControls.Add(control);
+            }, exception =>
+            {
+                // todo: do something with errors!
             });
             InitializeComponent();
             ItemsListBox.ItemsSource = UserControls;

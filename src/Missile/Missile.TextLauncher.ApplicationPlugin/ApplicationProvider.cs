@@ -7,6 +7,7 @@ using Missile.TextLauncher.Provision;
 
 namespace Missile.TextLauncher.ApplicationPlugin
 {
+    // todo: make it so you can right click certain types and get a context menu
     [Export(typeof(IProvider))]
     public class ApplicationProvider : IProvider<ApplicationListDestinationItem>
     {
