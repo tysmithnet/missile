@@ -12,6 +12,7 @@ namespace Missile.TextLauncher
     {
         T Get<T>() where T : ISettings;
         IEnumerable<ISettings> GetAll();
+        void Save<T>() where T : ISettings;
     }
 
     // todo: don't throw if bad property, gracefully degrade
@@ -26,8 +27,32 @@ namespace Missile.TextLauncher
         [ImportMany]
         protected internal ISettings[] AllSettings { get; set; }
 
-        // todo: load settings from file
-
+        public void Save<T>() where T : ISettings
+        {
+            if (!_isLoaded)
+            {
+                LoadFromFiles();
+                _isLoaded = true;
+            }
+            var first = AllSettings.OfType<T>().FirstOrDefault();
+            if (first == null)
+                throw new ArgumentOutOfRangeException($"Cannot find requested setting: {typeof(T)}");
+            var fileName = first.GetType().FullName + ".config";
+            if(!first.GetType().IsSerializable)
+                throw new ArgumentException($"{typeof(T).FullName} is not serializable and therefore cannot be saved");
+            try
+            {
+                using (var stream = new FileStream(fileName, FileMode.Open))
+                {
+                    var serializer = new XmlSerializer(first.GetType());
+                    serializer.Serialize(stream, first);
+                }
+            }
+            catch (FileNotFoundException)
+            {
+            }
+        }
+        
         public T Get<T>() where T : ISettings
         {
             if (!_isLoaded)

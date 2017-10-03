@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using CommandLine;
@@ -9,6 +10,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
 {
     // todo: make it so you can right click certain types and get a context menu
     [Export(typeof(IProvider))]
+    [Export(typeof(ApplicationProvider))]
     public class ApplicationProvider : IProvider<ApplicationListDestinationItem>
     {
         [Import]

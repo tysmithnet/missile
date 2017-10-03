@@ -22,7 +22,11 @@ namespace Missile.TextLauncher.ApplicationPlugin
             {
                 Header = "Add to Applications"
             };
-            menuItem.Click += (sender, args) => ApplicationRepository.Add(item);
+            menuItem.Click += (sender, args) =>
+            {
+                ApplicationRepository.Add(item);
+                ApplicationRepository.Save();
+            };
             return menuItem;
         }
     }

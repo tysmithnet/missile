@@ -16,6 +16,9 @@ namespace Missile.TextLauncher.ApplicationPlugin
         [Import]
         protected internal ISettingsRepository SettingsRepository { get; set; }
 
+        private ApplicationProviderSettings _settings;             
+        protected internal ApplicationProviderSettings Settings => _settings ?? (_settings = SettingsRepository.Get<ApplicationProviderSettings>());
+
         public IEnumerable<RegisteredApplication> Search(string searchString)
         {
             if (!_isSetup)
@@ -33,6 +36,12 @@ namespace Missile.TextLauncher.ApplicationPlugin
                 ApplicationPath = fileInfo.FullName,
                 Icon = Icon.ExtractAssociatedIcon(fileInfo.FullName)
             });
+            Settings.SearchPaths.Add(fileInfo.FullName);
+        }
+
+        public void Save()
+        {
+            SettingsRepository.Save<ApplicationProviderSettings>();
         }
 
         protected internal void Setup()

@@ -7,5 +7,6 @@ namespace Missile.TextLauncher.ApplicationPlugin
     {
         IEnumerable<RegisteredApplication> Search(string searchString);
         void Add(FileInfo fileInfo);
+        void Save();
     }
 }
