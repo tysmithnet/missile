@@ -58,6 +58,7 @@
     <Compile Include="ApplicationProviderOptions.cs" />
     <Compile Include="ApplicationProviderSettings.cs" />
     <Compile Include="ApplicationRepository.cs" />
+    <Compile Include="FileContextMenuProvider.cs" />
     <Compile Include="IApplicationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisteredApplication.cs" />

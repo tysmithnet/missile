@@ -1,37 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Missile.TextLauncher.ListPlugin
 {
     /// <summary>
-    /// Interaction logic for FileListDestinationItem.xaml
+    ///     Interaction logic for FileListDestinationItem.xaml
     /// </summary>
     public partial class FileListDestinationItem : UserControl
     {
-        public FileInfo FileInfo { get; set; }
-
-        public FileListDestinationItem(FileInfo fileInfo)
+        public FileListDestinationItem(FileInfo fileInfo,
+            IEnumerable<IDestinationContextMenuProvider<FileInfo>> fileInfoContextMenuProviders)
         {
             FileInfo = fileInfo;
+            FileInfoContextMenuProviders = fileInfoContextMenuProviders.ToList();
             InitializeComponent();
-            IconImage.Source = Icon.ExtractAssociatedIcon(FileInfo.FullName).ToImageSource();   
+            IconImage.Source = Icon.ExtractAssociatedIcon(FileInfo.FullName).ToImageSource();
             FileNameTextBlock.Text = FileInfo.Name;
             FilePathTextBlock.Text = FileInfo.DirectoryName;
-            // todo: how to say you want to provide a context menu item for a particular pipe line item
+            ContextMenu = new ContextMenu();
+            foreach (var p in FileInfoContextMenuProviders)
+                if (p.CanHandle(FileInfo))
+                {
+                    var menuItem = p.GetMenuItem(FileInfo);
+                    ContextMenu.Items.Add(menuItem);
+                }
+            MouseRightButtonUp += (sender, args) =>
+            {
+                if (ContextMenu != null)
+                {
+                    ContextMenu.PlacementTarget = this;
+                    ContextMenu.IsOpen = true;
+                }
+            };
         }
+
+        public FileInfo FileInfo { get; set; }
+
+        public IEnumerable<IDestinationContextMenuProvider<FileInfo>> FileInfoContextMenuProviders { get; set; }
     }
 }

@@ -2,12 +2,7 @@
 
 namespace Missile.TextLauncher
 {
-    public interface IDestinationContextMenuProvider
-    {
-
-    }        
-
-    public interface IDestinationContextMenuProvider<in TSource> : IDestinationContextMenuProvider
+    public interface IDestinationContextMenuProvider<in TSource>
     {
         bool CanHandle(TSource item);
         MenuItem GetMenuItem(TSource item);

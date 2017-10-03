@@ -1,9 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Windows.Controls;
 using CommandLine;
 using Missile.TextLauncher.Provision;
 
@@ -26,33 +24,6 @@ namespace Missile.TextLauncher.ApplicationPlugin
                 .Select(x =>
                     new ApplicationListDestinationItem(x.Icon.ToImageSource(), x.ApplicationName, x.ApplicationPath))
                 .ToObservable();
-        }
-    }
-
-    [Export(typeof(IDestinationContextMenuProvider))]
-    public class FileContextMenuProvider : IDestinationContextMenuProvider<FileInfo>
-    {
-        [Import]
-        protected internal IApplicationRepository ApplicationRepository { get; set; }
-
-        public bool CanHandle(FileInfo item)
-        {
-            return item != null && IsItemInteresting(item);
-        }
-
-        private bool IsItemInteresting(FileInfo item)
-        {
-            return new[] {"exe", "lnk"}.Contains(item.Extension.ToLower());
-        }
-
-        public MenuItem GetMenuItem(FileInfo item)
-        {
-            MenuItem menuItem = new MenuItem
-            {
-                Header = "Add to Applications"
-            };
-            menuItem.Click += (sender, args) => ApplicationRepository.Add(item);
-            return menuItem;
         }
     }
 }
