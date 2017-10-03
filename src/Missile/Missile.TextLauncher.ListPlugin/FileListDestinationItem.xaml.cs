@@ -31,6 +31,7 @@ namespace Missile.TextLauncher.ListPlugin
             IconImage.Source = Icon.ExtractAssociatedIcon(FileInfo.FullName).ToImageSource();   
             FileNameTextBlock.Text = FileInfo.Name;
             FilePathTextBlock.Text = FileInfo.DirectoryName;
+            // todo: how to say you want to provide a context menu item for a particular pipe line item
         }
     }
 }

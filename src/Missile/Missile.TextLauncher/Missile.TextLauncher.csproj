@@ -74,6 +74,7 @@
     <Compile Include="Destination\IDestinationRepository.cs" />
     <Compile Include="IInterpretationFacade.cs" />
     <Compile Include="Filtration\IFilterRepository.cs" />
+    <Compile Include="IDestinationContextMenuProvider.cs" />
     <Compile Include="IntEditorFactory.cs" />
     <Compile Include="IPropertyEditorFactory.cs" />
     <Compile Include="IPropertyEditorFactoryRepository.cs" />

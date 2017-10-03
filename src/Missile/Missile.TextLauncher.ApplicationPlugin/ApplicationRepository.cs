@@ -30,5 +30,15 @@ namespace Missile.TextLauncher.ApplicationPlugin
             }
             return results;
         }
+
+        public void Add(FileInfo fileInfo)
+        {
+            RegisteredApplications.Add(new RegisteredApplication
+            {
+                ApplicationName = fileInfo.Name,
+                ApplicationPath = fileInfo.FullName,
+                Icon = Icon.ExtractAssociatedIcon(fileInfo.FullName)
+            });
+        }
     }
 }
