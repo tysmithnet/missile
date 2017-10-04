@@ -6,7 +6,8 @@ using System.Windows.Controls;
 namespace Missile.TextLauncher.ApplicationPlugin
 {   
     [Export(typeof(IDestinationContextMenuProvider<FileInfo>))]
-    public class FileContextMenuProvider : IDestinationContextMenuProvider<FileInfo>
+    public class ApplicationProviderContextMenuProvider : IDestinationContextMenuProvider<FileInfo>,
+                                                          IDestinationContextMenuProvider<ApplicationListDestinationItem>
     {
         [Import]
         protected internal IApplicationRepository ApplicationRepository { get; set; }
@@ -26,6 +27,24 @@ namespace Missile.TextLauncher.ApplicationPlugin
             {
                 ApplicationRepository.Add(item);
                 ApplicationRepository.Save();
+            };
+            return menuItem;
+        }
+
+        public bool CanHandle(ApplicationListDestinationItem item)
+        {
+            return item != null;
+        }
+
+        public MenuItem GetMenuItem(ApplicationListDestinationItem item)
+        {
+            MenuItem menuItem = new MenuItem
+            {
+                Header = "Remove from Applications"
+            };
+            menuItem.Click += (sender, args) =>
+            {
+                
             };
             return menuItem;
         }

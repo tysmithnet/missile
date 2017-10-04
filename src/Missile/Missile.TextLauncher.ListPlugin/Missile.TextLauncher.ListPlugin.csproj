@@ -59,6 +59,7 @@
     <Compile Include="FileListDestinationItem.xaml.cs">
       <DependentUpon>FileListDestinationItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FileListDestinationItemConverter.cs" />
     <Compile Include="ListDestination.cs" />
     <Compile Include="ListDestinationOutput.xaml.cs">
       <DependentUpon>ListDestinationOutput.xaml</DependentUpon>

@@ -11,20 +11,17 @@ namespace Missile.TextLauncher.ListPlugin
     /// </summary>
     public partial class FileListDestinationItem : UserControl
     {
-        public FileListDestinationItem(FileInfo fileInfo,
-            IEnumerable<IDestinationContextMenuProvider<FileInfo>> fileInfoContextMenuProviders)
-        {
-            FileInfo = fileInfo;
-            FileInfoContextMenuProviders = fileInfoContextMenuProviders.ToList();
+        public FileListDestinationItem(FileInfo fileInfo, IEnumerable<IDestinationContextMenuProvider<FileInfo>> fileInfoContextMenuProviders)
+        {                       
             InitializeComponent();
-            IconImage.Source = Icon.ExtractAssociatedIcon(FileInfo.FullName).ToImageSource();
-            FileNameTextBlock.Text = FileInfo.Name;
-            FilePathTextBlock.Text = FileInfo.DirectoryName;
+            IconImage.Source = Icon.ExtractAssociatedIcon(fileInfo.FullName).ToImageSource();
+            FileNameTextBlock.Text = fileInfo.Name;
+            FilePathTextBlock.Text = fileInfo.DirectoryName;
             ContextMenu = new ContextMenu();
-            foreach (var p in FileInfoContextMenuProviders)
-                if (p.CanHandle(FileInfo))
+            foreach (var p in fileInfoContextMenuProviders)
+                if (p.CanHandle(fileInfo))
                 {
-                    var menuItem = p.GetMenuItem(FileInfo);
+                    var menuItem = p.GetMenuItem(fileInfo);
                     ContextMenu.Items.Add(menuItem);
                 }
             MouseRightButtonUp += (sender, args) =>
@@ -35,10 +32,6 @@ namespace Missile.TextLauncher.ListPlugin
                     ContextMenu.IsOpen = true;
                 }
             };
-        }
-
-        public FileInfo FileInfo { get; set; }
-
-        public IEnumerable<IDestinationContextMenuProvider<FileInfo>> FileInfoContextMenuProviders { get; set; }
+        }    
     }
 }
