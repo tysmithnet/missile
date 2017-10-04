@@ -11,15 +11,14 @@ namespace Missile.TextLauncher.ApplicationPlugin
     /// </summary>
     public partial class ApplicationListDestinationItem : UserControl
     {
+        public RegisteredApplication RegisteredApplication { get; set; }
+
         public ApplicationListDestinationItem(RegisteredApplication registeredApplication,
             IEnumerable<IDestinationContextMenuProvider<RegisteredApplication>> contextMenuProviders)
         {
             InitializeComponent();
-            Icon = registeredApplication.Icon.ToImageSource();
-            ApplicationName = registeredApplication.ApplicationName;
-            ApplicationPath = registeredApplication.ApplicationPath;
-            IconImage.Source = Icon;
-            ApplicationNameTextBlock.Text = ApplicationName;
+            DataContext = this;
+            RegisteredApplication = registeredApplication;
             ContextMenu = new ContextMenu();
             foreach(var p in contextMenuProviders)
                 if (p.CanHandle(registeredApplication))
@@ -31,16 +30,13 @@ namespace Missile.TextLauncher.ApplicationPlugin
                     ContextMenu.PlacementTarget = this;
                     ContextMenu.IsOpen = true;
                 }
-            };
+            };                 
         }
 
-        public ImageSource Icon { get; set; }
-        public string ApplicationName { get; set; }
-        public string ApplicationPath { get; set; }
 
         private void ApplicationListDestinationItem_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            Process.Start(ApplicationPath);
+            Process.Start(RegisteredApplication.ApplicationPath);
         }
     }
 }

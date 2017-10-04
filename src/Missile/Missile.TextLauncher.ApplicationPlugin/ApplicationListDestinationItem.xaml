@@ -6,13 +6,14 @@
              xmlns:local="clr-namespace:Missile.TextLauncher.ApplicationPlugin"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
-             MouseLeftButtonUp="ApplicationListDestinationItem_OnMouseLeftButtonUp">
-    <Grid>
+             MouseLeftButtonUp="ApplicationListDestinationItem_OnMouseLeftButtonUp"
+             d:DataContext="{d:DesignInstance local:ApplicationListDestinationItem}">
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Image x:Name="IconImage" Grid.Column="0" />
-        <TextBlock x:Name="ApplicationNameTextBlock" Grid.Column="1" />
+        <Image x:Name="IconImage" Grid.Column="0" Source="{Binding Path=RegisteredApplication.Icon}"/>
+        <TextBlock x:Name="ApplicationNameTextBlock" Grid.Column="1" Text="{Binding RegisteredApplication.ApplicationName}"/>
     </Grid>
 </UserControl>

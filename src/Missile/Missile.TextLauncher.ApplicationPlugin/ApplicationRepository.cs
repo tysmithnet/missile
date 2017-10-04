@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Drawing;
 using System.IO;
@@ -36,7 +37,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
             {
                 ApplicationName = fileInfo.Name,
                 ApplicationPath = fileInfo.FullName,
-                Icon = Icon.ExtractAssociatedIcon(fileInfo.FullName)
+                Icon = Icon.ExtractAssociatedIcon(fileInfo.FullName).ToImageSource()
             });
             Settings.SearchPaths.Add(fileInfo.FullName);
         }
@@ -64,7 +65,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
                 {
                     ApplicationName = name,
                     ApplicationPath = path,
-                    Icon = icon
+                    Icon = icon.ToImageSource()
                 });
             }
             _isSetup = true;
