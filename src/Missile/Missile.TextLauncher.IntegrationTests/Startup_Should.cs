@@ -18,9 +18,9 @@ namespace Missile.TextLauncher.IntegrationTests
         }
 
         [Fact]
-        public void Load_In_Under_1_Second()
+        public void Load_In_Under_2_Second()
         {
-            using (var client = new MissileClient(1000))
+            using (var client = new MissileClient(2000))
             {
                 client.MainWindow.Should().NotBeNull("the main window should always show");
             }
