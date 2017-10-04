@@ -10,14 +10,16 @@ namespace Missile.TextLauncher.ApplicationPlugin
     {
         private bool _isSetup;
 
-        // todo: shouldn't be public
-        public List<RegisteredApplication> RegisteredApplications { get; set; } = new List<RegisteredApplication>();
+        private ApplicationProviderSettings _settings;
+
+        protected internal List<RegisteredApplication> RegisteredApplications { get; set; } =
+            new List<RegisteredApplication>();
 
         [Import]
         protected internal ISettingsRepository SettingsRepository { get; set; }
 
-        private ApplicationProviderSettings _settings;             
-        protected internal ApplicationProviderSettings Settings => _settings ?? (_settings = SettingsRepository.Get<ApplicationProviderSettings>());
+        protected internal ApplicationProviderSettings Settings =>
+            _settings ?? (_settings = SettingsRepository.Get<ApplicationProviderSettings>());
 
         public IEnumerable<RegisteredApplication> Search(string searchString)
         {
@@ -42,6 +44,13 @@ namespace Missile.TextLauncher.ApplicationPlugin
         public void Save()
         {
             SettingsRepository.Save<ApplicationProviderSettings>();
+        }
+
+        public void Remove(RegisteredApplication item)
+        {
+            if (!_isSetup)
+                Setup();
+            RegisteredApplications.Remove(item);
         }
 
         protected internal void Setup()

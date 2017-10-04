@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -10,14 +11,27 @@ namespace Missile.TextLauncher.ApplicationPlugin
     /// </summary>
     public partial class ApplicationListDestinationItem : UserControl
     {
-        public ApplicationListDestinationItem(ImageSource icon, string applicationName, string applicationPath)
+        public ApplicationListDestinationItem(RegisteredApplication registeredApplication,
+            IEnumerable<IDestinationContextMenuProvider<RegisteredApplication>> contextMenuProviders)
         {
             InitializeComponent();
-            Icon = icon;
-            ApplicationName = applicationName;
-            ApplicationPath = applicationPath;
+            Icon = registeredApplication.Icon.ToImageSource();
+            ApplicationName = registeredApplication.ApplicationName;
+            ApplicationPath = registeredApplication.ApplicationPath;
             IconImage.Source = Icon;
             ApplicationNameTextBlock.Text = ApplicationName;
+            ContextMenu = new ContextMenu();
+            foreach(var p in contextMenuProviders)
+                if (p.CanHandle(registeredApplication))
+                    ContextMenu.Items.Add(p.GetMenuItem(registeredApplication));
+            MouseRightButtonUp += (sender, args) =>
+            {
+                if (ContextMenu != null)
+                {
+                    ContextMenu.PlacementTarget = this;
+                    ContextMenu.IsOpen = true;
+                }
+            };
         }
 
         public ImageSource Icon { get; set; }

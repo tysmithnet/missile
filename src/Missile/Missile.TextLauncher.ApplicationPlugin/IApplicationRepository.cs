@@ -8,5 +8,6 @@ namespace Missile.TextLauncher.ApplicationPlugin
         IEnumerable<RegisteredApplication> Search(string searchString);
         void Add(FileInfo fileInfo);
         void Save();
+        void Remove(RegisteredApplication item);
     }
 }

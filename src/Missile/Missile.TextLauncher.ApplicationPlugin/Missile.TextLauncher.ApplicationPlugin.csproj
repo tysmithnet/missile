@@ -54,6 +54,7 @@
     <Compile Include="ApplicationListDestinationItem.xaml.cs">
       <DependentUpon>ApplicationListDestinationItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ApplicationListDestinationItemConverter.cs" />
     <Compile Include="ApplicationProvider.cs" />
     <Compile Include="ApplicationProviderOptions.cs" />
     <Compile Include="ApplicationProviderSettings.cs" />

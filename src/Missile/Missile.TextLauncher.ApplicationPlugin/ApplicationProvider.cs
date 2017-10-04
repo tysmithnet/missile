@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using CommandLine;
-using Missile.TextLauncher.Conversion;
 using Missile.TextLauncher.Provision;
 
 namespace Missile.TextLauncher.ApplicationPlugin
@@ -25,16 +24,6 @@ namespace Missile.TextLauncher.ApplicationPlugin
             Parser.Default.ParseArgumentsStrict(args, options);
             return args.SelectMany(x => ApplicationRepository.Search(x))                                              
                 .ToObservable();
-        }
-    }
-
-    [Export(typeof(IConverter))]
-    public class ApplicationListDestinationItemConverter : IConverter<RegisteredApplication, ApplicationListDestinationItem>
-    {
-        public IObservable<ApplicationListDestinationItem> Convert(IObservable<RegisteredApplication> source)
-        {
-            return source.Select(x =>
-                new ApplicationListDestinationItem(x.Icon.ToImageSource(), x.ApplicationName, x.ApplicationPath));
         }
     }
 }

@@ -6,8 +6,9 @@ using System.Windows.Controls;
 namespace Missile.TextLauncher.ApplicationPlugin
 {   
     [Export(typeof(IDestinationContextMenuProvider<FileInfo>))]
+    [Export(typeof(IDestinationContextMenuProvider<RegisteredApplication>))]
     public class ApplicationProviderContextMenuProvider : IDestinationContextMenuProvider<FileInfo>,
-                                                          IDestinationContextMenuProvider<ApplicationListDestinationItem>
+                                                          IDestinationContextMenuProvider<RegisteredApplication>
     {
         [Import]
         protected internal IApplicationRepository ApplicationRepository { get; set; }
@@ -31,12 +32,12 @@ namespace Missile.TextLauncher.ApplicationPlugin
             return menuItem;
         }
 
-        public bool CanHandle(ApplicationListDestinationItem item)
+        public bool CanHandle(RegisteredApplication item)
         {
             return item != null;
         }
 
-        public MenuItem GetMenuItem(ApplicationListDestinationItem item)
+        public MenuItem GetMenuItem(RegisteredApplication item)
         {
             MenuItem menuItem = new MenuItem
             {
@@ -44,7 +45,8 @@ namespace Missile.TextLauncher.ApplicationPlugin
             };
             menuItem.Click += (sender, args) =>
             {
-                
+                ApplicationRepository.Remove(item);
+                ApplicationRepository.Save();
             };
             return menuItem;
         }
