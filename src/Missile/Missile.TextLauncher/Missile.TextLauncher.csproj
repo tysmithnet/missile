@@ -56,6 +56,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandHub.cs" />
     <Compile Include="Conversion\StringUserControlConverter.cs" />
     <Compile Include="Conversion\TypeBreakDown.cs" />
     <Compile Include="Destination\ConsoleDestination.cs" />
@@ -72,9 +73,10 @@
     <Compile Include="Filtration\IFilter.cs" />
     <Compile Include="Filtration\FilterRepository.cs" />
     <Compile Include="Destination\IDestinationRepository.cs" />
+    <Compile Include="ICommand.cs" />
+    <Compile Include="ICommandHub.cs" />
     <Compile Include="IInterpretationFacade.cs" />
     <Compile Include="Filtration\IFilterRepository.cs" />
-    <Compile Include="IDestinationContextMenuProvider.cs" />
     <Compile Include="IntEditorFactory.cs" />
     <Compile Include="IPropertyEditorFactory.cs" />
     <Compile Include="IPropertyEditorFactoryRepository.cs" />

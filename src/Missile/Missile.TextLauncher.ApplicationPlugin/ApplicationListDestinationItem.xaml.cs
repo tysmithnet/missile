@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using Missile.TextLauncher.ListPlugin;
 
 namespace Missile.TextLauncher.ApplicationPlugin
 {
     /// <summary>
     ///     Interaction logic for ApplicationListDestinationItem.xaml
     /// </summary>
-    public partial class ApplicationListDestinationItem : UserControl
+    public partial class ApplicationListDestinationItem : UserControl, IListDestinationItem
     {
         public RegisteredApplication RegisteredApplication { get; set; }
 
@@ -22,7 +24,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
             ContextMenu = new ContextMenu();
             foreach(var p in contextMenuProviders)
                 if (p.CanHandle(registeredApplication))
-                    ContextMenu.Items.Add(p.GetMenuItem(registeredApplication));
+                    ContextMenu.Items.Add(p.GetMenuItem(registeredApplication, this));
             MouseRightButtonUp += (sender, args) =>
             {
                 if (ContextMenu != null)
@@ -38,5 +40,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
         {
             Process.Start(RegisteredApplication.ApplicationPath);
         }
+
+        public Guid Id { get; } = Guid.NewGuid();
     }
 }

@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Windows.Controls;
+using Missile.TextLauncher.ListPlugin;
 
 namespace Missile.TextLauncher.ApplicationPlugin
 {   
@@ -11,14 +12,14 @@ namespace Missile.TextLauncher.ApplicationPlugin
                                                           IDestinationContextMenuProvider<RegisteredApplication>
     {
         [Import]
-        protected internal IApplicationRepository ApplicationRepository { get; set; }
-
+        protected internal ICommandHub CommandHub { get; set; }
+        
         public bool CanHandle(FileInfo item)
         {
             return item != null;
         }               
 
-        public MenuItem GetMenuItem(FileInfo item)
+        public MenuItem GetMenuItem(FileInfo item, IListDestinationItem target)
         {
             MenuItem menuItem = new MenuItem
             {
@@ -26,8 +27,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
             };
             menuItem.Click += (sender, args) =>
             {
-                ApplicationRepository.Add(item);
-                ApplicationRepository.Save();
+                CommandHub.Broadcast(new AddApplicationCommand(item));  
             };
             return menuItem;
         }
@@ -37,7 +37,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
             return item != null;
         }
 
-        public MenuItem GetMenuItem(RegisteredApplication item)
+        public MenuItem GetMenuItem(RegisteredApplication item, IListDestinationItem target)
         {
             MenuItem menuItem = new MenuItem
             {
@@ -45,8 +45,8 @@ namespace Missile.TextLauncher.ApplicationPlugin
             };
             menuItem.Click += (sender, args) =>
             {
-                ApplicationRepository.Remove(item);
-                ApplicationRepository.Save();
+                CommandHub.Broadcast(new RemoveApplicationCommand(item));
+                CommandHub.Broadcast(new RemoveListDestinationItemCommand(target));
             };
             return menuItem;
         }

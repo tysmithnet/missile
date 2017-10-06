@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Drawing;
 using System.IO;
+using System.Reactive.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Missile.TextLauncher.ApplicationPlugin
 {
@@ -19,8 +23,14 @@ namespace Missile.TextLauncher.ApplicationPlugin
         [Import]
         protected internal ISettingsRepository SettingsRepository { get; set; }
 
+        [Import]
+        protected internal ICommandHub CommandHub { get; set; }
+
         protected internal ApplicationProviderSettings Settings =>
             _settings ?? (_settings = SettingsRepository.Get<ApplicationProviderSettings>());
+        
+        protected internal IObservable<AddApplicationCommand> AddCommands { get; set; }
+        protected internal IObservable<RemoveApplicationCommand> RemoveCommands { get; set; }
 
         public IEnumerable<RegisteredApplication> Search(string searchString)
         {
@@ -29,7 +39,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
             return RegisteredApplications;
         }
 
-        public void Add(FileInfo fileInfo)
+        protected internal void Add(FileInfo fileInfo)
         {
             if (!_isSetup)
                 Setup();
@@ -42,12 +52,12 @@ namespace Missile.TextLauncher.ApplicationPlugin
             Settings.SearchPaths.Add(fileInfo.FullName);
         }
 
-        public void Save()
+        protected internal void Save()
         {
             SettingsRepository.Save<ApplicationProviderSettings>();
         }
 
-        public void Remove(RegisteredApplication item)
+        protected internal void Remove(RegisteredApplication item)
         {
             if (!_isSetup)
                 Setup();
@@ -56,6 +66,8 @@ namespace Missile.TextLauncher.ApplicationPlugin
 
         protected internal void Setup()
         {
+            SetupObservables();
+
             var settings = SettingsRepository.Get<ApplicationProviderSettings>();
             foreach (var path in settings.SearchPaths ?? new List<string>())
             {
@@ -69,6 +81,23 @@ namespace Missile.TextLauncher.ApplicationPlugin
                 });
             }
             _isSetup = true;
+        }
+
+        private void SetupObservables()
+        {
+            AddCommands = CommandHub.Get<AddApplicationCommand>();
+            RemoveCommands = CommandHub.Get<RemoveApplicationCommand>();
+            var syncContext = SynchronizationContext.Current;
+            // todo: use async/await
+            Task.Factory.StartNew(() =>
+            {
+                AddCommands.SubscribeOn(syncContext).ForEachAsync(x => Add(x.FileInfo));
+            });
+
+            Task.Factory.StartNew(() =>
+            {
+                RemoveCommands.SubscribeOn(syncContext).ForEachAsync(x => Remove(x.RegisteredApplication));
+            });                                                                   
         }
     }
 }

@@ -6,8 +6,5 @@ namespace Missile.TextLauncher.ApplicationPlugin
     public interface IApplicationRepository
     {
         IEnumerable<RegisteredApplication> Search(string searchString);
-        void Add(FileInfo fileInfo);
-        void Save();
-        void Remove(RegisteredApplication item);
     }
 }

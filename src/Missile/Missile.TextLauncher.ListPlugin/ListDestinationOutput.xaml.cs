@@ -10,7 +10,7 @@ namespace Missile.TextLauncher.ListPlugin
     /// </summary>
     public partial class ListDestinationOutput : UserControl
     {
-        public ListDestinationOutput(IObservable<FrameworkElement> items)
+        public ListDestinationOutput(IObservable<IListDestinationItem> items)
         {
             items.Subscribe(control =>
             {     
@@ -23,6 +23,11 @@ namespace Missile.TextLauncher.ListPlugin
             ItemsListBox.ItemsSource = UserControls;
         }
 
-        public ObservableCollection<FrameworkElement> UserControls { get; set; } = new ObservableCollection<FrameworkElement>();
+        public ObservableCollection<IListDestinationItem> UserControls { get; set; } = new ObservableCollection<IListDestinationItem>();
+
+        public void Remove(IListDestinationItem listDestinationItem)
+        {
+            UserControls.Remove(listDestinationItem);
+        }
     }
 }

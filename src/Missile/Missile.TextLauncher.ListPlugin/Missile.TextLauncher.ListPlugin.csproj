@@ -60,11 +60,14 @@
       <DependentUpon>FileListDestinationItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="FileListDestinationItemConverter.cs" />
+    <Compile Include="IDestinationContextMenuProvider.cs" />
+    <Compile Include="IListDestinationItem.cs" />
     <Compile Include="ListDestination.cs" />
     <Compile Include="ListDestinationOutput.xaml.cs">
       <DependentUpon>ListDestinationOutput.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoveListDestinationItemCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Missile.TextLauncher\Missile.TextLauncher.csproj">

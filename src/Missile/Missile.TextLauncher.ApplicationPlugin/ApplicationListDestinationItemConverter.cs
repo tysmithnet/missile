@@ -3,6 +3,7 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Reactive.Linq;
 using Missile.TextLauncher.Conversion;
+using Missile.TextLauncher.ListPlugin;
 
 namespace Missile.TextLauncher.ApplicationPlugin
 {
