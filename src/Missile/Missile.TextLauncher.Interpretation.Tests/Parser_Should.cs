@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -63,10 +61,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
             };
             providerTask.ShouldThrow<ArgumentException>("provider cannot come after filter");
 
-            Func<Task> filterTask = async () =>
-            {
-                await parser.ParseAsync(filterOutOfPlace, CancellationToken.None);
-            };
+            Func<Task> filterTask = async () => { await parser.ParseAsync(filterOutOfPlace, CancellationToken.None); };
             filterTask.ShouldThrow<ArgumentException>("filter cannot come after destination");
 
             Func<Task> destinationTask = async () =>
@@ -88,7 +83,8 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 .WithProvider("noop", new string[0])
                 .WithDestination("noop", new string[0])
                 .Build();
-            parser.ParseAsync(tokens, CancellationToken.None).Result.Should().Be(rootNode, "nothing is actually required");
+            parser.ParseAsync(tokens, CancellationToken.None).Result.Should()
+                .Be(rootNode, "nothing is actually required");
         }
     }
 }

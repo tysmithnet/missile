@@ -3,8 +3,6 @@ using System.ComponentModel.Composition;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using Missile.TextLauncher.Destination;
 
 namespace Missile.TextLauncher.ListPlugin
@@ -28,8 +26,9 @@ namespace Missile.TextLauncher.ListPlugin
             var syncContext = SynchronizationContext.Current;
             Task.Factory.StartNew(() =>
             {
-                CommandHub.Get<RemoveListDestinationItemCommand>().SubscribeOn(syncContext).ForEachAsync(x => outputControl.Remove(x.ListDestinationItem));
-            });                                                                                                              
+                CommandHub.Get<RemoveListDestinationItemCommand>().SubscribeOn(syncContext)
+                    .ForEachAsync(x => outputControl.Remove(x.ListDestinationItem));
+            });
 
             source.Subscribe(item =>
                 {

@@ -20,7 +20,7 @@ namespace Missile.TextLauncher.Interpretation.Lexing
                 cancellationToken.ThrowIfCancellationRequested();
                 CurrentState = await CurrentState.TransitionAsync(input[i], cancellationToken);
             }
-                
+
             CurrentState.Flush();
             return tokens;
         }

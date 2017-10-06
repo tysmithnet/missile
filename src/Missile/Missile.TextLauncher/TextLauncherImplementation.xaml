@@ -13,7 +13,7 @@
                  KeyDown="Input_OnKeyDown"
                  AutomationProperties.AutomationId="Missile.TextLauncher.TextLauncherImplementation.InputTextBox" />
         <DockPanel x:Name="OutputPanel"
-                    AutomationProperties.AutomationId="Missile.TextLauncher.TextLauncherImplementation.OutputPanel" />
+                   AutomationProperties.AutomationId="Missile.TextLauncher.TextLauncherImplementation.OutputPanel" />
     </DockPanel>
 
 </core:Launcher>

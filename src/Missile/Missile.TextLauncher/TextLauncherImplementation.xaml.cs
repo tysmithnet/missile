@@ -16,7 +16,8 @@ namespace Missile.TextLauncher
     public partial class TextLauncherImplementation : Launcher, IUiFacade
     {
         private readonly SynchronizationContext _synchronizationContext;
-        private CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+
         public TextLauncherImplementation()
         {
             _synchronizationContext = SynchronizationContext.Current;

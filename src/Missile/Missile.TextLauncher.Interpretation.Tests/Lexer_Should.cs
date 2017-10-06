@@ -19,14 +19,15 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 new DestinationToken("list", new string[0])
             }, "three words separated by | and > are provider, filter, and destination");
 
-            new Lexer().LexAsync("lorem --words 10 | sort --Length > list --head 5", CancellationToken.None).Result.Should().Equal(new Token[]
-            {
-                new ProviderToken("lorem", new[] {"--words", "10"}),
-                new OperatorToken("|", new string[0]),
-                new FilterToken("sort", new[] {"--Length"}),
-                new OperatorToken(">", new string[0]),
-                new DestinationToken("list", new[] {"--head", "5"})
-            }, "providers, filters, and destinations can have arguments");
+            new Lexer().LexAsync("lorem --words 10 | sort --Length > list --head 5", CancellationToken.None).Result
+                .Should().Equal(new Token[]
+                {
+                    new ProviderToken("lorem", new[] {"--words", "10"}),
+                    new OperatorToken("|", new string[0]),
+                    new FilterToken("sort", new[] {"--Length"}),
+                    new OperatorToken(">", new string[0]),
+                    new DestinationToken("list", new[] {"--head", "5"})
+                }, "providers, filters, and destinations can have arguments");
         }
 
         [Fact]
@@ -120,10 +121,11 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 new ProviderToken("echo", new[] {"double", "quote:", "\""})
             }, "escaped quotes should be treated as regular characters");
 
-            new Lexer().LexAsync(@"echo ""quote \"" in quote""", CancellationToken.None).Result.Should().Equal(new Token[]
-            {
-                new ProviderToken("echo", new[] {"quote \" in quote"})
-            }, "escaped double quote in quotes appear in the string as a single character");
+            new Lexer().LexAsync(@"echo ""quote \"" in quote""", CancellationToken.None).Result.Should().Equal(
+                new Token[]
+                {
+                    new ProviderToken("echo", new[] {"quote \" in quote"})
+                }, "escaped double quote in quotes appear in the string as a single character");
         }
 
         [Fact]
@@ -136,14 +138,15 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 new FilterToken("sort", new[] {"--prop", "Length"})
             }, "filters can have args");
 
-            new Lexer().LexAsync("lorem | sort --prop Length | first ", CancellationToken.None).Result.Should().Equal(new Token[]
-            {
-                new ProviderToken("lorem", new string[0]),
-                new OperatorToken("|", new string[0]),
-                new FilterToken("sort", new[] {"--prop", "Length"}),
-                new OperatorToken("|", new string[0]),
-                new FilterToken("first", new string[0])
-            }, "filters can have args");
+            new Lexer().LexAsync("lorem | sort --prop Length | first ", CancellationToken.None).Result.Should().Equal(
+                new Token[]
+                {
+                    new ProviderToken("lorem", new string[0]),
+                    new OperatorToken("|", new string[0]),
+                    new FilterToken("sort", new[] {"--prop", "Length"}),
+                    new OperatorToken("|", new string[0]),
+                    new FilterToken("first", new string[0])
+                }, "filters can have args");
         }
 
         [Fact]

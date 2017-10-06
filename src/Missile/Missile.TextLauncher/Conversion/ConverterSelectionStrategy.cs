@@ -6,9 +6,9 @@ using System.Linq;
 namespace Missile.TextLauncher.Conversion
 {
     /// <summary>
-    /// Default IConverterSelectionStrategy pattern.
-    /// It scores in this way:
-    ///     1. same type -> 
+    ///     Default IConverterSelectionStrategy pattern.
+    ///     It scores in this way:
+    ///     1. same type ->
     ///     2. requested type implements converter type -> 1
     ///     3. requested type is related to base types -> distance
     /// </summary>
@@ -26,7 +26,7 @@ namespace Missile.TextLauncher.Conversion
         }
 
         /// <summary>
-        /// Score a RegisteredCovnerter against a conversion
+        ///     Score a RegisteredCovnerter against a conversion
         /// </summary>
         /// <param name="registeredConverter">Converter to test</param>
         /// <param name="source">Source type of the conversion</param>

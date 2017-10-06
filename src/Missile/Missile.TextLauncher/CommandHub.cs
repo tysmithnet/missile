@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using System.ComponentModel.Composition.Primitives;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 

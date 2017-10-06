@@ -8,12 +8,13 @@
              d:DesignHeight="300" d:DesignWidth="300"
              MouseLeftButtonUp="ApplicationListDestinationItem_OnMouseLeftButtonUp"
              d:DataContext="{d:DesignInstance local:ApplicationListDestinationItem}">
-    <Grid >
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <Image x:Name="IconImage" Grid.Column="0" Source="{Binding Path=RegisteredApplication.Icon}"/>
-        <TextBlock x:Name="ApplicationNameTextBlock" Grid.Column="1" Text="{Binding RegisteredApplication.ApplicationName}"/>
+        <Image x:Name="IconImage" Grid.Column="0" Source="{Binding Path=RegisteredApplication.Icon}" />
+        <TextBlock x:Name="ApplicationNameTextBlock" Grid.Column="1"
+                   Text="{Binding RegisteredApplication.ApplicationName}" />
     </Grid>
 </UserControl>

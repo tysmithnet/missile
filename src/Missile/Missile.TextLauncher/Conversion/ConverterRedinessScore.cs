@@ -1,17 +1,17 @@
 ﻿namespace Missile.TextLauncher.Conversion
 {
     /// <summary>
-    /// A scalar type representing a converters ability to handle a conversion
+    ///     A scalar type representing a converters ability to handle a conversion
     /// </summary>
     public class ConverterRedinessScore
     {
         /// <summary>
-        /// How "far" the source type is from the requested type
+        ///     How "far" the source type is from the requested type
         /// </summary>
         public int SourceDistance { get; set; }
 
         /// <summary>
-        /// How "far" the dest type is from the request type
+        ///     How "far" the dest type is from the request type
         /// </summary>
         public int DestDistance { get; set; }
 

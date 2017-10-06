@@ -38,7 +38,7 @@ namespace Missile.TextLauncher
             if (first == null)
                 throw new ArgumentOutOfRangeException($"Cannot find requested setting: {typeof(T)}");
             var fileName = first.GetType().FullName + ".config";
-            if(!first.GetType().IsSerializable)
+            if (!first.GetType().IsSerializable)
                 throw new ArgumentException($"{typeof(T).FullName} is not serializable and therefore cannot be saved");
             try
             {
@@ -52,7 +52,7 @@ namespace Missile.TextLauncher
             {
             }
         }
-        
+
         public T Get<T>() where T : ISettings
         {
             if (!_isLoaded)

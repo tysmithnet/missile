@@ -13,7 +13,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
             Interpreter = new Interpreter
             {
                 ProviderRepository = new ProviderRepository(),
-                ConverterRepository = new ConverterRepository()
+                ConverterRepository = new ConverterRepository
                 {
                     ConverterSelectionStrategy = new ConverterSelectionStrategy()
                 },
@@ -23,7 +23,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 {
                     new ToObservableInspector()
                 }
-            };                              
+            };
         }
 
         protected Interpreter Interpreter { get; set; }

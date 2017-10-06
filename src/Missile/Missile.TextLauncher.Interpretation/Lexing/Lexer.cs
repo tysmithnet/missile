@@ -8,7 +8,6 @@ namespace Missile.TextLauncher.Interpretation.Lexing
     [Export(typeof(ILexer))]
     public class Lexer : ILexer
     {
-
         public async Task<IEnumerable<Token>> LexAsync(string input, CancellationToken cancellationToken)
         {
             var stateMachine = new StateMachine();

@@ -5,7 +5,6 @@ namespace Missile.TextLauncher.Interpretation.Lexing
 {
     internal class StartState : State
     {
-       
         public override async Task<State> TransitionAsync(char input, CancellationToken cancellationToken)
         {
             if (input == ' ')

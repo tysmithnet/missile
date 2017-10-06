@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.Drawing;
 using System.IO;
@@ -28,7 +27,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
 
         protected internal ApplicationProviderSettings Settings =>
             _settings ?? (_settings = SettingsRepository.Get<ApplicationProviderSettings>());
-        
+
         protected internal IObservable<AddApplicationCommand> AddCommands { get; set; }
         protected internal IObservable<RemoveApplicationCommand> RemoveCommands { get; set; }
 
@@ -89,15 +88,12 @@ namespace Missile.TextLauncher.ApplicationPlugin
             RemoveCommands = CommandHub.Get<RemoveApplicationCommand>();
             var syncContext = SynchronizationContext.Current;
             // todo: use async/await
-            Task.Factory.StartNew(() =>
-            {
-                AddCommands.SubscribeOn(syncContext).ForEachAsync(x => Add(x.FileInfo));
-            });
+            Task.Factory.StartNew(() => { AddCommands.SubscribeOn(syncContext).ForEachAsync(x => Add(x.FileInfo)); });
 
             Task.Factory.StartNew(() =>
             {
                 RemoveCommands.SubscribeOn(syncContext).ForEachAsync(x => Remove(x.RegisteredApplication));
-            });                                                                   
+            });
         }
     }
 }

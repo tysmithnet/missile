@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using System.IO;
 using System.Reactive.Linq;
 using Missile.TextLauncher.Conversion;
 using Missile.TextLauncher.ListPlugin;
@@ -8,10 +7,11 @@ using Missile.TextLauncher.ListPlugin;
 namespace Missile.TextLauncher.ApplicationPlugin
 {
     [Export(typeof(IConverter))]
-    public class ApplicationListDestinationItemConverter : IConverter<RegisteredApplication, ApplicationListDestinationItem>
+    public class
+        ApplicationListDestinationItemConverter : IConverter<RegisteredApplication, ApplicationListDestinationItem>
     {
         [ImportMany]
-        protected internal IDestinationContextMenuProvider<RegisteredApplication>[] DestinationContextMenuProviders; 
+        protected internal IDestinationContextMenuProvider<RegisteredApplication>[] DestinationContextMenuProviders;
 
         public IObservable<ApplicationListDestinationItem> Convert(IObservable<RegisteredApplication> source)
         {

@@ -1,36 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.Linq;           
+using System.Linq;
 
 namespace Missile.TextLauncher.Conversion
 {
     /// <summary>
-    /// Repository for converters that transform observables of one type into
-    /// observables of another type
+    ///     Repository for converters that transform observables of one type into
+    ///     observables of another type
     /// </summary>
     [Export(typeof(IConverterRepository))]
     public class ConverterRepository : IConverterRepository
     {
         /// <summary>
-        /// Source of truth for registered converters
+        ///     Source of truth for registered converters
         /// </summary>
         protected internal List<RegisteredConverter> registeredConverters;
-        
+
         /// <summary>
-        /// Strategy implementation that determines which converter to use given a request
+        ///     Strategy implementation that determines which converter to use given a request
         /// </summary>
         [Import]
         protected internal IConverterSelectionStrategy ConverterSelectionStrategy { get; set; }
 
         /// <summary>
-        /// Converter implementation instances
+        ///     Converter implementation instances
         /// </summary>
         [ImportMany]
         protected internal IConverter[] Converters { get; set; }
 
         /// <summary>
-        /// RegisteredConverter getter
+        ///     RegisteredConverter getter
         /// </summary>
         protected internal IList<RegisteredConverter> RegisteredConverters =>
             registeredConverters ?? (registeredConverters = GetRegisteredConverters(Converters));
@@ -47,15 +47,16 @@ namespace Missile.TextLauncher.Conversion
         /// <inheritdoc />
         public void Register(RegisteredConverter registeredConverter)
         {
-            if(registeredConverter == null)
-                throw new ArgumentNullException($"{nameof(registeredConverter)} cannot be null because the repository will not hold null values");
+            if (registeredConverter == null)
+                throw new ArgumentNullException(
+                    $"{nameof(registeredConverter)} cannot be null because the repository will not hold null values");
             if (registeredConverters == null)
                 registeredConverters = new List<RegisteredConverter>();
             registeredConverters.Add(registeredConverter);
         }
 
         /// <summary>
-        /// Transforms converter instances to RegisteredConverters
+        ///     Transforms converter instances to RegisteredConverters
         /// </summary>
         /// <param name="converters">Converter instances to transform</param>
         /// <returns>Transformed converter instances</returns>

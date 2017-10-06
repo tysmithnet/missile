@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace Missile.TextLauncher.ListPlugin
@@ -12,10 +11,7 @@ namespace Missile.TextLauncher.ListPlugin
     {
         public ListDestinationOutput(IObservable<IListDestinationItem> items)
         {
-            items.Subscribe(control =>
-            {     
-                UserControls.Add(control);
-            }, exception =>
+            items.Subscribe(control => { UserControls.Add(control); }, exception =>
             {
                 // todo: do something with errors!
             });
@@ -23,7 +19,8 @@ namespace Missile.TextLauncher.ListPlugin
             ItemsListBox.ItemsSource = UserControls;
         }
 
-        public ObservableCollection<IListDestinationItem> UserControls { get; set; } = new ObservableCollection<IListDestinationItem>();
+        public ObservableCollection<IListDestinationItem> UserControls { get; set; } =
+            new ObservableCollection<IListDestinationItem>();
 
         public void Remove(IListDestinationItem listDestinationItem)
         {

@@ -3,15 +3,15 @@
 namespace Missile.TextLauncher.Conversion
 {
     /// <summary>
-    /// Tagging interface for Converters
+    ///     Tagging interface for Converters
     /// </summary>
     public interface IConverter
     {
     }
 
     /// <summary>
-    /// Represents an object that is capable of converting oberservables
-    /// of one type into observables of another type
+    ///     Represents an object that is capable of converting oberservables
+    ///     of one type into observables of another type
     /// </summary>
     /// <typeparam name="TSource">Source observable type</typeparam>
     /// <typeparam name="TDest">Destination observable type</typeparam>

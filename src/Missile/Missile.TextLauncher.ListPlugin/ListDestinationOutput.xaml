@@ -6,9 +6,9 @@
              xmlns:local="clr-namespace:Missile.TextLauncher.ListPlugin"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    
-        <ListBox
-            x:Name="ItemsListBox"
-            AutomationProperties.AutomationId="Missile.TextLauncher.ListPlugin.ListDestinationOutput.ItemsListBox" />
-                                                                                                     
+
+    <ListBox
+        x:Name="ItemsListBox"
+        AutomationProperties.AutomationId="Missile.TextLauncher.ListPlugin.ListDestinationOutput.ItemsListBox" />
+
 </UserControl>

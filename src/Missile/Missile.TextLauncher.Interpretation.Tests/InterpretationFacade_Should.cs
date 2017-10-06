@@ -14,7 +14,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
         [Fact]
         public void Cancel_If_Requested()
         {
-            InterpretationFacade facade = new InterpretationFacade();
+            var facade = new InterpretationFacade();
             facade.Lexer = new LongRunningLexer();
             facade.Parser = new Parser();
             facade.Interpreter = new InterpreterBuilder().Build();

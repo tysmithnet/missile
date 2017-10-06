@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Linq;
-using System.Windows.Controls;
 
 namespace Missile.TextLauncher
 {

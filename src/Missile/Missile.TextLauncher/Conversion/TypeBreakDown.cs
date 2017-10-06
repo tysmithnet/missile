@@ -5,12 +5,12 @@ using System.Linq;
 namespace Missile.TextLauncher.Conversion
 {
     /// <summary>
-    /// Convenience class for a Type's inheritance
+    ///     Convenience class for a Type's inheritance
     /// </summary>
     public class TypeBreakDown
     {
         /// <summary>
-        /// Initializes a new instance of TypeBreakDown
+        ///     Initializes a new instance of TypeBreakDown
         /// </summary>
         /// <param name="type"></param>
         public TypeBreakDown(Type type)
@@ -21,17 +21,17 @@ namespace Missile.TextLauncher.Conversion
         }
 
         /// <summary>
-        /// Requested type
+        ///     Requested type
         /// </summary>
         public Type InstanceType { get; set; }
 
         /// <summary>
-        /// Any interfaces a type implements
+        ///     Any interfaces a type implements
         /// </summary>
         public List<Type> Interfaces { get; set; } = new List<Type>();
 
         /// <summary>
-        /// Ancestor types
+        ///     Ancestor types
         /// </summary>
         public List<Type> BaseTypes { get; set; }
     }
