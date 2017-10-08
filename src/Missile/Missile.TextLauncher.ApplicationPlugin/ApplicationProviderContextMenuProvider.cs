@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Controls;
@@ -58,15 +59,23 @@ namespace Missile.TextLauncher.ApplicationPlugin
             return items.All(i => i is ApplicationListDestinationItem);
         }
 
-        public IEnumerable<MenuItem> GetMenuItem(IEnumerable<object> items)
-        {
-            return new[]
+        public IEnumerable<MenuItem> GetMenuItems(IEnumerable<object> items)
+        {         
+            var menuItem = new MenuItem
             {
-                new MenuItem
-                {
-                    Header = "Remove Application"
-                }
+                Header = "Remove from Applications"
             };
+            foreach (var item in items)
+            {
+                var cast = item as ApplicationListDestinationItem;
+                menuItem.Click += (sender, args) =>
+                {
+                    CommandHub.Broadcast(new RemoveApplicationCommand(cast.RegisteredApplication));
+                    CommandHub.Broadcast(new RemoveListDestinationItemCommand(cast));
+                    CommandHub.Broadcast(new SaveApplicationRepositoryStateCommand());
+                };
+            }
+            yield return menuItem;
         }
     }
 }

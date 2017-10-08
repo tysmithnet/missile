@@ -10,6 +10,7 @@
     <ListBox
         x:Name="ItemsListBox"
         AutomationProperties.AutomationId="Missile.TextLauncher.ListPlugin.ListDestinationOutput.ItemsListBox" 
-        MouseRightButtonUp="ItemsListBox_OnMouseRightButtonUp"
+        SelectionMode="Multiple"
+        PreviewMouseRightButtonDown="ItemsListBox_OnPreviewMouseRightButtonDown"
         />
 </UserControl>

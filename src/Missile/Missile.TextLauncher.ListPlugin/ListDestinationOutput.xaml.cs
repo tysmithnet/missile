@@ -12,9 +12,8 @@ namespace Missile.TextLauncher.ListPlugin
     /// </summary>
     public partial class ListDestinationOutput : UserControl
     {
-        protected internal IDestinationContextMenuProvider[] ContextMenuProviders { get; set; }
-
-        public ListDestinationOutput(IObservable<IListDestinationItem> items, IDestinationContextMenuProvider[] contextMenuProviders)
+        public ListDestinationOutput(IObservable<IListDestinationItem> items,
+            IDestinationContextMenuProvider[] contextMenuProviders)
         {
             ContextMenuProviders = contextMenuProviders;
             items.Subscribe(control => { UserControls.Add(control); }, exception =>
@@ -25,6 +24,8 @@ namespace Missile.TextLauncher.ListPlugin
             ItemsListBox.ItemsSource = UserControls;
         }
 
+        protected internal IDestinationContextMenuProvider[] ContextMenuProviders { get; set; }
+
         public ObservableCollection<IListDestinationItem> UserControls { get; set; } =
             new ObservableCollection<IListDestinationItem>();
 
@@ -32,24 +33,21 @@ namespace Missile.TextLauncher.ListPlugin
         {
             UserControls.Remove(listDestinationItem);
         }
-
-        private void ItemsListBox_OnMouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        
+        private void ItemsListBox_OnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
+            // todo: handle multiple selections
             if (ContextMenu == null)
-            {
                 ContextMenu = new ContextMenu();
-            }
             ContextMenu.Items.Clear();
             foreach (var destinationContextMenuProvider in ContextMenuProviders)
-            {
                 if (destinationContextMenuProvider.CanHandle(ItemsListBox.SelectedItems.Cast<object>()))
-                {
-                    ContextMenu.Items.Add(
-                        destinationContextMenuProvider.GetMenuItem(ItemsListBox.SelectedItems.Cast<object>()));
-                }
-            }
+                    foreach (var menuItem in destinationContextMenuProvider.GetMenuItems(ItemsListBox.SelectedItems
+                        .Cast<object>()))
+                        ContextMenu.Items.Add(menuItem);
             ContextMenu.Placement = PlacementMode.MousePoint;
             ContextMenu.IsOpen = true;
+            e.Handled = true;
         }
     }
 }
