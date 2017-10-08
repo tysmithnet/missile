@@ -31,6 +31,8 @@ namespace Missile.TextLauncher
 
         public string Name { get; set; } = "settings";
 
+        protected internal Settings SettingsUi { get; set; }
+
         public IObservable<object> Provide(string[] args)
         {
             var options = new SettingsProviderOptions();
@@ -41,8 +43,9 @@ namespace Missile.TextLauncher
             }
             else
             {
-                var settings = new Settings(Settings);
-                UiFacade.SetOutputControl(settings);
+                if(SettingsUi == null)
+                    SettingsUi = new Settings(Settings);
+                UiFacade.SetOutputControl(SettingsUi);
             }
             // todo: this is really hacky and ugly, need a way to handle stand alone providers without piping to null destination
             return new object[0].ToObservable();

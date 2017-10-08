@@ -42,7 +42,7 @@ namespace Missile.TextLauncher
                 throw new ArgumentException($"{typeof(T).FullName} is not serializable and therefore cannot be saved");
             try
             {
-                using (var stream = new FileStream(fileName, FileMode.Open))
+                using (var stream = new FileStream(fileName, FileMode.Truncate))
                 {
                     var serializer = new XmlSerializer(first.GetType());
                     serializer.Serialize(stream, first);

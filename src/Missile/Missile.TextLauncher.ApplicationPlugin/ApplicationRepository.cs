@@ -28,9 +28,6 @@ namespace Missile.TextLauncher.ApplicationPlugin
         protected internal ApplicationProviderSettings Settings =>
             _settings ?? (_settings = SettingsRepository.Get<ApplicationProviderSettings>());
 
-        protected internal IObservable<AddApplicationCommand> AddCommands { get; set; }
-        protected internal IObservable<RemoveApplicationCommand> RemoveCommands { get; set; }
-
         public IEnumerable<RegisteredApplication> Search(string searchString)
         {
             if (!_isSetup)
@@ -61,6 +58,8 @@ namespace Missile.TextLauncher.ApplicationPlugin
             if (!_isSetup)
                 Setup();
             RegisteredApplications.Remove(item);
+            // this might not be the best.. not sure
+            Settings.SearchPaths.Remove(item.ApplicationPath);
         }
 
         protected internal void Setup()
@@ -84,15 +83,20 @@ namespace Missile.TextLauncher.ApplicationPlugin
 
         private void SetupObservables()
         {
-            AddCommands = CommandHub.Get<AddApplicationCommand>();
-            RemoveCommands = CommandHub.Get<RemoveApplicationCommand>();
             var syncContext = SynchronizationContext.Current;
-            // todo: use async/await
-            Task.Factory.StartNew(() => { AddCommands.SubscribeOn(syncContext).ForEachAsync(x => Add(x.FileInfo)); });
+            Task.Factory.StartNew(() =>
+            {   CommandHub.Get<AddApplicationCommand>().SubscribeOn(syncContext).ForEachAsync(x => Add(x.FileInfo));
+            });
 
             Task.Factory.StartNew(() =>
             {
-                RemoveCommands.SubscribeOn(syncContext).ForEachAsync(x => Remove(x.RegisteredApplication));
+                CommandHub.Get<RemoveApplicationCommand>().SubscribeOn(syncContext).ForEachAsync(x => Remove(x.RegisteredApplication));
+            });
+
+            Task.Factory.StartNew(() =>
+            {
+                CommandHub.Get<SaveApplicationRepositoryStateCommand>().SubscribeOn(syncContext)
+                    .ForEachAsync(x => Save());
             });
         }
     }

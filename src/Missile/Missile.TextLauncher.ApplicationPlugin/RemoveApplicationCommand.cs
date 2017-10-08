@@ -13,4 +13,9 @@ namespace Missile.TextLauncher.ApplicationPlugin
 
         public Guid Id { get; } = Guid.NewGuid();
     }
+
+    public class SaveApplicationRepositoryStateCommand : ICommand
+    {
+        public Guid Id { get; } = Guid.NewGuid();
+    }
 }
