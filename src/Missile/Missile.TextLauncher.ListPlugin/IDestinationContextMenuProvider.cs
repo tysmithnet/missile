@@ -1,10 +1,11 @@
-﻿using System.Windows.Controls;
+﻿using System.Collections.Generic;
+using System.Windows.Controls;
 
 namespace Missile.TextLauncher.ListPlugin
 {
-    public interface IDestinationContextMenuProvider<in TSource>
+    public interface IDestinationContextMenuProvider
     {
-        bool CanHandle(TSource item);
-        MenuItem GetMenuItem(TSource item, IListDestinationItem target);
+        bool CanHandle(IEnumerable<object> items);
+        IEnumerable<MenuItem> GetMenuItem(IEnumerable<object> items);
     }
 }

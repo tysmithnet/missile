@@ -58,8 +58,17 @@ namespace Missile.TextLauncher
             {
                 var serializer = new XmlSerializer(settingToSave.GetType());
                 var fileName = settingToSave.GetType().FullName + ".config";
-                using (var fileStream = new FileStream(fileName, FileMode.Create))
+                try
                 {
+                    File.Delete(fileName);
+                }
+                catch (FileNotFoundException)
+                {
+                    ;
+                }
+
+                using (var fileStream = new FileStream(fileName, FileMode.Create))
+                {   
                     serializer.Serialize(fileStream, settingToSave);
                 }
             }

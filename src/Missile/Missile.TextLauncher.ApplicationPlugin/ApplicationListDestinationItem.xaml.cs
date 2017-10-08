@@ -12,24 +12,11 @@ namespace Missile.TextLauncher.ApplicationPlugin
     /// </summary>
     public partial class ApplicationListDestinationItem : UserControl, IListDestinationItem
     {
-        public ApplicationListDestinationItem(RegisteredApplication registeredApplication,
-            IEnumerable<IDestinationContextMenuProvider<RegisteredApplication>> contextMenuProviders)
+        public ApplicationListDestinationItem(RegisteredApplication registeredApplication)
         {
             InitializeComponent();
             DataContext = this;
             RegisteredApplication = registeredApplication;
-            ContextMenu = new ContextMenu();
-            foreach (var p in contextMenuProviders)
-                if (p.CanHandle(registeredApplication))
-                    ContextMenu.Items.Add(p.GetMenuItem(registeredApplication, this));
-            MouseRightButtonUp += (sender, args) =>
-            {
-                if (ContextMenu != null)
-                {
-                    ContextMenu.PlacementTarget = this;
-                    ContextMenu.IsOpen = true;
-                }
-            };
         }
 
         public RegisteredApplication RegisteredApplication { get; set; }

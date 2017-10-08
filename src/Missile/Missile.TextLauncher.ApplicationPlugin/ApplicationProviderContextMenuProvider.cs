@@ -1,15 +1,15 @@
-﻿using System.ComponentModel.Composition;
+﻿using System.Collections.Generic;
+using System.ComponentModel.Composition;
 using System.IO;
+using System.Linq;
 using System.Windows.Controls;
 using Missile.TextLauncher.ListPlugin;
 
 namespace Missile.TextLauncher.ApplicationPlugin
 {
     // todo: this should be rewritten to handle multiple targets, like if you highlight multiple files and right click in explorer
-    [Export(typeof(IDestinationContextMenuProvider<FileInfo>))]
-    [Export(typeof(IDestinationContextMenuProvider<RegisteredApplication>))]
-    public class ApplicationProviderContextMenuProvider : IDestinationContextMenuProvider<FileInfo>,
-        IDestinationContextMenuProvider<RegisteredApplication>
+    [Export(typeof(IDestinationContextMenuProvider))]             
+    public class ApplicationProviderContextMenuProvider : IDestinationContextMenuProvider
     {
         [Import]
         protected internal ICommandHub CommandHub { get; set; }
@@ -51,6 +51,22 @@ namespace Missile.TextLauncher.ApplicationPlugin
                 CommandHub.Broadcast(new SaveApplicationRepositoryStateCommand());
             };
             return menuItem;
+        }
+
+        public bool CanHandle(IEnumerable<object> items)
+        {
+            return items.All(i => i is ApplicationListDestinationItem);
+        }
+
+        public IEnumerable<MenuItem> GetMenuItem(IEnumerable<object> items)
+        {
+            return new[]
+            {
+                new MenuItem
+                {
+                    Header = "Remove Application"
+                }
+            };
         }
     }
 }

@@ -16,11 +16,14 @@ namespace Missile.TextLauncher.ListPlugin
         [Import]
         protected internal ICommandHub CommandHub { get; set; }
 
+        [ImportMany]
+        protected internal IDestinationContextMenuProvider[] ContextMenuProviders { get; set; }
+
         public string Name { get; set; } = "list";
 
         public Task ProcessAsync(IObservable<IListDestinationItem> source)
         {
-            var outputControl = new ListDestinationOutput(source);
+            var outputControl = new ListDestinationOutput(source, ContextMenuProviders);
             UiFacade.SetOutputControl(outputControl);
             var tcs = new TaskCompletionSource<object>();
             var syncContext = SynchronizationContext.Current;

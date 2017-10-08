@@ -13,10 +13,7 @@ namespace Missile.TextLauncher.EverythingPlugin
 {
     [Export(typeof(IProvider))]
     public class EverythingProvider : IProvider<object>
-    {
-        [ImportMany(typeof(IDestinationContextMenuProvider<FileInfo>))]
-        public IEnumerable<IDestinationContextMenuProvider<FileInfo>> FileInfoContextMenuProviders { get; set; }
-
+    {   
         public string Name { get; set; } = "everything";
 
         public IObservable<object> Provide(string[] args)
@@ -130,8 +127,7 @@ namespace Missile.TextLauncher.EverythingPlugin
             Everything_SetSearchW("windbg");
             Everything_SetMax(1000);
             Everything_QueryW(true);
-            var numResults = Everything_GetNumResults();
-            var fileContextMenuProviders = FileInfoContextMenuProviders.ToList();
+            var numResults = Everything_GetNumResults();                           
             for (var i = 0; i < numResults; i++)
             {
                 Everything_GetResultFullPathNameW(i, stringBuilder, bufferSize);
@@ -139,7 +135,7 @@ namespace Missile.TextLauncher.EverythingPlugin
                 FileListDestinationItem info = null;
                 try
                 {
-                    info = new FileListDestinationItem(fileInfo, fileContextMenuProviders);
+                    info = new FileListDestinationItem(fileInfo);
                 }
                 catch (IOException e)
                 {
