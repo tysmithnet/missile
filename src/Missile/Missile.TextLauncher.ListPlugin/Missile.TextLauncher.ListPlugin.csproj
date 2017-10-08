@@ -94,6 +94,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Target Name="AfterBuild">
-    <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" />
+      <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" SkipUnchangedFiles="true"/>
   </Target>
 </Project>
