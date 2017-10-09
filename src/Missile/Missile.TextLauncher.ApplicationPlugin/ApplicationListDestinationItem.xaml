@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Missile.TextLauncher.ApplicationPlugin"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
-             MouseLeftButtonUp="ApplicationListDestinationItem_OnMouseLeftButtonUp"
+             MouseDoubleClick="ApplicationListDestinationItem_OnMouseDoubleClick"
              d:DataContext="{d:DesignInstance local:ApplicationListDestinationItem}">
     <Grid>
         <Grid.ColumnDefinitions>

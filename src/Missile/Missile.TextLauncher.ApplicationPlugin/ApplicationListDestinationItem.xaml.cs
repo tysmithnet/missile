@@ -23,7 +23,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
 
         public Guid Id { get; } = Guid.NewGuid();
                                                             
-        private void ApplicationListDestinationItem_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private void ApplicationListDestinationItem_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Process.Start(RegisteredApplication.ApplicationPath);
         }
