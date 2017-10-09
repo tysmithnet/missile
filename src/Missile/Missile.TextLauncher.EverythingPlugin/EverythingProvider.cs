@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reactive.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using CommandLine;
 using Missile.TextLauncher.ListPlugin;
 using Missile.TextLauncher.Provision;
 
@@ -17,7 +18,16 @@ namespace Missile.TextLauncher.EverythingPlugin
         public string Name { get; set; } = "everything";
 
         public IObservable<object> Provide(string[] args)
-        {
+        {                           
+            if(args == null || args.Length == 0)
+                throw new ArgumentException($"{nameof(args)} should have at least 1 element");
+
+            var commandArgs = args.Take(args.Length - 1).ToArray();
+            var options = new EverythingProviderOptions();
+            Parser.Default.ParseArgumentsStrict(commandArgs, options); // todo: handle bad args
+            Everything_SetRegex(options.IsRegex);                                              
+            Everything_SetSearchW(args.Last());
+            Everything_SetMax(1000); // todo: add to settings and options, options overrides
             return GetFiles().ToObservable();
         }
 
@@ -124,8 +134,6 @@ namespace Missile.TextLauncher.EverythingPlugin
         {
             const int bufferSize = 1 << 20;
             var stringBuilder = new StringBuilder(bufferSize);
-            Everything_SetSearchW("windbg");
-            Everything_SetMax(1000);
             Everything_QueryW(true);
             var numResults = Everything_GetNumResults();                           
             for (var i = 0; i < numResults; i++)
@@ -157,5 +165,7 @@ namespace Missile.TextLauncher.EverythingPlugin
 
     public class EverythingProviderOptions
     {
+        [Option('r', "regex", HelpText = "Indicates the search text is a regular expression")]
+        public bool IsRegex { get; set; }
     }
 }
