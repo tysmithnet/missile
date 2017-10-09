@@ -83,19 +83,21 @@ namespace Missile.TextLauncher.ApplicationPlugin
 
         private void SetupObservables()
         {
-            var syncContext = SynchronizationContext.Current;
-            Task.Factory.StartNew(() =>
-            {   CommandHub.Get<AddApplicationCommand>().SubscribeOn(syncContext).ForEachAsync(x => Add(x.FileInfo));
+            var syncContext = SynchronizationContext.Current;                         
+            
+            Task.Run(async () =>
+            {
+                await CommandHub.Get<AddApplicationCommand>().SubscribeOn(syncContext).ForEachAsync(x => Add(x.FileInfo));
             });
 
-            Task.Factory.StartNew(() =>
+            Task.Run(async () =>
             {
-                CommandHub.Get<RemoveApplicationCommand>().SubscribeOn(syncContext).ForEachAsync(x => Remove(x.RegisteredApplication));
+                await CommandHub.Get<RemoveApplicationCommand>().SubscribeOn(syncContext).ForEachAsync(x => Remove(x.RegisteredApplication));
             });
 
-            Task.Factory.StartNew(() =>
+            Task.Run(async () =>
             {
-                CommandHub.Get<SaveApplicationRepositoryStateCommand>().SubscribeOn(syncContext)
+                await CommandHub.Get<SaveApplicationRepositoryStateCommand>().SubscribeOn(syncContext)
                     .ForEachAsync(x => Save());
             });
         }

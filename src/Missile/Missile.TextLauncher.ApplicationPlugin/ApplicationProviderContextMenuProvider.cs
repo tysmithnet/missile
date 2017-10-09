@@ -19,63 +19,53 @@ namespace Missile.TextLauncher.ApplicationPlugin
         {
             return item != null;
         }
-
-        public MenuItem GetMenuItem(FileInfo item, IListDestinationItem target)
+                                                                            
+        public IEnumerable<MenuItem> GetMenuItems(IEnumerable<IListDestinationItem> items)
         {
-            var menuItem = new MenuItem
-            {
-                Header = "Add to Applications"
-            };
-            menuItem.Click += (sender, args) =>
-            {
-                CommandHub.Broadcast(new AddApplicationCommand(item));
-                CommandHub.Broadcast(new SaveApplicationRepositoryStateCommand());
-            };
-            return menuItem;
-        }
+            Breakdown breakdown = new Breakdown(items);
+            if (!breakdown.CanHandle)
+                yield break;
 
-        public bool CanHandle(RegisteredApplication item)
-        {
-            return item != null;
-        }
-
-        public MenuItem GetMenuItem(RegisteredApplication item, IListDestinationItem target)
-        {
-            var menuItem = new MenuItem
+            if (breakdown.ApplicationListDestinationItems.Any())
             {
-                Header = "Remove from Applications"
-            };
-            menuItem.Click += (sender, args) =>
-            {
-                CommandHub.Broadcast(new RemoveApplicationCommand(item));
-                CommandHub.Broadcast(new RemoveListDestinationItemCommand(target));
-                CommandHub.Broadcast(new SaveApplicationRepositoryStateCommand());
-            };
-            return menuItem;
-        }
-
-        public bool CanHandle(IEnumerable<object> items)
-        {
-            return items.All(i => i is ApplicationListDestinationItem);
-        }
-
-        public IEnumerable<MenuItem> GetMenuItems(IEnumerable<object> items)
-        {         
-            var menuItem = new MenuItem
-            {
-                Header = "Remove from Applications"
-            };
-            foreach (var item in items)
-            {
-                var cast = item as ApplicationListDestinationItem;
-                menuItem.Click += (sender, args) =>
-                {
-                    CommandHub.Broadcast(new RemoveApplicationCommand(cast.RegisteredApplication));
-                    CommandHub.Broadcast(new RemoveListDestinationItemCommand(cast));
-                    CommandHub.Broadcast(new SaveApplicationRepositoryStateCommand());
-                };
+                MenuItem menuItem = new MenuItem();
+                menuItem.Header = "Remove Application";
+                foreach (var item in breakdown.ApplicationListDestinationItems)
+                    menuItem.Click += (sender, args) =>
+                    {
+                        CommandHub.Broadcast(new RemoveApplicationCommand(item.RegisteredApplication));
+                        CommandHub.Broadcast(new RemoveListDestinationItemCommand(item));
+                        CommandHub.Broadcast(new SaveApplicationRepositoryStateCommand());
+                    };
+                yield return menuItem;
             }
-            yield return menuItem;
+            else
+            {
+                MenuItem menuItem = new MenuItem();
+                menuItem.Header = "Add Application";
+                foreach (var item in breakdown.FileListDestinationItems)
+                    menuItem.Click += (sender, args) =>
+                    {
+                        CommandHub.Broadcast(new AddApplicationCommand(item.FileInfo));
+                        CommandHub.Broadcast(new SaveApplicationRepositoryStateCommand());
+                    };
+                yield return menuItem;
+            }
+        }
+
+        private class Breakdown
+        {
+            public List<ApplicationListDestinationItem> ApplicationListDestinationItems { get; set; }
+            public List<FileListDestinationItem> FileListDestinationItems { get; set; }
+            public bool CanHandle { get; set; }
+
+            public Breakdown(IEnumerable<IListDestinationItem> items)
+            {
+                var list = items.ToList();
+                ApplicationListDestinationItems = list.OfType<ApplicationListDestinationItem>().ToList();
+                FileListDestinationItems = list.OfType<FileListDestinationItem>().ToList();
+                CanHandle = list.All(i => i is ApplicationListDestinationItem) || list.All(i => i is FileListDestinationItem);
+            }
         }
     }
 }

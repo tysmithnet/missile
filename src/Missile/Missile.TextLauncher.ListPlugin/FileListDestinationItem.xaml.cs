@@ -11,8 +11,11 @@ namespace Missile.TextLauncher.ListPlugin
     /// </summary>
     public partial class FileListDestinationItem : UserControl, IListDestinationItem
     {
+        public FileInfo FileInfo { get; }
+
         public FileListDestinationItem(FileInfo fileInfo)
         {
+            FileInfo = fileInfo;
             InitializeComponent();
             IconImage.Source = Icon.ExtractAssociatedIcon(fileInfo.FullName).ToImageSource();
             FileNameTextBlock.Text = fileInfo.Name;
