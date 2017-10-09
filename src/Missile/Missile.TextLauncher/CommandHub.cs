@@ -17,7 +17,7 @@ namespace Missile.TextLauncher
 
         public IObservable<TCommand> Get<TCommand>() where TCommand : ICommand
         {
-            return Source.Where(x => x is TCommand).Cast<TCommand>();
+            return Source.OfType<TCommand>();
         }
     }
 }

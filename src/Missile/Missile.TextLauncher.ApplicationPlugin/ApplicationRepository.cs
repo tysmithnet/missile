@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 namespace Missile.TextLauncher.ApplicationPlugin
 {
     [Export(typeof(IApplicationRepository))]
-    public class ApplicationRepository : IApplicationRepository
+    [Export(typeof(IRequiresSetup))]
+    public class ApplicationRepository : IApplicationRepository, IRequiresSetup
     {
         private bool _isSetup;
 
@@ -29,16 +30,12 @@ namespace Missile.TextLauncher.ApplicationPlugin
             _settings ?? (_settings = SettingsRepository.Get<ApplicationProviderSettings>());
 
         public IEnumerable<RegisteredApplication> Search(string searchString)
-        {
-            if (!_isSetup)
-                Setup();
+        {            
             return RegisteredApplications;
         }
 
         protected internal void Add(FileInfo fileInfo)
-        {
-            if (!_isSetup)
-                Setup();
+        {             
             RegisteredApplications.Add(new RegisteredApplication
             {
                 ApplicationName = fileInfo.Name,
@@ -54,31 +51,10 @@ namespace Missile.TextLauncher.ApplicationPlugin
         }
 
         protected internal void Remove(RegisteredApplication item)
-        {
-            if (!_isSetup)
-                Setup();
+        {       
             RegisteredApplications.Remove(item);
             // this might not be the best.. not sure
             Settings.SearchPaths.Remove(item.ApplicationPath);
-        }
-
-        protected internal void Setup()
-        {
-            SetupObservables();
-
-            var settings = SettingsRepository.Get<ApplicationProviderSettings>();
-            foreach (var path in settings.SearchPaths ?? new List<string>())
-            {
-                var icon = Icon.ExtractAssociatedIcon(path);
-                var name = new FileInfo(path).Name;
-                RegisteredApplications.Add(new RegisteredApplication
-                {
-                    ApplicationName = name,
-                    ApplicationPath = path,
-                    Icon = icon.ToImageSource()
-                });
-            }
-            _isSetup = true;
         }
 
         private void SetupObservables()
@@ -100,6 +76,29 @@ namespace Missile.TextLauncher.ApplicationPlugin
                 await CommandHub.Get<SaveApplicationRepositoryStateCommand>().SubscribeOn(syncContext)
                     .ForEachAsync(x => Save());
             });
+        }
+
+        public Task SetupAsync(CancellationToken cancellationToken)
+        {
+            if (_isSetup)
+                return Task.CompletedTask;
+
+            SetupObservables();
+
+            var settings = SettingsRepository.Get<ApplicationProviderSettings>();
+            foreach (var path in settings.SearchPaths ?? new List<string>())
+            {
+                var icon = Icon.ExtractAssociatedIcon(path);
+                var name = new FileInfo(path).Name;
+                RegisteredApplications.Add(new RegisteredApplication
+                {
+                    ApplicationName = name,
+                    ApplicationPath = path,
+                    Icon = icon.ToImageSource()
+                });
+            }
+            _isSetup = true;
+            return Task.CompletedTask;
         }
     }
 }

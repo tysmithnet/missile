@@ -14,9 +14,7 @@ namespace Missile.TextLauncher
 {
     [Export(typeof(IProvider))]
     public class SettingsProvider : IProvider<object>
-    {
-        private List<SettingsViewModel> _settings;
-
+    {              
         [Import]
         protected internal IUiFacade UiFacade { get; set; }
 
@@ -26,8 +24,7 @@ namespace Missile.TextLauncher
         [Import]
         protected internal IPropertyEditorFactoryRepository PropertyEditorFactoryRepository { get; set; }
 
-        protected internal IList<SettingsViewModel> Settings =>
-            _settings ?? (_settings = SettingsRepository.GetAll().Select(ExtractSettingsViewModel).ToList());
+        protected internal IList<SettingsViewModel> Settings => SettingsRepository.GetAll().Select(ExtractSettingsViewModel).ToList();
 
         public string Name { get; set; } = "settings";
 
@@ -43,8 +40,7 @@ namespace Missile.TextLauncher
             }
             else
             {
-                if(SettingsUi == null)
-                    SettingsUi = new Settings(Settings);
+                SettingsUi = new Settings(Settings);
                 UiFacade.SetOutputControl(SettingsUi);
             }
             // todo: this is really hacky and ugly, need a way to handle stand alone providers without piping to null destination

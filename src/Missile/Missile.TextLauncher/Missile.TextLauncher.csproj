@@ -80,6 +80,7 @@
     <Compile Include="IntEditorFactory.cs" />
     <Compile Include="IPropertyEditorFactory.cs" />
     <Compile Include="IPropertyEditorFactoryRepository.cs" />
+    <Compile Include="IRequiresSetup.cs" />
     <Compile Include="ISettings.cs" />
     <Compile Include="ISettingsRepository.cs" />
     <Compile Include="PropertyEditorFactoryRepository.cs" />
@@ -146,6 +147,6 @@
     <BinFiles Include="$(TargetDir)\**\*.*" />
   </ItemGroup>
   <Target Name="AfterBuild">
-    <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" SkipUnchangedFiles="true"/>
+    <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" SkipUnchangedFiles="true" />
   </Target>
 </Project>

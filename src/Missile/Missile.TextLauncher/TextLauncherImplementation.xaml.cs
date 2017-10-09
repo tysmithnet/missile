@@ -1,6 +1,8 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Missile.Core;
@@ -25,11 +27,14 @@ namespace Missile.TextLauncher
             InputTextBox.Focus();
         }
 
-        [Import(typeof(ILogger))]
+        [Import]
         protected internal ILogger Logger { get; set; }
 
-        [Import(typeof(IInterpretationFacade))]
+        [Import]
         protected internal IInterpretationFacade InterpretationFacade { get; set; }
+                                                                                  
+        [ImportMany]
+        protected internal IRequiresSetup[] ComponentsRequiringSetup { get; set; }
 
         public void SetOutputControl(UserControl userControl)
         {
@@ -56,7 +61,7 @@ namespace Missile.TextLauncher
             if (e.Key == Key.Enter || e.Key == Key.Return)
             {
                 Logger.Information(InputTextBox.Text);
-
+                await Task.WhenAll(ComponentsRequiringSetup.Select(c => c.SetupAsync(CancellationToken.None))); // todo: change to actual cancellation token
                 await InterpretationFacade.ExecuteAsync(InputTextBox.Text, cancellationTokenSource.Token);
             }
         }
