@@ -62,6 +62,7 @@
     <Compile Include="FileListDestinationItemConverter.cs" />
     <Compile Include="IDestinationContextMenuProvider.cs" />
     <Compile Include="IListDestinationItem.cs" />
+    <Compile Include="ImageSourceFactory.cs" />
     <Compile Include="ListDestination.cs" />
     <Compile Include="ListDestinationOutput.xaml.cs">
       <DependentUpon>ListDestinationOutput.xaml</DependentUpon>
@@ -95,6 +96,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="assets\folder.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\unknown.png" />
   </ItemGroup>
   <Target Name="AfterBuild">
     <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" SkipUnchangedFiles="true" />

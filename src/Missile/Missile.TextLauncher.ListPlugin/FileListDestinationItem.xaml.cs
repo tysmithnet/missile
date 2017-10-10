@@ -19,15 +19,13 @@ namespace Missile.TextLauncher.ListPlugin
             try
             {  
                 IconImage.Source = fileInfo.Attributes.HasFlag(FileAttributes.Directory)
-                    ? new BitmapImage(new Uri(@"pack://application:,,,/"
-                                              + Assembly.GetExecutingAssembly().GetName().Name
-                                              + ";component/"
-                                              + "assets/folder.ico", UriKind.Absolute))
+                    ? ImageSourceFactory.GetBitmapFromResource(typeof(FileListDestinationItem).Assembly, "assets/folder.ico")
                     : Icon.ExtractAssociatedIcon(fileInfo.FullName).ToImageSource();
             }
             catch (UnauthorizedAccessException)
             {
-                // todo: probably just log this exception
+                IconImage.Source = ImageSourceFactory.GetBitmapFromResource(typeof(FileListDestinationItem).Assembly,
+                    "assets/unknown.png");
             }                                                                       
             FileNameTextBlock.Text = fileInfo.Name;
             FilePathTextBlock.Text = fileInfo.DirectoryName;
