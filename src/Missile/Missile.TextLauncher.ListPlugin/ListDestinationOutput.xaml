@@ -9,8 +9,7 @@
 
     <ListBox
         x:Name="ItemsListBox"
-        AutomationProperties.AutomationId="Missile.TextLauncher.ListPlugin.ListDestinationOutput.ItemsListBox" 
+        AutomationProperties.AutomationId="Missile.TextLauncher.ListPlugin.ListDestinationOutput.ItemsListBox"
         SelectionMode="Extended"
-        PreviewMouseRightButtonDown="ItemsListBox_OnPreviewMouseRightButtonDown"
-        />
+        PreviewMouseRightButtonDown="ItemsListBox_OnPreviewMouseRightButtonDown" />
 </UserControl>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Drawing;
 using System.IO;
@@ -30,52 +29,8 @@ namespace Missile.TextLauncher.ApplicationPlugin
             _settings ?? (_settings = SettingsRepository.Get<ApplicationProviderSettings>());
 
         public IEnumerable<RegisteredApplication> Search(string searchString)
-        {            
+        {
             return RegisteredApplications;
-        }
-
-        protected internal void Add(FileInfo fileInfo)
-        {             
-            RegisteredApplications.Add(new RegisteredApplication
-            {
-                ApplicationName = fileInfo.Name,
-                ApplicationPath = fileInfo.FullName,
-                Icon = Icon.ExtractAssociatedIcon(fileInfo.FullName).ToImageSource()
-            });
-            Settings.SearchPaths.Add(fileInfo.FullName);
-        }
-
-        protected internal void Save()
-        {
-            SettingsRepository.Save<ApplicationProviderSettings>();
-        }
-
-        protected internal void Remove(RegisteredApplication item)
-        {       
-            RegisteredApplications.Remove(item);
-            // this might not be the best.. not sure
-            Settings.SearchPaths.Remove(item.ApplicationPath);
-        }
-
-        private void SetupObservables()
-        {
-            var syncContext = SynchronizationContext.Current;                         
-            
-            Task.Run(async () =>
-            {
-                await CommandHub.Get<AddApplicationCommand>().ForEachAsync(x => Add(x.FileInfo));
-            });
-
-            Task.Run(async () =>
-            {
-                await CommandHub.Get<RemoveApplicationCommand>().ForEachAsync(x => Remove(x.RegisteredApplication));
-            });
-
-            Task.Run(async () =>
-            {
-                await CommandHub.Get<SaveApplicationRepositoryStateCommand>()
-                    .ForEachAsync(x => Save());
-            });
         }
 
         public Task SetupAsync(CancellationToken cancellationToken)
@@ -99,6 +54,47 @@ namespace Missile.TextLauncher.ApplicationPlugin
             }
             _isSetup = true;
             return Task.CompletedTask;
+        }
+
+        protected internal void Add(FileInfo fileInfo)
+        {
+            RegisteredApplications.Add(new RegisteredApplication
+            {
+                ApplicationName = fileInfo.Name,
+                ApplicationPath = fileInfo.FullName,
+                Icon = Icon.ExtractAssociatedIcon(fileInfo.FullName).ToImageSource()
+            });
+            Settings.SearchPaths.Add(fileInfo.FullName);
+        }
+
+        protected internal void Save()
+        {
+            SettingsRepository.Save<ApplicationProviderSettings>();
+        }
+
+        protected internal void Remove(RegisteredApplication item)
+        {
+            RegisteredApplications.Remove(item);
+            // this might not be the best.. not sure
+            Settings.SearchPaths.Remove(item.ApplicationPath);
+        }
+
+        private void SetupObservables()
+        {
+            var syncContext = SynchronizationContext.Current;
+
+            Task.Run(async () => { await CommandHub.Get<AddApplicationCommand>().ForEachAsync(x => Add(x.FileInfo)); });
+
+            Task.Run(async () =>
+            {
+                await CommandHub.Get<RemoveApplicationCommand>().ForEachAsync(x => Remove(x.RegisteredApplication));
+            });
+
+            Task.Run(async () =>
+            {
+                await CommandHub.Get<SaveApplicationRepositoryStateCommand>()
+                    .ForEachAsync(x => Save());
+            });
         }
     }
 }

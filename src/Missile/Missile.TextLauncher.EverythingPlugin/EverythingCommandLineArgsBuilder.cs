@@ -4,9 +4,6 @@ namespace Missile.TextLauncher.EverythingPlugin
 {
     public class EverythingCommandLineArgsBuilder
     {
-        protected internal StringBuilder StringBuilder { get; set; }
-        protected internal string SearchString { get; set; }
-
         public EverythingCommandLineArgsBuilder()
         {
             StringBuilder = new StringBuilder();
@@ -16,6 +13,9 @@ namespace Missile.TextLauncher.EverythingPlugin
         {
             SearchString = search;
         }
+
+        protected internal StringBuilder StringBuilder { get; set; }
+        protected internal string SearchString { get; set; }
 
         public EverythingCommandLineArgsBuilder WithMaxNumberResults(int max)
         {
@@ -40,16 +40,19 @@ namespace Missile.TextLauncher.EverythingPlugin
             StringBuilder.Append(" -i");
             return this;
         }
+
         public EverythingCommandLineArgsBuilder WithFullPathSearch()
         {
             StringBuilder.Append(" -p");
             return this;
         }
+
         public EverythingCommandLineArgsBuilder WithSortByFullPath()
         {
             StringBuilder.Append(" -s");
             return this;
         }
+
         public EverythingCommandLineArgsBuilder WithSearchString(string search)
         {
             SearchString = search;
@@ -61,6 +64,5 @@ namespace Missile.TextLauncher.EverythingPlugin
             StringBuilder.Append($" {SearchString}");
             return StringBuilder.ToString();
         }
-
     }
 }

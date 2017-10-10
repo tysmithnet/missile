@@ -32,7 +32,7 @@ namespace Missile.TextLauncher
 
         [Import]
         protected internal IInterpretationFacade InterpretationFacade { get; set; }
-                                                                                  
+
         [ImportMany]
         protected internal IRequiresSetup[] ComponentsRequiringSetup { get; set; }
 
@@ -61,7 +61,9 @@ namespace Missile.TextLauncher
             if (e.Key == Key.Enter || e.Key == Key.Return)
             {
                 Logger.Information(InputTextBox.Text);
-                await Task.WhenAll(ComponentsRequiringSetup.Select(c => c.SetupAsync(CancellationToken.None))); // todo: change to actual cancellation token
+                await Task.WhenAll(
+                    ComponentsRequiringSetup.Select(c =>
+                        c.SetupAsync(CancellationToken.None))); // todo: change to actual cancellation token
                 await InterpretationFacade.ExecuteAsync(InputTextBox.Text, cancellationTokenSource.Token);
             }
         }

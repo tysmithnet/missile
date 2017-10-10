@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -22,7 +21,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
         public RegisteredApplication RegisteredApplication { get; set; }
 
         public Guid Id { get; } = Guid.NewGuid();
-                                                            
+
         private void ApplicationListDestinationItem_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Process.Start(RegisteredApplication.ApplicationPath);

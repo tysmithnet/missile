@@ -14,7 +14,7 @@ namespace Missile.TextLauncher
 {
     [Export(typeof(IProvider))]
     public class SettingsProvider : IProvider<object>
-    {              
+    {
         [Import]
         protected internal IUiFacade UiFacade { get; set; }
 
@@ -24,11 +24,12 @@ namespace Missile.TextLauncher
         [Import]
         protected internal IPropertyEditorFactoryRepository PropertyEditorFactoryRepository { get; set; }
 
-        protected internal IList<SettingsViewModel> Settings => SettingsRepository.GetAll().Select(ExtractSettingsViewModel).ToList();
-
-        public string Name { get; set; } = "settings";
+        protected internal IList<SettingsViewModel> Settings =>
+            SettingsRepository.GetAll().Select(ExtractSettingsViewModel).ToList();
 
         protected internal Settings SettingsUi { get; set; }
+
+        public string Name { get; set; } = "settings";
 
         public IObservable<object> Provide(string[] args)
         {
@@ -64,7 +65,7 @@ namespace Missile.TextLauncher
                 }
 
                 using (var fileStream = new FileStream(fileName, FileMode.Create))
-                {   
+                {
                     serializer.Serialize(fileStream, settingToSave);
                 }
             }

@@ -29,10 +29,10 @@ namespace Missile.TextLauncher.ListPlugin
             var syncContext = SynchronizationContext.Current;
             Task.Run(() =>
             {
-                   CommandHub.Get<RemoveListDestinationItemCommand>()
+                CommandHub.Get<RemoveListDestinationItemCommand>()
                     .ForEachAsync(x => outputControl.Remove(x.ListDestinationItem));
-            }); 
-                
+            });
+
             source.Subscribe(item =>
                 {
                     ;

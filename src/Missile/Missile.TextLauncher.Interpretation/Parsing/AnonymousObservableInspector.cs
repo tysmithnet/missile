@@ -8,7 +8,7 @@ namespace Missile.TextLauncher.Interpretation.Parsing
     public class AnonymousObservableInspector : IObservableInspector
     {
         public bool CanHandle(Type type)
-        {                                            
+        {
             return Regex.IsMatch(type?.FullName ?? "",
                 @"^System\.Reactive\.AnonymousObservable`1");
         }
