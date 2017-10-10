@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Drawing;
 using System.IO;
@@ -83,17 +84,19 @@ namespace Missile.TextLauncher.ApplicationPlugin
         {
             var syncContext = SynchronizationContext.Current;
 
-            Task.Run(async () => { await CommandHub.Get<AddApplicationCommand>().ForEachAsync(x => Add(x.FileInfo)); });
-
-            Task.Run(async () =>
+            CommandHub.Get<AddApplicationCommand>().Subscribe(c =>
             {
-                await CommandHub.Get<RemoveApplicationCommand>().ForEachAsync(x => Remove(x.RegisteredApplication));
+                Add(c.FileInfo);
             });
 
-            Task.Run(async () =>
+            CommandHub.Get<RemoveApplicationCommand>().Subscribe(c =>
             {
-                await CommandHub.Get<SaveApplicationRepositoryStateCommand>()
-                    .ForEachAsync(x => Save());
+                Remove(c.RegisteredApplication);
+            });
+
+            CommandHub.Get<SaveApplicationRepositoryStateCommand>().Subscribe(c =>
+            {
+                Save();
             });
         }
     }
