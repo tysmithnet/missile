@@ -12,8 +12,27 @@
         <TextBox x:Name="InputTextBox" DockPanel.Dock="Top" Height="30" VerticalContentAlignment="Center"
                  KeyDown="Input_OnKeyDown"
                  AutomationProperties.AutomationId="Missile.TextLauncher.TextLauncherImplementation.InputTextBox" />
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="0"></StatusBarItem>
+            <Separator Grid.Column="1"></Separator>
+            <StatusBarItem Grid.Column="2">
+                Loading...
+            </StatusBarItem>
+        </StatusBar>
         <DockPanel x:Name="OutputPanel"
-                   AutomationProperties.AutomationId="Missile.TextLauncher.TextLauncherImplementation.OutputPanel" />
+                   AutomationProperties.AutomationId="Missile.TextLauncher.TextLauncherImplementation.OutputPanel"/>
+        
     </DockPanel>
 
 </core:Launcher>
