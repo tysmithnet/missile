@@ -63,7 +63,8 @@ namespace Missile.TextLauncher
                 Logger.Information(InputTextBox.Text);
                 await Task.WhenAll(
                     ComponentsRequiringSetup.Select(c =>
-                        c.SetupAsync(CancellationToken.None))); // todo: change to actual cancellation token
+                        c.SetupAsync(cancellationTokenSource.Token))); 
+
                 await InterpretationFacade.ExecuteAsync(InputTextBox.Text, cancellationTokenSource.Token);
             }
         }
