@@ -65,12 +65,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EverythingProvider.cs" />
+    <Compile Include="EverythingProviderOptions.cs" />
+    <Compile Include="EverythingProviderSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Everything64.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Missile.TextLauncher.ListPlugin\Missile.TextLauncher.ListPlugin.csproj">
@@ -91,6 +88,6 @@
     <BinFiles Include="$(TargetDir)\**\*.*" />
   </ItemGroup>
   <Target Name="AfterBuild">
-      <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" SkipUnchangedFiles="true"/>
+    <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" SkipUnchangedFiles="true" />
   </Target>
 </Project>

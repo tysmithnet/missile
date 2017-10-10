@@ -93,7 +93,10 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="assets\folder.ico" />
+  </ItemGroup>
   <Target Name="AfterBuild">
-      <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" SkipUnchangedFiles="true"/>
+    <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" SkipUnchangedFiles="true" />
   </Target>
 </Project>

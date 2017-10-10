@@ -41,6 +41,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Parsing\AnonymousObservableInspector.cs" />
     <Compile Include="Parsing\IObservableInspector.cs" />
     <Compile Include="Parsing\DestinationNode.cs" />
     <Compile Include="Lexing\DestinationToken.cs" />
@@ -95,6 +96,6 @@
     <BinFiles Include="$(TargetDir)\**\*.*" />
   </ItemGroup>
   <Target Name="AfterBuild">
-      <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" SkipUnchangedFiles="true"/>
+    <Copy SourceFiles="@(BinFiles)" DestinationFolder="..\Missile.Client\bin\Debug" SkipUnchangedFiles="true" />
   </Target>
 </Project>
