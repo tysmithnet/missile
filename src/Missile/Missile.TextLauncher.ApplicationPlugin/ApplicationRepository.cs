@@ -63,17 +63,17 @@ namespace Missile.TextLauncher.ApplicationPlugin
             
             Task.Run(async () =>
             {
-                await CommandHub.Get<AddApplicationCommand>().SubscribeOn(syncContext).ForEachAsync(x => Add(x.FileInfo));
+                await CommandHub.Get<AddApplicationCommand>().ForEachAsync(x => Add(x.FileInfo));
             });
 
             Task.Run(async () =>
             {
-                await CommandHub.Get<RemoveApplicationCommand>().SubscribeOn(syncContext).ForEachAsync(x => Remove(x.RegisteredApplication));
+                await CommandHub.Get<RemoveApplicationCommand>().ForEachAsync(x => Remove(x.RegisteredApplication));
             });
 
             Task.Run(async () =>
             {
-                await CommandHub.Get<SaveApplicationRepositoryStateCommand>().SubscribeOn(syncContext)
+                await CommandHub.Get<SaveApplicationRepositoryStateCommand>()
                     .ForEachAsync(x => Save());
             });
         }

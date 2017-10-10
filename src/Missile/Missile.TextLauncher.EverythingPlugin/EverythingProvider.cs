@@ -4,10 +4,11 @@ using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Resources;
 using System.Runtime.InteropServices;
-using System.Text;
+using System.Threading;
 using System.Windows;
 using CommandLine;
 using Missile.TextLauncher.ListPlugin;
@@ -28,8 +29,8 @@ namespace Missile.TextLauncher.EverythingPlugin
             if (args == null || args.Length == 0)
                 throw new ArgumentException($"{nameof(args)} should have at least 1 element");
            
-            return Observable.Create<FileInfo>(async (observer, token) =>
-            {
+            var obs = Observable.Create<FileInfo>(async (observer, token) =>
+            {            
                 var settings = SettingsRepository.Get<EverythingProviderSettings>();
                 var commandArgs = args.Take(args.Length - 1).ToArray();
                 var options = new EverythingProviderOptions();
@@ -39,27 +40,31 @@ namespace Missile.TextLauncher.EverythingPlugin
                     StartInfo =
                     {
                         FileName = settings.EverythingCommandLineExePath,
-                        Arguments = args.Last(),
+                        Arguments = GetEverythingCommandLineArgs(settings, options, args.Last()),
                         UseShellExecute = false,
                         RedirectStandardOutput = true,
                         CreateNoWindow = true
                     }
                 };
-                process.Start();
+                process.Start();  
                 while(!process.HasExited)
-                {
-                    string line = await process.StandardOutput.ReadLineAsync();
-                    observer.OnNext(new FileInfo(line));                                   
+                {                           
+                    observer.OnNext(new FileInfo(await process.StandardOutput.ReadLineAsync()));                                   
                 }
                 process.WaitForExit(1000);
                 observer.OnCompleted();
-            });                                                   
+            });
+            return obs.Publish().RefCount();
         }
 
-
-        public IEnumerable<FileListDestinationItem> GetFiles()
+        private string GetEverythingCommandLineArgs(EverythingProviderSettings settings, EverythingProviderOptions options, string search)
         {
-            return null;
+            var builder = new EverythingCommandLineArgsBuilder(search)
+                .WithMaxNumberResults(options.NumMaxResults ?? settings.DefaultSearchResults);
+
+            // todo: handle the rest
+            return builder.Build();
         }
     }
+
 }

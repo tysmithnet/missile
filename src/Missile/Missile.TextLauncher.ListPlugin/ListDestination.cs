@@ -27,12 +27,12 @@ namespace Missile.TextLauncher.ListPlugin
             UiFacade.SetOutputControl(outputControl);
             var tcs = new TaskCompletionSource<object>();
             var syncContext = SynchronizationContext.Current;
-            Task.Factory.StartNew(() =>
+            Task.Run(() =>
             {
-                CommandHub.Get<RemoveListDestinationItemCommand>().SubscribeOn(syncContext)
+                   CommandHub.Get<RemoveListDestinationItemCommand>()
                     .ForEachAsync(x => outputControl.Remove(x.ListDestinationItem));
-            });
-
+            }); 
+                
             source.Subscribe(item =>
                 {
                     ;

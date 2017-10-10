@@ -64,6 +64,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EverythingCommandLineArgsBuilder.cs" />
     <Compile Include="EverythingProvider.cs" />
     <Compile Include="EverythingProviderOptions.cs" />
     <Compile Include="EverythingProviderSettings.cs" />
