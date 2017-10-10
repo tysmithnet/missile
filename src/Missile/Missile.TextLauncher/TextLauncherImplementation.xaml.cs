@@ -3,6 +3,7 @@ using System.ComponentModel.Composition;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Missile.Core;
@@ -36,7 +37,7 @@ namespace Missile.TextLauncher
         [ImportMany]
         protected internal IRequiresSetup[] ComponentsRequiringSetup { get; set; }
 
-        public void SetOutputControl(UserControl userControl)
+        public void SetOutputControl(FrameworkElement userControl)
         {
             _synchronizationContext.Post(state =>
             {
@@ -50,12 +51,6 @@ namespace Missile.TextLauncher
             _synchronizationContext.Post(state => command(state), argument);
         }
 
-        // TODO: hack
-        private void TextLauncherImplementation_OnLayoutUpdated(object sender, EventArgs e)
-        {
-            //Input.Focus();
-        }
-
         public async void Input_OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter || e.Key == Key.Return)
@@ -63,9 +58,16 @@ namespace Missile.TextLauncher
                 Logger.Information(InputTextBox.Text);
                 await Task.WhenAll(
                     ComponentsRequiringSetup.Select(c =>
-                        c.SetupAsync(cancellationTokenSource.Token))); 
+                        c.SetupAsync(cancellationTokenSource.Token)));
 
-                await InterpretationFacade.ExecuteAsync(InputTextBox.Text, cancellationTokenSource.Token);
+                try
+                {
+                    await InterpretationFacade.ExecuteAsync(InputTextBox.Text, cancellationTokenSource.Token);
+                }
+                catch (Exception ex)
+                {
+                    SetOutputControl(new ErrorViewer(ex));
+                }
             }
         }
     }

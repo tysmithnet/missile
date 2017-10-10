@@ -63,6 +63,9 @@
     <Compile Include="Conversion\ConverterRedinessScore.cs" />
     <Compile Include="Conversion\ConverterRepository.cs" />
     <Compile Include="Conversion\ConverterSelectionStrategy.cs" />
+    <Compile Include="ErrorViewer.xaml.cs">
+      <DependentUpon>ErrorViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Filtration\FirstFilter.cs" />
     <Compile Include="Conversion\IConverter.cs" />
     <Compile Include="Conversion\IConverterRepository.cs" />
@@ -127,6 +130,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="ErrorViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

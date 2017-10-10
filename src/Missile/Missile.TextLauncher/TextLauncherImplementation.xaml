@@ -7,7 +7,7 @@
                xmlns:core="clr-namespace:Missile.Core;assembly=Missile.Core"
                mc:Ignorable="d"
                d:DesignHeight="300" d:DesignWidth="300"
-               LayoutUpdated="TextLauncherImplementation_OnLayoutUpdated" d:DataContext="{d:DesignData Source}">
+               d:DataContext="{d:DesignData Source}">
     <DockPanel>
         <TextBox x:Name="InputTextBox" DockPanel.Dock="Top" Height="30" VerticalContentAlignment="Center"
                  KeyDown="Input_OnKeyDown"
