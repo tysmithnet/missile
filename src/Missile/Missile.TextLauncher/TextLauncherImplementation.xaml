@@ -7,9 +7,11 @@
                xmlns:core="clr-namespace:Missile.Core;assembly=Missile.Core"
                mc:Ignorable="d"
                d:DesignHeight="300" d:DesignWidth="300"
-               d:DataContext="{d:DesignData Source}">
+               d:DataContext="{d:DesignInstance local:TextLauncherImplementationViewModel}"
+               Loaded="TextLauncherImplementation_OnLoaded">
     <DockPanel>
         <TextBox x:Name="InputTextBox" DockPanel.Dock="Top" Height="30" VerticalContentAlignment="Center"
+                 Text="{Binding Path=InputText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  KeyDown="Input_OnKeyDown"
                  AutomationProperties.AutomationId="Missile.TextLauncher.TextLauncherImplementation.InputTextBox" />
         <StatusBar DockPanel.Dock="Bottom">
@@ -26,13 +28,16 @@
             </StatusBar.ItemsPanel>
             <StatusBarItem Grid.Column="0"></StatusBarItem>
             <Separator Grid.Column="1"></Separator>
-            <StatusBarItem Grid.Column="2">
+            <StatusBarItem Grid.Column="2" Visibility="{Binding Path=LoadingVisibility}">
                 Loading...
             </StatusBarItem>
         </StatusBar>
         <DockPanel x:Name="OutputPanel"
-                   AutomationProperties.AutomationId="Missile.TextLauncher.TextLauncherImplementation.OutputPanel"/>
-        
+                   AutomationProperties.AutomationId="Missile.TextLauncher.TextLauncherImplementation.OutputPanel">
+            <DockPanel.Children>
+                <ContentControl Content="{Binding Path=OutputControl}"></ContentControl>
+            </DockPanel.Children>
+        </DockPanel>
     </DockPanel>
 
 </core:Launcher>

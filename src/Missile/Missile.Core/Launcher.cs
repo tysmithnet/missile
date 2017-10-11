@@ -1,8 +1,9 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace Missile.Core
 {
-    public abstract class Launcher : UserControl
+    public abstract class Launcher : ContentControl
     {
     }
 }

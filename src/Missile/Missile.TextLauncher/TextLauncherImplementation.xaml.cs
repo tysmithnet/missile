@@ -1,10 +1,6 @@
-﻿using System;
-using System.ComponentModel.Composition;
-using System.Linq;
+﻿using System.ComponentModel.Composition;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 using Missile.Core;
 
@@ -14,16 +10,13 @@ namespace Missile.TextLauncher
     ///     Interaction logic for TextLauncherImplementation.xaml
     /// </summary>
     [Export(typeof(Launcher))]
-    [Export(typeof(IUiFacade))]
-    // todo: extract MVVM pattern
+    [Export(typeof(IUiFacade))]         
     public partial class TextLauncherImplementation : Launcher, IUiFacade
-    {
-        private readonly SynchronizationContext _synchronizationContext;
-        private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+    {                                                                   
+        private TextLauncherImplementationViewModel _viewModel;
 
         public TextLauncherImplementation()
-        {
-            _synchronizationContext = SynchronizationContext.Current;
+        {                                                               
             InitializeComponent();
             InputTextBox.Focus();
         }
@@ -37,38 +30,21 @@ namespace Missile.TextLauncher
         [ImportMany]
         protected internal IRequiresSetup[] ComponentsRequiringSetup { get; set; }
 
-        public void SetOutputControl(FrameworkElement userControl)
+        public void SetOutputControl(FrameworkElement outputControl)
         {
-            _synchronizationContext.Post(state =>
-            {
-                OutputPanel.Children.RemoveRange(0, OutputPanel.Children.Count);
-                OutputPanel.Children.Add(userControl);
-            }, null);
-        }
-
-        public void Post(Action<object> command, object argument)
-        {
-            _synchronizationContext.Post(state => command(state), argument);
+            _viewModel.SetOutputControl(outputControl);
         }
 
         public async void Input_OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter || e.Key == Key.Return)
-            {
-                Logger.Information(InputTextBox.Text);
-                await Task.WhenAll(
-                    ComponentsRequiringSetup.Select(c =>
-                        c.SetupAsync(cancellationTokenSource.Token)));
-
-                try
-                {
-                    await InterpretationFacade.ExecuteAsync(InputTextBox.Text, cancellationTokenSource.Token);
-                }
-                catch (Exception ex)
-                {
-                    SetOutputControl(new ErrorViewer(ex));
-                }
-            }
+            await _viewModel.HandleInputKeyDownEventAsync(e);
+        }
+                                     
+        private void TextLauncherImplementation_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            _viewModel =
+                new TextLauncherImplementationViewModel(Logger, InterpretationFacade, ComponentsRequiringSetup);
+            DataContext = _viewModel;
         }
     }
 }

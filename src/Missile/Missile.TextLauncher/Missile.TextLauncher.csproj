@@ -86,6 +86,7 @@
     <Compile Include="IRequiresSetup.cs" />
     <Compile Include="ISettings.cs" />
     <Compile Include="ISettingsRepository.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="PropertyEditorFactoryRepository.cs" />
     <Compile Include="PropertyFieldAdapter.cs" />
     <Compile Include="Provision\IProviderRepository.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="TextLauncherImplementation.xaml.cs">
       <DependentUpon>TextLauncherImplementation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TextLauncherImplementationViewModel.cs" />
     <Compile Include="TypeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
