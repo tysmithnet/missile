@@ -10,8 +10,8 @@ namespace Missile.Client
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IKeyboardMouseEvents appEvents;
-        private IKeyboardMouseEvents globalEvents;
+        protected internal IKeyboardMouseEvents AppEvents;
+        protected internal IKeyboardMouseEvents GlobalEvents;
 
         public MainWindow(Launcher launcher)
         {
@@ -22,20 +22,18 @@ namespace Missile.Client
 
         private void SetupKeyListeners()
         {
-            globalEvents = Hook.GlobalEvents();
-            appEvents = Hook.AppEvents();
-            globalEvents.KeyDown += (sender, args) =>
+            GlobalEvents = Hook.GlobalEvents();
+            AppEvents = Hook.AppEvents();
+            GlobalEvents.KeyDown += (sender, args) =>
             {
-                if (args.Alt && args.KeyCode == Keys.Space)
-                {
-                    WindowState = WindowState.Normal;
-                    Activate();
-                    Topmost = true;
-                    args.Handled = true;
-                }
+                if (!args.Alt || args.KeyCode != Keys.Space) return;
+                WindowState = WindowState.Normal;
+                Activate();
+                Topmost = true;
+                args.Handled = true;
             };
 
-            appEvents.KeyDown += (sender, args) =>
+            AppEvents.KeyDown += (sender, args) =>
             {
                 if (args.KeyCode == Keys.Escape)
                     WindowState = WindowState.Minimized;

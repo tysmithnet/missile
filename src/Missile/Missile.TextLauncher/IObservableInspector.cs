@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Missile.TextLauncher.Interpretation.Parsing
+namespace Missile.TextLauncher
 {
     public interface IObservableInspector
     {

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition.Hosting;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -14,7 +15,10 @@ namespace Missile.Client
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             var location = Assembly.GetExecutingAssembly().Location;
-            var compositionContainer = new CompositionContainer(new DirectoryCatalog(Path.GetDirectoryName(location)));
+            var path = Path.GetDirectoryName(location);
+            Debug.Assert(path != null,
+                "Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) returned null which should not be possible");
+            var compositionContainer = new CompositionContainer(new DirectoryCatalog(path));
             var launcher = compositionContainer.GetExportedValue<Launcher>();
             var mainWindow = new MainWindow(launcher);
             mainWindow.Show();
