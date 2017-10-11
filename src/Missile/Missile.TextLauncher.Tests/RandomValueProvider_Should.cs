@@ -1,6 +1,6 @@
 ﻿using System.Reactive.Linq;
 using FluentAssertions;
-using Missile.TextLauncher.Provision;
+using Missile.TextLauncher.Provision.RandomValue;
 using Xunit;
 
 namespace Missile.TextLauncher.Tests

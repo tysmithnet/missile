@@ -8,6 +8,7 @@ using Missile.TextLauncher.Filtration;
 using Missile.TextLauncher.Interpretation.Parsing;
 using Missile.TextLauncher.Interpretation.Tests.Mocks;
 using Missile.TextLauncher.Provision;
+using Missile.TextLauncher.Provision.Range;
 using Xunit;
 
 namespace Missile.TextLauncher.Interpretation.Tests
