@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using Missile.TextLauncher.ListPlugin;
 
 namespace Missile.TextLauncher.ApplicationPlugin
-{                                                                                                                                   
+{
     [Export(typeof(IDestinationContextMenuProvider))]
     public class ApplicationProviderContextMenuProvider : IDestinationContextMenuProvider
     {

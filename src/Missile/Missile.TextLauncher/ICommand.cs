@@ -3,7 +3,7 @@
 namespace Missile.TextLauncher
 {
     /// <summary>
-    /// Represents a command that can be broadcast to interested parties
+    ///     Represents a command that can be broadcast to interested parties
     /// </summary>
     public interface ICommand
     {

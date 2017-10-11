@@ -17,7 +17,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
     {
         [Fact]
         public void Handle_Conversion()
-        {                                           
+        {
             var rootNodeBuilder = new RootNodeBuilder();
             rootNodeBuilder
                 .WithProvider("mockobject", new string[0])
@@ -197,7 +197,8 @@ namespace Missile.TextLauncher.Interpretation.Tests
 
             var interpreter = interpreterBuilder.Build();
             var rootNode = rootNodeBuilder.Build();
-            interpreter.Invoking(async i => await i.InterpretAsync(rootNode, CancellationToken.None)).ShouldNotThrow("provider and destination combo should work");
+            interpreter.Invoking(async i => await i.InterpretAsync(rootNode, CancellationToken.None))
+                .ShouldNotThrow("provider and destination combo should work");
             sb.Length.Should().BeGreaterThan(0);
         }
     }
