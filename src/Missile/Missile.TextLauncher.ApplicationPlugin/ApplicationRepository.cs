@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -30,7 +31,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
 
         public IEnumerable<RegisteredApplication> Search(string searchString)
         {
-            return RegisteredApplications;
+            return RegisteredApplications.Where(r => r.ApplicationName.Contains(searchString));
         }
 
         public Task SetupAsync(CancellationToken cancellationToken)
