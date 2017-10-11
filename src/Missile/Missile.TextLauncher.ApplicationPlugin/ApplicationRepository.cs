@@ -80,7 +80,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
         }
 
         private void SetupObservables()
-        {                                                        
+        {
             CommandHub.Get<AddApplicationCommand>().Subscribe(c => { Add(c.FileInfo); });
 
             CommandHub.Get<RemoveApplicationCommand>().Subscribe(c => { Remove(c.RegisteredApplication); });

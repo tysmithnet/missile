@@ -56,7 +56,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnonymousObservableInspector.cs" />
+    <Compile Include="SingleGenericTypeParameterInspector.cs" />
     <Compile Include="CommandHub.cs" />
     <Compile Include="Conversion\StringUserControlConverter.cs" />
     <Compile Include="Conversion\TypeBreakDown.cs" />
@@ -106,7 +106,6 @@
     <Compile Include="Filtration\RegisteredFilter.cs" />
     <Compile Include="Provision\RegisteredProvider.cs" />
     <Compile Include="Filtration\TakeFilter.cs" />
-    <Compile Include="RefCountObservableInspector.cs" />
     <Compile Include="SettingAttribute.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
@@ -121,7 +120,6 @@
       <DependentUpon>TextLauncherImplementation.xaml</DependentUpon>
     </Compile>
     <Compile Include="TextLauncherImplementationViewModel.cs" />
-    <Compile Include="ToObservableInspector.cs" />
     <Compile Include="TypeExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
