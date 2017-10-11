@@ -6,8 +6,7 @@ using System.Windows.Controls;
 using Missile.TextLauncher.ListPlugin;
 
 namespace Missile.TextLauncher.ApplicationPlugin
-{
-    // todo: this should be rewritten to handle multiple targets, like if you highlight multiple files and right click in explorer
+{                                                                                                                                   
     [Export(typeof(IDestinationContextMenuProvider))]
     public class ApplicationProviderContextMenuProvider : IDestinationContextMenuProvider
     {
