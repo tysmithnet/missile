@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Drawing;
 using System.IO;
-using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -84,20 +83,11 @@ namespace Missile.TextLauncher.ApplicationPlugin
         {
             var syncContext = SynchronizationContext.Current;
 
-            CommandHub.Get<AddApplicationCommand>().Subscribe(c =>
-            {
-                Add(c.FileInfo);
-            });
+            CommandHub.Get<AddApplicationCommand>().Subscribe(c => { Add(c.FileInfo); });
 
-            CommandHub.Get<RemoveApplicationCommand>().Subscribe(c =>
-            {
-                Remove(c.RegisteredApplication);
-            });
+            CommandHub.Get<RemoveApplicationCommand>().Subscribe(c => { Remove(c.RegisteredApplication); });
 
-            CommandHub.Get<SaveApplicationRepositoryStateCommand>().Subscribe(c =>
-            {
-                Save();
-            });
+            CommandHub.Get<SaveApplicationRepositoryStateCommand>().Subscribe(c => { Save(); });
         }
     }
 }

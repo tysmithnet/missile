@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.Composition;
-using System.Threading;
 using System.Windows;
 using System.Windows.Input;
 using Missile.Core;
@@ -10,13 +9,13 @@ namespace Missile.TextLauncher
     ///     Interaction logic for TextLauncherImplementation.xaml
     /// </summary>
     [Export(typeof(Launcher))]
-    [Export(typeof(IUiFacade))]         
+    [Export(typeof(IUiFacade))]
     public partial class TextLauncherImplementation : Launcher, IUiFacade
-    {                                                                   
+    {
         private TextLauncherImplementationViewModel _viewModel;
 
         public TextLauncherImplementation()
-        {                                                               
+        {
             InitializeComponent();
             InputTextBox.Focus();
         }
@@ -39,7 +38,7 @@ namespace Missile.TextLauncher
         {
             await _viewModel.HandleInputKeyDownEventAsync(e);
         }
-                                     
+
         private void TextLauncherImplementation_OnLoaded(object sender, RoutedEventArgs e)
         {
             _viewModel =

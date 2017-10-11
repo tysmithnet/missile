@@ -2,10 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Forms;
-using Gma.System.MouseKeyHook;
 using Missile.Core;
-using Application = System.Windows.Application;
 
 namespace Missile.Client
 {

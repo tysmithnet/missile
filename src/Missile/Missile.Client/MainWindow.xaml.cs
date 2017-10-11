@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Forms;
 using Gma.System.MouseKeyHook;
 using Missile.Core;
@@ -11,8 +10,9 @@ namespace Missile.Client
     /// </summary>
     public partial class MainWindow : Window
     {
-        private IKeyboardMouseEvents globalEvents;
         private IKeyboardMouseEvents appEvents;
+        private IKeyboardMouseEvents globalEvents;
+
         public MainWindow(Launcher launcher)
         {
             InitializeComponent();

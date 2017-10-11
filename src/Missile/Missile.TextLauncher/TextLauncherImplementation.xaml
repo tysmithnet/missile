@@ -26,8 +26,8 @@
                     </Grid>
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
-            <StatusBarItem Grid.Column="0"></StatusBarItem>
-            <Separator Grid.Column="1"></Separator>
+            <StatusBarItem Grid.Column="0" />
+            <Separator Grid.Column="1" />
             <StatusBarItem Grid.Column="2" Visibility="{Binding Path=LoadingVisibility}">
                 Loading...
             </StatusBarItem>
@@ -35,7 +35,7 @@
         <DockPanel x:Name="OutputPanel"
                    AutomationProperties.AutomationId="Missile.TextLauncher.TextLauncherImplementation.OutputPanel">
             <DockPanel.Children>
-                <ContentControl Content="{Binding Path=OutputControl}"></ContentControl>
+                <ContentControl Content="{Binding Path=OutputControl}" />
             </DockPanel.Children>
         </DockPanel>
     </DockPanel>
