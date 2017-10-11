@@ -15,7 +15,7 @@ namespace Missile.TextLauncher
     {
         private string _inputText;
 
-        private Visibility _loadingVisibility;
+        private Visibility _loadingVisibility = Visibility.Hidden;
 
         private FrameworkElement _outputControl;
 
@@ -88,7 +88,9 @@ namespace Missile.TextLauncher
 
             try
             {
+                LoadingVisibility = Visibility.Visible;
                 await InterpretationFacade.ExecuteAsync(InputText, CancellationToken.None);
+                LoadingVisibility = Visibility.Hidden;
             }
             catch (Exception ex)
             {
