@@ -22,7 +22,7 @@ namespace Missile.TextLauncher.Provision.Range
         /// <value>
         ///     The ending value of the range
         /// </value>
-        [Option('e', "end", HelpText = "Ending value", Required = true)]
+        [Option('e', "end", HelpText = "Ending value", DefaultValue = 9)]
         public int End { get; set; }
 
         /// <summary>
