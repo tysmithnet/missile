@@ -62,6 +62,7 @@
     <Compile Include="Provision\RandomValue\RandomValueProviderOptions.cs" />
     <Compile Include="Provision\Range\RangeProvider.cs" />
     <Compile Include="Provision\Range\RangeProviderOptions.cs" />
+    <Compile Include="SettingsProviderOptions.cs" />
     <Compile Include="SettingsRepository.cs" />
     <Compile Include="SingleGenericTypeParameterInspector.cs" />
     <Compile Include="CommandHub.cs" />
