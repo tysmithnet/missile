@@ -4,51 +4,98 @@ using System.Reflection;
 
 namespace Missile.TextLauncher
 {
+    /// <summary>
+    ///     A common abstraction over properties and fields
+    /// </summary>
     public class PropertyFieldAdapter
     {
-        private readonly FieldInfo _fieldInfo;
-        private readonly object _instance;
-        private readonly PropertyInfo _propertyInfo;
+        /// <summary>
+        ///     The field information if the underlying type is a field
+        /// </summary>
+        protected internal readonly FieldInfo FieldInfo;
 
+        /// <summary>
+        ///     The instance
+        /// </summary>
+        protected internal readonly object Instance;
+
+        /// <summary>
+        ///     The property information if the underlying member is property
+        /// </summary>
+        protected internal readonly PropertyInfo PropertyInfo;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PropertyFieldAdapter"/> class.
+        /// </summary>
+        /// <param name="memberInfo">The member information, either field or property</param>
+        /// <param name="instance">The instance for which the property or field is attached</param>
+        /// <exception cref="ArgumentNullException">Instance is null</exception>
+        /// <exception cref="ArgumentException">The specified member is neither a property nor a field</exception>
         public PropertyFieldAdapter(MemberInfo memberInfo, object instance)
         {
             MemberInfo = memberInfo;
-            _propertyInfo = memberInfo as PropertyInfo;
-            _fieldInfo = memberInfo as FieldInfo;
-            _instance = instance;
-            if (_instance == null)
+            PropertyInfo = memberInfo as PropertyInfo;
+            FieldInfo = memberInfo as FieldInfo;
+            Instance = instance;
+            if (Instance == null)
                 throw new ArgumentNullException(
-                    $"{nameof(_instance)} cannot be null because it is required for getting/setting values");
-            if (_propertyInfo == null && _fieldInfo == null)
+                    $"{nameof(Instance)} cannot be null because it is required for getting/setting values");
+            if (PropertyInfo == null && FieldInfo == null)
                 throw new ArgumentException($"{nameof(memberInfo)} must be PropertyInfo or FieldInfo");
         }
 
+        /// <summary>
+        /// Gets the member information
+        /// </summary>
+        /// <value>
+        /// The member information
+        /// </value>
         public MemberInfo MemberInfo { get; }
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is sub section
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is sub section; otherwise, <c>false</c>.
+        /// </value>
         public bool IsSubSection =>
             MemberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SubSettingsAttribute));
 
+        /// <summary>
+        /// Gets a value indicating whether the specified member info is affixed with [SettingAttribute]
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if this instance is setting; otherwise, <c>false</c>.
+        /// </value>
         public bool IsSetting => MemberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SettingAttribute));
 
         // todo: convert to properties
         public void SetValue(object value)
         {
-            if (_propertyInfo != null)
-                _propertyInfo.SetValue(_instance, value);
+            if (PropertyInfo != null)
+                PropertyInfo.SetValue(Instance, value);
             else
-                _fieldInfo.SetValue(_instance, value);
+                FieldInfo.SetValue(Instance, value);
         }
 
+        /// <summary>
+        /// Gets the value of this property or field
+        /// </summary>
+        /// <returns>The value of this property or field</returns>
         public object GetValue()
         {
-            return _propertyInfo != null
-                ? _propertyInfo.GetMethod.Invoke(_instance, new object[0])
-                : _fieldInfo.GetValue(_instance);
+            return PropertyInfo != null
+                ? PropertyInfo.GetMethod.Invoke(Instance, new object[0])
+                : FieldInfo.GetValue(Instance);
         }
 
+        /// <summary>
+        /// Gets the type of the member
+        /// </summary>
+        /// <returns>The type of the member</returns>
         public Type GetMemberType()
         {
-            return _propertyInfo != null ? _propertyInfo.PropertyType : _fieldInfo.FieldType;
+            return PropertyInfo != null ? PropertyInfo.PropertyType : FieldInfo.FieldType;
         }
     }
 }
