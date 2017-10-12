@@ -12,6 +12,11 @@ namespace Missile.Client
     /// </summary>
     public sealed partial class App : Application
     {
+        /// <summary>
+        /// Handles the OnStartup event of the App control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="StartupEventArgs"/> instance containing the event data.</param>
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             var location = Assembly.GetExecutingAssembly().Location;

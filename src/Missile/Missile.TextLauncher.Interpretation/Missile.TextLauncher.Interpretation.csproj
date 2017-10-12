@@ -50,7 +50,6 @@
     <Compile Include="Lexing\ILexer.cs" />
     <Compile Include="Interpreter.cs" />
     <Compile Include="Parsing\IParser.cs" />
-    <Compile Include="Lexing\IToken.cs" />
     <Compile Include="Lexing\DestinationArgState.cs" />
     <Compile Include="Lexing\DestinationState.cs" />
     <Compile Include="Lexing\ErrorState.cs" />
