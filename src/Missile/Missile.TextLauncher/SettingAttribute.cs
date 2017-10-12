@@ -3,7 +3,7 @@
 namespace Missile.TextLauncher
 {
     /// <summary>
-    /// Indicates a property or field is a setting member
+    ///     Indicates a property or field is a setting member
     /// </summary>
     /// <seealso cref="System.Attribute" />
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]

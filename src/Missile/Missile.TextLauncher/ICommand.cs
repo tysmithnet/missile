@@ -7,6 +7,12 @@ namespace Missile.TextLauncher
     /// </summary>
     public interface ICommand
     {
+        /// <summary>
+        ///     Gets the identifier for this command
+        /// </summary>
+        /// <value>
+        ///     The identifier for this command
+        /// </value>
         Guid Id { get; }
     }
 }

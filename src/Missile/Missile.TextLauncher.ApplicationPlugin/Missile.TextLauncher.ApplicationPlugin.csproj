@@ -69,6 +69,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegisteredApplication.cs" />
     <Compile Include="RemoveApplicationCommand.cs" />
+    <Compile Include="SaveApplicationRepositoryStateCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Missile.TextLauncher.ListPlugin\Missile.TextLauncher.ListPlugin.csproj">

@@ -7,12 +7,31 @@ using Missile.TextLauncher.ListPlugin;
 
 namespace Missile.TextLauncher.ApplicationPlugin
 {
+    /// <inheritdoc />
+    /// <summary>
+    ///     Context menu provider for application provider
+    /// </summary>
+    /// <seealso cref="T:Missile.TextLauncher.ListPlugin.IDestinationContextMenuProvider" />
     [Export(typeof(IDestinationContextMenuProvider))]
     public class ApplicationProviderContextMenuProvider : IDestinationContextMenuProvider
     {
+        /// <summary>
+        ///     Gets or sets the command hub
+        /// </summary>
+        /// <value>
+        ///     The command hub
+        /// </value>
         [Import]
         protected internal ICommandHub CommandHub { get; set; }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Gets remove application menu items and add application menu items
+        /// </summary>
+        /// <param name="items">The items to produce MenuItems for</param>
+        /// <returns>
+        ///     An enumeration of 0 or more MenuItems
+        /// </returns>
         public IEnumerable<MenuItem> GetMenuItems(IEnumerable<IListDestinationItem> items)
         {
             var breakdown = new Breakdown(items);
@@ -32,10 +51,9 @@ namespace Missile.TextLauncher.ApplicationPlugin
                     };
                 yield return menuItem;
             }
-            else
+            else if (breakdown.FileListDestinationItems.Any())
             {
-                var menuItem = new MenuItem();
-                menuItem.Header = "Add Application";
+                var menuItem = new MenuItem {Header = "Add Application"};
                 foreach (var item in breakdown.FileListDestinationItems)
                     menuItem.Click += (sender, args) =>
                     {
@@ -46,13 +64,27 @@ namespace Missile.TextLauncher.ApplicationPlugin
             }
         }
 
+        /// <summary>
+        ///     Determines whether this instance can handle the specified item.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>
+        ///     <c>true</c> if this instance can handle the specified item; otherwise, <c>false</c>.
+        /// </returns>
         public bool CanHandle(FileInfo item)
         {
             return item != null;
         }
 
+        /// <summary>
+        ///     Partitions items into ApplicationListDestinationItem and FileListDestinationItem piles
+        /// </summary>
         private class Breakdown
         {
+            /// <summary>
+            ///     Initializes a new instance of the <see cref="Breakdown" /> class
+            /// </summary>
+            /// <param name="items">The items</param>
             public Breakdown(IEnumerable<IListDestinationItem> items)
             {
                 var list = items.ToList();
@@ -62,8 +94,28 @@ namespace Missile.TextLauncher.ApplicationPlugin
                             list.All(i => i is FileListDestinationItem);
             }
 
+            /// <summary>
+            ///     Gets the application list destination items
+            /// </summary>
+            /// <value>
+            ///     The application list destination items
+            /// </value>
             public List<ApplicationListDestinationItem> ApplicationListDestinationItems { get; }
+
+            /// <summary>
+            ///     Gets the file list destination items
+            /// </summary>
+            /// <value>
+            ///     The file list destination items
+            /// </value>
             public List<FileListDestinationItem> FileListDestinationItems { get; }
+
+            /// <summary>
+            ///     Gets a value indicating whether this instance can handle
+            /// </summary>
+            /// <value>
+            ///     <c>true</c> if this instance can handle; otherwise, <c>false</c>
+            /// </value>
             public bool CanHandle { get; }
         }
     }

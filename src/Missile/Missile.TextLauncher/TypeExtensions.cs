@@ -8,6 +8,9 @@ using System.Windows.Media.Imaging;
 
 namespace Missile.TextLauncher
 {
+    /// <summary>
+    ///     Extension methods for runtime types
+    /// </summary>
     public static class TypeExtensions
     {
         /// <summary>
@@ -25,6 +28,11 @@ namespace Missile.TextLauncher
             }
         }
 
+        /// <summary>
+        ///     Concerts an Icon into an ImageSource
+        /// </summary>
+        /// <param name="icon">The icon to transform</param>
+        /// <returns>The </returns>
         public static ImageSource ToImageSource(this Icon icon)
         {
             ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(

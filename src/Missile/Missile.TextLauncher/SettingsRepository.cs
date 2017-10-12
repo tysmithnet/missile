@@ -4,6 +4,7 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Xml.Serialization;
 
 namespace Missile.TextLauncher
@@ -12,14 +13,38 @@ namespace Missile.TextLauncher
     // todo: need custom property editors
     // todo: composite pattern groups
     // todo: allow setting to choose its property editor
+    /// <inheritdoc />
+    /// <summary>
+    ///     Default implementation of ISettingsRepository
+    /// </summary>
+    /// <seealso cref="T:Missile.TextLauncher.ISettingsRepository" />
     [Export(typeof(ISettingsRepository))]
     public class SettingsRepository : ISettingsRepository
     {
+        /// <summary>
+        ///     Loaded flag
+        /// </summary>
         private bool _isLoaded;
 
+        /// <summary>
+        ///     Gets or sets all settings
+        /// </summary>
+        /// <value>
+        ///     All settings
+        /// </value>
         [ImportMany]
         protected internal ISettings[] AllSettings { get; set; }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Saves the settings for the specified type parameter
+        /// </summary>
+        /// <typeparam name="T">Type of settings to save</typeparam>
+        /// <exception cref="T:System.ArgumentOutOfRangeException">The requested settings could not be found</exception>
+        /// <exception cref="T:System.Runtime.Serialization.SerializationException">
+        ///     The requested settings do not implement
+        ///     ISerializable or could not be serialized
+        /// </exception>
         public void Save<T>() where T : ISettings
         {
             if (!_isLoaded)
@@ -32,7 +57,8 @@ namespace Missile.TextLauncher
                 throw new ArgumentOutOfRangeException($"Cannot find requested setting: {typeof(T)}");
             var fileName = first.GetType().FullName + ".config";
             if (!first.GetType().IsSerializable)
-                throw new ArgumentException($"{typeof(T).FullName} is not serializable and therefore cannot be saved");
+                throw new SerializationException(
+                    $"{typeof(T).FullName} is not serializable and therefore cannot be saved");
             try
             {
                 using (var stream = new FileStream(fileName, FileMode.Truncate))
@@ -46,6 +72,15 @@ namespace Missile.TextLauncher
             }
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Gets settings matching the specified type parameter
+        /// </summary>
+        /// <typeparam name="T">The type of settings to get</typeparam>
+        /// <returns>
+        ///     ISettings instance matching the requested type
+        /// </returns>
+        /// <exception cref="T:System.ArgumentOutOfRangeException">The requested settings could not be found</exception>
         public T Get<T>() where T : ISettings
         {
             if (!_isLoaded)
@@ -60,39 +95,55 @@ namespace Missile.TextLauncher
             return first;
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Gets all settings
+        /// </summary>
+        /// <returns>
+        ///     All settings
+        /// </returns>
         public IEnumerable<ISettings> GetAll()
         {
-            if (!_isLoaded)
-            {
-                LoadFromFiles();
-                _isLoaded = true;
-            }
+            if (_isLoaded) return AllSettings;
+            LoadFromFiles();
+            _isLoaded = true;
             return AllSettings;
         }
 
-        private void LoadFromFiles()
+        /// <summary>
+        ///     Loads settings from disk
+        /// </summary>
+        protected internal void LoadFromFiles()
         {
             foreach (var settings in AllSettings)
             {
                 var fileName = settings.GetType().FullName + ".config";
-                if (settings.GetType().IsSerializable)
-                    try
+                if (!settings.GetType().IsSerializable) continue;
+                try
+                {
+                    using (var stream = new FileStream(fileName, FileMode.Open))
                     {
-                        using (var stream = new FileStream(fileName, FileMode.Open))
-                        {
-                            var serializer = new XmlSerializer(settings.GetType());
-                            var deserializedSettings = serializer.Deserialize(stream);
-                            CopySettings(deserializedSettings, settings);
-                        }
+                        var serializer = new XmlSerializer(settings.GetType());
+                        var deserializedSettings = (ISettings) serializer.Deserialize(stream);
+                        CopySettings(deserializedSettings, settings);
                     }
-                    catch (FileNotFoundException)
-                    {
-                    }
+                }
+                catch (FileNotFoundException)
+                {
+                }
             }
         }
 
-        private void CopySettings(object sourceSettings, ISettings destSettings)
+        /// <summary>
+        ///     Copies the settings from one settings object to another
+        /// </summary>
+        /// <param name="sourceSettings">The source settings</param>
+        /// <param name="destSettings">The dest settings</param>
+        protected internal static void CopySettings(ISettings sourceSettings, ISettings destSettings)
         {
+            if (sourceSettings.GetType() != destSettings.GetType())
+                throw new ArgumentException(
+                    "Cannot copy settings because the source and destination are of different types");
             var sourceAdapters = sourceSettings.GetType().GetMembers().Where(m => m is PropertyInfo || m is FieldInfo)
                 .Select(x => new PropertyFieldAdapter(x, sourceSettings));
             var destAdapters = destSettings.GetType().GetMembers().Where(m => m is PropertyInfo || m is FieldInfo)

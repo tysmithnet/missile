@@ -25,7 +25,7 @@ namespace Missile.TextLauncher
         protected internal readonly PropertyInfo PropertyInfo;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PropertyFieldAdapter"/> class.
+        ///     Initializes a new instance of the <see cref="PropertyFieldAdapter" /> class.
         /// </summary>
         /// <param name="memberInfo">The member information, either field or property</param>
         /// <param name="instance">The instance for which the property or field is attached</param>
@@ -45,27 +45,27 @@ namespace Missile.TextLauncher
         }
 
         /// <summary>
-        /// Gets the member information
+        ///     Gets the member information
         /// </summary>
         /// <value>
-        /// The member information
+        ///     The member information
         /// </value>
         public MemberInfo MemberInfo { get; }
 
         /// <summary>
-        /// Gets a value indicating whether this instance is sub section
+        ///     Gets a value indicating whether this instance is sub section
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is sub section; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance is sub section; otherwise, <c>false</c>.
         /// </value>
         public bool IsSubSection =>
             MemberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SubSettingsAttribute));
 
         /// <summary>
-        /// Gets a value indicating whether the specified member info is affixed with [SettingAttribute]
+        ///     Gets a value indicating whether the specified member info is affixed with [SettingAttribute]
         /// </summary>
         /// <value>
-        ///   <c>true</c> if this instance is setting; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance is setting; otherwise, <c>false</c>.
         /// </value>
         public bool IsSetting => MemberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SettingAttribute));
 
@@ -79,7 +79,7 @@ namespace Missile.TextLauncher
         }
 
         /// <summary>
-        /// Gets the value of this property or field
+        ///     Gets the value of this property or field
         /// </summary>
         /// <returns>The value of this property or field</returns>
         public object GetValue()
@@ -90,7 +90,7 @@ namespace Missile.TextLauncher
         }
 
         /// <summary>
-        /// Gets the type of the member
+        ///     Gets the type of the member
         /// </summary>
         /// <returns>The type of the member</returns>
         public Type GetMemberType()

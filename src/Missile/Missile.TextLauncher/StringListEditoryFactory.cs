@@ -6,14 +6,35 @@ using System.Windows.Controls;
 
 namespace Missile.TextLauncher
 {
+    /// <inheritdoc />
+    /// <summary>
+    ///     Property editor factory for string lists
+    /// </summary>
+    /// <seealso cref="T:Missile.TextLauncher.IPropertyEditorFactory" />
     [Export(typeof(IPropertyEditorFactory))]
     public class StringListEditoryFactory : IPropertyEditorFactory
     {
+        /// <inheritdoc />
+        /// <summary>
+        ///     Determines whether this instance can handle the specified type
+        /// </summary>
+        /// <param name="type">The type</param>
+        /// <returns>
+        ///     <c>true</c> if this instance can handle the specified type; otherwise, <c>false</c>.
+        /// </returns>
         public bool CanHandle(Type type)
         {
             return typeof(IList<string>).IsAssignableFrom(type);
         }
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Gets the control for editing the specified property or field
+        /// </summary>
+        /// <param name="adapter">The adapter abstracting a property or field</param>
+        /// <returns>
+        ///     A component capable of editing the specified property or field
+        /// </returns>
         public FrameworkElement GetControl(PropertyFieldAdapter adapter)
         {
             var stackPanel = new StackPanel();

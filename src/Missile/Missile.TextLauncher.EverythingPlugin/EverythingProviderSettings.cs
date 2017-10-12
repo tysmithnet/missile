@@ -3,14 +3,26 @@ using System.ComponentModel.Composition;
 
 namespace Missile.TextLauncher.EverythingPlugin
 {
+    /// <inheritdoc />
+    /// <summary>
+    ///     Settings for EverythingProvider
+    /// </summary>
+    /// <seealso cref="T:Missile.TextLauncher.ISettings" />
     [Export(typeof(ISettings))]
     [Serializable]
     public class EverythingProviderSettings : ISettings
     {
+        /// <summary>
+        ///     Gets or sets the default number maximum results
+        /// </summary>
+        /// <value>
+        ///     The default number maximum results
+        /// </value>
         [Setting]
-        public int DefaultSearchResults { get; set; } = 100;
+        public int DefaultNumMaxResults { get; set; } = 100;
 
         /// <summary>
+        ///     Path to es.exe
         ///     https://www.voidtools.com/support/everything/command_line_interface/
         /// </summary>
         [Setting]

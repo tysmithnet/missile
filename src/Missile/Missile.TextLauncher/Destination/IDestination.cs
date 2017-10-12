@@ -10,6 +10,7 @@ namespace Missile.TextLauncher.Destination
     {
     }
 
+    /// <inheritdoc />
     /// <summary>
     ///     Represents an object that can accept observables of some type and process them, and
     ///     then return a Task that will represent the completion of the processing.
