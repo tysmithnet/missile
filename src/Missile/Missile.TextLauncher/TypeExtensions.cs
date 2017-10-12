@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows;
 using System.Windows.Interop;
@@ -32,7 +33,8 @@ namespace Missile.TextLauncher
         ///     Concerts an Icon into an ImageSource
         /// </summary>
         /// <param name="icon">The icon to transform</param>
-        /// <returns>The </returns>
+        /// <returns>The transformed icon</returns>
+        [ExcludeFromCodeCoverage]
         public static ImageSource ToImageSource(this Icon icon)
         {
             ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(

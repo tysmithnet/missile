@@ -21,6 +21,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 #pragma warning disable 1591
 // ReSharper disable UnusedMember.Global
@@ -50,6 +51,7 @@ namespace Missile.TextLauncher.Annotations
         AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
         AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event |
         AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.GenericParameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class CanBeNullAttribute : Attribute
     {
     }
@@ -68,6 +70,7 @@ namespace Missile.TextLauncher.Annotations
         AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
         AttributeTargets.Delegate | AttributeTargets.Field | AttributeTargets.Event |
         AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.GenericParameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class NotNullAttribute : Attribute
     {
     }
@@ -80,6 +83,7 @@ namespace Missile.TextLauncher.Annotations
     [AttributeUsage(
         AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
         AttributeTargets.Delegate | AttributeTargets.Field)]
+    [ExcludeFromCodeCoverage]
     public sealed class ItemNotNullAttribute : Attribute
     {
     }
@@ -92,6 +96,7 @@ namespace Missile.TextLauncher.Annotations
     [AttributeUsage(
         AttributeTargets.Method | AttributeTargets.Parameter | AttributeTargets.Property |
         AttributeTargets.Delegate | AttributeTargets.Field)]
+    [ExcludeFromCodeCoverage]
     public sealed class ItemCanBeNullAttribute : Attribute
     {
     }
@@ -114,6 +119,7 @@ namespace Missile.TextLauncher.Annotations
     [AttributeUsage(
         AttributeTargets.Constructor | AttributeTargets.Method |
         AttributeTargets.Property | AttributeTargets.Delegate)]
+    [ExcludeFromCodeCoverage]
     public sealed class StringFormatMethodAttribute : Attribute
     {
         /// <param name="formatParameterName">
@@ -135,6 +141,7 @@ namespace Missile.TextLauncher.Annotations
     [AttributeUsage(
         AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Field,
         AllowMultiple = true)]
+    [ExcludeFromCodeCoverage]
     public sealed class ValueProviderAttribute : Attribute
     {
         public ValueProviderAttribute([NotNull] string name)
@@ -160,6 +167,7 @@ namespace Missile.TextLauncher.Annotations
     /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.Parameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class InvokerParameterNameAttribute : Attribute
     {
     }
@@ -222,6 +230,7 @@ namespace Missile.TextLauncher.Annotations
     ///     </list>
     /// </example>
     [AttributeUsage(AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class NotifyPropertyChangedInvocatorAttribute : Attribute
     {
         public NotifyPropertyChangedInvocatorAttribute()
@@ -294,6 +303,7 @@ namespace Missile.TextLauncher.Annotations
     ///     </list>
     /// </examples>
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+    [ExcludeFromCodeCoverage]
     public sealed class ContractAnnotationAttribute : Attribute
     {
         public ContractAnnotationAttribute([NotNull] string contract)
@@ -325,6 +335,7 @@ namespace Missile.TextLauncher.Annotations
     /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.All)]
+    [ExcludeFromCodeCoverage]
     public sealed class LocalizationRequiredAttribute : Attribute
     {
         public LocalizationRequiredAttribute() : this(true)
@@ -362,6 +373,7 @@ namespace Missile.TextLauncher.Annotations
     /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class | AttributeTargets.Struct)]
+    [ExcludeFromCodeCoverage]
     public sealed class CannotApplyEqualityOperatorAttribute : Attribute
     {
     }
@@ -381,6 +393,7 @@ namespace Missile.TextLauncher.Annotations
     /// </example>
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     [BaseTypeRequired(typeof(Attribute))]
+    [ExcludeFromCodeCoverage]
     public sealed class BaseTypeRequiredAttribute : Attribute
     {
         public BaseTypeRequiredAttribute([NotNull] Type baseType)
@@ -397,6 +410,7 @@ namespace Missile.TextLauncher.Annotations
     ///     so this symbol will not be marked as unused (as well as by other usage inspections).
     /// </summary>
     [AttributeUsage(AttributeTargets.All)]
+    [ExcludeFromCodeCoverage]
     public sealed class UsedImplicitlyAttribute : Attribute
     {
         public UsedImplicitlyAttribute()
@@ -430,6 +444,7 @@ namespace Missile.TextLauncher.Annotations
     ///     as unused (as well as by other usage inspections)
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.GenericParameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class MeansImplicitUseAttribute : Attribute
     {
         public MeansImplicitUseAttribute()
@@ -503,6 +518,7 @@ namespace Missile.TextLauncher.Annotations
     ///     which should not be removed and so is treated as used.
     /// </summary>
     [MeansImplicitUse(ImplicitUseTargetFlags.WithMembers)]
+    [ExcludeFromCodeCoverage]
     public sealed class PublicAPIAttribute : Attribute
     {
         public PublicAPIAttribute()
@@ -524,6 +540,7 @@ namespace Missile.TextLauncher.Annotations
     ///     If the parameter is an enumerable, indicates that it is enumerated while the method is executed.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class InstantHandleAttribute : Attribute
     {
     }
@@ -542,6 +559,7 @@ namespace Missile.TextLauncher.Annotations
     /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class PureAttribute : Attribute
     {
     }
@@ -550,6 +568,7 @@ namespace Missile.TextLauncher.Annotations
     ///     Indicates that the return value of method invocation must be used.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class MustUseReturnValueAttribute : Attribute
     {
         public MustUseReturnValueAttribute()
@@ -586,6 +605,7 @@ namespace Missile.TextLauncher.Annotations
         AttributeTargets.Field | AttributeTargets.Property | AttributeTargets.Parameter | AttributeTargets.Method |
         AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Struct |
         AttributeTargets.GenericParameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class ProvidesContextAttribute : Attribute
     {
     }
@@ -595,6 +615,7 @@ namespace Missile.TextLauncher.Annotations
     ///     Path can be relative or absolute, starting from web root (~).
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class PathReferenceAttribute : Attribute
     {
         public PathReferenceAttribute()
@@ -634,6 +655,7 @@ namespace Missile.TextLauncher.Annotations
     /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class SourceTemplateAttribute : Attribute
     {
     }
@@ -667,6 +689,7 @@ namespace Missile.TextLauncher.Annotations
     /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method, AllowMultiple = true)]
+    [ExcludeFromCodeCoverage]
     public sealed class MacroAttribute : Attribute
     {
         /// <summary>
@@ -697,6 +720,7 @@ namespace Missile.TextLauncher.Annotations
 
     [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Field | AttributeTargets.Property, AllowMultiple =
         true)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcAreaMasterLocationFormatAttribute : Attribute
     {
         public AspMvcAreaMasterLocationFormatAttribute([NotNull] string format)
@@ -710,6 +734,7 @@ namespace Missile.TextLauncher.Annotations
 
     [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Field | AttributeTargets.Property, AllowMultiple =
         true)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcAreaPartialViewLocationFormatAttribute : Attribute
     {
         public AspMvcAreaPartialViewLocationFormatAttribute([NotNull] string format)
@@ -723,6 +748,7 @@ namespace Missile.TextLauncher.Annotations
 
     [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Field | AttributeTargets.Property, AllowMultiple =
         true)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcAreaViewLocationFormatAttribute : Attribute
     {
         public AspMvcAreaViewLocationFormatAttribute([NotNull] string format)
@@ -736,6 +762,7 @@ namespace Missile.TextLauncher.Annotations
 
     [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Field | AttributeTargets.Property, AllowMultiple =
         true)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcMasterLocationFormatAttribute : Attribute
     {
         public AspMvcMasterLocationFormatAttribute([NotNull] string format)
@@ -749,6 +776,7 @@ namespace Missile.TextLauncher.Annotations
 
     [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Field | AttributeTargets.Property, AllowMultiple =
         true)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcPartialViewLocationFormatAttribute : Attribute
     {
         public AspMvcPartialViewLocationFormatAttribute([NotNull] string format)
@@ -762,6 +790,7 @@ namespace Missile.TextLauncher.Annotations
 
     [AttributeUsage(AttributeTargets.Assembly | AttributeTargets.Field | AttributeTargets.Property, AllowMultiple =
         true)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcViewLocationFormatAttribute : Attribute
     {
         public AspMvcViewLocationFormatAttribute([NotNull] string format)
@@ -780,6 +809,7 @@ namespace Missile.TextLauncher.Annotations
     ///     <c>System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String)</c>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcActionAttribute : Attribute
     {
         public AspMvcActionAttribute()
@@ -801,6 +831,7 @@ namespace Missile.TextLauncher.Annotations
     ///     <c>System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String)</c>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcAreaAttribute : Attribute
     {
         public AspMvcAreaAttribute()
@@ -823,6 +854,7 @@ namespace Missile.TextLauncher.Annotations
     ///     <c>System.Web.Mvc.Html.ChildActionExtensions.RenderAction(HtmlHelper, String, String)</c>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcControllerAttribute : Attribute
     {
         public AspMvcControllerAttribute()
@@ -843,6 +875,7 @@ namespace Missile.TextLauncher.Annotations
     ///     for custom wrappers similar to <c>System.Web.Mvc.Controller.View(String, String)</c>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcMasterAttribute : Attribute
     {
     }
@@ -852,6 +885,7 @@ namespace Missile.TextLauncher.Annotations
     ///     for custom wrappers similar to <c>System.Web.Mvc.Controller.View(String, Object)</c>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcModelTypeAttribute : Attribute
     {
     }
@@ -863,6 +897,7 @@ namespace Missile.TextLauncher.Annotations
     ///     <c>System.Web.Mvc.Html.RenderPartialExtensions.RenderPartial(HtmlHelper, String)</c>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcPartialViewAttribute : Attribute
     {
     }
@@ -871,6 +906,7 @@ namespace Missile.TextLauncher.Annotations
     ///     ASP.NET MVC attribute. Allows disabling inspections for MVC views within a class or a method.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcSuppressViewErrorAttribute : Attribute
     {
     }
@@ -881,6 +917,7 @@ namespace Missile.TextLauncher.Annotations
     ///     <c>System.Web.Mvc.Html.DisplayExtensions.DisplayForModel(HtmlHelper, String)</c>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcDisplayTemplateAttribute : Attribute
     {
     }
@@ -891,6 +928,7 @@ namespace Missile.TextLauncher.Annotations
     ///     <c>System.Web.Mvc.Html.EditorExtensions.EditorForModel(HtmlHelper, String)</c>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcEditorTemplateAttribute : Attribute
     {
     }
@@ -901,6 +939,7 @@ namespace Missile.TextLauncher.Annotations
     ///     <c>System.ComponentModel.DataAnnotations.UIHintAttribute(System.String)</c>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcTemplateAttribute : Attribute
     {
     }
@@ -912,6 +951,7 @@ namespace Missile.TextLauncher.Annotations
     ///     <c>System.Web.Mvc.Controller.View(Object)</c>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcViewAttribute : Attribute
     {
     }
@@ -921,6 +961,7 @@ namespace Missile.TextLauncher.Annotations
     ///     is an MVC view component name.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcViewComponentAttribute : Attribute
     {
     }
@@ -930,6 +971,7 @@ namespace Missile.TextLauncher.Annotations
     ///     is an MVC view component view. If applied to a method, the MVC view component view name is default.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcViewComponentViewAttribute : Attribute
     {
     }
@@ -948,11 +990,13 @@ namespace Missile.TextLauncher.Annotations
     /// </code>
     /// </example>
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMvcActionSelectorAttribute : Attribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Property | AttributeTargets.Field)]
+    [ExcludeFromCodeCoverage]
     public sealed class HtmlElementAttributesAttribute : Attribute
     {
         public HtmlElementAttributesAttribute()
@@ -969,6 +1013,7 @@ namespace Missile.TextLauncher.Annotations
     }
 
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Field | AttributeTargets.Property)]
+    [ExcludeFromCodeCoverage]
     public sealed class HtmlAttributeValueAttribute : Attribute
     {
         public HtmlAttributeValueAttribute([NotNull] string name)
@@ -986,6 +1031,7 @@ namespace Missile.TextLauncher.Annotations
     ///     <c>System.Web.WebPages.WebPageBase.RenderSection(String)</c>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter | AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class RazorSectionAttribute : Attribute
     {
     }
@@ -995,6 +1041,7 @@ namespace Missile.TextLauncher.Annotations
     ///     over collection type affects content of the collection.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Constructor | AttributeTargets.Property)]
+    [ExcludeFromCodeCoverage]
     public sealed class CollectionAccessAttribute : Attribute
     {
         public CollectionAccessAttribute(CollectionAccessType collectionAccessType)
@@ -1005,7 +1052,7 @@ namespace Missile.TextLauncher.Annotations
         public CollectionAccessType CollectionAccessType { get; }
     }
 
-    [Flags]
+    [Flags]                   
     public enum CollectionAccessType
     {
         /// <summary>Method does not use or modify content of the collection.</summary>
@@ -1027,6 +1074,7 @@ namespace Missile.TextLauncher.Annotations
     ///     <see cref="AssertionConditionAttribute" /> attribute.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class AssertionMethodAttribute : Attribute
     {
     }
@@ -1037,6 +1085,7 @@ namespace Missile.TextLauncher.Annotations
     ///     the attribute is the assertion type.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class AssertionConditionAttribute : Attribute
     {
         public AssertionConditionAttribute(AssertionConditionType conditionType)
@@ -1050,7 +1099,7 @@ namespace Missile.TextLauncher.Annotations
     /// <summary>
     ///     Specifies assertion type. If the assertion method argument satisfies the condition,
     ///     then the execution continues. Otherwise, execution is assumed to be halted.
-    /// </summary>
+    /// </summary>            
     public enum AssertionConditionType
     {
         /// <summary>Marked parameter should be evaluated to true.</summary>
@@ -1072,6 +1121,7 @@ namespace Missile.TextLauncher.Annotations
     /// </summary>
     [Obsolete("Use [ContractAnnotation('=> halt')] instead")]
     [AttributeUsage(AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class TerminatesProgramAttribute : Attribute
     {
     }
@@ -1082,6 +1132,7 @@ namespace Missile.TextLauncher.Annotations
     ///     of delegate type by analyzing LINQ method chains.
     /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class LinqTunnelAttribute : Attribute
     {
     }
@@ -1090,6 +1141,7 @@ namespace Missile.TextLauncher.Annotations
     ///     Indicates that IEnumerable, passed as parameter, is not enumerated.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class NoEnumerationAttribute : Attribute
     {
     }
@@ -1098,6 +1150,7 @@ namespace Missile.TextLauncher.Annotations
     ///     Indicates that parameter is regular expression pattern.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class RegexPatternAttribute : Attribute
     {
     }
@@ -1110,6 +1163,7 @@ namespace Missile.TextLauncher.Annotations
     /// </remarks>
     [AttributeUsage(
         AttributeTargets.Class | AttributeTargets.Interface | AttributeTargets.Struct | AttributeTargets.Enum)]
+    [ExcludeFromCodeCoverage]
     public sealed class NoReorderAttribute : Attribute
     {
     }
@@ -1119,6 +1173,7 @@ namespace Missile.TextLauncher.Annotations
     ///     as <c>ItemsControl</c>-derived type, to enable inner items <c>DataContext</c> type resolve.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
+    [ExcludeFromCodeCoverage]
     public sealed class XamlItemsControlAttribute : Attribute
     {
     }
@@ -1133,11 +1188,13 @@ namespace Missile.TextLauncher.Annotations
     ///     marked with the <see cref="XamlItemsControlAttribute" /> attribute.
     /// </remarks>
     [AttributeUsage(AttributeTargets.Property)]
+    [ExcludeFromCodeCoverage]
     public sealed class XamlItemBindingOfItemsControlAttribute : Attribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspChildControlTypeAttribute : Attribute
     {
         public AspChildControlTypeAttribute([NotNull] string tagName, [NotNull] Type controlType)
@@ -1154,21 +1211,25 @@ namespace Missile.TextLauncher.Annotations
     }
 
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspDataFieldAttribute : Attribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspDataFieldsAttribute : Attribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Property)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspMethodPropertyAttribute : Attribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspRequiredAttributeAttribute : Attribute
     {
         public AspRequiredAttributeAttribute([NotNull] string attribute)
@@ -1181,6 +1242,7 @@ namespace Missile.TextLauncher.Annotations
     }
 
     [AttributeUsage(AttributeTargets.Property)]
+    [ExcludeFromCodeCoverage]
     public sealed class AspTypePropertyAttribute : Attribute
     {
         public AspTypePropertyAttribute(bool createConstructorReferences)
@@ -1192,6 +1254,7 @@ namespace Missile.TextLauncher.Annotations
     }
 
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
+    [ExcludeFromCodeCoverage]
     public sealed class RazorImportNamespaceAttribute : Attribute
     {
         public RazorImportNamespaceAttribute([NotNull] string name)
@@ -1204,6 +1267,7 @@ namespace Missile.TextLauncher.Annotations
     }
 
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
+    [ExcludeFromCodeCoverage]
     public sealed class RazorInjectionAttribute : Attribute
     {
         public RazorInjectionAttribute([NotNull] string type, [NotNull] string fieldName)
@@ -1220,6 +1284,7 @@ namespace Missile.TextLauncher.Annotations
     }
 
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
+    [ExcludeFromCodeCoverage]
     public sealed class RazorDirectiveAttribute : Attribute
     {
         public RazorDirectiveAttribute([NotNull] string directive)
@@ -1232,6 +1297,7 @@ namespace Missile.TextLauncher.Annotations
     }
 
     [AttributeUsage(AttributeTargets.Assembly, AllowMultiple = true)]
+    [ExcludeFromCodeCoverage]
     public sealed class RazorPageBaseTypeAttribute : Attribute
     {
         public RazorPageBaseTypeAttribute([NotNull] string baseType)
@@ -1253,26 +1319,31 @@ namespace Missile.TextLauncher.Annotations
     }
 
     [AttributeUsage(AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class RazorHelperCommonAttribute : Attribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Property)]
+    [ExcludeFromCodeCoverage]
     public sealed class RazorLayoutAttribute : Attribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class RazorWriteLiteralMethodAttribute : Attribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Method)]
+    [ExcludeFromCodeCoverage]
     public sealed class RazorWriteMethodAttribute : Attribute
     {
     }
 
     [AttributeUsage(AttributeTargets.Parameter)]
+    [ExcludeFromCodeCoverage]
     public sealed class RazorWriteMethodParameterAttribute : Attribute
     {
     }
