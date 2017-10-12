@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using FluentAssertions;
 using Missile.TextLauncher.Interpretation.Lexing;
 using Xunit;
@@ -158,5 +159,21 @@ namespace Missile.TextLauncher.Interpretation.Tests
             new Lexer().LexAsync("", CancellationToken.None).Result.Should()
                 .Equal(new Token[0], "empty string implies no tokens");
         }
+
+        [Fact]
+        public void Transition_To_ErrorState_If_Illegal_Character_Encountered()
+        {
+            new Lexer().Invoking(lexer =>
+                {
+                    var x = lexer.LexAsync(">", CancellationToken.None).Result;
+                })
+                .ShouldThrow<InvalidOperationException>("> is not a valid character to start the identifier");
+
+            new Lexer().Invoking(lexer =>
+                {
+                    var x = lexer.LexAsync("abc>", CancellationToken.None).Result;
+                })
+                .ShouldThrow<InvalidOperationException>("> is not a valid character to be in an identifier");
+        }                                   
     }
 }

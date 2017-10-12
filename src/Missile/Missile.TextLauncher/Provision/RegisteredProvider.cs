@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace Missile.TextLauncher.Provision
 {
-    public sealed class RegisteredProvider
+    public class RegisteredProvider
     {
         public RegisteredProvider(IProvider instance, Type iProviderInterface)
         {
@@ -14,7 +14,7 @@ namespace Missile.TextLauncher.Provision
             ProvideMethodInfo = iProviderInterface.GetMethod("Provide");
         }
 
-        internal RegisteredProvider()
+        protected internal RegisteredProvider()
         {
         }
 
@@ -23,7 +23,7 @@ namespace Missile.TextLauncher.Provision
         public IProvider ProviderInstance { get; internal set; }
         public MethodInfo ProvideMethodInfo { get; internal set; }
 
-        public object Provide(string[] args)
+        public virtual object Provide(string[] args)
         {
             return ProvideMethodInfo.Invoke(ProviderInstance, new object[] {args});
         }

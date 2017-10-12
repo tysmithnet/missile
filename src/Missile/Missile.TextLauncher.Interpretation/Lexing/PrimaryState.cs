@@ -27,22 +27,23 @@ namespace Missile.TextLauncher.Interpretation.Lexing
         /// <returns>
         /// A task that when complete will have the next state in hand
         /// </returns>
-        public sealed override async Task<State> TransitionAsync(char input, CancellationToken cancellationToken)
+        public sealed override Task<State> TransitionAsync(char input, CancellationToken cancellationToken)
         {
+            cancellationToken.ThrowIfCancellationRequested();
             if (input == ' ')
             {
                 if (Identifier == null)
-                    return this;
-                return GetArgState();
+                    return Task.FromResult<State>(this);
+                return Task.FromResult<State>(GetArgState());
             }
 
             if (IdentifierRegex.IsMatch(input.ToString()))
             {
                 Identifier += input;
-                return this;
+                return Task.FromResult<State>(this);
             }
 
-            return new ErrorState();
+            return Task.FromResult<State>(new ErrorState());
         }
 
         /// <inheritdoc />

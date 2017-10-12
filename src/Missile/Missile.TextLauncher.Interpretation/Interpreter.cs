@@ -91,6 +91,8 @@ namespace Missile.TextLauncher.Interpretation
             if (inspector == null)
                 throw new ApplicationException($"Unable to find an inspector for {destinationInput.GetType()}");
 
+            // todo: handle filters
+
             var typeForConverter = inspector.GetObservableType(destinationInput.GetType());
 
             if (!destination.SourceType.IsAssignableFrom(typeForConverter))

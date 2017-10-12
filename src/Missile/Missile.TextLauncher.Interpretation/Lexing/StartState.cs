@@ -19,14 +19,14 @@ namespace Missile.TextLauncher.Interpretation.Lexing
         /// <returns>
         /// A task that when complete will have the next state in hand
         /// </returns>
-        public override async Task<State> TransitionAsync(char input, CancellationToken cancellationToken)
+        public override Task<State> TransitionAsync(char input, CancellationToken cancellationToken)
         {
             if (input == ' ')
-                return this;
+                return Task.FromResult<State>(this);
             if (IdentifierRegex.IsMatch(input.ToString()))
-                return new ProviderState(input.ToString());
+                return Task.FromResult<State>(new ProviderState(input.ToString()));
 
-            return null;
+            return Task.FromResult<State>(new ErrorState());
         }
     }
 }

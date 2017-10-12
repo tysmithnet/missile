@@ -9,12 +9,23 @@ using Missile.TextLauncher.Interpretation.Parsing;
 using Missile.TextLauncher.Interpretation.Tests.Mocks;
 using Missile.TextLauncher.Provision;
 using Missile.TextLauncher.Provision.Range;
+using Moq;
 using Xunit;
 
 namespace Missile.TextLauncher.Interpretation.Tests
 {
     public class Interpreter_Should
     {
+        private class UnknownObservable<T, U> : IObservable<T>
+        {
+            public U Something { get; set; }
+
+            public IDisposable Subscribe(IObserver<T> observer)
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         [Fact]
         public void Handle_Conversion()
         {
@@ -201,5 +212,39 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 .ShouldNotThrow("provider and destination combo should work");
             sb.Length.Should().BeGreaterThan(0);
         }
+
+        [Fact]
+        public void Throw_ApplicationException_If_There_Is_No_Suitable_Inspector()
+        {
+            var rootNodeBuilder = new RootNodeBuilder();
+            rootNodeBuilder
+                .WithProvider("range", new string[0])
+                .WithDestination("console", new string[0]);
+
+            var sb = new StringBuilder();
+            var mockRegisteredProvider = new Mock<RegisteredProvider>();
+            mockRegisteredProvider.Object.Name = "range";
+            mockRegisteredProvider.Setup(provider => provider.Provide(It.IsAny<string[]>()))
+                .Returns(new UnknownObservable<object, int>());
+
+            var interpreterBuilder = new InterpreterBuilder()
+                .WithProvider(mockRegisteredProvider.Object).WithDestination(new RegisteredDestination
+                {
+                    Name = "console",
+                    SourceType = typeof(object),
+                    DestinationInstance = new ConsoleDestination
+                    {
+                        WriteFunction = o => sb.AppendLine($"{o}")
+                    },
+                    ProcessAsyncMethodInfo = typeof(ConsoleDestination).GetMethod("ProcessAsync")
+                });
+
+            var interpreter = interpreterBuilder.Build();
+            var rootNode = rootNodeBuilder.Build();
+            interpreter.Invoking(i => i.InterpretAsync(rootNode, CancellationToken.None))
+                .ShouldThrow<ApplicationException>();                                                     
+        }
     }
 }
+
+

@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using System;
+using FluentAssertions;
 using Missile.TextLauncher.Interpretation.Lexing;
 using Xunit;
 
@@ -6,6 +7,13 @@ namespace Missile.TextLauncher.Interpretation.Tests
 {
     public class Tokens_Should
     {
+        [Fact]
+        public void Throw_If_No_Input_Provided()
+        {
+            Action action = () => new ProviderToken(null, null);
+            action.ShouldThrow<ArgumentNullException>("tokens cannot have null names");
+        }
+
         [Fact]
         public void Provide_Correct_Equality_Logic()
         {
