@@ -34,7 +34,7 @@ namespace Missile.TextLauncher.Interpretation.Parsing
         public Task<RootNode> ParseAsync(IEnumerable<Token> tokens, CancellationToken cancellationToken)
         {
             if (tokens == null)
-                throw new NullReferenceException(nameof(tokens));
+                throw new ArgumentNullException(nameof(tokens));
 
             var list = tokens.ToList();
 

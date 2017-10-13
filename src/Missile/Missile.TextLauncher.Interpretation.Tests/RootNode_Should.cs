@@ -61,6 +61,8 @@ namespace Missile.TextLauncher.Interpretation.Tests
 
             r9.Should().Be(r10, "if all components match then the root nodes are equal");
             r9.GetHashCode().Should().Be(r10.GetHashCode(), "if all components match then the root nodes are equal");
+
+            new RootNode().Equals(new object()).Should().BeFalse("RootNode can only equal other root nodes");
         }
 
         [Fact]

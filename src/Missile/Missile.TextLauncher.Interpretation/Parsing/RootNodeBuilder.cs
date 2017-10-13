@@ -35,39 +35,17 @@ namespace Missile.TextLauncher.Interpretation.Parsing
         {
             RootNode.ProviderNode = new ProviderNode(new ProviderToken(providerName, args));
             return this;
-        }
-
-        /// <summary>
-        /// Sets the provider.
-        /// </summary>
-        /// <param name="token">The token.</param>
-        internal void WithProvider(ProviderToken token)
-        {
-            RootNode.ProviderNode = new ProviderNode(token);
-        }
+        }                
 
         /// <summary>
         /// Builds this instance.
         /// </summary>
         /// <returns>this builder</returns>
         public RootNode Build()
-        {
-            if (RootNode.ProviderNode == null && !RootNode.FilterNodes.Any() && RootNode.DestinationNode == null)
-                return new RootNode();
+        {                       
             return RootNode;
         }
-
-        /// <summary>
-        /// Sets the destination.
-        /// </summary>
-        /// <param name="destintationToken">The destintation token.</param>
-        /// <returns>this builder</returns>
-        public RootNodeBuilder WithDestination(DestinationToken destintationToken)
-        {
-            RootNode.DestinationNode = new DestinationNode(destintationToken);
-            return this;
-        }
-
+                                      
         /// <summary>
         /// Sets the destination.
         /// </summary>

@@ -53,8 +53,14 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 new ProviderToken("lorem", new string[0]),
                 new FilterToken("sort", new string[0])
             };
-
+            
             var parser = new Parser();
+            Func<Task> nullTask = async () =>
+            {
+                await parser.ParseAsync(null, CancellationToken.None);
+            };
+            nullTask.ShouldThrow<ArgumentNullException>("Parser will not accept null tokens");
+
             Func<Task> providerTask = async () =>
             {
                 await parser.ParseAsync(providerOutOfPlace, CancellationToken.None);
