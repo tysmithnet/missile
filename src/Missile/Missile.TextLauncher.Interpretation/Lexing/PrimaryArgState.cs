@@ -7,24 +7,24 @@ namespace Missile.TextLauncher.Interpretation.Lexing
 {
     /// <inheritdoc />
     /// <summary>
-    /// Providers, filters, and destinations can all take arguments
-    /// This is the state representing the start of collecting those arguments
+    ///     Providers, filters, and destinations can all take arguments
+    ///     This is the state representing the start of collecting those arguments
     /// </summary>
     /// <seealso cref="T:Missile.TextLauncher.Interpretation.Lexing.State" />
     internal abstract class PrimaryArgState : State
     {
         /// <summary>
-        /// The is escaped flag is set when the start of an escaped character is found
+        ///     The is escaped flag is set when the start of an escaped character is found
         /// </summary>
         private bool _isEscaped;
 
         /// <summary>
-        /// The is open quote flag is set when an opening quote has been found
+        ///     The is open quote flag is set when an opening quote has been found
         /// </summary>
         private bool _isOpenQuote;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PrimaryArgState"/> class
+        ///     Initializes a new instance of the <see cref="PrimaryArgState" /> class
         /// </summary>
         /// <param name="identifier">The identifier</param>
         /// <exception cref="ArgumentNullException">identifier</exception>
@@ -34,38 +34,38 @@ namespace Missile.TextLauncher.Interpretation.Lexing
         }
 
         /// <summary>
-        /// Gets or sets the identifier for the current provider, filter, destination
+        ///     Gets or sets the identifier for the current provider, filter, destination
         /// </summary>
         /// <value>
-        /// The identifier
+        ///     The identifier
         /// </value>
         public string Identifier { get; set; }
 
         /// <summary>
-        /// Gets or sets the current argument
+        ///     Gets or sets the current argument
         /// </summary>
         /// <value>
-        /// The current argument
+        ///     The current argument
         /// </value>
         public string CurrentArg { get; set; } = "";
 
 
         /// <summary>
-        /// Gets or sets the arguments
+        ///     Gets or sets the arguments
         /// </summary>
         /// <value>
-        /// The arguments
+        ///     The arguments
         /// </value>
         public List<string> Args { get; } = new List<string>();
 
         /// <inheritdoc />
         /// <summary>
-        /// Transitions this state to the next asynchronously
+        ///     Transitions this state to the next asynchronously
         /// </summary>
         /// <param name="input">The input to lex</param>
         /// <param name="cancellationToken">The cancellation token</param>
         /// <returns>
-        /// A task that when complete will have the next state in hand
+        ///     A task that when complete will have the next state in hand
         /// </returns>
         public override async Task<State> TransitionAsync(char input, CancellationToken cancellationToken)
         {
@@ -146,19 +146,19 @@ namespace Missile.TextLauncher.Interpretation.Lexing
                     }
                     break;
             }
-                                            
+
             return this;
         }
 
         /// <summary>
-        /// Gets the token for this provider, filter, desintation
+        ///     Gets the token for this provider, filter, desintation
         /// </summary>
         /// <returns></returns>
         public abstract Token GetToken();
 
         /// <inheritdoc />
         /// <summary>
-        /// Returns the provider, filter, destination token in progress
+        ///     Returns the provider, filter, destination token in progress
         /// </summary>
         public override void Flush()
         {

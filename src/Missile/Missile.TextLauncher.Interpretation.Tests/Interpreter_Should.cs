@@ -242,9 +242,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
             var interpreter = interpreterBuilder.Build();
             var rootNode = rootNodeBuilder.Build();
             interpreter.Invoking(i => i.InterpretAsync(rootNode, CancellationToken.None))
-                .ShouldThrow<ApplicationException>();                                                     
+                .ShouldThrow<ApplicationException>();
         }
     }
 }
-
-

@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 namespace Missile.TextLauncher.Interpretation.Lexing
 {
     /// <summary>
-    /// Object capable of transforming text input into an enumeration of tokens
+    ///     Object capable of transforming text input into an enumeration of tokens
     /// </summary>
     public interface ILexer
     {
         /// <summary>
-        /// Lexes the input asynchronously 
+        ///     Lexes the input asynchronously
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="cancellationToken">The cancellation token.</param>

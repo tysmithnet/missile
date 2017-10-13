@@ -4,12 +4,12 @@ using System.Linq;
 namespace Missile.TextLauncher.Interpretation.Lexing
 {
     /// <summary>
-    /// Lexers produce streams of tokens to be parsed
+    ///     Lexers produce streams of tokens to be parsed
     /// </summary>
     public abstract class Token
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Token"/> class.
+        ///     Initializes a new instance of the <see cref="Token" /> class.
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="args">The arguments.</param>
@@ -23,26 +23,27 @@ namespace Missile.TextLauncher.Interpretation.Lexing
         }
 
         /// <summary>
-        /// Gets or sets the name.
+        ///     Gets or sets the name.
         /// </summary>
         /// <value>
-        /// The name.
+        ///     The name.
         /// </value>
         protected internal string Name { get; set; }
+
         /// <summary>
-        /// Gets or sets the arguments.
+        ///     Gets or sets the arguments.
         /// </summary>
         /// <value>
-        /// The arguments.
+        ///     The arguments.
         /// </value>
         protected internal string[] Args { get; set; }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        ///     Determines whether the specified <see cref="System.Object" />, is equal to this instance.
         /// </summary>
         /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        ///     <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
         /// </returns>
         public override bool Equals(object obj)
         {
@@ -54,10 +55,10 @@ namespace Missile.TextLauncher.Interpretation.Lexing
         }
 
         /// <summary>
-        /// Returns a hash code for this instance.
+        ///     Returns a hash code for this instance.
         /// </summary>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        ///     A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
         /// </returns>
         public override int GetHashCode()
         {

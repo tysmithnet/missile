@@ -1,15 +1,14 @@
-﻿using System.Linq;
-using Missile.TextLauncher.Interpretation.Lexing;
+﻿using Missile.TextLauncher.Interpretation.Lexing;
 
 namespace Missile.TextLauncher.Interpretation.Parsing
 {
     /// <summary>
-    /// Builder for RootNode
+    ///     Builder for RootNode
     /// </summary>
     internal class RootNodeBuilder
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RootNodeBuilder"/> class.
+        ///     Initializes a new instance of the <see cref="RootNodeBuilder" /> class.
         /// </summary>
         public RootNodeBuilder()
         {
@@ -17,16 +16,16 @@ namespace Missile.TextLauncher.Interpretation.Parsing
         }
 
         /// <summary>
-        /// Gets or sets the root node.
+        ///     Gets or sets the root node.
         /// </summary>
         /// <value>
-        /// The root node.
+        ///     The root node.
         /// </value>
         internal RootNode RootNode { get; set; }
 
 
         /// <summary>
-        /// Sets the provider.
+        ///     Sets the provider.
         /// </summary>
         /// <param name="providerName">Name of the provider.</param>
         /// <param name="args">The arguments.</param>
@@ -35,19 +34,19 @@ namespace Missile.TextLauncher.Interpretation.Parsing
         {
             RootNode.ProviderNode = new ProviderNode(new ProviderToken(providerName, args));
             return this;
-        }                
+        }
 
         /// <summary>
-        /// Builds this instance.
+        ///     Builds this instance.
         /// </summary>
         /// <returns>this builder</returns>
         public RootNode Build()
-        {                       
+        {
             return RootNode;
         }
-                                      
+
         /// <summary>
-        /// Sets the destination.
+        ///     Sets the destination.
         /// </summary>
         /// <param name="destinationName">Name of the destination.</param>
         /// <param name="args">The arguments.</param>
@@ -59,7 +58,7 @@ namespace Missile.TextLauncher.Interpretation.Parsing
         }
 
         /// <summary>
-        /// Sets the filter.
+        ///     Sets the filter.
         /// </summary>
         /// <param name="filterName">Name of the filter.</param>
         /// <param name="args">The arguments.</param>

@@ -8,13 +8,6 @@ namespace Missile.TextLauncher.Interpretation.Tests
     public class Tokens_Should
     {
         [Fact]
-        public void Throw_If_No_Input_Provided()
-        {
-            Action action = () => new ProviderToken(null, null);
-            action.ShouldThrow<ArgumentNullException>("tokens cannot have null names");
-        }
-
-        [Fact]
         public void Provide_Correct_Equality_Logic()
         {
             var p1 = new ProviderToken("noop", new string[0]);
@@ -48,6 +41,13 @@ namespace Missile.TextLauncher.Interpretation.Tests
             p3.Should().NotBe(p4, "freshly created provider tokens with args should be equal");
             p3.GetHashCode().Should().NotBe(p4.GetHashCode(),
                 "freshly created provider tokens with args should have the same hash code");
+        }
+
+        [Fact]
+        public void Throw_If_No_Input_Provided()
+        {
+            Action action = () => new ProviderToken(null, null);
+            action.ShouldThrow<ArgumentNullException>("tokens cannot have null names");
         }
     }
 }

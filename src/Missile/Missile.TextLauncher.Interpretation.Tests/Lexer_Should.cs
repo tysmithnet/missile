@@ -135,6 +135,29 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 }, "escaped double quote in quotes appear in the string as a single character");
         }
 
+        /// <summary>
+        ///     Handles the escaped characters.
+        /// </summary>
+        [Fact]
+        public void Handle_Escaped_Characters()
+        {
+            new Lexer().LexAsync(@"noop \t", CancellationToken.None).Result.Should().Equal(new Token[]
+            {
+                new ProviderToken("noop", new[] {"\t"})
+            }, "because \\t should be treated as a tab character");
+
+            new Lexer().LexAsync(@"noop \\t", CancellationToken.None).Result.Should().Equal(new Token[]
+            {
+                new ProviderToken("noop", new[] {@"\t"})
+            }, "double back slash means a literal back slash should be used as input");
+
+            new Lexer().LexAsync(@"noop \\t", CancellationToken.None).Result.Should()
+                .Equal(new ProviderToken("noop", new[] {@"\t"}));
+
+            new Lexer().LexAsync(@"noop \t\n\r", CancellationToken.None).Result.Should()
+                .Equal(new ProviderToken("noop", new[] {"\t\n\r"}));
+        }
+
         [Fact]
         public void Handle_Filters_With_Args()
         {
@@ -167,6 +190,14 @@ namespace Missile.TextLauncher.Interpretation.Tests
         }
 
         [Fact]
+        public void Throw_If_Unrecognized_Espcape_Sequence()
+        {
+            var lexer = new Lexer();
+            Func<object> f = () => lexer.LexAsync(@"noop \x", CancellationToken.None).Result;
+            f.Invoking(func => func()).ShouldThrow<FormatException>();
+        }
+
+        [Fact]
         public void Transition_To_ErrorState_If_Illegal_Character_Encountered()
         {
             new Lexer().Invoking(lexer =>
@@ -180,41 +211,6 @@ namespace Missile.TextLauncher.Interpretation.Tests
                     var x = lexer.LexAsync("abc$ad", CancellationToken.None).Result;
                 })
                 .ShouldThrow<InvalidOperationException>("$ is not a valid character to be in an identifier");
-        }
-
-        /// <summary>
-        /// Handles the escaped characters.
-        /// </summary>
-        [Fact]
-        public void Handle_Escaped_Characters()
-        {
-            new Lexer().LexAsync(@"noop \t", CancellationToken.None).Result.Should().Equal(new Token[]
-            {
-                new ProviderToken("noop", new []{"\t"}), 
-            }, "because \\t should be treated as a tab character");
-
-            new Lexer().LexAsync(@"noop \\t", CancellationToken.None).Result.Should().Equal(new Token[]
-            {
-                new ProviderToken("noop", new []{@"\t"}),
-            }, "double back slash means a literal back slash should be used as input");
-
-            new Lexer().LexAsync(@"noop \\t", CancellationToken.None).Result.Should().Equal(new Token[]
-            {
-                new ProviderToken("noop", new []{@"\t"}),
-            });
-
-            new Lexer().LexAsync(@"noop \t\n\r", CancellationToken.None).Result.Should().Equal(new Token[]
-            {
-                new ProviderToken("noop", new []{"\t\n\r"}),
-            });
-        }
-
-        [Fact]
-        public void Throw_If_Unrecognized_Espcape_Sequence()
-        {
-            Lexer lexer = new Lexer();
-            Func<object> f = () => lexer.LexAsync(@"noop \x", CancellationToken.None).Result;
-            f.Invoking(func => func()).ShouldThrow<FormatException>();
         }
     }
 }

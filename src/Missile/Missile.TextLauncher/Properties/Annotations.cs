@@ -1052,7 +1052,7 @@ namespace Missile.TextLauncher.Annotations
         public CollectionAccessType CollectionAccessType { get; }
     }
 
-    [Flags]                   
+    [Flags]
     public enum CollectionAccessType
     {
         /// <summary>Method does not use or modify content of the collection.</summary>
@@ -1099,7 +1099,7 @@ namespace Missile.TextLauncher.Annotations
     /// <summary>
     ///     Specifies assertion type. If the assertion method argument satisfies the condition,
     ///     then the execution continues. Otherwise, execution is assumed to be halted.
-    /// </summary>            
+    /// </summary>
     public enum AssertionConditionType
     {
         /// <summary>Marked parameter should be evaluated to true.</summary>

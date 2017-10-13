@@ -12,7 +12,8 @@ namespace Missile.TextLauncher.Interpretation.Tests
         {
             var p = new ProviderNode(new ProviderToken("noop", new[] {"arg1", "arg2"}));
             var p2 = new ProviderNode(new ProviderToken("noop", new[] {"arg1", "arg2"}));
-            p.GetHashCode().Should().Be(p2.GetHashCode(), "nodes with the same property values should have the same hash code");
+            p.GetHashCode().Should().Be(p2.GetHashCode(),
+                "nodes with the same property values should have the same hash code");
         }
     }
 }

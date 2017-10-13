@@ -14,65 +14,65 @@ namespace Missile.TextLauncher.Interpretation
 {
     /// <inheritdoc />
     /// <summary>
-    /// Default implementation of IInterpreter
+    ///     Default implementation of IInterpreter
     /// </summary>
     /// <seealso cref="T:Missile.TextLauncher.Interpretation.IInterpreter" />
     [Export(typeof(IInterpreter))]
     public class Interpreter : IInterpreter
     {
         /// <summary>
-        /// Gets or sets the provider repository.
+        ///     Gets or sets the provider repository.
         /// </summary>
         /// <value>
-        /// The provider repository.
+        ///     The provider repository.
         /// </value>
         [Import]
         protected internal IProviderRepository ProviderRepository { get; set; }
 
         /// <summary>
-        /// Gets or sets the filter repository.
+        ///     Gets or sets the filter repository.
         /// </summary>
         /// <value>
-        /// The filter repository.
+        ///     The filter repository.
         /// </value>
         [Import]
         protected internal IFilterRepository FilterRepository { get; set; }
 
         /// <summary>
-        /// Gets or sets the destination repository.
+        ///     Gets or sets the destination repository.
         /// </summary>
         /// <value>
-        /// The destination repository.
+        ///     The destination repository.
         /// </value>
         [Import]
         protected internal IDestinationRepository DestinationRepository { get; set; }
 
         /// <summary>
-        /// Gets or sets the converter repository.
+        ///     Gets or sets the converter repository.
         /// </summary>
         /// <value>
-        /// The converter repository.
+        ///     The converter repository.
         /// </value>
         [Import]
         protected internal IConverterRepository ConverterRepository { get; set; }
 
         /// <summary>
-        /// Gets or sets the observable inspectors.
+        ///     Gets or sets the observable inspectors.
         /// </summary>
         /// <value>
-        /// The observable inspectors.
+        ///     The observable inspectors.
         /// </value>
         [ImportMany]
         protected internal IObservableInspector[] ObservableInspectors { get; set; }
 
         /// <inheritdoc />
         /// <summary>
-        /// Interprets the AST asynchronously
+        ///     Interprets the AST asynchronously
         /// </summary>
         /// <param name="rootNode">The root node.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
-        /// A Task that when complete will signal the completion of the interpretation
+        ///     A Task that when complete will signal the completion of the interpretation
         /// </returns>
         /// <exception cref="T:System.ApplicationException">An inspector was not able to be found for a particular type</exception>
         public Task InterpretAsync(RootNode rootNode, CancellationToken cancellationToken)

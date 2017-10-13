@@ -3,13 +3,13 @@ using System;
 namespace Missile.TextLauncher.Interpretation.Lexing
 {
     /// <summary>
-    /// EventArgs for when tokens are emitted from the state machine
+    ///     EventArgs for when tokens are emitted from the state machine
     /// </summary>
     /// <seealso cref="System.EventArgs" />
     internal class TokenEventArgs : EventArgs
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TokenEventArgs"/> class.
+        ///     Initializes a new instance of the <see cref="TokenEventArgs" /> class.
         /// </summary>
         /// <param name="token">The token.</param>
         /// <exception cref="ArgumentNullException">token</exception>
@@ -19,10 +19,10 @@ namespace Missile.TextLauncher.Interpretation.Lexing
         }
 
         /// <summary>
-        /// Gets or sets the token.
+        ///     Gets or sets the token.
         /// </summary>
         /// <value>
-        /// The token.
+        ///     The token.
         /// </value>
         public Token Token { get; set; }
     }

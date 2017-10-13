@@ -4,40 +4,40 @@ using System.Linq;
 namespace Missile.TextLauncher.Interpretation.Parsing
 {
     /// <summary>
-    /// Represents the root of the AST
+    ///     Represents the root of the AST
     /// </summary>
     public class RootNode
     {
         /// <summary>
-        /// Gets the provider node.
+        ///     Gets the provider node.
         /// </summary>
         /// <value>
-        /// The provider node.
+        ///     The provider node.
         /// </value>
         public ProviderNode ProviderNode { get; internal set; }
 
         /// <summary>
-        /// Gets the filter nodes.
+        ///     Gets the filter nodes.
         /// </summary>
         /// <value>
-        /// The filter nodes.
+        ///     The filter nodes.
         /// </value>
         public List<FilterNode> FilterNodes { get; internal set; } = new List<FilterNode>();
 
         /// <summary>
-        /// Gets the destination node.
+        ///     Gets the destination node.
         /// </summary>
         /// <value>
-        /// The destination node.
+        ///     The destination node.
         /// </value>
         public DestinationNode DestinationNode { get; internal set; }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        ///     Determines whether the specified <see cref="System.Object" />, is equal to this instance.
         /// </summary>
         /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
         /// <returns>
-        ///   <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        ///     <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
         /// </returns>
         public override bool Equals(object obj)
         {
@@ -54,10 +54,10 @@ namespace Missile.TextLauncher.Interpretation.Parsing
         }
 
         /// <summary>
-        /// Returns a hash code for this instance.
+        ///     Returns a hash code for this instance.
         /// </summary>
         /// <returns>
-        /// A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
+        ///     A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
         /// </returns>
         public override int GetHashCode()
         {

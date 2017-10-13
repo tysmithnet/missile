@@ -8,46 +8,46 @@ namespace Missile.TextLauncher.Interpretation
 {
     /// <inheritdoc />
     /// <summary>
-    /// Default implementation of IInterpretationFacade
+    ///     Default implementation of IInterpretationFacade
     /// </summary>
     /// <seealso cref="T:Missile.TextLauncher.IInterpretationFacade" />
     [Export(typeof(IInterpretationFacade))]
     public class InterpretationFacade : IInterpretationFacade
     {
         /// <summary>
-        /// Gets or sets the lexer.
+        ///     Gets or sets the lexer.
         /// </summary>
         /// <value>
-        /// The lexer.
+        ///     The lexer.
         /// </value>
         [Import]
         protected internal ILexer Lexer { get; set; }
 
         /// <summary>
-        /// Gets or sets the parser.
+        ///     Gets or sets the parser.
         /// </summary>
         /// <value>
-        /// The parser.
+        ///     The parser.
         /// </value>
         [Import]
         protected internal IParser Parser { get; set; }
 
         /// <summary>
-        /// Gets or sets the interpreter.
+        ///     Gets or sets the interpreter.
         /// </summary>
         /// <value>
-        /// The interpreter.
+        ///     The interpreter.
         /// </value>
         [Import]
         protected internal IInterpreter Interpreter { get; set; }
 
         /// <summary>
-        /// Executes the provided textual command
+        ///     Executes the provided textual command
         /// </summary>
         /// <param name="input">The input command to be executed</param>
         /// <param name="cancellationToken">Token to interrogate for cancellation requests</param>
         /// <returns>
-        /// A task representing when the execution is complete
+        ///     A task representing when the execution is complete
         /// </returns>
         public async Task ExecuteAsync(string input, CancellationToken cancellationToken)
         {
