@@ -79,10 +79,12 @@
     <Compile Include="ConverterRepositoryBuilder.cs" />
     <Compile Include="ConverterRepository_Should.cs" />
     <Compile Include="ConverterSelectionStrategy_Should.cs" />
+    <Compile Include="DestinationRepository_Should.cs" />
     <Compile Include="Mock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomValueProvider_Should.cs" />
     <Compile Include="RangeProvider_Should.cs" />
+    <Compile Include="RegisteredDestination_Should.cs" />
     <Compile Include="StringUserControlConverter_Should.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
