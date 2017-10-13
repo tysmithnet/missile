@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Threading;
 using System.Threading.Tasks;
 using Missile.TextLauncher.Destination;
 
@@ -41,6 +42,7 @@ namespace Missile.TextLauncher.ListPlugin
         [ImportMany]
         protected internal IDestinationContextMenuProvider[] ContextMenuProviders { get; set; }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Gets or sets the name
         /// </summary>
@@ -49,12 +51,14 @@ namespace Missile.TextLauncher.ListPlugin
         /// </value>
         public string Name { get; set; } = "list";
 
+        /// <inheritdoc />
         /// <summary>
         ///     Process the source items asynchronously
         /// </summary>
         /// <param name="source">The source</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>A Task that when complete will signal the end of the processing</returns>
-        public Task ProcessAsync(IObservable<IListDestinationItem> source)
+        public Task ProcessAsync(IObservable<IListDestinationItem> source, CancellationToken cancellationToken)
         {
             var outputControl = new ListDestinationOutput(source, ContextMenuProviders);
             UiFacade.SetOutputControl(outputControl);

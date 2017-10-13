@@ -74,6 +74,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleDestination_Should.cs" />
     <Compile Include="ConverterRedinessScore_Should.cs" />
     <Compile Include="ConverterRepositoryBuilder.cs" />
     <Compile Include="ConverterRepository_Should.cs" />
