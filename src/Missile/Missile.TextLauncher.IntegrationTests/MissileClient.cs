@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
 using System.Windows.Automation;
 
 namespace Missile.TextLauncher.IntegrationTests
 {
+    [ExcludeFromCodeCoverage]
     public sealed class MissileClient : IDisposable
     {
         private readonly Process _process;

@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using Missile.TextLauncher.Conversion;
 using Xunit;
 
 namespace Missile.TextLauncher.Tests
 {
+    [ExcludeFromCodeCoverage]
     public class ConverterSelectionStrategy_Should
     {
         private void CalculateScoreShortcut(Type requestSource, Type converterSource, Type converterDest,

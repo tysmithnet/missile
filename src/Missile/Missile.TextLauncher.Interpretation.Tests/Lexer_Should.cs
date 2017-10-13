@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using FluentAssertions;
 using Missile.TextLauncher.Interpretation.Lexing;
@@ -6,6 +7,7 @@ using Xunit;
 
 namespace Missile.TextLauncher.Interpretation.Tests
 {
+    [ExcludeFromCodeCoverage]
     public class Lexer_Should
     {
         [Fact]

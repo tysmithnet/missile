@@ -1,10 +1,12 @@
-﻿using Missile.TextLauncher.Conversion;
+﻿using System.Diagnostics.CodeAnalysis;
+using Missile.TextLauncher.Conversion;
 using Missile.TextLauncher.Destination;
 using Missile.TextLauncher.Filtration;
 using Missile.TextLauncher.Provision;
 
 namespace Missile.TextLauncher.Interpretation.Tests
 {
+    [ExcludeFromCodeCoverage]
     public class InterpreterBuilder
     {
         public InterpreterBuilder()

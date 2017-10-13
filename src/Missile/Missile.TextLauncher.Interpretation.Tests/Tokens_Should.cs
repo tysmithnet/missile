@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using Missile.TextLauncher.Interpretation.Lexing;
 using Xunit;
 
 namespace Missile.TextLauncher.Interpretation.Tests
 {
+    [ExcludeFromCodeCoverage]
     public class Tokens_Should
     {
         [Fact]

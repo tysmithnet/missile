@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Threading;
 using FluentAssertions;
@@ -14,6 +15,7 @@ using Xunit;
 
 namespace Missile.TextLauncher.Interpretation.Tests
 {
+    [ExcludeFromCodeCoverage]
     public class Interpreter_Should
     {
         private class UnknownObservable<T, U> : IObservable<T>

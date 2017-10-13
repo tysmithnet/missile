@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
@@ -36,7 +37,8 @@ Vivamus blandit turpis in risus condimentum consequat. In tortor sapien, pharetr
         /// <summary>
         ///     The sentences of lorem ipsum
         /// </summary>
-        protected internal static readonly string[] Sentences = Regex.Split(Lorem, @"\.");
+        protected internal static readonly string[] Sentences =
+            Regex.Split(Lorem, @"\.").Select(x => x.Trim() + ".").Where(x => x != "").ToArray();
 
         /// <summary>
         ///     Gets or sets the name of this provider
@@ -44,6 +46,7 @@ Vivamus blandit turpis in risus condimentum consequat. In tortor sapien, pharetr
         /// <value>
         ///     The name for this provider
         /// </value>
+        [ExcludeFromCodeCoverage]
         public string Name { get; set; } = "random";
 
         /// <inheritdoc />
@@ -92,7 +95,7 @@ Vivamus blandit turpis in risus condimentum consequat. In tortor sapien, pharetr
 
                         break;
                 }
-            }, () => throw new ArgumentException());
+            });
 
             return result ?? throw new ArgumentException();
         }

@@ -1,8 +1,10 @@
-﻿using FluentAssertions;
+﻿using System.Diagnostics.CodeAnalysis;
+using FluentAssertions;
 using Xunit;
 
 namespace Missile.TextLauncher.IntegrationTests
 {
+    [ExcludeFromCodeCoverage]
     public class Startup_Should
     {
         [Fact]

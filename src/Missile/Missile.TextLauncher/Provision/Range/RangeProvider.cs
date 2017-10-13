@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reactive.Linq;
 using CommandLine;
@@ -22,6 +23,7 @@ namespace Missile.TextLauncher.Provision.Range
         /// <value>
         ///     The name for this provider
         /// </value>
+        [ExcludeFromCodeCoverage]
         public string Name { get; set; } = "range";
 
         /// <inheritdoc />

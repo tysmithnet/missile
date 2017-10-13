@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using Missile.TextLauncher.Conversion;
 
 namespace Missile.TextLauncher.Tests
 {
+    [ExcludeFromCodeCoverage]
     public class ConverterRepositoryBuilder
     {
         public ConverterRepositoryBuilder()

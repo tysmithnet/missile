@@ -1,9 +1,11 @@
-﻿using FluentAssertions;
+﻿using System.Diagnostics.CodeAnalysis;
+using FluentAssertions;
 using Missile.TextLauncher.Interpretation.Parsing;
 using Xunit;
 
 namespace Missile.TextLauncher.Interpretation.Tests
 {
+    [ExcludeFromCodeCoverage]
     public class RootNode_Should
     {
         [Fact]

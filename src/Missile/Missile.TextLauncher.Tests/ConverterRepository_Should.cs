@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using Xunit;
 
 namespace Missile.TextLauncher.Tests
 {
+    [ExcludeFromCodeCoverage]
     public class ConverterRepository_Should
     {
         [Fact]
@@ -41,15 +44,31 @@ namespace Missile.TextLauncher.Tests
         }
 
         [Fact]
+        public void Throw_If_Null_Passed_To_Register()
+        {
+            var converterRepository = new ConverterRepositoryBuilder()
+                .Build();
+
+            converterRepository.Invoking(r => r.Register(null))
+                .ShouldThrow<ArgumentNullException>("you cannot register null");
+        }
+
+        [Fact]
         public void Work_For_Interfaces()
         {
             var converterRepository = new ConverterRepositoryBuilder()
                 .WithConverter(new LegsToNoLegs())
                 .Build();
 
-            var converter = converterRepository.Get(typeof(IQuadraped), typeof(INoLegs));
-            converter.ConverterInstance.GetType().Should().Be(typeof(LegsToNoLegs),
-                "compatible matches should return if the actual type isn't there");
+            converterRepository
+                .Get(typeof(IQuadraped), typeof(INoLegs))
+                .ConverterInstance.GetType().Should().Be(typeof(LegsToNoLegs),
+                    "compatible matches should return if the actual type isn't there");
+
+            converterRepository
+                .Get(typeof(Corgi), typeof(INoLegs))
+                .ConverterInstance.GetType().Should().Be(typeof(LegsToNoLegs),
+                    "compatible matches should return if the actual type isn't there");
         }
     }
 }

@@ -15,24 +15,18 @@ namespace Missile.TextLauncher.Conversion
         /// <param name="type"></param>
         public TypeBreakDown(Type type)
         {
-            InstanceType = type;
             Interfaces.AddRange(type.GetInterfaces() ?? new Type[0]);
             BaseTypes = type.GetBaseTypes().ToList();
         }
 
         /// <summary>
-        ///     Requested type
-        /// </summary>
-        public Type InstanceType { get; set; }
-
-        /// <summary>
         ///     Any interfaces a type implements
         /// </summary>
-        public List<Type> Interfaces { get; set; } = new List<Type>();
+        public List<Type> Interfaces { get; } = new List<Type>();
 
         /// <summary>
         ///     Ancestor types
         /// </summary>
-        public List<Type> BaseTypes { get; set; }
+        public List<Type> BaseTypes { get; }
     }
 }
