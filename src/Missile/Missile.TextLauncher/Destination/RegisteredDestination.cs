@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Missile.TextLauncher.Destination
@@ -54,10 +55,11 @@ namespace Missile.TextLauncher.Destination
         ///     Convenience method for this destination
         /// </summary>
         /// <param name="arg">What to pass to the destination</param>
+        /// <param name="cancellationToken"></param>
         /// <returns>Task representing when the destination has finished processing</returns>
-        public Task Process(object arg)
+        public async Task ProcessAsync(object arg, CancellationToken cancellationToken)
         {
-            return (Task) ProcessAsyncMethodInfo.Invoke(DestinationInstance, new[] {arg});
+            await (Task)ProcessAsyncMethodInfo.Invoke(DestinationInstance, new[] {arg, cancellationToken});
         }
     }
 }

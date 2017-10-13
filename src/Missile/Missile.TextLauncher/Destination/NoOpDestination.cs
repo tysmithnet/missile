@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 using System.Reactive.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace Missile.TextLauncher.Destination
         /// The name.
         /// </value>
         /// <inheritdoc />
+        [ExcludeFromCodeCoverage]
         public string Name { get; set; } = "noop";
 
         /// <summary>

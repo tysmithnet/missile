@@ -1,28 +1,54 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
+using System.Reactive;
 using System.Reactive.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using FluentAssertions;
 using Missile.TextLauncher.Destination;
 using Xunit;
 
 namespace Missile.TextLauncher.Tests
 {
+    [ExcludeFromCodeCoverage]
     public class ConsoleDestination_Should
     {
         [Fact]
-        public async Task Write_Using_The_Provided_Action()
+        public void Throw_An_Exception_If_Error()
         {
-            bool isWrittenTo = false;
-            Action<object> action = (o) => isWrittenTo = true;
-            var dest = new ConsoleDestination()
+            IEnumerable<object> Gen()
             {
-                WriteFunction = action
+                yield return 1;
+                throw new FormatException();
+            }
+
+            var dest = new ConsoleDestination
+            {
+                WriteFunction = o => { }
+            };
+            dest.Invoking(destination =>
+                destination.ProcessAsync(Gen().ToObservable(),
+                    CancellationToken.None).Wait()).ShouldThrow<FormatException>();
+        }
+
+        [Fact]
+        public void Write_Using_The_Provided_Action()
+        {
+            var isWrittenTo = false;
+
+            void Action(object o)
+            {
+                isWrittenTo = true;
+            }
+
+            var dest = new ConsoleDestination
+            {
+                WriteFunction = Action
             };
 
-            await dest.ProcessAsync(Observable.Range(0, 1).Select(x => x as object), CancellationToken.None);
+            dest.ProcessAsync(Observable.Range(0, 1).Select(x => x as object), CancellationToken.None).Wait();
+            isWrittenTo.Should().BeTrue();
         }
     }
 }

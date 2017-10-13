@@ -101,7 +101,7 @@ namespace Missile.TextLauncher.Interpretation
                 destinationInput = converter.Convert(destinationInput);
             }
 
-            var destinationTask = destination.Process(destinationInput);
+            var destinationTask = destination.ProcessAsync(destinationInput, cancellationToken);
             return destinationTask;
         }
     }

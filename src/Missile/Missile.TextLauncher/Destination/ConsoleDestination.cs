@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,23 +22,29 @@ namespace Missile.TextLauncher.Destination
         /// </value>
         protected internal virtual Action<object> WriteFunction { get; set; } = Console.WriteLine;
 
+        /// <inheritdoc />
         /// <summary>
         ///     Gets or sets the name.
         /// </summary>
         /// <value>
         ///     The name.
         /// </value>
+        [ExcludeFromCodeCoverage]
         public string Name { get; set; } = "console";
 
+        /// <inheritdoc />
         /// <summary>
         ///     Process the source items asynchronously
         /// </summary>
         /// <param name="source">The source.</param>
+        /// <param name="cancellationToken"></param>
         /// <returns></returns>
         public Task ProcessAsync(IObservable<object> source, CancellationToken cancellationToken)
         {
             var tcs = new TaskCompletionSource<object>();
-            source.Subscribe(WriteFunction, exception => tcs.SetException(exception), () => tcs.SetResult(null));
+            source.Subscribe(WriteFunction,
+                exception => tcs.SetException(exception),
+                () => tcs.SetResult(null));
 
             return tcs.Task;
         }
