@@ -62,6 +62,12 @@ namespace Missile.TextLauncher.Interpretation.Tests
                     new ProviderToken("a", new string[0])
                 }, "a single letter is treated as a provider with no args");
 
+            new Lexer().LexAsync("  a", CancellationToken.None).Result.Should()
+                .Equal(new Token[]
+                {
+                    new ProviderToken("a", new string[0])
+                }, "there can be space before the start of the provider");
+
             new Lexer().LexAsync("google", CancellationToken.None).Result.Should()
                 .Equal(new Token[]
                 {
@@ -171,9 +177,44 @@ namespace Missile.TextLauncher.Interpretation.Tests
 
             new Lexer().Invoking(lexer =>
                 {
-                    var x = lexer.LexAsync("abc>", CancellationToken.None).Result;
+                    var x = lexer.LexAsync("abc$ad", CancellationToken.None).Result;
                 })
-                .ShouldThrow<InvalidOperationException>("> is not a valid character to be in an identifier");
-        }                                   
+                .ShouldThrow<InvalidOperationException>("$ is not a valid character to be in an identifier");
+        }
+
+        /// <summary>
+        /// Handles the escaped characters.
+        /// </summary>
+        [Fact]
+        public void Handle_Escaped_Characters()
+        {
+            new Lexer().LexAsync(@"noop \t", CancellationToken.None).Result.Should().Equal(new Token[]
+            {
+                new ProviderToken("noop", new []{"\t"}), 
+            }, "because \\t should be treated as a tab character");
+
+            new Lexer().LexAsync(@"noop \\t", CancellationToken.None).Result.Should().Equal(new Token[]
+            {
+                new ProviderToken("noop", new []{@"\t"}),
+            }, "double back slash means a literal back slash should be used as input");
+
+            new Lexer().LexAsync(@"noop \\t", CancellationToken.None).Result.Should().Equal(new Token[]
+            {
+                new ProviderToken("noop", new []{@"\t"}),
+            });
+
+            new Lexer().LexAsync(@"noop \t\n\r", CancellationToken.None).Result.Should().Equal(new Token[]
+            {
+                new ProviderToken("noop", new []{"\t\n\r"}),
+            });
+        }
+
+        [Fact]
+        public void Throw_If_Unrecognized_Espcape_Sequence()
+        {
+            Lexer lexer = new Lexer();
+            Func<object> f = () => lexer.LexAsync(@"noop \x", CancellationToken.None).Result;
+            f.Invoking(func => func()).ShouldThrow<FormatException>();
+        }
     }
 }

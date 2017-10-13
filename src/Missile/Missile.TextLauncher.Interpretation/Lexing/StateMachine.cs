@@ -29,6 +29,7 @@ namespace Missile.TextLauncher.Interpretation.Lexing
             input = input ?? "";
             var tokens = new List<Token>();
             CurrentState = new StartState();
+            // todo: can't be static
             State.RaiseTokenEvent += (sender, args) => tokens.Add(args.Token);
             foreach (char c in input)
             {

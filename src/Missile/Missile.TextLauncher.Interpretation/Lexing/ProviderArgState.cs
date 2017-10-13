@@ -22,13 +22,7 @@ namespace Missile.TextLauncher.Interpretation.Lexing
         /// </summary>
         /// <returns>Token for this provider</returns>
         public override Token GetToken()
-        {
-            if (!string.IsNullOrWhiteSpace(CurrentArg))
-            {
-                Args.Add(CurrentArg);
-                CurrentArg = "";
-            }
-
+        {    
             return new ProviderToken(Identifier, Args.ToArray());
         }
     }

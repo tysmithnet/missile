@@ -13,13 +13,13 @@ namespace Missile.TextLauncher.Interpretation.Lexing
     [Export(typeof(ILexer))]
     public class Lexer : ILexer
     {
-        /// <inheritdoc />
         /// <summary>
         /// Lexes the input asynchronously
         /// </summary>
         /// <param name="input">The input.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns></returns>
+        /// <inheritdoc />
         public async Task<IEnumerable<Token>> LexAsync(string input, CancellationToken cancellationToken)
         {
             var stateMachine = new StateMachine();

@@ -26,10 +26,6 @@ namespace Missile.TextLauncher.Interpretation.Lexing
         /// <returns>The token for this provider, filter, destination</returns>
         public override Token GetToken()
         {
-            if (string.IsNullOrWhiteSpace(CurrentArg)) return new DestinationToken(Identifier, Args.ToArray());
-            Args.Add(CurrentArg);
-            CurrentArg = "";
-
             return new DestinationToken(Identifier, Args.ToArray());
         }
     }

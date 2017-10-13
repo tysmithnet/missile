@@ -56,7 +56,7 @@ namespace Missile.TextLauncher.Interpretation.Lexing
         /// <value>
         /// The arguments
         /// </value>
-        public List<string> Args { get; set; } = new List<string>();
+        public List<string> Args { get; } = new List<string>();
 
         /// <inheritdoc />
         /// <summary>
@@ -118,9 +118,35 @@ namespace Missile.TextLauncher.Interpretation.Lexing
                     OnRaiseTokenEvent(new TokenEventArgs(GetToken()));
                     OnRaiseTokenEvent(new TokenEventArgs(new OperatorToken(">", new string[0])));
                     return new DestinationState();
+                default:
+                    if (_isEscaped)
+                    {
+                        char x;
+                        switch (input)
+                        {
+                            case 't':
+                                x = '\t';
+                                break;
+                            case 'n':
+                                x = '\n';
+                                break;
+                            case 'r':
+                                x = '\r';
+                                break;
+                            // todo: quotes, slashes, 
+                            default:
+                                throw new FormatException($"Unrecognized escape sequence: \\{input}");
+                        }
+                        CurrentArg += x;
+                        _isEscaped = false;
+                    }
+                    else
+                    {
+                        CurrentArg += input;
+                    }
+                    break;
             }
-
-            CurrentArg += input;
+                                            
             return this;
         }
 
@@ -136,7 +162,7 @@ namespace Missile.TextLauncher.Interpretation.Lexing
         /// </summary>
         public override void Flush()
         {
-            if (!string.IsNullOrWhiteSpace(CurrentArg))
+            if (!string.IsNullOrEmpty(CurrentArg))
             {
                 Args.Add(CurrentArg);
                 CurrentArg = "";
