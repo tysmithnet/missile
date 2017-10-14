@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Reactive.Linq;
 
 namespace Missile.TextLauncher.Filtration
@@ -17,6 +18,7 @@ namespace Missile.TextLauncher.Filtration
         ///     The name.
         /// </value>
         /// <inheritdoc />
+        [ExcludeFromCodeCoverage]
         public string Name { get; set; } = "first";
 
         /// <summary>

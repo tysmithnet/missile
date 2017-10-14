@@ -7,14 +7,20 @@ namespace Missile.TextLauncher.Filtration
     /// <summary>
     ///     Represents a filter instance that has been registered with a repository
     /// </summary>
-    public sealed class RegisteredFilter
+    public class RegisteredFilter
     {
-        private Type _type;
+        protected internal Type Type;
+
+        protected internal RegisteredFilter()
+        {
+        }
 
         public RegisteredFilter(IFilter filter, Type type)
         {
             FilterInstance = filter;
-            _type = type;
+            Type = type;
+            Name = (string) type.GetProperty("Name").GetMethod.Invoke(filter, new object[0]);
+            FilterMethodInfo = type.GetMethod("Filter");
         }
 
         /// <summary>
