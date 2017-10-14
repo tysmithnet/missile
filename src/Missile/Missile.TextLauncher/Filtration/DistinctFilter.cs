@@ -14,7 +14,7 @@ namespace Missile.TextLauncher.Filtration
         public string Name { get; set; } = "distinct";
 
         /// <inheritdoc />
-        public IObservable<object> Process(IObservable<object> source)
+        public IObservable<object> Filter(IObservable<object> source)
         {
             return source.Distinct();
         }

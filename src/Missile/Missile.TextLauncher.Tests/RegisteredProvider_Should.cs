@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using Missile.TextLauncher.Provision;
 using Missile.TextLauncher.Provision.RandomValue;
@@ -11,6 +6,7 @@ using Xunit;
 
 namespace Missile.TextLauncher.Tests
 {
+    [ExcludeFromCodeCoverage]
     public class RegisteredProvider_Should
     {
         [Fact]
@@ -21,6 +17,16 @@ namespace Missile.TextLauncher.Tests
             reg.Name.Equals(rng.Name).Should().BeTrue();
             reg.ProvideMethodInfo.Should().NotBeNull();
             reg.ProviderInstance.Should().Be(rng);
+        }
+
+        [Fact]
+        public void Provide_Correct_Equality_Logic()
+        {
+            var rng = new RandomValueProvider();
+            var reg = new RegisteredProvider(rng, typeof(IProvider<object>));
+            var reg2 = new RegisteredProvider(rng, typeof(IProvider<object>));
+            reg.Equals(reg2).Should().BeTrue();
+            reg.GetHashCode().Equals(reg2.GetHashCode()).Should().BeTrue();
         }
     }
 }

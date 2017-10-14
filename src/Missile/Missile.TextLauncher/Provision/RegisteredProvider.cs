@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace Missile.TextLauncher.Provision
@@ -51,6 +52,36 @@ namespace Missile.TextLauncher.Provision
         ///     The provide method information.
         /// </value>
         public MethodInfo ProvideMethodInfo { get; internal set; }
+
+        /// <summary>
+        ///     Determines whether the specified <see cref="System.Object" />, is equal to this instance.
+        /// </summary>
+        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns>
+        ///     <c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.
+        /// </returns>
+        public override bool Equals(object obj)
+        {
+            return obj is RegisteredProvider provider &&
+                   Name == provider.Name &&
+                   EqualityComparer<IProvider>.Default.Equals(ProviderInstance, provider.ProviderInstance) &&
+                   EqualityComparer<MethodInfo>.Default.Equals(ProvideMethodInfo, provider.ProvideMethodInfo);
+        }
+
+        /// <summary>
+        ///     Returns a hash code for this instance.
+        /// </summary>
+        /// <returns>
+        ///     A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
+        /// </returns>
+        public override int GetHashCode()
+        {
+            var hashCode = 493648596;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<IProvider>.Default.GetHashCode(ProviderInstance);
+            hashCode = hashCode * -1521134295 + EqualityComparer<MethodInfo>.Default.GetHashCode(ProvideMethodInfo);
+            return hashCode;
+        }
 
         /// <summary>
         ///     Provides the specified arguments.

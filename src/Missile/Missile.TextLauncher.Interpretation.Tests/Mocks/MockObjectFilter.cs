@@ -11,7 +11,7 @@ namespace Missile.TextLauncher.Interpretation.Tests.Mocks
     {
         public string Name { get; set; } = "mockobject";
 
-        public IObservable<object> Process(IObservable<object> source)
+        public IObservable<object> Filter(IObservable<object> source)
         {
             return source;
         }

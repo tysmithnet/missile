@@ -11,7 +11,7 @@ namespace Missile.TextLauncher.Filtration
         public string Name { get; set; } = "noop";
 
         /// <inheritdoc />
-        public IObservable<object> Process(IObservable<object> source)
+        public IObservable<object> Filter(IObservable<object> source)
         {
             return source;
         }

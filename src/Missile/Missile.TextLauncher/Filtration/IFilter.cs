@@ -12,11 +12,23 @@ namespace Missile.TextLauncher.Filtration
     /// <summary>
     ///     Represents an object is capable of transforming an observable
     /// </summary>
-    /// <typeparam name="TSource">Source type of the observalbe e.g. IObservable<string> -> string</typeparam>
-    /// <typeparam name="TDest">Destination type of the observalbe e.g. IObservable<string> -> string</typeparam>
+    /// <typeparam name="TSource">Source type of the observalbe e.g. IObservable<string></typeparam>
+    /// <typeparam name="TDest">Destination type of the observalbe e.g. IObservable<string></typeparam>
     public interface IFilter<in TSource, out TDest> : IFilter
     {
+        /// <summary>
+        ///     Gets or sets the name.
+        /// </summary>
+        /// <value>
+        ///     The name.
+        /// </value>
         string Name { get; set; }
-        IObservable<TDest> Process(IObservable<TSource> source);
+
+        /// <summary>
+        ///     Filters the specified source.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <returns>The filtered source</returns>
+        IObservable<TDest> Filter(IObservable<TSource> source);
     }
 }
