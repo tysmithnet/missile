@@ -33,11 +33,8 @@ namespace Missile.TextLauncher.Provision
         /// <value>
         ///     The registered providers
         /// </value>
-        protected internal IList<RegisteredProvider> RegisteredProviders
-        {
-            get => _registeredProviders ?? (_registeredProviders = ExtractRegisteredProviders(Providers));
-            set => _registeredProviders = value;
-        }
+        protected internal IList<RegisteredProvider> RegisteredProviders =>
+            _registeredProviders ?? (_registeredProviders = ExtractRegisteredProviders(Providers));
 
 
         /// <inheritdoc />

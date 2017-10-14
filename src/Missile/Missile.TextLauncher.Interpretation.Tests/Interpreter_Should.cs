@@ -40,7 +40,6 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 .WithProvider(new RegisteredProvider
                 {
                     Name = "mockobject",
-                    DestinationType = typeof(object),
                     ProviderInstance = new MockObjectProvider(),
                     ProvideMethodInfo = typeof(MockObjectProvider).GetMethod("Provide")
                 }).WithConverter(new RegisteredConverter
@@ -75,7 +74,6 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 .WithProvider(new RegisteredProvider
                 {
                     Name = "noop",
-                    DestinationType = typeof(object),
                     ProviderInstance = new NoOpProvider(),
                     ProvideMethodInfo = typeof(NoOpProvider).GetMethod("Provide")
                 })
@@ -107,7 +105,6 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 .WithProvider(new RegisteredProvider
                 {
                     Name = "range",
-                    DestinationType = typeof(int),
                     ProviderInstance = new RangeProvider(),
                     ProvideMethodInfo = typeof(RangeProvider).GetMethod("Provide")
                 }).WithFilter(new RegisteredFilter
@@ -151,7 +148,6 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 .WithProvider(new RegisteredProvider
                 {
                     Name = "range",
-                    DestinationType = typeof(int),
                     ProviderInstance = new RangeProvider(),
                     ProvideMethodInfo = typeof(RangeProvider).GetMethod("Provide")
                 }).WithFilter(new RegisteredFilter
@@ -194,7 +190,6 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 .WithProvider(new RegisteredProvider
                 {
                     Name = "range",
-                    DestinationType = typeof(int),
                     ProviderInstance = new RangeProvider(),
                     ProvideMethodInfo = typeof(RangeProvider).GetMethod("Provide")
                 }).WithDestination(new RegisteredDestination

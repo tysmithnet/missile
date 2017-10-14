@@ -1,9 +1,11 @@
-﻿using FluentAssertions;
+﻿using System.Diagnostics.CodeAnalysis;
+using FluentAssertions;
 using Missile.TextLauncher.Destination;
 using Xunit;
 
 namespace Missile.TextLauncher.Tests
 {
+    [ExcludeFromCodeCoverage]
     public class DestinationRepository_Should
     {
         [Fact]

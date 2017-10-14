@@ -85,6 +85,7 @@
     <Compile Include="RandomValueProvider_Should.cs" />
     <Compile Include="RangeProvider_Should.cs" />
     <Compile Include="RegisteredDestination_Should.cs" />
+    <Compile Include="RegisteredProvider_Should.cs" />
     <Compile Include="StringUserControlConverter_Should.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
