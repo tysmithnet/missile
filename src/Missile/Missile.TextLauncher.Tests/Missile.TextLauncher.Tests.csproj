@@ -94,6 +94,7 @@
     <Compile Include="RegisteredDestination_Should.cs" />
     <Compile Include="RegisteredProvider_Should.cs" />
     <Compile Include="Registered_Filter_Should.cs" />
+    <Compile Include="SettingsRepository_Should.cs" />
     <Compile Include="StringUserControlConverter_Should.cs" />
     <Compile Include="HeadFilter_Should.cs" />
   </ItemGroup>
