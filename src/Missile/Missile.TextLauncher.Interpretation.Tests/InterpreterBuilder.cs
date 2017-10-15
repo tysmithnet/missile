@@ -37,7 +37,7 @@ namespace Missile.TextLauncher.Interpretation.Tests
 
         public InterpreterBuilder WithFilter(RegisteredFilter filter)
         {
-            Interpreter.FilterRepository.RegisteredFilters.Add(filter);
+            Interpreter.FilterRepository.Add(filter);
             return this;
         }
 
