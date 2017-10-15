@@ -76,16 +76,10 @@ namespace Missile.TextLauncher
             if (!type.IsSerializable)
                 throw new SerializationException(
                     $"{typeof(T).FullName} is not serializable and therefore cannot be saved");
-            try
+            using (var stream = FileSystem.OpenFile(fileName, FileMode.Truncate, FileAccess.Write, FileShare.None))
             {
-                using (var stream = FileSystem.OpenFile(fileName, FileMode.Truncate, FileAccess.Write, FileShare.None))
-                {
-                    var serializer = new XmlSerializer(first.GetType());
-                    serializer.Serialize(stream, first);
-                }
-            }
-            catch (FileNotFoundException)
-            {
+                var serializer = new XmlSerializer(first.GetType());
+                serializer.Serialize(stream, first);
             }
         }
 
@@ -138,14 +132,14 @@ namespace Missile.TextLauncher
                 if (!settings.GetType().IsSerializable) continue;
                 try
                 {
-                    using (var stream = new FileStream(fileName, FileMode.Open))
+                    using (var stream = FileSystem.OpenFile(fileName, FileMode.Open, FileAccess.Read, FileShare.None))
                     {
                         var serializer = new XmlSerializer(settings.GetType());
                         var deserializedSettings = (ISettings) serializer.Deserialize(stream);
                         CopySettings(deserializedSettings, settings);
                     }
                 }
-                catch (FileNotFoundException)
+                catch (IOException)
                 {
                 }
             }

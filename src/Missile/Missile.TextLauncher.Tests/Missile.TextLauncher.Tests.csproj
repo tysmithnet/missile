@@ -104,6 +104,7 @@
     <Compile Include="SettingsRepository_Should.cs" />
     <Compile Include="StringUserControlConverter_Should.cs" />
     <Compile Include="HeadFilter_Should.cs" />
+    <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
