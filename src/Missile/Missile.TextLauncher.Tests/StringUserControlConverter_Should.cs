@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Controls;
 using FluentAssertions;
@@ -10,24 +11,19 @@ namespace Missile.TextLauncher.Tests
     [ExcludeFromCodeCoverage]
     public class StringUserControlConverter_Should
     {
-        [Fact]
+        [WpfFact]
         public void Convert_Strings_To_TextBlocks()
         {
-            Utilities.StartSTATask(() =>
+            var converter = new StringFrameworkElementConverter();
+            var obs = Observable.Range(0, 3).Select(x => x.ToString());
+            var list = converter.Convert(obs).ToEnumerable().ToList();
+            for (int i = 0; i < list.Count; i++)
             {
-                var converter = new StringUserControlConverter();
-                converter.Convert(Observable.Range(0, 3).Select(x => x.ToString()))
-                    .ToEnumerable().Should().Equal(new TextBlock
-                    {
-                        Text = "0"
-                    }, new TextBlock
-                    {
-                        Text = "1"
-                    }, new TextBlock
-                    {
-                        Text = "2"
-                    });
-            });
+                var x = list[i];
+                var tb = x as TextBlock;
+                tb.Should().NotBeNull();
+                tb.Text.Should().Be($"{i}");
+            }   
         }
     }
 }

@@ -72,6 +72,9 @@
     <Reference Include="xunit.execution.desktop, Version=2.2.0.3545, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.extensibility.execution.2.2.0\lib\net452\xunit.execution.desktop.dll</HintPath>
     </Reference>
+    <Reference Include="Xunit.StaFact, Version=0.2.0.0, Culture=neutral, PublicKeyToken=593f35978b459a4b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xunit.StaFact.0.2.9\lib\net452\Xunit.StaFact.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleDestination_Should.cs" />
@@ -93,7 +96,6 @@
     <Compile Include="Registered_Filter_Should.cs" />
     <Compile Include="StringUserControlConverter_Should.cs" />
     <Compile Include="HeadFilter_Should.cs" />
-    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
