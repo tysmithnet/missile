@@ -9,12 +9,23 @@ namespace Missile.TextLauncher.Filtration
     /// </summary>
     public class RegisteredFilter
     {
+        /// <summary>
+        /// The type
+        /// </summary>
         protected internal Type Type;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RegisteredFilter"/> class.
+        /// </summary>
         protected internal RegisteredFilter()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RegisteredFilter"/> class.
+        /// </summary>
+        /// <param name="filter">The filter.</param>
+        /// <param name="type">The type.</param>
         public RegisteredFilter(IFilter filter, Type type)
         {
             FilterInstance = filter;
@@ -46,6 +57,17 @@ namespace Missile.TextLauncher.Filtration
         ///     The filter method information.
         /// </value>
         public MethodInfo FilterMethodInfo { get; set; }
+
+        /// <summary>
+        /// Invokes the filter method from the filter
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <param name="observable">The observable.</param>
+        /// <returns></returns>
+        public object Filter(string[] args, object observable)
+        {
+            return FilterMethodInfo.Invoke(FilterInstance, new [] {args, observable});
+        }
 
         /// <summary>
         ///     Determines whether the specified <see cref="System.Object" />, is equal to this instance.

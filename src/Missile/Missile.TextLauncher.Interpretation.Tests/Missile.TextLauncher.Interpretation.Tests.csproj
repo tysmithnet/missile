@@ -79,6 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DistinctFilter_Should.cs" />
     <Compile Include="InterpretationFacade_Should.cs" />
     <Compile Include="InterpreterBuilder.cs" />
     <Compile Include="Interpreter_Should.cs" />

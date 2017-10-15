@@ -7,13 +7,14 @@ using Xunit;
 namespace Missile.TextLauncher.Tests
 {
     [ExcludeFromCodeCoverage]
-    public class FirstFilter_Should
+    public class NoOpFilter_Should
     {
         [Fact]
-        public void Filter_Only_The_First_Item()
+        public void Not_Do_Anything()
         {
-            var first = new FirstFilter();
-            first.Filter("".Split(), Observable.Range(1, 1).Select(x => x as object)).ToEnumerable().Should().Equal(1);
+            var filter = new NoOpFilter();
+            var obs = Observable.Range(0, 10).Select(x => x as object);
+            filter.Filter("".Split(), obs).Should().Be(obs);
         }
     }
 }

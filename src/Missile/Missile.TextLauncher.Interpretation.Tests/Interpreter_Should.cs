@@ -110,8 +110,8 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 }).WithFilter(new RegisteredFilter
                 {
                     Name = "take",
-                    FilterInstance = new TakeFilter(),
-                    FilterMethodInfo = typeof(TakeFilter).GetMethod("Filter")
+                    FilterInstance = new HeadFilter(),
+                    FilterMethodInfo = typeof(HeadFilter).GetMethod("Filter")
                 }).WithFilter(new RegisteredFilter
                 {
                     Name = "distinct",
@@ -153,8 +153,8 @@ namespace Missile.TextLauncher.Interpretation.Tests
                 }).WithFilter(new RegisteredFilter
                 {
                     Name = "take",
-                    FilterInstance = new TakeFilter(),
-                    FilterMethodInfo = typeof(TakeFilter).GetMethod("Filter")
+                    FilterInstance = new HeadFilter(),
+                    FilterMethodInfo = typeof(HeadFilter).GetMethod("Filter")
                 }).WithFilter(new RegisteredFilter
                 {
                     Name = "distinct",

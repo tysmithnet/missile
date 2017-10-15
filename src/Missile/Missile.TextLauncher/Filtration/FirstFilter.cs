@@ -24,12 +24,15 @@ namespace Missile.TextLauncher.Filtration
         /// <summary>
         ///     Allows only the first item to pass
         /// </summary>
+        /// <param name="args"></param>
         /// <param name="source">The source.</param>
-        /// <returns></returns>
+        /// <returns>
+        ///     The filtered source
+        /// </returns>
         /// <inheritdoc />
-        public IObservable<object> Filter(IObservable<object> source)
+        public IObservable<object> Filter(string[] args, IObservable<object> source)
         {
             return source.FirstAsync();
         }
-    }
+    }   
 }

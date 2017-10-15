@@ -112,7 +112,7 @@
     <Compile Include="Destination\RegisteredDestination.cs" />
     <Compile Include="Filtration\RegisteredFilter.cs" />
     <Compile Include="Provision\RegisteredProvider.cs" />
-    <Compile Include="Filtration\TakeFilter.cs" />
+    <Compile Include="Filtration\HeadFilter.cs" />
     <Compile Include="SettingAttribute.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
