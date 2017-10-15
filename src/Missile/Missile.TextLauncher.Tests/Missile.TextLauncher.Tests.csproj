@@ -80,6 +80,7 @@
     <Compile Include="ConverterRepository_Should.cs" />
     <Compile Include="ConverterSelectionStrategy_Should.cs" />
     <Compile Include="DestinationRepository_Should.cs" />
+    <Compile Include="FilterRepository_Should.cs" />
     <Compile Include="FirstFilter_Should.cs" />
     <Compile Include="Mock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

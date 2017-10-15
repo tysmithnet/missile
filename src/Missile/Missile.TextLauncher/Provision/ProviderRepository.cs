@@ -17,7 +17,6 @@ namespace Missile.TextLauncher.Provision
         /// </summary>
         private IList<RegisteredProvider> _registeredProviders;
 
-
         /// <summary>
         ///     Gets or sets the provider instances
         /// </summary>
@@ -48,6 +47,7 @@ namespace Missile.TextLauncher.Provision
             return RegisteredProviders.Single(x => x.Name == providerName);
         }
 
+
         /// <inheritdoc />
         /// <summary>
         ///     Adds a RegisteredProvider to this repository
@@ -55,9 +55,7 @@ namespace Missile.TextLauncher.Provision
         /// <param name="provider">The RegisteredProvider to add</param>
         public void Add(RegisteredProvider provider)
         {
-            if (_registeredProviders == null)
-                _registeredProviders = new List<RegisteredProvider>();
-            _registeredProviders.Add(provider);
+            RegisteredProviders.Add(provider);
         }
 
         /// <summary>
@@ -67,6 +65,7 @@ namespace Missile.TextLauncher.Provision
         /// <returns>Extracted registered providers</returns>
         protected internal List<RegisteredProvider> ExtractRegisteredProviders(IEnumerable<IProvider> providers)
         {
+            providers = providers ?? new List<IProvider>();
             var mapping = providers.Select(d => new
             {
                 Instance = d,
