@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using MsILogger = Microsoft.Extensions.Logging.ILogger;
 
-namespace Missile.Core
+namespace Missile.Core.Logging
 {
     /// <summary>
     ///     Default ILogger implementation provided out of the box

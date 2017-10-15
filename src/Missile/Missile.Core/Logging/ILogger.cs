@@ -1,4 +1,4 @@
-﻿namespace Missile.Core
+﻿namespace Missile.Core.Logging
 {
     /// <summary>
     ///     Represents an object that can be used to write information to various destinations

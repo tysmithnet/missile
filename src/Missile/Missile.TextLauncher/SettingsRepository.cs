@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Xml.Serialization;
+using Missile.Core.FileSystem;
 
 namespace Missile.TextLauncher
 {
@@ -35,6 +36,15 @@ namespace Missile.TextLauncher
         [ImportMany]
         protected internal ISettings[] AllSettings { get; set; }
 
+        /// <summary>
+        ///     Gets or sets the file system.
+        /// </summary>
+        /// <value>
+        ///     The file system.
+        /// </value>
+        [Import]
+        protected internal IFileSystem FileSystem { get; set; }
+
         /// <inheritdoc />
         /// <summary>
         ///     Saves the settings for the specified type parameter
@@ -61,7 +71,7 @@ namespace Missile.TextLauncher
                     $"{typeof(T).FullName} is not serializable and therefore cannot be saved");
             try
             {
-                using (var stream = new FileStream(fileName, FileMode.Truncate))
+                using (var stream = FileSystem.OpenFile(fileName, FileMode.Truncate, FileAccess.Write, FileShare.None))
                 {
                     var serializer = new XmlSerializer(first.GetType());
                     serializer.Serialize(stream, first);
