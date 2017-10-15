@@ -66,7 +66,8 @@ namespace Missile.TextLauncher
             if (first == null)
                 throw new ArgumentOutOfRangeException($"Cannot find requested setting: {typeof(T)}");
             var fileName = first.GetType().FullName + ".config";
-            if (!first.GetType().IsSerializable)
+            var type = first.GetType();
+            if (!type.IsSerializable)
                 throw new SerializationException(
                     $"{typeof(T).FullName} is not serializable and therefore cannot be saved");
             try
