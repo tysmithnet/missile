@@ -28,6 +28,12 @@ namespace Missile.TextLauncher
         private bool _isLoaded;
 
         /// <summary>
+        ///     The file naming strategy
+        /// </summary>
+        protected internal Func<ISettings, string> FileNamingStrategy =
+            settings => settings.GetType().FullName + ".config";
+
+        /// <summary>
         ///     Gets or sets all settings
         /// </summary>
         /// <value>
@@ -128,7 +134,7 @@ namespace Missile.TextLauncher
         {
             foreach (var settings in AllSettings)
             {
-                var fileName = settings.GetType().FullName + ".config";
+                var fileName = FileNamingStrategy(settings);
                 if (!settings.GetType().IsSerializable) continue;
                 try
                 {
