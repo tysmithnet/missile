@@ -13,32 +13,6 @@ namespace Missile.TextLauncher.Tests
     [ExcludeFromCodeCoverage]
     public class SettingsRepository_Should
     {
-        [Serializable]
-        public class FooSettings : ISettings
-        {
-            public int X { get; set; }
-        }
-
-        [Serializable]
-        public class BarSettings : ISettings
-        {
-            public int Y { get; set; }
-        }
-
-        public class FooBarSettings : ISettings
-        {
-            public int Z { get; set; }
-        }
-
-        public class NonClosingMemoryStream : MemoryStream
-        {
-            protected override void Dispose(bool disposing)
-            {
-                Flush();
-                Position = 0;
-            }
-        }
-
         [Fact]
         public void Load_Saved_Settings_If_Possible()
         {
@@ -96,8 +70,51 @@ namespace Missile.TextLauncher.Tests
                     It.IsAny<FileAccess>(),
                     It.IsAny<FileShare>())).Returns(barXml.ToStream());
             settingsRepo.FileSystem = fsMock.Object;
-            settingsRepo.AllSettings = new ISettings[] { new FooSettings(), new BarSettings(), new FooBarSettings() };
+            settingsRepo.AllSettings = new ISettings[] {new FooSettings(), new BarSettings(), new FooBarSettings()};
             settingsRepo.GetAll().Count().Should().Be(3);
+        }
+
+        [Fact]
+        public void Save_All_Serializable_Settings()
+        {
+            var settingsRepo =
+                new SettingsRepository
+                {
+                    AllSettings = new ISettings[] {new FooSettings(), new BarSettings(), new FooBarSettings()}
+                };
+            var fileSystemMock = new Mock<IFileSystem>();
+            var fooStream = new NonClosingMemoryStream();
+            var barStream = new NonClosingMemoryStream();
+            settingsRepo.FileSystem = fileSystemMock.Object;
+            fileSystemMock
+                .Setup(system => system.OpenFile(It.IsRegex("FooSettings"), It.IsAny<FileMode>(),
+                    It.Is<FileAccess>(access => access == FileAccess.Write),
+                    It.IsAny<FileShare>())).Returns(fooStream);
+
+            fileSystemMock
+                .Setup(system => system.OpenFile(It.IsRegex("FooSettings"), It.IsAny<FileMode>(),
+                    It.Is<FileAccess>(access => access == FileAccess.Read),
+                    It.IsAny<FileShare>())).Throws<FileNotFoundException>();
+
+            fileSystemMock
+                .Setup(system => system.OpenFile(It.IsRegex("BarSettings"), It.IsAny<FileMode>(),
+                    It.Is<FileAccess>(access => access == FileAccess.Write),
+                    It.IsAny<FileShare>())).Returns(barStream);
+
+            fileSystemMock
+                .Setup(system => system.OpenFile(It.IsRegex("BarSettings"), It.IsAny<FileMode>(),
+                    It.Is<FileAccess>(access => access == FileAccess.Read),
+                    It.IsAny<FileShare>())).Throws<FileNotFoundException>();
+
+            settingsRepo.SaveAll();
+            using (var streamReader = new StreamReader(fooStream))
+            {
+                streamReader.ReadToEnd().Should().NotBeEmpty();
+            }
+            using (var streamReader = new StreamReader(barStream))
+            {
+                streamReader.ReadToEnd().Should().NotBeEmpty();
+            }
         }
 
         [Fact]
@@ -147,6 +164,31 @@ namespace Missile.TextLauncher.Tests
         }
 
         [Fact]
+        public void Throw_If_Requested_Setting_Is_Not_Registered()
+        {
+            var settingsRepo =
+                new SettingsRepository {AllSettings = new ISettings[] {new FooSettings(), new BarSettings()}};
+            var fsMock = new Mock<IFileSystem>();
+            fsMock.Setup(system => system.OpenFile(It.IsAny<string>(), It.IsAny<FileMode>(),
+                    It.Is<FileAccess>(access => access == FileAccess.Read), It.IsAny<FileShare>()))
+                .Throws<FileNotFoundException>();
+            var ms = new NonClosingMemoryStream();
+            fsMock.Setup(system => system.OpenFile(It.IsAny<string>(), It.IsAny<FileMode>(),
+                    It.Is<FileAccess>(access => access == FileAccess.Write), It.IsAny<FileShare>()))
+                .Returns(ms);
+            settingsRepo.FileSystem = fsMock.Object;
+            settingsRepo.Invoking(repository => repository.Get<FooBarSettings>())
+                .ShouldThrow<ArgumentOutOfRangeException>();
+        }
+
+        [Fact]
+        public void Throw_If_Trying_Copy_Settings_Of_Different_Types()
+        {
+            Action a = () => SettingsRepository.CopySettings(new BarSettings(), new FooSettings());
+            a.ShouldThrow<ArgumentException>();
+        }
+
+        [Fact]
         public void Throw_If_Trying_To_Save_NonSerializable_Settings()
         {
             var settingsRepo =
@@ -170,32 +212,6 @@ namespace Missile.TextLauncher.Tests
                 .Returns(ms);
             settingsRepo.FileSystem = fsMock.Object;
             settingsRepo.Invoking(repository => repository.Save<FooBarSettings>())
-                .ShouldThrow<ArgumentOutOfRangeException>();
-        }
-
-
-        [Fact]
-        public void Throw_If_Trying_Copy_Settings_Of_Different_Types()
-        {
-            Action a = () => SettingsRepository.CopySettings(new BarSettings(), new FooSettings());
-            a.ShouldThrow<ArgumentException>();
-        }
-
-        [Fact]
-        public void Throw_If_Requested_Setting_Is_Not_Registered()
-        {
-            var settingsRepo =
-                new SettingsRepository { AllSettings = new ISettings[] { new FooSettings(), new BarSettings() } };
-            var fsMock = new Mock<IFileSystem>();
-            fsMock.Setup(system => system.OpenFile(It.IsAny<string>(), It.IsAny<FileMode>(),
-                    It.Is<FileAccess>(access => access == FileAccess.Read), It.IsAny<FileShare>()))
-                .Throws<FileNotFoundException>();
-            var ms = new NonClosingMemoryStream();
-            fsMock.Setup(system => system.OpenFile(It.IsAny<string>(), It.IsAny<FileMode>(),
-                    It.Is<FileAccess>(access => access == FileAccess.Write), It.IsAny<FileShare>()))
-                .Returns(ms);
-            settingsRepo.FileSystem = fsMock.Object;
-            settingsRepo.Invoking(repository => repository.Get<FooBarSettings>())
                 .ShouldThrow<ArgumentOutOfRangeException>();
         }
     }

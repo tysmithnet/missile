@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
@@ -72,6 +73,7 @@ namespace Missile.TextLauncher
         /// <value>
         ///     The name for this provider
         /// </value>
+        [ExcludeFromCodeCoverage]
         public string Name { get; set; } = "settings";
 
         /// <inheritdoc />
@@ -104,25 +106,7 @@ namespace Missile.TextLauncher
         /// </summary>
         protected internal void SaveSettings()
         {
-            var settingsToSave = SettingsRepository.GetAll().Where(x => x.GetType().IsSerializable);
-            foreach (var settingToSave in settingsToSave)
-            {
-                var serializer = new XmlSerializer(settingToSave.GetType());
-                var fileName = settingToSave.GetType().FullName + ".config";
-                try
-                {
-                    File.Delete(fileName);
-                }
-                catch (FileNotFoundException)
-                {
-                    ;
-                }
-
-                using (var fileStream = new FileStream(fileName, FileMode.Create))
-                {
-                    serializer.Serialize(fileStream, settingToSave);
-                }
-            }
+            SettingsRepository.SaveAll();
         }
 
         /// <summary>
@@ -144,7 +128,7 @@ namespace Missile.TextLauncher
 
                 var adapter = new PropertyFieldAdapter(member, settings);
 
-                if (!adapter.IsSetting && !adapter.IsSubSection)
+                if (!adapter.IsSetting)
                     continue;
 
                 if (adapter.IsSetting)

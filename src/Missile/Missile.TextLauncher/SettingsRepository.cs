@@ -85,6 +85,23 @@ namespace Missile.TextLauncher
 
         /// <inheritdoc />
         /// <summary>
+        ///     Saves all settings
+        /// </summary>
+        public void SaveAll()
+        {
+            foreach (var setting in AllSettings.Where(s => s.GetType().IsSerializable))
+                // todo: make concurrent
+                using (var stream = FileSystem.OpenFile(FileNamingStrategy(setting), FileMode.Truncate,
+                    FileAccess.Write, FileShare.None))
+                {
+                    var serializer = new XmlSerializer(setting.GetType());
+                    serializer.Serialize(stream, setting);
+                    // todo: error handling
+                }
+        }
+
+        /// <inheritdoc />
+        /// <summary>
         ///     Gets settings matching the specified type parameter
         /// </summary>
         /// <typeparam name="T">The type of settings to get</typeparam>

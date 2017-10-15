@@ -25,5 +25,10 @@ namespace Missile.TextLauncher
         /// </summary>
         /// <typeparam name="T">Type of settings to save</typeparam>
         void Save<T>() where T : ISettings;
+
+        /// <summary>
+        ///     Saves all settings
+        /// </summary>
+        void SaveAll();
     }
 }

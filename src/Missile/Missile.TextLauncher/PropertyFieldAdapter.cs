@@ -53,15 +53,6 @@ namespace Missile.TextLauncher
         public MemberInfo MemberInfo { get; }
 
         /// <summary>
-        ///     Gets a value indicating whether this instance is sub section
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if this instance is sub section; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsSubSection =>
-            MemberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SubSettingsAttribute));
-
-        /// <summary>
         ///     Gets a value indicating whether the specified member info is affixed with [SettingAttribute]
         /// </summary>
         /// <value>
