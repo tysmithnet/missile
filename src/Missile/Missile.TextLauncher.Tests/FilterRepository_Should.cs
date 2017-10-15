@@ -14,7 +14,7 @@ namespace Missile.TextLauncher.Tests
             var first = new FirstFilter();
             var repo = new FilterRepository();
             repo.Filters = new[] {first};
-            repo.RegisteredFilters.Count.Should().Be(1);
+            repo.Get(first.Name).FilterInstance.Should().Be(first);
         }
     }
 }
