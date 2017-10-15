@@ -6,7 +6,10 @@ namespace Missile.TextLauncher.Filtration
     ///     Represents a centralized location for managing filters
     /// </summary>
     public interface IFilterRepository
-    {                                                          
+    {
+        // todo: remove
+        IList<RegisteredFilter> RegisteredFilters { get; set; }
+
         RegisteredFilter Get(string name);
     }
 }
