@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,7 +12,7 @@ namespace Missile.TextLauncher
     /// </summary>
     /// <seealso cref="T:Missile.TextLauncher.IPropertyEditorFactory" />
     [Export(typeof(IPropertyEditorFactory))]
-    public class IntEditorFactory : IPropertyEditorFactory
+    public class IntPropertyEditorFactory : IPropertyEditorFactory       // todo: make for number types
     {
         /// <inheritdoc />
         /// <summary>
@@ -34,6 +35,7 @@ namespace Missile.TextLauncher
         /// <returns>
         ///     A component capable of editing the specified property or field
         /// </returns>
+        [ExcludeFromCodeCoverage] // todo: refactor into MVVM
         public FrameworkElement GetControl(PropertyFieldAdapter adapter)
         {
             var editor = new TextBox

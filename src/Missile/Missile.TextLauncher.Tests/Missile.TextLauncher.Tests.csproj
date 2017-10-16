@@ -95,6 +95,7 @@
     <Compile Include="FirstFilter_Should.cs" />
     <Compile Include="FooBarSettings.cs" />
     <Compile Include="FooSettings.cs" />
+    <Compile Include="IntPropertyEditorFactory_Should.cs" />
     <Compile Include="Mock.cs" />
     <Compile Include="NonClosingMemoryStream.cs" />
     <Compile Include="NoopFilter_Should.cs" />

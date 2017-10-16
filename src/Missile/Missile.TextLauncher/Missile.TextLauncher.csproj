@@ -89,7 +89,7 @@
     <Compile Include="ICommandHub.cs" />
     <Compile Include="IInterpretationFacade.cs" />
     <Compile Include="Filtration\IFilterRepository.cs" />
-    <Compile Include="IntEditorFactory.cs" />
+    <Compile Include="IntPropertyEditorFactory.cs" />
     <Compile Include="IObservableInspector.cs" />
     <Compile Include="IPropertyEditorFactory.cs" />
     <Compile Include="IPropertyEditorFactoryRepository.cs" />
