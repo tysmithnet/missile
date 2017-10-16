@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -45,9 +46,7 @@ namespace Missile.TextLauncher
         /// <exception cref="ArgumentNullException">
         ///     logger
         ///     or
-        ///     interpretationFacade
-        ///     or
-        ///     componentsRequiringSetup
+        ///     interpretationFacade                                                     
         /// </exception>
         public TextLauncherImplementationViewModel(ILogger logger, IInterpretationFacade interpretationFacade,
             IRequiresSetup[] componentsRequiringSetup)
@@ -55,8 +54,7 @@ namespace Missile.TextLauncher
             Logger = logger ?? throw new ArgumentNullException(nameof(logger));
             InterpretationFacade =
                 interpretationFacade ?? throw new ArgumentNullException(nameof(interpretationFacade));
-            ComponentsRequiringSetup = componentsRequiringSetup ??
-                                       throw new ArgumentNullException(nameof(componentsRequiringSetup));
+            ComponentsRequiringSetup = componentsRequiringSetup ?? new IRequiresSetup[0];
         }
 
         /// <summary>
@@ -107,6 +105,7 @@ namespace Missile.TextLauncher
         /// </value>
         public Visibility LoadingVisibility
         {
+            [ExcludeFromCodeCoverage]
             get => _loadingVisibility;
             set
             {

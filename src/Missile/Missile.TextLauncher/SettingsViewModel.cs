@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Missile.TextLauncher
 {
     /// <summary>
     ///     Adapter for ISettings that is more framework friendly
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class SettingsViewModel
     {
         /// <summary>

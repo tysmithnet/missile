@@ -7,7 +7,7 @@ namespace Missile.TextLauncher
     /// <summary>
     ///     Interaction logic for ErrorViewer.xaml
     /// </summary>
-    public partial class ErrorViewer : UserControl
+    public partial class ErrorViewer : UserControl // todo: rename
     {
         public ErrorViewer(Exception exception)
         {
