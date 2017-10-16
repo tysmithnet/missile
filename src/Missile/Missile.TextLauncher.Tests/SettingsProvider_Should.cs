@@ -1,4 +1,5 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Moq;
 using Xunit;
 
@@ -17,6 +18,10 @@ namespace Missile.TextLauncher.Tests
             settingsProvider.SettingsRepository = repoMock.Object;
             var mock = new Mock<IUiFacade>();
             settingsProvider.UiFacade = mock.Object;
+            var propertyEditorFactoryRepoMock = new Mock<IPropertyEditorFactoryRepository>();
+            propertyEditorFactoryRepoMock.Setup(repository => repository.Get(It.IsAny<Type>()))
+                .Returns(new StringPropertyEditorFactory());
+            settingsProvider.PropertyEditorFactoryRepository = propertyEditorFactoryRepoMock.Object;
             settingsProvider.Provide("".Split());
             mock.Verify(facade => facade.SetOutputControl(It.IsAny<Settings>()), Times.Once);
         }

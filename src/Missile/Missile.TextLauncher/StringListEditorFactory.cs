@@ -12,7 +12,7 @@ namespace Missile.TextLauncher
     /// </summary>
     /// <seealso cref="T:Missile.TextLauncher.IPropertyEditorFactory" />
     [Export(typeof(IPropertyEditorFactory))]
-    public class StringListEditoryFactory : IPropertyEditorFactory
+    public class StringListEditorFactory : IPropertyEditorFactory
     {
         /// <inheritdoc />
         /// <summary>
