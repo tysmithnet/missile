@@ -9,7 +9,10 @@ namespace Missile.TextLauncher.Tests
     {
         [Setting]
         public int X { get; set; }
-        
+
+        [Setting]
+        public int Y;
+
         [SubSettings]
         public FooSubSettings FooSubSettings { get; set; } = new FooSubSettings();
 
