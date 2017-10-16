@@ -120,7 +120,7 @@
     <Compile Include="SettingsProvider.cs" />
     <Compile Include="SettingsViewModel.cs" />
     <Compile Include="SettingViewModel.cs" />
-    <Compile Include="StringListEditorFactory.cs" />
+    <Compile Include="StringListPropertyEditorFactory.cs" />
     <Compile Include="StringPropertyEditorFactory.cs" />
     <Compile Include="SubSettingsAttribute.cs" />
     <Compile Include="TextLauncherImplementation.xaml.cs">

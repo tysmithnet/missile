@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Input;
 using Missile.Core;
@@ -11,6 +12,7 @@ namespace Missile.TextLauncher
     /// </summary>
     [Export(typeof(Launcher))]
     [Export(typeof(IUiFacade))]
+    [ExcludeFromCodeCoverage]
     public partial class TextLauncherImplementation : Launcher, IUiFacade
     {
         private TextLauncherImplementationViewModel _viewModel;
