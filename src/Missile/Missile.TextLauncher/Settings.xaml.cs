@@ -33,7 +33,6 @@ namespace Missile.TextLauncher
                 var row = new StackPanel();
                 row.Orientation = Orientation.Horizontal;
                 row.Children.Add(new TextBlock {Text = settingViewModel.Name});
-                // todo: can't go to settings twice because of this line
                 row.Children.Add(settingViewModel.PropertyEditor);
                 newStackPanel.Children.Add(row);
             }

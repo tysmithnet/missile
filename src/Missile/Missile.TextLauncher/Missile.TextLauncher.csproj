@@ -122,6 +122,7 @@
     <Compile Include="SettingViewModel.cs" />
     <Compile Include="StringListEditorFactory.cs" />
     <Compile Include="StringPropertyEditorFactory.cs" />
+    <Compile Include="SubSettingsAttribute.cs" />
     <Compile Include="TextLauncherImplementation.xaml.cs">
       <DependentUpon>TextLauncherImplementation.xaml</DependentUpon>
     </Compile>

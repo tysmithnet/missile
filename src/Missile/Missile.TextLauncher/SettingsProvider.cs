@@ -128,25 +128,38 @@ namespace Missile.TextLauncher
 
                 var adapter = new PropertyFieldAdapter(member, settings);
 
-                if (!adapter.IsSetting)
+                bool isSetting = IsSetting(adapter);
+                bool isSubSetting = IsSubSetting(adapter);
+
+                if (!isSetting && !isSubSetting)
                     continue;
 
-                if (adapter.IsSetting)
-                {
-                    var setting = new SettingViewModel();
-                    setting.Name = member.Name;
-                    setting.PropertyEditor = ExtractPropertyEditor(adapter);
-                    settingsViewModel.Settings.Add(setting);
-                }
-                else
+                if (IsSubSetting(adapter))
                 {
                     var subSettings = adapter.GetValue() as ISettings;
                     Debug.Assert(subSettings != null, "Expected to find subsettings of type ISettings, but did not");
                     var subSettingsViewModel = ExtractSettingsViewModel(subSettings);
                     settingsViewModel.SubSettings.Add(subSettingsViewModel);
                 }
+                else
+                {
+                    var setting = new SettingViewModel();
+                    setting.Name = member.Name;
+                    setting.PropertyEditor = ExtractPropertyEditor(adapter);
+                    settingsViewModel.Settings.Add(setting);
+                }
             }
             return settingsViewModel;
+        }
+
+        private bool IsSubSetting(PropertyFieldAdapter adapter)
+        {
+            return adapter.MemberInfo.GetCustomAttributes().Any(a => a is SubSettingsAttribute);
+        }
+
+        private bool IsSetting(PropertyFieldAdapter adapter)
+        {
+            return adapter.MemberInfo.GetCustomAttributes().Any(a => a is SettingAttribute);
         }
 
         /// <summary>

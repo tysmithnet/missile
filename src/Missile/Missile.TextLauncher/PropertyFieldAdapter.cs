@@ -52,14 +52,6 @@ namespace Missile.TextLauncher
         /// </value>
         public MemberInfo MemberInfo { get; }
 
-        /// <summary>
-        ///     Gets a value indicating whether the specified member info is affixed with [SettingAttribute]
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if this instance is setting; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsSetting => MemberInfo.CustomAttributes.Any(a => a.AttributeType == typeof(SettingAttribute));
-
         // todo: convert to properties
         public void SetValue(object value)
         {
