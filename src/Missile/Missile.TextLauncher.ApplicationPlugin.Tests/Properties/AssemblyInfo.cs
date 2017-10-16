@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Missile.TextLauncher.ApplicationPlugin")]
+[assembly: AssemblyTitle("Missile.TextLauncher.ApplicationPlugin.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Missile.TextLauncher.ApplicationPlugin")]
+[assembly: AssemblyProduct("Missile.TextLauncher.ApplicationPlugin.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("b5f41297-4523-4609-978a-c86c3106286a")]
+[assembly: Guid("7b1825ce-13eb-4c59-b550-aced7e36e16f")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -34,7 +34,3 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-
-[assembly: InternalsVisibleTo("Missile.TextLauncher.IntegrationTests")]
-
-[assembly: InternalsVisibleTo("Missile.TextLauncher.ApplicationPlugin.Tests")]

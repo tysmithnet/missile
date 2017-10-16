@@ -1,10 +1,12 @@
-﻿using System.Windows.Media;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Windows.Media;
 
 namespace Missile.TextLauncher.ApplicationPlugin
 {
     /// <summary>
     ///     Represents an application that has been registered with the application
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class RegisteredApplication
     {
         /// <summary>

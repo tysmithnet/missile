@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reactive.Linq;
 using CommandLine;
@@ -33,6 +34,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
         /// <value>
         ///     The name for this provider
         /// </value>
+        [ExcludeFromCodeCoverage]
         public string Name { get; set; } = "apps";
 
         /// <inheritdoc />
