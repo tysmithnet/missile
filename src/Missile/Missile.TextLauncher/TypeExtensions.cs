@@ -27,22 +27,6 @@ namespace Missile.TextLauncher
                 yield return itr;
                 itr = itr.BaseType;
             }
-        }
-
-        /// <summary>
-        ///     Concerts an Icon into an ImageSource
-        /// </summary>
-        /// <param name="icon">The icon to transform</param>
-        /// <returns>The transformed icon</returns>
-        [ExcludeFromCodeCoverage]
-        public static ImageSource ToImageSource(this Icon icon)
-        {
-            ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
-                icon.Handle,
-                Int32Rect.Empty,
-                BitmapSizeOptions.FromEmptyOptions());
-
-            return imageSource;
-        }
+        }   
     }
 }

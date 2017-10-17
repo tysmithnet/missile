@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace Missile.TextLauncher.ApplicationPlugin
@@ -30,6 +31,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
         /// <value>
         ///     The identifier for this command
         /// </value>
+        [ExcludeFromCodeCoverage]
         public Guid Id { get; } = Guid.NewGuid();
     }
 }

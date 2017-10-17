@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Missile.Core.FileSystem;
 
 namespace Missile.TextLauncher.ApplicationPlugin
 {
@@ -27,7 +29,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
         /// <summary>
         ///     The settings backing field
         /// </summary>
-        private ApplicationProviderSettings _settings;
+        protected internal ApplicationProviderSettings SettingsBackingField;
 
         /// <summary>
         ///     Gets or sets the registered applications
@@ -35,6 +37,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
         /// <value>
         ///     The registered applications.
         /// </value>
+        [ExcludeFromCodeCoverage]
         protected internal List<RegisteredApplication> RegisteredApplications { get; set; } =
             new List<RegisteredApplication>();
 
@@ -56,6 +59,9 @@ namespace Missile.TextLauncher.ApplicationPlugin
         [Import]
         protected internal ICommandHub CommandHub { get; set; }
 
+        [Import]
+        protected internal IFileSystem FileSystem { get; set; }
+
         /// <summary>
         ///     Gets the settings
         /// </summary>
@@ -63,8 +69,9 @@ namespace Missile.TextLauncher.ApplicationPlugin
         ///     The settings
         /// </value>
         protected internal ApplicationProviderSettings Settings =>
-            _settings ?? (_settings = SettingsRepository.Get<ApplicationProviderSettings>());
+            SettingsBackingField ?? (SettingsBackingField = SettingsRepository.Get<ApplicationProviderSettings>());
 
+        /// <inheritdoc />
         /// <summary>
         ///     Searches the specified search string
         /// </summary>
@@ -95,13 +102,12 @@ namespace Missile.TextLauncher.ApplicationPlugin
             var settings = SettingsRepository.Get<ApplicationProviderSettings>();
             foreach (var path in settings.SearchPaths ?? new List<string>())
             {
-                var icon = Icon.ExtractAssociatedIcon(path);
                 var name = new FileInfo(path).Name;
                 RegisteredApplications.Add(new RegisteredApplication
                 {
                     ApplicationName = name,
                     ApplicationPath = path,
-                    Icon = icon.ToImageSource()
+                    Icon = FileSystem.GetIcon(path)
                 });
             }
             _isSetup = true;
@@ -118,7 +124,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
             {
                 ApplicationName = fileInfo.Name,
                 ApplicationPath = fileInfo.FullName,
-                Icon = Icon.ExtractAssociatedIcon(fileInfo.FullName).ToImageSource()
+                Icon = FileSystem.GetIcon(fileInfo.FullName)
             });
             Settings.SearchPaths.Add(fileInfo.FullName);
         }

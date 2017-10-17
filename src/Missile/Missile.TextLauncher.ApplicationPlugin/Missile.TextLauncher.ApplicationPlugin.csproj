@@ -72,6 +72,10 @@
     <Compile Include="SaveApplicationRepositoryStateCommand.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Missile.Core\Missile.Core.csproj">
+      <Project>{D7B2884D-38DB-427F-804F-074BEA6E4C0F}</Project>
+      <Name>Missile.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Missile.TextLauncher.ListPlugin\Missile.TextLauncher.ListPlugin.csproj">
       <Project>{05E3AA07-6776-41AF-9A64-1C9360A279B7}</Project>
       <Name>Missile.TextLauncher.ListPlugin</Name>

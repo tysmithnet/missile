@@ -2,6 +2,7 @@
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Reactive.Linq;
+using Missile.Core.FileSystem;
 using Missile.TextLauncher.Conversion;
 
 namespace Missile.TextLauncher.ListPlugin
@@ -15,6 +16,8 @@ namespace Missile.TextLauncher.ListPlugin
     [Export(typeof(IConverter))]
     public class FileListDestinationItemConverter : IConverter<FileInfo, FileListDestinationItem>
     {
+        protected internal IFileSystem FileSystem { get; set; }
+
         /// <inheritdoc />
         /// <summary>
         ///     Converts the specified source of FileInfo into FileListDestinationItem
@@ -23,7 +26,7 @@ namespace Missile.TextLauncher.ListPlugin
         /// <returns></returns>
         public IObservable<FileListDestinationItem> Convert(IObservable<FileInfo> source)
         {
-            return source.Select(f => new FileListDestinationItem(f));
+            return source.Select(f => new FileListDestinationItem(f, FileSystem));
         }
     }
 }

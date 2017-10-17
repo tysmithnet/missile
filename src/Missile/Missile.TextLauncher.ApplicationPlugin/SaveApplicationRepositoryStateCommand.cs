@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Missile.TextLauncher.ApplicationPlugin
 {
@@ -9,6 +10,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
     /// <seealso cref="T:Missile.TextLauncher.ICommand" />
     public class SaveApplicationRepositoryStateCommand : ICommand
     {
+        [ExcludeFromCodeCoverage]
         public Guid Id { get; } = Guid.NewGuid();
     }
 }

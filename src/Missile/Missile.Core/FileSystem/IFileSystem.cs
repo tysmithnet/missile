@@ -1,9 +1,16 @@
 ﻿using System.IO;
+using System.Windows.Media;
 
 namespace Missile.Core.FileSystem
 {
+    /// <summary>
+    /// Abstraction over the file system, primarily for testing
+    /// </summary>
     public interface IFileSystem
     {
+             
         Stream OpenFile(string path, FileMode mode, FileAccess accees, FileShare fileShare);
+
+        ImageSource GetIcon(string path);
     }
 }
