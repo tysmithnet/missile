@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Missile.TextLauncher.ListPlugin;
@@ -39,6 +40,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
         /// <value>
         ///     The identifier.
         /// </value>
+        [ExcludeFromCodeCoverage]
         public Guid Id { get; } = Guid.NewGuid();
 
         /// <summary>
@@ -46,6 +48,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
         /// </summary>
         /// <param name="sender">The source of the event</param>
         /// <param name="e">The <see cref="MouseButtonEventArgs" /> instance containing the event data</param>
+        [ExcludeFromCodeCoverage]
         private void ApplicationListDestinationItem_OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Process.Start(RegisteredApplication.ApplicationPath);

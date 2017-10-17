@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 using System.Reactive.Linq;
 using Missile.TextLauncher.Conversion;
 
@@ -12,6 +13,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
     /// <seealso
     ///     cref="!:Missile.TextLauncher.Conversion.IConverter{Missile.TextLauncher.ApplicationPlugin.RegisteredApplication, Missile.TextLauncher.ApplicationPlugin.ApplicationListDestinationItem}" />
     [Export(typeof(IConverter))]
+    [ExcludeFromCodeCoverage]
     public class
         ApplicationListDestinationItemConverter : IConverter<RegisteredApplication, ApplicationListDestinationItem>
     {

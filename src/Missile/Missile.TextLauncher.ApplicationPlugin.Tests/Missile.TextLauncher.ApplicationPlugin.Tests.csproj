@@ -46,6 +46,7 @@
       <HintPath>..\packages\Moq.4.7.142\lib\net45\Moq.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -58,6 +59,7 @@
     <Reference Include="System.Reactive.Linq, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Reactive.Linq.3.1.1\lib\net46\System.Reactive.Linq.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -77,8 +79,12 @@
     <Reference Include="xunit.execution.desktop, Version=2.3.0.3820, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
       <HintPath>..\packages\xunit.extensibility.execution.2.3.0\lib\net452\xunit.execution.desktop.dll</HintPath>
     </Reference>
+    <Reference Include="Xunit.StaFact, Version=0.2.0.0, Culture=neutral, PublicKeyToken=593f35978b459a4b, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xunit.StaFact.0.2.9\lib\net452\Xunit.StaFact.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationProviderContextMenuProvider_Should.cs" />
     <Compile Include="ApplicationProvider_Should.cs" />
     <Compile Include="ApplicationRepository_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +101,10 @@
     <ProjectReference Include="..\Missile.TextLauncher.ApplicationPlugin\Missile.TextLauncher.ApplicationPlugin.csproj">
       <Project>{b5f41297-4523-4609-978a-c86c3106286a}</Project>
       <Name>Missile.TextLauncher.ApplicationPlugin</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Missile.TextLauncher.ListPlugin\Missile.TextLauncher.ListPlugin.csproj">
+      <Project>{05E3AA07-6776-41AF-9A64-1C9360A279B7}</Project>
+      <Name>Missile.TextLauncher.ListPlugin</Name>
     </ProjectReference>
     <ProjectReference Include="..\Missile.TextLauncher\Missile.TextLauncher.csproj">
       <Project>{cefbccb2-1b93-43bf-a2d5-9ee40ce01b9a}</Project>

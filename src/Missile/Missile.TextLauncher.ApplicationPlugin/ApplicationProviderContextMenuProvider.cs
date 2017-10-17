@@ -62,19 +62,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
                     };
                 yield return menuItem;
             }
-        }
-
-        /// <summary>
-        ///     Determines whether this instance can handle the specified item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <returns>
-        ///     <c>true</c> if this instance can handle the specified item; otherwise, <c>false</c>.
-        /// </returns>
-        public bool CanHandle(FileInfo item)
-        {
-            return item != null;
-        }
+        }              
 
         /// <summary>
         ///     Partitions items into ApplicationListDestinationItem and FileListDestinationItem piles
