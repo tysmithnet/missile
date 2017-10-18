@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Threading.Tasks;
 using Missile.TextLauncher.Destination;
@@ -49,6 +50,7 @@ namespace Missile.TextLauncher.ListPlugin
         /// <value>
         ///     The name
         /// </value>
+        [ExcludeFromCodeCoverage]
         public string Name { get; set; } = "list";
 
         /// <inheritdoc />
@@ -71,7 +73,13 @@ namespace Missile.TextLauncher.ListPlugin
                 {
                     ;
                 },
-                exception => { tcs.TrySetException(exception); }, () => { tcs.TrySetResult(null); });
+                exception =>
+                {
+                    tcs.TrySetException(exception);
+                }, () =>
+                {
+                    tcs.TrySetResult(null);
+                });
             return tcs.Task;
         }
     }

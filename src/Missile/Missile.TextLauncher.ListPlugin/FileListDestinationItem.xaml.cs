@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows.Controls;
 using Missile.Core.FileSystem;
@@ -47,6 +48,7 @@ namespace Missile.TextLauncher.ListPlugin
         /// <value>
         ///     The identifier
         /// </value>
+        [ExcludeFromCodeCoverage]
         public Guid Id { get; }
     }
 }
