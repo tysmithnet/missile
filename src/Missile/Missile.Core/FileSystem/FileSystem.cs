@@ -8,15 +8,16 @@ using System.Windows.Media.Imaging;
 
 namespace Missile.Core.FileSystem
 {
+    /// <inheritdoc />
     /// <summary>
-    /// Default implementation of IFileSystem
+    ///     Default implementation of IFileSystem
     /// </summary>
-    /// <seealso cref="Missile.Core.FileSystem.IFileSystem" />
+    /// <seealso cref="T:Missile.Core.FileSystem.IFileSystem" />
     [Export(typeof(IFileSystem))]
     public class FileSystem : IFileSystem
     {
         /// <summary>
-        /// Opens the file.
+        ///     Opens the file.
         /// </summary>
         /// <param name="path">The path.</param>
         /// <param name="fileMode">The file mode.</param>
@@ -35,6 +36,11 @@ namespace Missile.Core.FileSystem
                 Icon.ExtractAssociatedIcon(path).Handle,
                 Int32Rect.Empty,
                 BitmapSizeOptions.FromEmptyOptions());
-        }                                      
+        }
+
+        public bool IsDirectory(FileInfo fileInfo)
+        {
+            return fileInfo.Attributes.HasFlag(FileAttributes.Directory);
+        }
     }
 }

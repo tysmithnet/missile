@@ -20,7 +20,7 @@ namespace Missile.TextLauncher.ListPlugin
             InitializeComponent();
             try
             {
-                IconImage.Source = fileInfo.Attributes.HasFlag(FileAttributes.Directory)
+                IconImage.Source = fileSystem.IsDirectory(fileInfo)
                     ? ImageSourceFactory.GetBitmapFromResource(typeof(FileListDestinationItem).Assembly,
                         "assets/folder.ico")
                     : fileSystem.GetIcon(fileInfo.FullName);

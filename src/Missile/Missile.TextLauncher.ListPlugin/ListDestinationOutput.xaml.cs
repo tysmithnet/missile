@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using Missile.TextLauncher.Annotations;
 
 namespace Missile.TextLauncher.ListPlugin
 {
@@ -21,23 +26,16 @@ namespace Missile.TextLauncher.ListPlugin
         public ListDestinationOutput(IObservable<IListDestinationItem> items,
             IDestinationContextMenuProvider[] contextMenuProviders)
         {
-            ContextMenuProviders = contextMenuProviders;
-            items.Subscribe(listDestinationItem =>
-            {
-                ListDestinationItems.Add(listDestinationItem);
-                if (listDestinationItem is FrameworkElement frameworkElement)
-                    frameworkElement.PreviewMouseRightButtonDown += (sender, args) =>
-                    {
-                        if (!ItemsListBox.SelectedItems.Contains(frameworkElement))
-                            ItemsListBox.SelectedItems.Add(frameworkElement);
-                    };
-            }, exception =>
-            {
-                // todo: do something with errors!
-            });
-            InitializeComponent();
-            ItemsListBox.ItemsSource = ListDestinationItems;
+            Source = items;
+            ContextMenuProviders = contextMenuProviders;       
+            ViewModel = new ListDestinationOutputViewModel(items, contextMenuProviders);
+            DataContext = ViewModel;
+            InitializeComponent();  
         }
+
+        public ListDestinationOutputViewModel ViewModel { get; set; }
+
+        protected internal IObservable<IListDestinationItem> Source { get; set; }
 
         /// <summary>
         ///     Gets or sets the context menu providers
@@ -72,18 +70,47 @@ namespace Missile.TextLauncher.ListPlugin
         /// <param name="e">The <see cref="MouseButtonEventArgs" /> instance containing the event data.</param>
         private void ItemsListBox_OnPreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            // todo: extract MVVM
-            if (ContextMenu == null)
-                ContextMenu = new ContextMenu();
-            ContextMenu.Items.Clear();
-            foreach (var destinationContextMenuProvider in ContextMenuProviders)
-            foreach (var menuItem in destinationContextMenuProvider.GetMenuItems(ItemsListBox.SelectedItems
-                .OfType<IListDestinationItem>()))
-                ContextMenu.Items.Add(menuItem);
-
+            Debug.Assert(ContextMenu != null, "ConextMenu for ListDestinationOutput should not be null");
             ContextMenu.Placement = PlacementMode.MousePoint;
             ContextMenu.IsOpen = true;
             e.Handled = true;
+        }
+    }
+
+    public class ListDestinationOutputViewModel : INotifyPropertyChanged
+    {
+        public ListDestinationOutputViewModel(IObservable<IListDestinationItem> items,
+            IDestinationContextMenuProvider[] contextMenuProviders)
+        {
+            ContextMenuProviders =
+                contextMenuProviders ?? throw new ArgumentNullException(nameof(contextMenuProviders));
+            items.Subscribe(listDestinationItem =>
+            {
+                ListDestinationItems.Add(listDestinationItem);
+            }, exception =>
+            {
+                // todo: do something with errors!
+            });
+        }
+
+        public ObservableCollection<MenuItem> MenuItems { get; set; }
+
+        public ObservableCollection<IListDestinationItem> ListDestinationItems { get; set; } =
+            new ObservableCollection<IListDestinationItem>();
+
+        protected internal IDestinationContextMenuProvider[] ContextMenuProviders { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public IEnumerable<MenuItem> GetMenuItems(IList<IListDestinationItem> selectedItems)
+        {
+            return ContextMenuProviders.SelectMany(destinationContextMenuProvider =>
+                destinationContextMenuProvider.GetMenuItems(selectedItems));
         }
     }
 }

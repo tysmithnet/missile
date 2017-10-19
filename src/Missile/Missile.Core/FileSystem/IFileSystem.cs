@@ -12,5 +12,6 @@ namespace Missile.Core.FileSystem
         Stream OpenFile(string path, FileMode mode, FileAccess accees, FileShare fileShare);
 
         ImageSource GetIcon(string path);
+        bool IsDirectory(FileInfo fileInfo);
     }
 }
