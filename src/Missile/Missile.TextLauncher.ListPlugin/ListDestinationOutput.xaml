@@ -8,12 +8,13 @@
              d:DesignHeight="300" d:DesignWidth="300"
              d:DataContext="{d:DesignInstance local:ListDestinationOutputViewModel}">
     <UserControl.ContextMenu>
-        <ContextMenu ItemsSource="{Binding Path=MenuItems}"></ContextMenu>
+        <ContextMenu ItemsSource="{Binding Path=MenuItems}">
+        </ContextMenu>
     </UserControl.ContextMenu>
     <ListBox
         x:Name="ItemsListBox"
         ItemsSource="{Binding Path=ListDestinationItems}"
         AutomationProperties.AutomationId="Missile.TextLauncher.ListPlugin.ListDestinationOutput.ItemsListBox"
         SelectionMode="Extended"
-        PreviewMouseRightButtonDown="ItemsListBox_OnPreviewMouseRightButtonDown" />
+        MouseRightButtonUp="ItemsListBox_OnMouseRightButtonUp"/>
 </UserControl>

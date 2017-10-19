@@ -16,6 +16,7 @@ namespace Missile.TextLauncher.ListPlugin
     [Export(typeof(IConverter))]
     public class FileListDestinationItemConverter : IConverter<FileInfo, FileListDestinationItem>
     {
+        [Import]
         protected internal IFileSystem FileSystem { get; set; }
 
         /// <inheritdoc />

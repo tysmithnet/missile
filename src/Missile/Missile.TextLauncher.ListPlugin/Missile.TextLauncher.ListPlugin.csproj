@@ -67,6 +67,7 @@
     <Compile Include="ListDestinationOutput.xaml.cs">
       <DependentUpon>ListDestinationOutput.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ListDestinationOutputViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RemoveListDestinationItemCommand.cs" />
   </ItemGroup>

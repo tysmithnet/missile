@@ -31,7 +31,7 @@ namespace Missile.TextLauncher.Tests
             var first = menuItems.First();
             first.Header.ToString().Should().Be("Remove Application");
             first.RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
-            commandHubMock.Verify(hub => hub.Broadcast(It.IsAny<ICommand>()), Times.Exactly(3));
+            commandHubMock.Verify(hub => hub.Broadcast(It.IsAny<ICommand>()), Times.Exactly(3)); // todo: which commands
         }
 
         [WpfFact]
@@ -45,7 +45,7 @@ namespace Missile.TextLauncher.Tests
             var menuItems = applicationProviderContextMenuProvider.GetMenuItems(new[] { fileListDestinationItem }).ToList();
             menuItems.First().Header.ToString().Should().Be("Add Application");
             menuItems.First().RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
-            commandHubMock.Verify(hub => hub.Broadcast(It.IsAny<ICommand>()), Times.Exactly(2));
+            commandHubMock.Verify(hub => hub.Broadcast(It.IsAny<ICommand>()), Times.Exactly(2));  // todo: which commands
         }
 
         [WpfFact]
