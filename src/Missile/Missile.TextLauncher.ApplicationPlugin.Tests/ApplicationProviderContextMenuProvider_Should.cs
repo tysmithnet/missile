@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using FluentAssertions;
@@ -27,7 +23,8 @@ namespace Missile.TextLauncher.Tests
             var applicationProviderContextMenuProvider = new ApplicationProviderContextMenuProvider();
             var commandHubMock = new Mock<ICommandHub>();
             applicationProviderContextMenuProvider.CommandHub = commandHubMock.Object;
-            var menuItems = applicationProviderContextMenuProvider.GetMenuItems(new[] {applicationListDestinationItem}).ToList();
+            var menuItems = applicationProviderContextMenuProvider.GetMenuItems(new[] {applicationListDestinationItem})
+                .ToList();
             var first = menuItems.First();
             first.Header.ToString().Should().Be("Remove Application");
             first.RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
@@ -39,13 +36,15 @@ namespace Missile.TextLauncher.Tests
         {
             var fsMock = new Mock<IFileSystem>();
             var commandHubMock = new Mock<ICommandHub>();
-            var fileListDestinationItem = new FileListDestinationItem(new FileInfo("c:\\fake\\path\\file.exe"), fsMock.Object);
+            var fileListDestinationItem =
+                new FileListDestinationItem(new FileInfo("c:\\fake\\path\\file.exe"), fsMock.Object);
             var applicationProviderContextMenuProvider = new ApplicationProviderContextMenuProvider();
             applicationProviderContextMenuProvider.CommandHub = commandHubMock.Object;
-            var menuItems = applicationProviderContextMenuProvider.GetMenuItems(new[] { fileListDestinationItem }).ToList();
+            var menuItems = applicationProviderContextMenuProvider.GetMenuItems(new[] {fileListDestinationItem})
+                .ToList();
             menuItems.First().Header.ToString().Should().Be("Add Application");
             menuItems.First().RaiseEvent(new RoutedEventArgs(MenuItem.ClickEvent));
-            commandHubMock.Verify(hub => hub.Broadcast(It.IsAny<ICommand>()), Times.Exactly(2));  // todo: which commands
+            commandHubMock.Verify(hub => hub.Broadcast(It.IsAny<ICommand>()), Times.Exactly(2)); // todo: which commands
         }
 
         [WpfFact]

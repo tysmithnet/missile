@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
 using System.Windows;
-using System.Xml.Serialization;
 using CommandLine;
 using Missile.TextLauncher.Provision;
 
@@ -128,8 +126,8 @@ namespace Missile.TextLauncher
 
                 var adapter = new PropertyFieldAdapter(member, settings);
 
-                bool isSetting = IsSetting(adapter);
-                bool isSubSetting = IsSubSetting(adapter);
+                var isSetting = IsSetting(adapter);
+                var isSubSetting = IsSubSetting(adapter);
 
                 if (!isSetting && !isSubSetting)
                     continue;

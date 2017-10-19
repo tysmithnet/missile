@@ -8,7 +8,7 @@ namespace Missile.TextLauncher.Conversion
 {
     /// <inheritdoc />
     /// <summary>
-    /// Converts a string into a framework element
+    ///     Converts a string into a framework element
     /// </summary>
     /// <seealso cref="!:Missile.TextLauncher.Conversion.IConverter{System.String, System.Windows.FrameworkElement}" />
     [Export(typeof(IConverter))]
@@ -16,7 +16,7 @@ namespace Missile.TextLauncher.Conversion
     {
         /// <inheritdoc />
         /// <summary>
-        /// Converts the specified source
+        ///     Converts the specified source
         /// </summary>
         /// <param name="source">The source</param>
         /// <returns></returns>

@@ -15,13 +15,6 @@ namespace Missile.TextLauncher.Tests
             public int Age { get; set; }
         }
 
-        [Fact]
-        public void Indicate_It_CanHandle_Strings()
-        {
-            var stringPropertyEditorFactory = new StringPropertyEditorFactory();
-            stringPropertyEditorFactory.CanHandle(typeof(string)).Should().BeTrue();
-        }
-
         [WpfFact]
         public void Return_A_TextBox()
         {
@@ -29,21 +22,26 @@ namespace Missile.TextLauncher.Tests
             stringPropertyEditorFactory.GetControl(new PropertyFieldAdapter(typeof(Person).GetProperty("Name"),
                 new Person())).Should().BeOfType(typeof(TextBox));
             var person = new Person();
-            var control = stringPropertyEditorFactory.GetControl(new PropertyFieldAdapter(typeof(Person).GetProperty("Name"),
+            var control = stringPropertyEditorFactory.GetControl(new PropertyFieldAdapter(
+                typeof(Person).GetProperty("Name"),
                 person));
             if (control is TextBox textBox)
-            {
                 textBox.Text = "a";
-            }
 
-            var control2 = stringPropertyEditorFactory.GetControl(new PropertyFieldAdapter(typeof(Person).GetProperty("Alias"),
+            var control2 = stringPropertyEditorFactory.GetControl(new PropertyFieldAdapter(
+                typeof(Person).GetProperty("Alias"),
                 person));
             if (control2 is TextBox textBox2)
-            {
                 textBox2.Text = "a";
-            }
             person.Name.Should().Be("a");
             person.Alias.Should().Be("a");
+        }
+
+        [Fact]
+        public void Indicate_It_CanHandle_Strings()
+        {
+            var stringPropertyEditorFactory = new StringPropertyEditorFactory();
+            stringPropertyEditorFactory.CanHandle(typeof(string)).Should().BeTrue();
         }
     }
 }

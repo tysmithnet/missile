@@ -17,13 +17,13 @@ namespace Missile.TextLauncher.Tests
             var converter = new StringFrameworkElementConverter();
             var obs = Observable.Range(0, 3).Select(x => x.ToString());
             var list = converter.Convert(obs).ToEnumerable().ToList();
-            for (int i = 0; i < list.Count; i++)
+            for (var i = 0; i < list.Count; i++)
             {
                 var x = list[i];
                 var tb = x as TextBlock;
                 tb.Should().NotBeNull();
                 tb.Text.Should().Be($"{i}");
-            }   
+            }
         }
     }
 }

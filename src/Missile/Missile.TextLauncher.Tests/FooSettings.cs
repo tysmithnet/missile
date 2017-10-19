@@ -7,18 +7,17 @@ namespace Missile.TextLauncher.Tests
     [ExcludeFromCodeCoverage]
     public class FooSettings : ISettings
     {
-        [Setting]
-        public int X { get; set; }
+        [Setting] public int Y;
 
         [Setting]
-        public int Y;
+        public int X { get; set; }
 
         [SubSettings]
         public FooSubSettings FooSubSettings { get; set; } = new FooSubSettings();
 
         public string SomethingElse { get; set; }
-    }                       
-    
+    }
+
     [Serializable]
     [ExcludeFromCodeCoverage]
     public class FooSubSettings : ISettings

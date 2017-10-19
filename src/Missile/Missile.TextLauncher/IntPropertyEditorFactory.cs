@@ -12,7 +12,7 @@ namespace Missile.TextLauncher
     /// </summary>
     /// <seealso cref="T:Missile.TextLauncher.IPropertyEditorFactory" />
     [Export(typeof(IPropertyEditorFactory))]
-    public class IntPropertyEditorFactory : IPropertyEditorFactory       // todo: make for number types
+    public class IntPropertyEditorFactory : IPropertyEditorFactory // todo: make for number types
     {
         /// <inheritdoc />
         /// <summary>

@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 
 namespace Missile.TextLauncher.ListPlugin
@@ -24,10 +22,10 @@ namespace Missile.TextLauncher.ListPlugin
             IDestinationContextMenuProvider[] contextMenuProviders)
         {
             Source = items;
-            ContextMenuProviders = contextMenuProviders;       
+            ContextMenuProviders = contextMenuProviders;
             ViewModel = new ListDestinationOutputViewModel(items, contextMenuProviders);
             DataContext = ViewModel;
-            InitializeComponent();  
+            InitializeComponent();
         }
 
         public ListDestinationOutputViewModel ViewModel { get; set; }

@@ -7,7 +7,7 @@ namespace Missile.TextLauncher.Filtration
 {
     /// <inheritdoc />
     /// <summary>
-    /// Filter that does not allow duplicate values to pass through
+    ///     Filter that does not allow duplicate values to pass through
     /// </summary>
     /// <seealso cref="!:Missile.TextLauncher.Filtration.IFilter{System.Object, System.Object}" />
     [Export(typeof(IFilter<object, object>))]

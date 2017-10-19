@@ -12,6 +12,14 @@ namespace Missile.TextLauncher.EverythingPlugin.Tests
     public class EverythingProvider_Should
     {
         [Fact]
+        public void Throw_If_Bad_Arguments_Passed()
+        {
+            var provider = new EverythingProvider();
+            provider.Invoking(everythingProvider => everythingProvider.Provide(null).ToEnumerable())
+                .ShouldThrow<ArgumentException>();
+        }
+
+        [Fact]
         public void Uses_Settings_And_Options_To_Create_Arguments()
         {
             var proxyMock = new Mock<IEverythingProxy>();
@@ -29,15 +37,6 @@ namespace Missile.TextLauncher.EverythingPlugin.Tests
             everythingProvider.SettingsRepository = settingsRepoMock.Object;
             var windbg = everythingProvider.Provide("-n 10 -r windbg".Split()).ToEnumerable();
             windbg.Should().BeEmpty();
-        }
-
-        [Fact]
-        public void Throw_If_Bad_Arguments_Passed()
-        {
-             var provider = new EverythingProvider();
-            provider.Invoking(everythingProvider => everythingProvider.Provide(null).ToEnumerable())
-                .ShouldThrow<ArgumentException>();
-
         }
     }
 }

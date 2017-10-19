@@ -36,20 +36,21 @@ namespace Missile.TextLauncher.Tests
             var facadeMock = new Mock<IInterpretationFacade>();
             facadeMock.Setup(facade => facade.ExecuteAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .Throws<FormatException>();
-            var requiresSetup = new[] { new Mock<IRequiresSetup>().Object };
+            var requiresSetup = new[] {new Mock<IRequiresSetup>().Object};
             var launcher =
                 new TextLauncherImplementationViewModel(loggerMock.Object, facadeMock.Object, requiresSetup)
                 {
                     InputText = "#$#@"
                 };
-            var keyArgs = new KeyEventArgs(Keyboard.PrimaryDevice, new HwndSource(0,0,0,0,0,"", IntPtr.Zero), 0, Key.Enter);
+            var keyArgs = new KeyEventArgs(Keyboard.PrimaryDevice, new HwndSource(0, 0, 0, 0, 0, "", IntPtr.Zero), 0,
+                Key.Enter);
             await launcher.HandleInputKeyDownEventAsync(keyArgs);
             launcher.OutputControl.Should().BeOfType<ErrorViewer>();
             launcher.OutputControl = new TextBox();
-            keyArgs = new KeyEventArgs(Keyboard.PrimaryDevice, new HwndSource(0, 0, 0, 0, 0, "", IntPtr.Zero), 0, Key.Return);
+            keyArgs = new KeyEventArgs(Keyboard.PrimaryDevice, new HwndSource(0, 0, 0, 0, 0, "", IntPtr.Zero), 0,
+                Key.Return);
             await launcher.HandleInputKeyDownEventAsync(keyArgs);
             launcher.OutputControl.Should().BeOfType<ErrorViewer>();
-
         }
 
         [WpfFact]
@@ -59,7 +60,7 @@ namespace Missile.TextLauncher.Tests
             var facadeMock = new Mock<IInterpretationFacade>();
             facadeMock.Setup(facade => facade.ExecuteAsync(It.IsAny<string>(), It.IsAny<CancellationToken>()))
                 .Throws<FormatException>();
-            var requiresSetup = new[] { new Mock<IRequiresSetup>().Object };
+            var requiresSetup = new[] {new Mock<IRequiresSetup>().Object};
             var launcher =
                 new TextLauncherImplementationViewModel(loggerMock.Object, facadeMock.Object, requiresSetup)
                 {

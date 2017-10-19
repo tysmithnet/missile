@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using FluentAssertions;
 using Moq;
@@ -21,15 +18,15 @@ namespace Missile.TextLauncher.ListPlugin.Tests
             var input = new IListDestinationItem[]
             {
                 new StringListDestinationItem(),
-                new StringListDestinationItem(),
+                new StringListDestinationItem()
             }.ToList();
             var contextMenuProvider = new Mock<IDestinationContextMenuProvider>();
-            contextMenuProvider.Setup(provider => provider.GetMenuItems(input)).Returns(new List<MenuItem>()
+            contextMenuProvider.Setup(provider => provider.GetMenuItems(input)).Returns(new List<MenuItem>
             {
                 new MenuItem(),
                 new MenuItem()
             });
-            var vm = new ListDestinationOutputViewModel(input.ToObservable(), new []{contextMenuProvider.Object});
+            var vm = new ListDestinationOutputViewModel(input.ToObservable(), new[] {contextMenuProvider.Object});
             vm.PopulateMenuItems(input);
             vm.MenuItems.Count.Should().Be(2);
         }

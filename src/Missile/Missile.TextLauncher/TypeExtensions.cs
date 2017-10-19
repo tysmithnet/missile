@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Drawing;
-using System.Windows;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace Missile.TextLauncher
 {
@@ -27,6 +21,6 @@ namespace Missile.TextLauncher
                 yield return itr;
                 itr = itr.BaseType;
             }
-        }   
+        }
     }
 }

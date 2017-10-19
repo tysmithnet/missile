@@ -15,22 +15,22 @@ namespace Missile.TextLauncher.Destination
     public class NoOpDestination : IDestination<object>
     {
         /// <summary>
-        /// Gets or sets the name.
+        ///     Gets or sets the name.
         /// </summary>
         /// <value>
-        /// The name.
+        ///     The name.
         /// </value>
         /// <inheritdoc />
         [ExcludeFromCodeCoverage]
         public string Name { get; set; } = "noop";
 
         /// <summary>
-        /// Processes the input items asynchronously
+        ///     Processes the input items asynchronously
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
-        /// A Task that when complete will signal the completion of the processing
+        ///     A Task that when complete will signal the completion of the processing
         /// </returns>
         /// <inheritdoc />
         public async Task ProcessAsync(IObservable<object> source, CancellationToken cancellationToken)

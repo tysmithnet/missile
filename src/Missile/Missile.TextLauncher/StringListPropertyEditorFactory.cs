@@ -8,7 +8,7 @@ using System.Windows.Controls;
 namespace Missile.TextLauncher
 {
     /// <summary>
-    /// Property editor factory for string lists
+    ///     Property editor factory for string lists
     /// </summary>
     /// <seealso cref="Missile.TextLauncher.IPropertyEditorFactory" />
     /// <inheritdoc />
@@ -42,7 +42,7 @@ namespace Missile.TextLauncher
         {
             var stackPanel = new StackPanel();
 
-            var list = (List<string>)adapter.GetValue();
+            var list = (List<string>) adapter.GetValue();
             for (var index = 0; index < list.Count; index++)
             {
                 var editor = new TextBox();
@@ -52,19 +52,20 @@ namespace Missile.TextLauncher
                 editor.TextChanged += (sender, args) => list[copy] = editor.Text;
                 stackPanel.Children.Add(editor);
             }
-            var addButton = new Button { Content = "Add" };
+            var addButton = new Button {Content = "Add"};
             stackPanel.Children.Add(addButton);
             addButton.Click += (sender, args) =>
             {
                 var save = list.Count;
                 list.Add("");
                 var editor = new TextBox();
-                editor.Width = 200;  // todo: hate it
+                editor.Width = 200; // todo: hate it
                 editor.TextChanged += (o, eventArgs) => list[save] = editor.Text;
                 stackPanel.Children.Insert(list.Count - 1, editor);
             };
             return stackPanel;
         }
+
         // todo: this should be extracted into MVVM
     }
 }

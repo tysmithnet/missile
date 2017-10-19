@@ -7,7 +7,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using Missile.Core;
 using Missile.Core.Logging;
 using Missile.TextLauncher.Annotations;
 
@@ -46,7 +45,7 @@ namespace Missile.TextLauncher
         /// <exception cref="ArgumentNullException">
         ///     logger
         ///     or
-        ///     interpretationFacade                                                     
+        ///     interpretationFacade
         /// </exception>
         public TextLauncherImplementationViewModel(ILogger logger, IInterpretationFacade interpretationFacade,
             IRequiresSetup[] componentsRequiringSetup)
@@ -105,8 +104,7 @@ namespace Missile.TextLauncher
         /// </value>
         public Visibility LoadingVisibility
         {
-            [ExcludeFromCodeCoverage]
-            get => _loadingVisibility;
+            [ExcludeFromCodeCoverage] get => _loadingVisibility;
             set
             {
                 _loadingVisibility = value;

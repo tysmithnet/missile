@@ -11,7 +11,7 @@ namespace Missile.TextLauncher.Filtration
 
     /// <inheritdoc />
     /// <summary>
-    /// Represents a named object that is capable of transforming one observable into another
+    ///     Represents a named object that is capable of transforming one observable into another
     /// </summary>
     /// <typeparam name="TSource">The type of the source.</typeparam>
     /// <typeparam name="TDest">The type of the dest.</typeparam>

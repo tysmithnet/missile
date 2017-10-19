@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Threading;
@@ -52,7 +51,8 @@ namespace Missile.TextLauncher.ListPlugin.Tests
             var subject = new ReplaySubject<IListDestinationItem>();
             subject.OnError(new FormatException());
 
-            hubMock.Setup(hub => hub.Get<RemoveListDestinationItemCommand>()).Returns(new RemoveListDestinationItemCommand[0].ToObservable());
+            hubMock.Setup(hub => hub.Get<RemoveListDestinationItemCommand>())
+                .Returns(new RemoveListDestinationItemCommand[0].ToObservable());
 
             var listDestination = new ListDestination
             {

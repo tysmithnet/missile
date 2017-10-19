@@ -26,15 +26,15 @@ namespace Missile.Core.Implementation
         }
 
         /// <summary>
-        /// Gets or sets the logger.
+        ///     Gets or sets the logger.
         /// </summary>
         /// <value>
-        /// The logger.
+        ///     The logger.
         /// </value>
         protected internal MsILogger Logger { get; set; }
 
         /// <summary>
-        /// Informations the specified message.
+        ///     Informations the specified message.
         /// </summary>
         /// <param name="message">The message.</param>
         public void Information(string message)

@@ -20,20 +20,20 @@ namespace Missile.TextLauncher.Destination
     public interface IDestination<in TSource> : IDestination
     {
         /// <summary>
-        /// Gets or sets the name.
+        ///     Gets or sets the name.
         /// </summary>
         /// <value>
-        /// The name.
+        ///     The name.
         /// </value>
         string Name { get; set; }
 
         /// <summary>
-        /// Processes the input items asynchronously
+        ///     Processes the input items asynchronously
         /// </summary>
         /// <param name="source">The source.</param>
         /// <param name="cancellationToken">The cancellation token.</param>
         /// <returns>
-        /// A Task that when complete will signal the completion of the processing
+        ///     A Task that when complete will signal the completion of the processing
         /// </returns>
         Task ProcessAsync(IObservable<TSource> source, CancellationToken cancellationToken);
     }

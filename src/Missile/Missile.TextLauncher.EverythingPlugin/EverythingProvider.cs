@@ -1,10 +1,8 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Reactive.Linq;
 using CommandLine;
 using Missile.TextLauncher.Provision;
 
@@ -27,6 +25,9 @@ namespace Missile.TextLauncher.EverythingPlugin
         [Import]
         protected internal ISettingsRepository SettingsRepository { get; set; }
 
+        [Import]
+        protected internal IEverythingProxy EverythingProxy { get; set; }
+
         /// <inheritdoc />
         /// <summary>
         ///     Gets or sets the name
@@ -36,9 +37,6 @@ namespace Missile.TextLauncher.EverythingPlugin
         /// </value>
         [ExcludeFromCodeCoverage]
         public string Name { get; set; } = "everything";
-
-        [Import]
-        protected internal IEverythingProxy EverythingProxy { get; set; }
 
         /// <inheritdoc />
         /// <summary>

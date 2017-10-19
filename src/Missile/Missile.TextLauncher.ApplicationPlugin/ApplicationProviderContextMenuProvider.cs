@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using Missile.TextLauncher.ListPlugin;
@@ -62,7 +61,7 @@ namespace Missile.TextLauncher.ApplicationPlugin
                     };
                 yield return menuItem;
             }
-        }              
+        }
 
         /// <summary>
         ///     Partitions items into ApplicationListDestinationItem and FileListDestinationItem piles

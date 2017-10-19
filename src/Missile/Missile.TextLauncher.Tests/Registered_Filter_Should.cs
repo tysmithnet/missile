@@ -21,6 +21,15 @@ namespace Missile.TextLauncher.Tests
         }
 
         [Fact]
+        public void Invoke_Filter_On_The_Instance()
+        {
+            var filter = new HeadFilter();
+            var reg = new RegisteredFilter(filter, typeof(IFilter<object, object>));
+            var obs = Observable.Range(0, 10).Select(x => x as object);
+            reg.Filter("-n 2".Split(), obs).Should().BeAssignableTo<IObservable<object>>();
+        }
+
+        [Fact]
         public void Provide_Correct_Equality_Logic()
         {
             var first = new FirstFilter();
@@ -28,15 +37,6 @@ namespace Missile.TextLauncher.Tests
             var reg2 = new RegisteredFilter(first, typeof(IFilter<object, object>));
             reg.Equals(reg2).Should().BeTrue();
             reg.GetHashCode().Equals(reg2.GetHashCode()).Should().BeTrue();
-        }
-
-        [Fact]
-        public void Invoke_Filter_On_The_Instance()
-        {
-            var filter = new HeadFilter();
-            var reg = new RegisteredFilter(filter, typeof(IFilter<object, object>));
-            var obs = Observable.Range(0, 10).Select(x => x as object);
-            reg.Filter("-n 2".Split(), obs).Should().BeAssignableTo<IObservable<object>>();
         }
     }
 }

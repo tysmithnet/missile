@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using Missile.TextLauncher.Provision;
 using Missile.TextLauncher.Provision.RandomValue;
@@ -18,7 +13,7 @@ namespace Missile.TextLauncher.Tests
         public void Register_Injected_Providers()
         {
             var repo = new ProviderRepository();
-            repo.Providers = new[] {new RandomValueProvider(),};
+            repo.Providers = new[] {new RandomValueProvider()};
             repo.RegisteredProviders.Count.Should().Be(1);
         }
     }

@@ -32,11 +32,12 @@ namespace Missile.TextLauncher.Tests
             var settingsProvider = new SettingsProvider();
             var repoMock = new Mock<ISettingsRepository>();
 
-            repoMock.Setup(repository => repository.GetAll()).Returns(new ISettings[]{new FooSettings(), new BarSettings(), });
+            repoMock.Setup(repository => repository.GetAll())
+                .Returns(new ISettings[] {new FooSettings(), new BarSettings()});
             repoMock.Setup(repository => repository.Save<FooSettings>());
             repoMock.Setup(repository => repository.Save<BarSettings>());
             settingsProvider.SettingsRepository = repoMock.Object;
-            
+
             settingsProvider.Provide("-s".Split());
             repoMock.Verify(repository => repository.SaveAll(), Times.Once);
         }

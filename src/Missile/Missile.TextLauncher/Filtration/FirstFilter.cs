@@ -34,5 +34,5 @@ namespace Missile.TextLauncher.Filtration
         {
             return source.FirstAsync();
         }
-    }   
+    }
 }

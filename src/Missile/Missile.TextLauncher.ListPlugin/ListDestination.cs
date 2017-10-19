@@ -73,13 +73,7 @@ namespace Missile.TextLauncher.ListPlugin
                 {
                     ;
                 },
-                exception =>
-                {
-                    tcs.TrySetException(exception);
-                }, () =>
-                {
-                    tcs.TrySetResult(null);
-                });
+                exception => { tcs.TrySetException(exception); }, () => { tcs.TrySetResult(null); });
             return tcs.Task;
         }
     }
