@@ -24,6 +24,7 @@ namespace Missile.TextLauncher.Interpretation.Lexing
         /// <returns>Token for this provider</returns>
         public override Token GetToken()
         {
+            CurrentArg = null;
             return new ProviderToken(Identifier, Args.ToArray());
         }
     }

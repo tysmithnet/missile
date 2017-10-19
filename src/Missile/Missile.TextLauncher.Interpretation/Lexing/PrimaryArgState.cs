@@ -88,11 +88,10 @@ namespace Missile.TextLauncher.Interpretation.Lexing
                         CurrentArg += input;
                         return this;
                     }
-                    if (!string.IsNullOrWhiteSpace(CurrentArg))
-                        Args.Add(CurrentArg);
-                    CurrentArg = "";
+                    FlushCurrentArg();
                     return this;
                 case '|':
+                    FlushCurrentArg();
                     OnRaiseTokenEvent(new TokenEventArgs(GetToken()));
                     OnRaiseTokenEvent(new TokenEventArgs(new OperatorToken("|", new string[0])));
                     return new FilterState();
@@ -115,6 +114,7 @@ namespace Missile.TextLauncher.Interpretation.Lexing
                     }
                     return this;
                 case '>':
+                    FlushCurrentArg();
                     OnRaiseTokenEvent(new TokenEventArgs(GetToken()));
                     OnRaiseTokenEvent(new TokenEventArgs(new OperatorToken(">", new string[0])));
                     return new DestinationState();
@@ -148,6 +148,13 @@ namespace Missile.TextLauncher.Interpretation.Lexing
             }
 
             return this;
+        }
+
+        private void FlushCurrentArg()
+        {
+            if (!string.IsNullOrWhiteSpace(CurrentArg))
+                Args.Add(CurrentArg);
+            CurrentArg = "";
         }
 
         /// <summary>
