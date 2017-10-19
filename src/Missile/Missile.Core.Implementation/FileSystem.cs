@@ -5,8 +5,9 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Missile.Core.FileSystem;
 
-namespace Missile.Core.FileSystem
+namespace Missile.Core.Implementation
 {
     /// <inheritdoc />
     /// <summary>
@@ -30,6 +31,11 @@ namespace Missile.Core.FileSystem
             return new FileStream(path, fileMode, fileAccess, fileShare, 4048, true);
         }
 
+        /// <summary>
+        ///     Gets the icon.
+        /// </summary>
+        /// <param name="path">The path.</param>
+        /// <returns></returns>
         public ImageSource GetIcon(string path)
         {
             return Imaging.CreateBitmapSourceFromHIcon(
@@ -38,6 +44,13 @@ namespace Missile.Core.FileSystem
                 BitmapSizeOptions.FromEmptyOptions());
         }
 
+        /// <summary>
+        ///     Determines whether the specified file information is directory.
+        /// </summary>
+        /// <param name="fileInfo">The file information.</param>
+        /// <returns>
+        ///     <c>true</c> if the specified file information is directory; otherwise, <c>false</c>.
+        /// </returns>
         public bool IsDirectory(FileInfo fileInfo)
         {
             return fileInfo.Attributes.HasFlag(FileAttributes.Directory);
