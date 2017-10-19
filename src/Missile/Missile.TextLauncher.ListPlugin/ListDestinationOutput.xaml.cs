@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -11,6 +12,7 @@ namespace Missile.TextLauncher.ListPlugin
     /// <summary>
     ///     Interaction logic for ListDestinationOutput.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class ListDestinationOutput : UserControl
     {
         /// <summary>

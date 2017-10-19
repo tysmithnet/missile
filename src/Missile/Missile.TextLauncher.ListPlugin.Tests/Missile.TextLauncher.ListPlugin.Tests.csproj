@@ -84,7 +84,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileListDestinationItemConverter_Should.cs" />
     <Compile Include="FileListDestinationItem_Should.cs" />
+    <Compile Include="ListDestinationOutputViewModel_Should.cs" />
     <Compile Include="ListDestination_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
