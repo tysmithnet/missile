@@ -5,4 +5,5 @@ obj
 packages
 *DotSettings.user
 *.csproj.user
+*.sln.DotSettings
 

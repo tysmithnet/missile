@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.Composition.Hosting;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -10,6 +11,7 @@ namespace Missile.Client
     /// <summary>
     ///     Interaction logic for App.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public sealed partial class App : Application
     {
         /// <summary>

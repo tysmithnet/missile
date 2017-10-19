@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Logging;
 using ILogger = Missile.Core.Logging.ILogger;
 using MsILogger = Microsoft.Extensions.Logging.ILogger;
@@ -10,6 +11,7 @@ namespace Missile.Core.Implementation
     ///     Default ILogger implementation provided out of the box
     /// </summary>
     [Export(typeof(ILogger))]
+    [ExcludeFromCodeCoverage]
     public class DefaultLogger : ILogger
     {
         public DefaultLogger()

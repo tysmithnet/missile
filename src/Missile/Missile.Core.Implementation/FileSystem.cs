@@ -1,4 +1,5 @@
 using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.IO;
 using System.Windows;
@@ -15,6 +16,7 @@ namespace Missile.Core.Implementation
     /// </summary>
     /// <seealso cref="T:Missile.Core.FileSystem.IFileSystem" />
     [Export(typeof(IFileSystem))]
+    [ExcludeFromCodeCoverage]
     public class FileSystem : IFileSystem
     {
         /// <summary>

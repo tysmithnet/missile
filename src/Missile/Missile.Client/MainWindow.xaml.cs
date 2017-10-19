@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Windows;
 using System.Windows.Forms;
 using Gma.System.MouseKeyHook;
 using Missile.Core;
@@ -8,6 +9,7 @@ namespace Missile.Client
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public partial class MainWindow : Window
     {
         protected internal IKeyboardMouseEvents AppEvents;
