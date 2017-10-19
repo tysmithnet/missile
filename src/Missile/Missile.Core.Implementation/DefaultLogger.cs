@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.Composition;
 using Microsoft.Extensions.Logging;
+using ILogger = Missile.Core.Logging.ILogger;
 using MsILogger = Microsoft.Extensions.Logging.ILogger;
 
-namespace Missile.Core.Logging
+namespace Missile.Core.Implementation
 {
+    /// <inheritdoc />
     /// <summary>
     ///     Default ILogger implementation provided out of the box
     /// </summary>
@@ -21,8 +23,18 @@ namespace Missile.Core.Logging
             Logger = loggerFactory.CreateLogger<DefaultLogger>();
         }
 
+        /// <summary>
+        /// Gets or sets the logger.
+        /// </summary>
+        /// <value>
+        /// The logger.
+        /// </value>
         protected internal MsILogger Logger { get; set; }
 
+        /// <summary>
+        /// Informations the specified message.
+        /// </summary>
+        /// <param name="message">The message.</param>
         public void Information(string message)
         {
             Logger.LogInformation(message);
