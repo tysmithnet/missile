@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reactive.Linq;
@@ -33,7 +34,11 @@ namespace Missile.TextLauncher.EverythingPlugin
         /// <value>
         ///     The name for this provider
         /// </value>
+        [ExcludeFromCodeCoverage]
         public string Name { get; set; } = "everything";
+
+        [Import]
+        protected internal IEverythingProxy EverythingProxy { get; set; }
 
         /// <inheritdoc />
         /// <summary>
@@ -48,31 +53,12 @@ namespace Missile.TextLauncher.EverythingPlugin
         {
             if (args == null || args.Length == 0)
                 throw new ArgumentException($"{nameof(args)} should have at least 1 element");
-
-            var obs = Observable.Create<FileInfo>(async (observer, token) =>
-            {
-                var settings = SettingsRepository.Get<EverythingProviderSettings>();
-                var commandArgs = args.Take(args.Length - 1).ToArray();
-                var options = new EverythingProviderOptions();
-                Parser.Default.ParseArgumentsStrict(commandArgs, options); // todo: handle bad args
-                var process = new Process
-                {
-                    StartInfo =
-                    {
-                        FileName = settings.EverythingCommandLineExePath,
-                        Arguments = GetEverythingCommandLineArgs(settings, options, args.Last()),
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        CreateNoWindow = true
-                    }
-                };
-                process.Start();
-                while (!process.HasExited)
-                    observer.OnNext(new FileInfo(await process.StandardOutput.ReadLineAsync()));
-                process.WaitForExit(1000);
-                observer.OnCompleted();
-            });
-            return obs.Publish().RefCount();
+            var settings = SettingsRepository.Get<EverythingProviderSettings>();
+            var commandArgs = args.Take(args.Length - 1).ToArray();
+            var options = new EverythingProviderOptions();
+            Parser.Default.ParseArgumentsStrict(commandArgs, options); // todo: handle bad args
+            var arguments = GetEverythingCommandLineArgs(settings, options, args.Last());
+            return EverythingProxy.Get(settings.EverythingCommandLineExePath, arguments);
         }
 
         /// <summary>
@@ -88,7 +74,10 @@ namespace Missile.TextLauncher.EverythingPlugin
             var builder = new EverythingCommandLineArgsBuilder(search)
                 .WithMaxNumberResults(options.NumMaxResults ?? settings.DefaultNumMaxResults);
 
-            // todo: handle the rest
+            if (options.IsRegex)
+                builder.WithPosixRegex();
+            if (options.NumMaxResults.HasValue)
+                builder.WithMaxNumberResults(options.NumMaxResults.Value);
             return builder.Build();
         }
     }

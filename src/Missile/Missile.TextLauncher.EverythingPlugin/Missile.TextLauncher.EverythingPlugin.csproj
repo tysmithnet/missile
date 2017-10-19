@@ -68,6 +68,8 @@
     <Compile Include="EverythingProvider.cs" />
     <Compile Include="EverythingProviderOptions.cs" />
     <Compile Include="EverythingProviderSettings.cs" />
+    <Compile Include="EverythingProxy.cs" />
+    <Compile Include="IEverythingProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

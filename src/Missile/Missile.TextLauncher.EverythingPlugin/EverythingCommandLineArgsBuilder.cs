@@ -120,8 +120,8 @@ namespace Missile.TextLauncher.EverythingPlugin
         /// <returns>Command line arguments to es.exe</returns>
         public string Build()
         {
-            StringBuilder.Append($" {SearchString}");
-            return StringBuilder.ToString();
+            var s = StringBuilder.Length == 0 ? StringBuilder + SearchString : StringBuilder + " " + SearchString;
+            return s.TrimStart();
         }
     }
 }

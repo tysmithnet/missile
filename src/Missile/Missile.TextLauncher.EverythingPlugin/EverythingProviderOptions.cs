@@ -22,7 +22,7 @@ namespace Missile.TextLauncher.EverythingPlugin
         /// <value>
         ///     The number maximum results
         /// </value>
-        [Option('l', "limit", HelpText = "Maximum number of search results to get")]
+        [Option('n', "num", HelpText = "Maximum number of search results to get")]
         public int? NumMaxResults { get; set; }
     }
 }

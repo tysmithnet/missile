@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Missile.TextLauncher.EverythingPlugin
 {
@@ -10,6 +11,7 @@ namespace Missile.TextLauncher.EverythingPlugin
     /// <seealso cref="T:Missile.TextLauncher.ISettings" />
     [Export(typeof(ISettings))]
     [Serializable]
+    [ExcludeFromCodeCoverage]
     public class EverythingProviderSettings : ISettings
     {
         /// <summary>
