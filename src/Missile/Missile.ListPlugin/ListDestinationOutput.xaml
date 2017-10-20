@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Missile.ListPlugin.ListDestinationOutput"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Missile.ListPlugin"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance local:ListDestinationOutputViewModel}">
+    <UserControl.ContextMenu>
+        <ContextMenu ItemsSource="{Binding Path=MenuItems}" />
+    </UserControl.ContextMenu>
+    <ListBox
+        x:Name="ItemsListBox"
+        ItemsSource="{Binding Path=ListDestinationItems}"
+        AutomationProperties.AutomationId="Missile.TextLauncher.ListPlugin.ListDestinationOutput.ItemsListBox"
+        SelectionMode="Extended"
+        MouseRightButtonUp="ItemsListBox_OnMouseRightButtonUp" />
+</UserControl>

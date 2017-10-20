@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using Missile.Core.Logging;
-using Missile.TextLauncher.Annotations;
+using Missile.TextLauncher.Properties;
 
 namespace Missile.TextLauncher
 {
