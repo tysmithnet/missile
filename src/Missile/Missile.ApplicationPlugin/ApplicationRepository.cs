@@ -82,6 +82,11 @@ namespace Missile.ApplicationPlugin
             return RegisteredApplications.Where(r => r.ApplicationName.Contains(searchString));
         }
 
+        public IEnumerable<RegisteredApplication> GetAll()
+        {
+            return RegisteredApplications.ToList();
+        }
+
         /// <inheritdoc />
         /// <summary>
         ///     Performs setup operations

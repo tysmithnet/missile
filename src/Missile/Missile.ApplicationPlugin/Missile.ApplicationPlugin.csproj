@@ -56,6 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddApplicationCommand.cs" />
+    <Compile Include="AppLauncher.xaml.cs">
+      <DependentUpon>AppLauncher.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ApplicationListDestinationItem.xaml.cs">
       <DependentUpon>ApplicationListDestinationItem.xaml</DependentUpon>
     </Compile>
@@ -86,6 +89,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="AppLauncher.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ApplicationListDestinationItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

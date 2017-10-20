@@ -6,7 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using Missile.TextLauncher.Properties;
+using Missile.Core.Properties;
 
 namespace Missile.ListPlugin
 {

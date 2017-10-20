@@ -31,7 +31,7 @@ using System.Diagnostics.CodeAnalysis;
 // ReSharper disable MemberCanBeProtected.Global
 // ReSharper disable InconsistentNaming
 
-namespace Missile.TextLauncher.Properties
+namespace Missile.Core.Properties
 {
     /// <summary>
     ///     Indicates that the value of the marked element could be <c>null</c> sometimes,

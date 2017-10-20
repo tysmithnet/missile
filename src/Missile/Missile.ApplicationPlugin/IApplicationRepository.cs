@@ -12,6 +12,9 @@ namespace Missile.ApplicationPlugin
         /// </summary>
         /// <param name="searchString">The search string</param>
         /// <returns>The matching registered application</returns>
+        // todo: should be observable
         IEnumerable<RegisteredApplication> Search(string searchString);
+
+        IEnumerable<RegisteredApplication> GetAll();
     }
 }

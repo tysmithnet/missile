@@ -10,7 +10,7 @@ namespace Missile.TextLauncher
     /// <summary>
     ///     Interaction logic for TextLauncherImplementation.xaml
     /// </summary>
-    [Export(typeof(Launcher))]
+    //[Export(typeof(Launcher))]
     [Export(typeof(IUiFacade))]
     [ExcludeFromCodeCoverage]
     public partial class TextLauncherImplementation : Launcher, IUiFacade
