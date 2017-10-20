@@ -92,7 +92,7 @@ namespace Missile.TextLauncher.Interpretation
                 throw new ApplicationException($"Unable to find an inspector for {destinationInput.GetType()}");
 
             // todo: handle filters
-
+            // todo: look for implicit conversion before converters
             var typeForConverter = inspector.GetObservableType(destinationInput.GetType());
 
             if (!destination.SourceType.IsAssignableFrom(typeForConverter))
