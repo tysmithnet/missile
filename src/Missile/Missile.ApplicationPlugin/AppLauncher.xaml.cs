@@ -52,7 +52,7 @@ namespace Missile.ApplicationPlugin
         public AppLauncherViewModel(IApplicationRepository applicationRepository)
         {
             ApplicationRepository = applicationRepository;
-            
+            Applications = new ObservableCollection<RegisteredApplicationViewModel>(applicationRepository.GetAll().Select(a => new RegisteredApplicationViewModel(a)));            
         }
 
         public string SearchText
@@ -61,13 +61,14 @@ namespace Missile.ApplicationPlugin
             set
             {
                 _searchText = value;
-                foreach (var registeredApplication in Applications)
+                Applications.Clear();
+                foreach (var applicationViewModel in ApplicationRepository.GetAll().Where(a => a.ApplicationName.Contains(value)).Select(a => new RegisteredApplicationViewModel(a)))
                 {
-                    registeredApplication.Visibility = registeredApplication.ApplicationName.Contains(value)
-                        ? Visibility.Visible
-                        : Visibility.Collapsed;
-                } 
+                    Applications.Add(applicationViewModel);
+                }
+                
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(Applications));
             }
         }
 
@@ -81,6 +82,11 @@ namespace Missile.ApplicationPlugin
     public class RegisteredApplicationViewModel : INotifyPropertyChanged
     {
         public RegisteredApplication RegisteredApplication { get; set; }
+
+        public RegisteredApplicationViewModel(RegisteredApplication registeredApplication)
+        {
+            RegisteredApplication = registeredApplication ?? throw new ArgumentNullException(nameof(registeredApplication));
+        }
 
         public ImageSource Icon
         {

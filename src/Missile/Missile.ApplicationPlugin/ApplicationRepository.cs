@@ -84,7 +84,27 @@ namespace Missile.ApplicationPlugin
 
         public IEnumerable<RegisteredApplication> GetAll()
         {
-            return RegisteredApplications.ToList();
+            //return RegisteredApplications.ToList();
+            return new List<RegisteredApplication>()
+            {
+                new RegisteredApplication()
+                {
+                    ApplicationName = "abcdef"
+                },
+                new RegisteredApplication()
+                {
+                    ApplicationName = "bcdefg"
+                },
+                new RegisteredApplication()
+                {
+                    ApplicationName = "cdefgh"
+                },
+                new RegisteredApplication()
+                {
+                    ApplicationName = "defghi"
+                },
+
+            };
         }
 
         /// <inheritdoc />
