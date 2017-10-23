@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace Missile.TextLauncher.Tests
+namespace Missile.Core.Implementation.Tests
 {
     [ExcludeFromCodeCoverage]
     internal static class Util

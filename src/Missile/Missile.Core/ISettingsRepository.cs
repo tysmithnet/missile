@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Missile.TextLauncher
+namespace Missile.Core
 {
     /// <summary>
     ///     Represents an object capable of managing ISettings instances

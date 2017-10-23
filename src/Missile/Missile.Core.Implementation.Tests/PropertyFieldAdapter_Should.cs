@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 using Xunit;
 
-namespace Missile.TextLauncher.Tests
+namespace Missile.Core.Implementation.Tests
 {
     [ExcludeFromCodeCoverage]
     public class PropertyFieldAdapter_Should

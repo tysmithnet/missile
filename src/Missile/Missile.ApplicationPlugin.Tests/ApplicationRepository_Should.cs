@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using FluentAssertions;
+using Missile.Core;
 using Missile.Core.FileSystem;
 using Missile.TextLauncher;
 using Moq;

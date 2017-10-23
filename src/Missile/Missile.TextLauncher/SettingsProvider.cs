@@ -8,6 +8,7 @@ using System.Reactive.Linq;
 using System.Reflection;
 using System.Windows;
 using CommandLine;
+using Missile.Core;
 using Missile.TextLauncher.Provision;
 
 namespace Missile.TextLauncher

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using Missile.Core;
 using Missile.TextLauncher;
 
 namespace Missile.ApplicationPlugin

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace Missile.TextLauncher.Tests
+namespace Missile.Core.Implementation.Tests
 {
     [ExcludeFromCodeCoverage]
     public class FooBarSettings : ISettings

@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
-namespace Missile.TextLauncher.Tests
+namespace Missile.Core.Implementation.Tests
 {
     [ExcludeFromCodeCoverage]
     public class NonClosingMemoryStream : MemoryStream

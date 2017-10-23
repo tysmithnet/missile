@@ -1,4 +1,4 @@
-﻿namespace Missile.TextLauncher
+﻿namespace Missile.Core
 {
     /// <summary>
     ///     Tagging interface for Settings instances

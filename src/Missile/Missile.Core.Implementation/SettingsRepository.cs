@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 using System.Xml.Serialization;
 using Missile.Core.FileSystem;
 
-namespace Missile.TextLauncher
+namespace Missile.Core.Implementation
 {
     // todo: don't throw if bad property, gracefully degrade
     // todo: need custom property editors
@@ -18,7 +18,7 @@ namespace Missile.TextLauncher
     /// <summary>
     ///     Default implementation of ISettingsRepository
     /// </summary>
-    /// <seealso cref="T:Missile.TextLauncher.ISettingsRepository" />
+    /// <seealso cref="T:Missile.Core.ISettingsRepository" />
     [Export(typeof(ISettingsRepository))]
     public class SettingsRepository : ISettingsRepository
     {

@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using Missile.Core;
 
 namespace Missile.TextLauncher.Tests
 {

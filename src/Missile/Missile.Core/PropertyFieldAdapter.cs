@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Missile.TextLauncher
+namespace Missile.Core
 {
     /// <summary>
     ///     A common abstraction over properties and fields

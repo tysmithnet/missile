@@ -2,6 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Controls;
 using FluentAssertions;
+using Missile.Core;
 using Xunit;
 
 namespace Missile.TextLauncher.Tests

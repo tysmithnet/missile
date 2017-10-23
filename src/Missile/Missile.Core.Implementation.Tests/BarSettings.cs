@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Missile.TextLauncher.Tests
+namespace Missile.Core.Implementation.Tests
 {
     [Serializable]
     [ExcludeFromCodeCoverage]

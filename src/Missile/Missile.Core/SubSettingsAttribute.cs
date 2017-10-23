@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Missile.TextLauncher
+namespace Missile.Core
 {
     /// <summary>
     ///     Attribute used to indicate a property is a sub settings collection

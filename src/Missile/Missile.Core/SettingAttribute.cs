@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Missile.TextLauncher
+namespace Missile.Core
 {
     /// <summary>
     ///     Indicates a property or field is a setting member

@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reactive.Linq;
 using FluentAssertions;
+using Missile.Core;
 using Missile.TextLauncher;
 using Moq;
 using Xunit;

@@ -8,7 +8,7 @@ using Missile.Core.FileSystem;
 using Moq;
 using Xunit;
 
-namespace Missile.TextLauncher.Tests
+namespace Missile.Core.Implementation.Tests
 {
     [ExcludeFromCodeCoverage]
     public class SettingsRepository_Should

@@ -2,6 +2,7 @@
 using System.ComponentModel.Composition;
 using System.Windows;
 using System.Windows.Controls;
+using Missile.Core;
 
 namespace Missile.TextLauncher
 {
