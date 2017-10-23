@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Input;
 using Missile.Core;
-using Missile.Core.Logging;
 
 namespace Missile.TextLauncher
 {

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Windows.Media;
 
-namespace Missile.Core.FileSystem
+namespace Missile.Core
 {
     /// <summary>
     ///     Abstraction over the file system, primarily for testing

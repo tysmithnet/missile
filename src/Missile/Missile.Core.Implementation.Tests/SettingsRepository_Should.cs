@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using FluentAssertions;
-using Missile.Core.FileSystem;
 using Moq;
 using Xunit;
 

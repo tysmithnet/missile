@@ -2,7 +2,7 @@
 using System.IO;
 using System.Reactive.Linq;
 using FluentAssertions;
-using Missile.Core.FileSystem;
+using Missile.Core;
 using Moq;
 using Xunit;
 

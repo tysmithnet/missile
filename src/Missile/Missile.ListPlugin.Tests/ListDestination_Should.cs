@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using FluentAssertions;
-using Missile.Core.FileSystem;
+using Missile.Core;
 using Missile.TextLauncher;
 using Moq;
 using Xunit;

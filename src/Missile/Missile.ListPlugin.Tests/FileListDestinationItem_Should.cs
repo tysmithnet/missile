@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using FluentAssertions;
-using Missile.Core.FileSystem;
+using Missile.Core;
 using Moq;
 using Xunit;
 

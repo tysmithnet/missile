@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Missile.Core.FileSystem;
 
 namespace Missile.Core.Implementation
 {

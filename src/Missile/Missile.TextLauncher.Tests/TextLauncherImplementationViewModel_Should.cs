@@ -6,7 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using FluentAssertions;
-using Missile.Core.Logging;
+using Missile.Core;
 using Moq;
 using Xunit;
 

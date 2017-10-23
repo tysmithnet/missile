@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows.Controls;
-using Missile.Core.FileSystem;
+using Missile.Core;
 
 namespace Missile.ListPlugin
 {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.Composition;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Extensions.Logging;
-using ILogger = Missile.Core.Logging.ILogger;
+using ILogger = Missile.Core.ILogger;
 using MsILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace Missile.Core.Implementation

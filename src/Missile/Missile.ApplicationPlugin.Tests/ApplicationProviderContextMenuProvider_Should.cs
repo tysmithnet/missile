@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using FluentAssertions;
-using Missile.Core.FileSystem;
+using Missile.Core;
 using Missile.ListPlugin;
 using Missile.TextLauncher;
 using Moq;

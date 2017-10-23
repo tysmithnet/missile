@@ -2,7 +2,7 @@
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Reactive.Linq;
-using Missile.Core.FileSystem;
+using Missile.Core;
 using Missile.TextLauncher.Conversion;
 
 namespace Missile.ListPlugin
