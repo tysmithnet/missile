@@ -63,7 +63,6 @@
     <Compile Include="Provision\Range\RangeProvider.cs" />
     <Compile Include="Provision\Range\RangeProviderOptions.cs" />
     <Compile Include="SettingsProviderOptions.cs" />
-    <Compile Include="SettingsRepository.cs" />
     <Compile Include="SingleGenericTypeParameterInspector.cs" />
     <Compile Include="CommandHub.cs" />
     <Compile Include="Conversion\StringFrameworkElementConverter.cs" />
@@ -94,10 +93,7 @@
     <Compile Include="IPropertyEditorFactory.cs" />
     <Compile Include="IPropertyEditorFactoryRepository.cs" />
     <Compile Include="IRequiresSetup.cs" />
-    <Compile Include="ISettings.cs" />
-    <Compile Include="ISettingsRepository.cs" />
     <Compile Include="PropertyEditorFactoryRepository.cs" />
-    <Compile Include="PropertyFieldAdapter.cs" />
     <Compile Include="Provision\IProviderRepository.cs" />
     <Compile Include="IUiFacade.cs" />
     <Compile Include="Destination\NoOpDestination.cs" />
@@ -112,7 +108,6 @@
     <Compile Include="Filtration\RegisteredFilter.cs" />
     <Compile Include="Provision\RegisteredProvider.cs" />
     <Compile Include="Filtration\HeadFilter.cs" />
-    <Compile Include="SettingAttribute.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
@@ -121,7 +116,6 @@
     <Compile Include="SettingViewModel.cs" />
     <Compile Include="StringListPropertyEditorFactory.cs" />
     <Compile Include="StringPropertyEditorFactory.cs" />
-    <Compile Include="SubSettingsAttribute.cs" />
     <Compile Include="TextLauncherImplementation.xaml.cs">
       <DependentUpon>TextLauncherImplementation.xaml</DependentUpon>
     </Compile>

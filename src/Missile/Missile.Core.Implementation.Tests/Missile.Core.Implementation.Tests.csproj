@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D7B0B077-D85F-4C26-A4D8-62FBB126B7E0}</ProjectGuid>
+    <ProjectGuid>{FBB7EDCD-749F-4E8C-93C0-1C43F18E9094}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Missile.EverythingPlugin.Tests</RootNamespace>
-    <AssemblyName>Missile.EverythingPlugin.Tests</AssemblyName>
+    <RootNamespace>Missile.Core.Implementation.Tests</RootNamespace>
+    <AssemblyName>Missile.Core.Implementation.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -48,15 +48,6 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Reactive.Core, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reactive.Core.3.1.1\lib\net46\System.Reactive.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Interfaces, Version=3.0.1000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reactive.Interfaces.3.1.1\lib\net45\System.Reactive.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Linq, Version=3.0.3000.0, Culture=neutral, PublicKeyToken=94bc3704cddfc263, processorArchitecture=MSIL">
-      <HintPath>..\packages\System.Reactive.Linq.3.1.1\lib\net46\System.Reactive.Linq.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -77,29 +68,29 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EverythingCommandLineArgsBuilder_Should.cs" />
-    <Compile Include="EverythingProvider_Should.cs" />
+    <Compile Include="BarSettings.cs" />
+    <Compile Include="FooBarSettings.cs" />
+    <Compile Include="FooSettings.cs" />
+    <Compile Include="NonClosingMemoryStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PropertyFieldAdapter_Should.cs" />
+    <Compile Include="SettingsRepository_Should.cs" />
+    <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.7.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Missile.Core.Implementation\Missile.Core.Implementation.csproj">
+      <Project>{ebd38f38-f036-4826-900b-71c04f26023d}</Project>
+      <Name>Missile.Core.Implementation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Missile.Core\Missile.Core.csproj">
-      <Project>{D7B2884D-38DB-427F-804F-074BEA6E4C0F}</Project>
+      <Project>{d7b2884d-38db-427f-804f-074bea6e4c0f}</Project>
       <Name>Missile.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Missile.EverythingPlugin\Missile.EverythingPlugin.csproj">
-      <Project>{0896a1ed-3131-4fa8-ae13-35174d5ac1f1}</Project>
-      <Name>Missile.EverythingPlugin</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Missile.TextLauncher\Missile.TextLauncher.csproj">
-      <Project>{cefbccb2-1b93-43bf-a2d5-9ee40ce01b9a}</Project>
-      <Name>Missile.TextLauncher</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

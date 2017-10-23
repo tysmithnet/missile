@@ -101,7 +101,6 @@
     <Compile Include="NoopFilter_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyEditorFactoryRepository_Should.cs" />
-    <Compile Include="PropertyFieldAdapter_Should.cs" />
     <Compile Include="ProviderRepository_Should.cs" />
     <Compile Include="RandomValueProvider_Should.cs" />
     <Compile Include="RangeProvider_Should.cs" />
@@ -109,19 +108,21 @@
     <Compile Include="RegisteredProvider_Should.cs" />
     <Compile Include="Registered_Filter_Should.cs" />
     <Compile Include="SettingsProvider_Should.cs" />
-    <Compile Include="SettingsRepository_Should.cs" />
     <Compile Include="StringListPropertyEditorFactory_Should.cs" />
     <Compile Include="StringPropertyEditorFactory_Should.cs" />
     <Compile Include="StringUserControlConverter_Should.cs" />
     <Compile Include="HeadFilter_Should.cs" />
     <Compile Include="TextLauncherImplementationViewModel_Should.cs" />
-    <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Missile.Core.Implementation\Missile.Core.Implementation.csproj">
+      <Project>{EBD38F38-F036-4826-900B-71C04F26023D}</Project>
+      <Name>Missile.Core.Implementation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Missile.Core\Missile.Core.csproj">
       <Project>{D7B2884D-38DB-427F-804F-074BEA6E4C0F}</Project>
       <Name>Missile.Core</Name>
