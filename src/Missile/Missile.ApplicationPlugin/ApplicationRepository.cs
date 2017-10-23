@@ -86,25 +86,24 @@ namespace Missile.ApplicationPlugin
         public IEnumerable<RegisteredApplication> GetAll()
         {
             //return RegisteredApplications.ToList();
-            return new List<RegisteredApplication>()
+            return new List<RegisteredApplication>
             {
-                new RegisteredApplication()
+                new RegisteredApplication
                 {
                     ApplicationName = "abcdef"
                 },
-                new RegisteredApplication()
+                new RegisteredApplication
                 {
                     ApplicationName = "bcdefg"
                 },
-                new RegisteredApplication()
+                new RegisteredApplication
                 {
                     ApplicationName = "cdefgh"
                 },
-                new RegisteredApplication()
+                new RegisteredApplication
                 {
                     ApplicationName = "defghi"
-                },
-
+                }
             };
         }
 

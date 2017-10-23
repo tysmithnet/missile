@@ -469,10 +469,10 @@ namespace Missile.Core.Properties
         }
 
         [UsedImplicitly]
-        public ImplicitUseKindFlags UseKindFlags { get; private set; }
+        public ImplicitUseKindFlags UseKindFlags { get; }
 
         [UsedImplicitly]
-        public ImplicitUseTargetFlags TargetFlags { get; private set; }
+        public ImplicitUseTargetFlags TargetFlags { get; }
     }
 
     [Flags]

@@ -2,7 +2,6 @@
 using System.ComponentModel.Composition;
 using System.Diagnostics.CodeAnalysis;
 using Missile.Core;
-using Missile.TextLauncher;
 
 namespace Missile.EverythingPlugin
 {

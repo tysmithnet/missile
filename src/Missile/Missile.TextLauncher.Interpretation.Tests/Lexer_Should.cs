@@ -78,18 +78,6 @@ namespace Missile.TextLauncher.Interpretation.Tests
         }
 
         [Fact]
-        public void Handle_No_Space_Before_Operator()
-        {
-            new Lexer().LexAsync("google search longcat>list", CancellationToken.None).Result.Should()
-                .Equal(new Token[]
-                {
-                    new ProviderToken("google", new string[]{"search", "longcat"}),
-                    new OperatorToken(">", new string[0]), 
-                    new DestinationToken("list", new string[0]), 
-                }, "a single letter is treated as a provider with no args");
-        }
-
-        [Fact]
         public void Handle_Basic_Destinations()
         {
             new Lexer().LexAsync("lorem > list", CancellationToken.None).Result.Should().Equal(new Token[]
@@ -191,6 +179,18 @@ namespace Missile.TextLauncher.Interpretation.Tests
                     new OperatorToken("|", new string[0]),
                     new FilterToken("first", new string[0])
                 }, "filters can have args");
+        }
+
+        [Fact]
+        public void Handle_No_Space_Before_Operator()
+        {
+            new Lexer().LexAsync("google search longcat>list", CancellationToken.None).Result.Should()
+                .Equal(new Token[]
+                {
+                    new ProviderToken("google", new[] {"search", "longcat"}),
+                    new OperatorToken(">", new string[0]),
+                    new DestinationToken("list", new string[0])
+                }, "a single letter is treated as a provider with no args");
         }
 
         [Fact]

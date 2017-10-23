@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using CommandLine;
 using Missile.Core;
-using Missile.TextLauncher;
 using Missile.TextLauncher.Provision;
 
 namespace Missile.EverythingPlugin
